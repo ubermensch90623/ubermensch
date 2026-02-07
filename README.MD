@@ -120,3 +120,46 @@ node scripts/hourly-automation.js scripts/automation-config.json
 ```
 
 > 위 스크립트는 현재 **링크/작업 목록을 로깅하는 기본 골격**이며, Notion/Google API 키를 연결하면 실제 자동화를 확장할 수 있습니다.
+
+## 8) 실제 자동화까지 가능한 설계: 구현 경로(단계별)
+
+아래는 **UI 링크 연결 → 데이터 동기화 → 복습 자동화 → 리포팅**까지 단계적으로 확장하는 구체적 경로입니다.
+
+### Phase 1. 링크 연결(당일 완성)
+- Antigravity 대시보드 버튼에 **실제 서비스 URL** 연결
+- 클릭 시 해당 도구(Keep/NotebookLM/Gemini/Notion)의 목표 페이지로 이동
+- 결과: **허브 UI 완성** (동작 확인은 브라우저에서 가능)
+
+### Phase 2. 데이터 동기화(1~2일)
+**목표**: 입력된 메모/요약을 Notion으로 자동 반영
+- Keep → Notion
+  - Keep API/Export/Script(가능한 방식 선택)로 메모 수집
+  - Notion API로 “Inbox” DB에 자동 저장
+- NotebookLM/Gemini → Notion
+  - 요약 결과를 Notion “Summary” DB에 자동 추가
+  - 필드: `source`, `summary`, `created_at`, `tags`
+- 산출물: **자동 수집 파이프라인** (스케줄러로 주기 실행)
+
+### Phase 3. 복습 스케줄 자동화(2~4일)
+**목표**: 오답/카드 등록 시 망각곡선 기반 복습 일정 자동 계산
+- Notion DB 필드 설계
+  - `last_review`, `interval`, `next_review`, `status`, `difficulty`
+- 규칙 예시
+  - 신규 등록 → `next_review = 오늘 + 1일`
+  - 성공 → `interval` 증가 (1→3→7→14→30)
+  - 실패 → `interval` 축소 (다음날 재복습)
+- 스케줄러가 매 시간/매일 `next_review <= 오늘` 항목을 “오늘 복습” 뷰로 이동
+
+### Phase 4. 리포트/대시보드 자동 갱신(1~2일)
+**목표**: 진행률/성과 요약 자동 생성
+- 완료/대기/미해결 수치 집계
+- “오늘 리포트” 섹션 자동 업데이트
+- 주간 요약 메일/알림(옵션)
+
+### 구현을 위한 최소 준비물
+- Notion API Key + DB ID
+- Notion DB 스키마 확정(필드 정의)
+- 사용 중인 Keep/NotebookLM/Gemini 접근 경로
+- 스케줄러 환경(로컬 cron 또는 서버리스)
+
+> 원하시면 위 Phase 중 원하는 범위부터 바로 구현 가능합니다.
