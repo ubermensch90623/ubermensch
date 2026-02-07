@@ -167,6 +167,77 @@ button {
   gap: 16px;
 }
 
+.log {
+  display: grid;
+  gap: 16px;
+}
+
+.log-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.log-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.log-list {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.log-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f7f8ff;
+  border: 1px solid #e6e9fb;
+}
+
+.log-item time {
+  font-size: 12px;
+  color: #6b6f7a;
+  white-space: nowrap;
+}
+
+.log-item .log-target {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.log-item .log-meta {
+  font-size: 13px;
+  color: #505563;
+}
+
+.log-empty {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f6f6fb;
+  color: #6b6f7a;
+  text-align: center;
+  border: 1px dashed #d6d9ea;
+}
+
+.chip.danger {
+  border-color: #f0c1c1;
+  color: #b34040;
+  background: #fff5f5;
+}
+
+.chip.danger:hover {
+  background: #ffecec;
+  color: #9c2f2f;
+}
+
 .status-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -218,5 +289,9 @@ button {
   .profile {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .log-header {
+    flex-direction: column;
   }
 }
