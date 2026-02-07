@@ -16,6 +16,7 @@ open index.html
 - **정리/요약/질문 생성**: NotebookLM + Gemini
 - **지식 베이스/프로젝트 관리**: Notion
 - **일상적 조작 UI**: Google Antigravity
+- **일정/알림**: Google Calendar + Gmail
 
 ## 2) 역할 분담 (도구별 역할)
 
@@ -39,6 +40,14 @@ open index.html
 - 위 모든 도구에 대한 **대시보드 역할**
 - 자주 쓰는 링크/자동화 버튼을 모아놓은 홈 화면 구성
 
+### Google Calendar (일정/복습 알림)
+- 복습 일정/학습 스프린트 일정 관리
+- 오답 복습 주기 알림 생성 (SRS 일정 자동 반영)
+
+### Gmail (알림/리포트)
+- 일일/주간 리포트 자동 발송
+- 복습 실패/긴급 알림 전송
+
 ## 3) 추천 워크플로 (일일 흐름)
 
 1. **Keep에 메모/오답 기록**
@@ -55,6 +64,10 @@ open index.html
   - 요약 결과를 Notion 데이터베이스로 자동 전송
 - **Notion → Antigravity 바로가기 구성**
   - 오늘 할 일, 복습 목록, 요약 페이지를 한 화면에서 접근
+- **Notion → Calendar 일정 생성**
+  - `next_review` 날짜 기준으로 복습 일정 자동 생성
+- **Notion → Gmail 리포트 발송**
+  - 진행률 요약을 일일/주간 이메일로 자동 전송
 
 ## 5) Antigravity UI 구성 예시
 
