@@ -96,3 +96,27 @@ open index.html
 - 복습/오답 흐름을 반영한 **화면 배치 가이드**
 
 필요하면 위 구조를 기반으로 **실제 대시보드 설계**나 **자동화 스크립트 설계**까지 구체화할 수 있습니다.
+
+## 7) 매 시간 자동화 실행(로컬 스케줄러)
+
+실제 서비스 연동은 API가 필요하지만, **매 시간 자동화 작업을 스스로 실행**하는 형태는 로컬 스케줄러로 구성할 수 있습니다.
+
+### 1) 설정 파일 준비
+
+```
+cp scripts/automation-config.example.json scripts/automation-config.json
+```
+
+### 2) 자동화 스크립트 실행 테스트
+
+```
+node scripts/hourly-automation.js scripts/automation-config.json
+```
+
+### 3) 매 시간 자동 실행(cron 예시)
+
+```
+0 * * * * /usr/bin/node /workspace/ubermensch/scripts/hourly-automation.js /workspace/ubermensch/scripts/automation-config.json >> /workspace/ubermensch/automation.log 2>&1
+```
+
+> 위 스크립트는 현재 **링크/작업 목록을 로깅하는 기본 골격**이며, Notion/Google API 키를 연결하면 실제 자동화를 확장할 수 있습니다.
