@@ -2,6 +2,14 @@
 
 아래는 **Google Gemini, NotebookLM, Google Keep, Notion**을 유기적으로 연결하고, **UI는 Google Antigravity**를 중심으로 사용하는 흐름을 정리한 제안입니다.
 
+## Antigravity 데모 UI 실행
+
+`index.html`을 브라우저로 열면 **클릭 가능한 대시보드 UI**를 확인할 수 있습니다.
+
+```
+open index.html
+```
+
 ## 1) 전체 구조 요약
 
 - **입력/캡처**: Google Keep

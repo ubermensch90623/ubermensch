@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Antigravity 학습 대시보드</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div>
+          <p class="eyebrow">Google Antigravity UI</p>
+          <h1>학습 통합 대시보드</h1>
+        </div>
+        <div class="profile">
+          <div class="avatar">SG</div>
+          <div>
+            <p class="label">Study Mode</p>
+            <p class="sub">오늘 집중 루틴</p>
+          </div>
+        </div>
+      </header>
+
+      <section class="card highlight">
+        <h2>오늘의 학습 목표</h2>
+        <ul>
+          <li>주간 목표: 수학 오답 복습 20문항</li>
+          <li>오늘 목표: 미분 오답 5문항 + 독해 카드 10개</li>
+          <li>핵심 체크: 난이도 ★★ 이상 문제 3개 복습</li>
+        </ul>
+        <button class="primary" data-action="open" data-target="Notion: 오늘 목표">Notion 목표 페이지 열기</button>
+      </section>
+
+      <section class="grid">
+        <button class="card action" data-action="open" data-target="Notion: 오늘 복습">
+          <h3>오늘 복습 카드</h3>
+          <p>오늘 복습해야 할 카드 12개</p>
+        </button>
+        <button class="card action" data-action="open" data-target="Notion: 오답노트">
+          <h3>오답노트 바로가기</h3>
+          <p>최근 오답 5개 점검</p>
+        </button>
+        <button class="card action" data-action="open" data-target="Notion: 스프린트 보드">
+          <h3>스프린트 보드</h3>
+          <p>이번 주 학습 진척 체크</p>
+        </button>
+      </section>
+
+      <section class="card">
+        <h2>빠른 입력</h2>
+        <div class="grid quick-actions">
+          <button class="chip" data-action="open" data-target="Google Keep: 새 메모">Keep 메모 추가</button>
+          <button class="chip" data-action="open" data-target="NotebookLM: 요약 생성">NotebookLM 요약 생성</button>
+          <button class="chip" data-action="open" data-target="Gemini: 질문 만들기">Gemini 질문</button>
+          <button class="chip" data-action="open" data-target="Notion: 오답 등록">Notion 오답 등록</button>
+        </div>
+      </section>
+
+      <section class="card status">
+        <div>
+          <h2>상태 요약</h2>
+          <p>오늘 진행 상황을 한눈에 확인하세요.</p>
+        </div>
+        <div class="status-grid">
+          <div>
+            <p class="stat">12</p>
+            <p class="label">대기 중 복습</p>
+          </div>
+          <div>
+            <p class="stat">8</p>
+            <p class="label">완료</p>
+          </div>
+          <div>
+            <p class="stat">3</p>
+            <p class="label">미해결</p>
+          </div>
+        </div>
+        <button class="secondary" data-action="open" data-target="리포트">오늘 리포트 확인</button>
+      </section>
+
+      <footer class="footer">
+        <p>모든 버튼은 실제 서비스 연결 대신 클릭 이벤트로 동작합니다.</p>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
