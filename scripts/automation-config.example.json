@@ -1,0 +1,27 @@
+{
+  "timezone": "Asia/Seoul",
+  "hourly": true,
+  "links": {
+    "notion_today_goal": "https://www.notion.so/your-workspace/today-goal",
+    "notion_today_review": "https://www.notion.so/your-workspace/today-review",
+    "notion_wrong_notes": "https://www.notion.so/your-workspace/wrong-notes",
+    "notion_sprint_board": "https://www.notion.so/your-workspace/sprint-board",
+    "google_keep_new": "https://keep.google.com/#new",
+    "notebooklm_summary": "https://notebooklm.google.com/",
+    "gemini_prompt": "https://gemini.google.com/"
+  },
+  "tasks": [
+    {
+      "id": "sync-notes",
+      "description": "Keep 메모를 Notion에 반영(수동 또는 API 연동)"
+    },
+    {
+      "id": "refresh-review-list",
+      "description": "오늘 복습 대상 리스트 갱신"
+    },
+    {
+      "id": "status-report",
+      "description": "진행률 요약 생성"
+    }
+  ]
+}
