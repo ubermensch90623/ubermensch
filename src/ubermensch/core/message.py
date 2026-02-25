@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import time
+import uuid
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any
@@ -35,3 +37,44 @@ class TaskResult:
     @property
     def success(self) -> bool:
         return self.status == TaskStatus.COMPLETED
+
+
+# --- Agent Teams message types ---
+
+
+@dataclass
+class TeamMessage:
+    """에이전트 간 직접 메시지 (Agent Teams 패턴)."""
+
+    sender: str
+    recipient: str  # "*" 은 broadcast
+    subject: str
+    body: Any = None
+    timestamp: float = field(default_factory=time.time)
+    id: str = field(default_factory=lambda: uuid.uuid4().hex[:8])
+
+
+@dataclass
+class SharedTask:
+    """공유 태스크 리스트의 개별 태스크."""
+
+    id: str = field(default_factory=lambda: uuid.uuid4().hex[:8])
+    title: str = ""
+    description: str = ""
+    status: TaskStatus = TaskStatus.PENDING
+    assigned_to: str | None = None
+    depends_on: list[str] = field(default_factory=list)
+    created_by: str = ""
+    priority: int = 0
+    result: Any = None
+    error: str | None = None
+
+
+@dataclass
+class PlanApproval:
+    """ArchitectAgent 등의 계획 승인 요청/응답."""
+
+    agent_name: str
+    plan: str
+    approved: bool = False
+    feedback: str | None = None
