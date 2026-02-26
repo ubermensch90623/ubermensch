@@ -11,6 +11,7 @@
   - [온라인 강의 플랫폼](#온라인-강의-플랫폼)
   - [커뮤니티](#커뮤니티)
   - [참고/정보 사이트](#참고정보-사이트)
+  - [PSAT형 NCS 대비 전략](#psat형-ncs-대비-전략)
 - [과목별 분류](#과목별-분류)
   - [의사소통](#의사소통)
   - [문제해결](#문제해결)
@@ -56,16 +57,21 @@
 - [공공기관 채용정보 시스템 (잡알리오)](https://job.alio.go.kr/) - 기획재정부 운영 공공기관 채용 공고 통합 시스템. 지역, 채용유형, 기관별 검색 가능.
 - [공공기관 경영정보 공개시스템 (알리오)](https://www.alio.go.kr/) - 공공기관 경영정보 공개 시스템. 채용 공고, 임원 채용, 기관 데이터 포함.
 - [클린아이 잡플러스](https://job.cleaneye.go.kr/) - 지방공공기관 채용정보 사이트.
+- [알리오플러스](https://www.alioplus.go.kr/news/recruitList.do) - 공공기관 채용정보, 기관정보, 사업정보 제공. 채용형 인턴 공고 포함.
 - [한국은행 채용사이트](https://apply.bok.or.kr/) - 한국은행 공식 채용 포털. 기출자료 아카이브 및 채용공고 확인.
 - [나라일터](https://www.gojobs.go.kr/) - 정부 공식 공공기관 채용 포털.
+- [사이버국가고시센터](https://www.gosi.kr/) - 인사혁신처 운영. PSAT 기출문제 및 정답 공식 제공. NCS PSAT형 대비에 필수.
 - [잡코리아 채용일정](https://www.jobkorea.co.kr/starter/recruitment_schedule) - 공공기관 및 공기업 채용 일정 캘린더.
+- [금융권 공동채용 박람회](https://www.financejobfair.co.kr/) - 금융업계 최신 정보, 취업 멘토링, 채용일정 안내.
 
 ### 무료 경제/금융 학습 자료
 
 - [한국은행 경제금융용어 700선 (PDF)](https://www.bok.or.kr/portal/bbs/B0000249/view.do?nttId=235017&menuNo=200765) - 한국은행이 정리한 700개 핵심 경제/금융 용어. PDF 무료 다운로드.
 - [한국은행 알기 쉬운 경제이야기](https://www.bok.or.kr/portal/bbs/B0000249/view.do?menuNo=200765&nttId=10061816) - GDP, 물가, 국제수지 등 핵심 경제개념 쉬운 해설 시리즈.
 - [한국은행 경제교육 발간자료](https://www.bok.or.kr/portal/bbs/B0000249/list.do?menuNo=200765) - 한국은행 경제교육 간행물 전체 목록.
-- [한은금요강좌](https://www.bok.or.kr/portal/main/contents.do?menuNo=200496) - 통화정책, 금융시장, 통계 등 심화 경제분석 공개 강좌.
+- [한국은행 온라인 학습](https://www.bok.or.kr/portal/bbs/B0000216/list.do?menuNo=200134) - 대상별(어린이, 청소년, 일반인) 경제교육 e-러닝 콘텐츠 무료 제공.
+- [한국은행 경제특강](https://www.bok.or.kr/portal/main/contents.do?menuNo=201130) - 대학생 및 일반인 대상 금융·경제 10여 개 주제 특강 프로그램.
+- [한은금요강좌](https://www.bok.or.kr/portal/main/contents.do?menuNo=200496) - 통화정책, 금융시장, 통계 등 심화 경제분석 공개 강좌. 지난 강의는 한국은행 YouTube 채널에서 시청 가능.
 - [KDI 경제교육·정보센터](https://eiec.kdi.re.kr/) - 한국개발연구원 무료 경제교육 포털. 학습 동영상, 카드뉴스, 시사경제용어, 경제개념, Q&A 제공.
 - [경제배움e+](https://www.econedu.go.kr/) - 기획재정부 디지털 경제교육 플랫폼. 시장경제, 경제이론, 수요·공급, 기업·생산성 주제 학습.
 - [KOCW 무료 대학 공개강의](https://www.kocw.net/) - 무료 대학 수준 경제학 강의 제공:
@@ -84,6 +90,10 @@
 - [공기밥닷컴](http://www.gongibob.com/) - 한국 최대 공기업 기출문제 데이터베이스. 실제 시험 기출 30,000문항 이상 보유. 시험별, 과목별, 무제한 패키지 제공.
 - [NCS Information](https://www.ncs-information.com/) - NCS 기출 데이터 및 기관별 가이드 통합 정보 사이트.
 - [해커스 무료 교재 다운로드](https://ejob.hackers.com/book/free_down) - NCS 관련 무료 교재 다운로드.
+- [해커스 NCS 200제 무료 배포](https://public.hackers.com/event/?k=ncs200) - 출제적중 NCS 200제 교재 무료 배포. 신규회원 매일 선착순 30명 제공.
+- [ALL NCS TEST (A.N.T)](https://www.antant.co.kr/) - NCS 문제해결, 의사소통, 자원관리, 자료해석 영역 온라인 모의고사. 기관별 기출 기반 문제 제공.
+- [공취사 PSAT 기출문제 아카이브](https://gongchisa.oopy.io/) - 민경채·7급·5급 전 년도 PSAT 문항 및 해설 무료 제공. PSAT형 NCS 학습에 최적.
+- [링커리어 PSAT CBT](https://cbt.linkareer.com/exam/detail/1134) - PSAT 과년도 기출 온라인 CBT. 증가율·감소율 등 연산 문제 연습 가능.
 
 ### 온라인 강의 플랫폼
 
@@ -95,6 +105,7 @@
 - [고범석 경제학아카데미](https://www.koeconomics.com/) - 금융공기업 경제학 전문 입시 학원 (한국은행, 산업은행, 수출입은행 등 대상). 무료 강의, 기출 아카이브, Q&A 제공.
 - [와우패스 금융NCS](https://www.wowpass.com/) - 금융권 NCS 직무수행능력 대비 과정 (국민은행, 기업은행, 농협은행 등).
 - [혼잡](https://m.honjob.co.kr/) - 금융공기업 기본서 정답/해설, 실전모의고사 자료 제공.
+- [시대에듀 합격시대](https://www.sdedu.co.kr/pass_sidae_new/) - 맞춤형 온라인 테스트 서비스. NCS 및 금융공기업 필기 대비.
 
 ### 커뮤니티
 
@@ -106,14 +117,40 @@
 - [DC인사이드 공기업 갤러리](https://m.dcinside.com/board/rhdrldjq/) - 현직 직원 및 취업 준비생의 NCS 시험, 팁, 경험 공유 익명 게시판.
 - [DC인사이드 경제 갤러리](https://gall.dcinside.com/board/view/?id=economy) - A매치/B매치 금융공기업 시험 전략 및 요약 토론.
 - [공취사 (공기업취업사관학교)](https://gongchisa.modoo.at/) - 공기업 채용정보, NCS 자료, 필기시험/면접후기 무료 제공 커뮤니티.
+- [취업뽀개기 (취뽀)](https://cafe.daum.net/breakjob) - Daum 카페. NCS, 공기업, 인턴 등 취업 정보 종합. 공기밥닷컴 연계 기출문제 공유.
+- [공준모 (공공기관을 준비하는 사람들의 모임)](https://cafe.daum.net/publiccom) - Daum 카페. 공공기관 채용 정보 및 스터디 모집.
+- [블라인드](https://www.teamblind.com/) - 현직자 익명 커뮤니티. 금융공기업 연봉, 커리어 조언, 채용 관련 실질적 정보 교류.
 - [잡로드 금융공기업](https://blog.jobroadclass.co.kr/) - 금융공기업 필기시험 일정 및 합격 전략 블로그.
 
 ### 참고/정보 사이트
 
 - [나무위키 - 국가직무능력표준](https://namu.wiki/w/%EA%B5%AD%EA%B0%80%EC%A7%81%EB%AC%B4%EB%8A%A5%EB%A0%A5%ED%91%9C%EC%A4%80) - NCS 시험 전략, 과목 분석, 난이도 비교 등 종합 위키 문서.
 - [나무위키 - 경제학/시험](https://namu.wiki/w/%EA%B2%BD%EC%A0%9C%ED%95%99/%EC%8B%9C%ED%97%98) - 한국은행, 산업은행, 수출입은행 등 각 공공기관별 경제학 시험 상세 분석.
+- [나무위키 - 공공기관/채용](https://namu.wiki/w/%EA%B3%B5%EA%B3%B5%EA%B8%B0%EA%B4%80/%EC%B1%84%EC%9A%A9) - 공공기관 채용 프로세스, NCS 도입 경위, 6대 출제사(휴노/한사능/휴스테이션/인크루트/사람인/매일경제) 분석.
 - [슈퍼루키](https://www.superookie.com/contents/5f9fdb5c8b129f18d5153a1e) - NCS 학습 방법 가이드.
 - [NCS 정복 자료실 (인사이트코리아)](https://insightkorea.or.kr/mod/data/view.php?id=640) - NCS 기출 문제집 및 학습 자료 공유 플랫폼.
+- [링커리어 - 금융공기업 취업 자료](https://community.linkareer.com/employment_data/4997977) - 금융공기업 리스트, 스펙, 티어, 현실, 시험 과목 종합 정리.
+
+### PSAT형 NCS 대비 전략
+
+최근 공기업 NCS가 PSAT(공직적격성평가)과 유사한 형태로 출제되는 추세가 강화되고 있습니다. PSAT 기출문제는 NCS 학습의 가장 효과적인 자료입니다.
+
+**추천 학습 순서:**
+1. **민경채 PSAT** 기출부터 시작 (난이도 하) → 65~70점 이상이면 양호
+2. **7급 PSAT** 기출 (난이도 중)
+3. **5급 PSAT** 기출 (난이도 상)
+
+**영역 대응:**
+| PSAT 영역 | NCS 대응 영역 |
+|-----------|--------------|
+| 언어논리 | 의사소통능력 |
+| 자료해석 | 수리능력, 자료해석 |
+| 상황판단 | 문제해결능력 |
+
+**핵심 자료:**
+- [공취사 PSAT 기출 전년도 아카이브](https://gongchisa.oopy.io/) - 민경채~5급 전 년도 문항 + 해설 무료
+- [사이버국가고시센터](https://www.gosi.kr/) - 인사혁신처 공식 PSAT 기출 + 정답
+- [공취사 PSAT형 NCS 학습 방법](https://gongchisa.oopy.io/13f08cf5-64a0-4d40-aee9-b5da56291bee) - PSAT형 NCS 학습 전략 가이드
 
 ---
 
@@ -148,6 +185,7 @@ NCS 직업기초능력 중 문제해결능력 영역. 사고력, 문제처리능
 **학습 자료:**
 - [NCS 공식 문제해결능력 학습모듈](https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121) - 문제해결 영역 공식 학습자료
 - [링커리어 문제해결 유형 분석](https://community.linkareer.com/employment_data/4182192)
+- [공취사 PSAT 상황판단 기출](https://gongchisa.oopy.io/) - PSAT 상황판단 영역 기출. NCS 문제해결과 유사 유형. 민경채→7급→5급 순서로 학습 권장.
 
 ---
 
@@ -164,6 +202,8 @@ NCS 직업기초능력 중 수리능력의 하위 영역으로, 도표 분석 �
 **학습 자료:**
 - [NCS 공식 수리능력 학습모듈](https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121) - "도표분석" 및 "도표작성" 섹션
 - [잡코리아 NCS 자료해석 모의고사](https://www.jobkorea.co.kr/Starter/AptitudeTest/PubCoMockTest)
+- [공취사 PSAT 자료해석 기출](https://gongchisa.oopy.io/) - PSAT 자료해석 전 년도 기출 무료 제공. NCS 자료해석과 동일 유형.
+- [사이버국가고시센터 PSAT 기출](https://www.gosi.kr/) - 공무원 PSAT 자료해석 공식 기출문제 및 정답.
 
 ---
 
@@ -199,8 +239,10 @@ NCS 직업기초능력 중 수리능력 영역. 기초연산, 기초통계, 도�
 - [KDI 경제교육·정보센터](https://eiec.kdi.re.kr/) - 경제개념, 시사경제, Q&A 무료 학습
 - [KOCW 경제학 공개강의](https://www.kocw.net/) - 대학 수준 경제학 무료 강의
 - [고범석 경제학아카데미](https://www.koeconomics.com/) - 금융공기업 경제학 전문 강의 및 기출 아카이브
-- [공단기 경제학 강의](https://public.conects.com/) - 금융공기업 경제학 전공 패키지
+- [공단기 경제학 강의](https://public.conects.com/) - 금융공기업 경제학 전공 패키지. 장선구 경제학 강사 등 전문 강사진.
 - [와우패스 금융NCS 경제학](https://www.wowpass.com/) - 금융권 경제학 대비 과정
+- [경제배움e+](https://www.econedu.go.kr/) - 기획재정부 디지털 경제교육 플랫폼. 시장경제, 수요·공급, 기업·생산성 등 기초 학습.
+- [한국은행 온라인 학습 (경제학)](https://www.bok.or.kr/portal/bbs/B0000216/list.do?menuNo=200134) - 통화정책, 금융시장, 거시경제 등 한국은행 자체 제작 무료 e-러닝.
 
 ---
 
