@@ -127,12 +127,21 @@ AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스�
 - [OpenPhone (HKUDS)](https://github.com/HKUDS/OpenPhone) - 최초의 오픈소스 3B 파라미터 온디바이스 모바일 에이전트 파운데이션 모델. 클라우드 의존 없이 프라이버시를 지키며 스마트폰에서 직접 실행. Qwen2.5-VL-3B 기반, GRPO 강화학습으로 9B 모델 대비 동등 성능. MIT 라이선스. ![GitHub Repo stars](https://img.shields.io/github/stars/HKUDS/OpenPhone?style=social)
 - [CogAgent (Zhipu AI)](https://github.com/zai-org/CogAgent) - 칭화대·Zhipu AI의 엔드투엔드 VLM 기반 GUI 에이전트. CogAgent-9B로 PC·모바일(Android 13-15) GUI 작업에서 SOTA 달성. CVPR 2024 Highlight (상위 3%). ![GitHub Repo stars](https://img.shields.io/github/stars/zai-org/CogAgent?style=social)
 - [UI-Genie](https://github.com/Euphoria16/UI-Genie) - 자가 개선(Self-Improving) 방식으로 모바일 GUI 에이전트 성능을 반복적으로 향상시키는 프레임워크. NeurIPS 2025 채택. ![GitHub Repo stars](https://img.shields.io/github/stars/Euphoria16/UI-Genie?style=social)
+- [MobileRL (THUDM)](https://github.com/THUDM/MobileRL) - 난이도 적응형 온라인 강화학습으로 범용 VLM을 강력한 모바일 에이전트로 변환. 7B 모델이 72B UI-TARS-1.5를 +16% 능가. AndroidWorld 80.2% SOTA. ![GitHub Repo stars](https://img.shields.io/github/stars/THUDM/MobileRL?style=social)
+- [OS-Atlas (OS-Copilot)](https://github.com/OS-Copilot/OS-Atlas) - 1,300만+ GUI 요소로 훈련된 범용 GUI 그라운딩 파운데이션 모델. 모바일/데스크톱/웹 전 플랫폼 ScreenSpot SOTA. ICLR 2025 Spotlight. ![GitHub Repo stars](https://img.shields.io/github/stars/OS-Copilot/OS-Atlas?style=social)
+- [V-Droid (Microsoft Research)](https://github.com/V-Droid-Agent/V-Droid) - 생성적 검증기(Verifier) 기반 모바일 GUI 에이전트. 0.7초/스텝 실시간 의사결정. AndroidWorld 59.5%, MobileAgentBench 49%. ![GitHub Repo stars](https://img.shields.io/github/stars/V-Droid-Agent/V-Droid?style=social)
+- [AppAgentX (Westlake AGI Lab)](https://github.com/Westlake-AGI-Lab/AppAgentX) - AppAgent의 차세대 버전. 반복 작업을 고수준 숏컷으로 진화시키는 메모리 기반 GUI 에이전트. LangChain/Neo4j/Pinecone 기반. ![GitHub Repo stars](https://img.shields.io/github/stars/Westlake-AGI-Lab/AppAgentX?style=social)
+- [Midscene.js (ByteDance)](https://github.com/web-infra-dev/midscene) - 비전 모델 기반 자연어 UI 자동화 프레임워크. Web/Android(adb)/iOS(WDA) 지원. UI-TARS, GPT-4o, Gemini 호환. MCP 서비스 제공. MIT 라이선스. ![GitHub Repo stars](https://img.shields.io/github/stars/web-infra-dev/midscene?style=social)
+- [GUI Odyssey (OpenGVLab)](https://github.com/OpenGVLab/GUI-Odyssey) - 212개 앱, 1,400개 조합의 크로스앱 모바일 내비게이션 대규모 데이터셋. 8,834 에피소드. ICCV 2025. ![GitHub Repo stars](https://img.shields.io/github/stars/OpenGVLab/GUI-Odyssey?style=social)
 
 ### 모바일 개발 및 테스트 도구
 
 - [Maestro](https://github.com/mobile-dev-inc/Maestro) - YAML 기반의 Android/iOS/웹 E2E 테스트 프레임워크. MaestroGPT AI 어시스턴트 및 MCP 통합 지원. Appium 대안. ![GitHub Repo stars](https://img.shields.io/github/stars/mobile-dev-inc/Maestro?style=social)
 - [Arbigent](https://github.com/takahirom/arbigent) - 5분 만에 시작하는 Android/iOS/웹 앱 AI 테스트 에이전트. 직관적 UI와 시나리오 분해 기능으로 복잡한 작업도 확장 가능. ![GitHub Repo stars](https://img.shields.io/github/stars/takahirom/arbigent?style=social)
 - [Firebase App Testing Agent](https://firebase.google.com/docs/app-distribution/android/app-testing-agent) - 자연어로 테스트 목표를 정의하면 Gemini AI가 Android 앱을 자동 탐색하고 테스트하는 Google Firebase 기반 도구. CI/CD 통합 지원.
+- [GPTDroid](https://github.com/testinging6/GPTDroid) - LLM과 모바일 앱의 대화형 상호작용으로 GUI 기반 자동 테스트 스크립트를 생성. 93개 Google Play 앱에서 검증, 53개 신규 버그 발견. ICSE 2024. ![GitHub Repo stars](https://img.shields.io/github/stars/testinging6/GPTDroid?style=social)
+- [DroidAgent (KAIST)](https://github.com/coinse/droidagent) - 다중 LLM 인스턴스 기반의 의도 중심 Android GUI 자동 탐색 테스트 프레임워크. 15개 앱에서 평균 61% 활동 커버리지. ICST 2024. ![GitHub Repo stars](https://img.shields.io/github/stars/coinse/droidagent?style=social)
+- [AdbGPT](https://github.com/sidongfeng/AdbGPT) - 퓨샷 학습과 CoT 추론으로 버그 리포트에서 Android 버그를 자동 재현. 81.3% 재현 성공률. ICSE 2024. ![GitHub Repo stars](https://img.shields.io/github/stars/sidongfeng/AdbGPT?style=social)
 
 ### 모바일 MCP 서버
 
@@ -145,6 +154,10 @@ AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스�
 - [AndroidWorld (Google Research)](https://github.com/google-research/android_world) - 20개 앱, 116개 작업의 동적 모바일 에이전트 벤치마크 환경. 수백만 개의 고유 작업 변형 생성 가능. ICLR 2025. ![GitHub Repo stars](https://img.shields.io/github/stars/google-research/android_world?style=social)
 - [MobileWorld (Tongyi-MAI)](https://github.com/Tongyi-MAI/MobileWorld) - AndroidWorld의 후속 벤치마크. 201개 작업, 62.2% 다중 앱 태스크, 에이전트-사용자 상호작용 및 MCP 도구 통합 평가. ![GitHub Repo stars](https://img.shields.io/github/stars/Tongyi-MAI/MobileWorld?style=social)
 - [Android Agent Arena (A3)](https://openreview.net/forum?id=zE2tVigoub) - Google Play 20개 카테고리, 20개 실제 온라인 앱에서 100개 작업을 평가하는 모바일 GUI 에이전트 벤치마크. 기존 정적 벤치마크의 한계를 극복한 실시간 앱 평가 시스템. ICLR 2026.
+- [AndroidLab (THUDM)](https://github.com/THUDM/Android-Lab) - Android 자율 에이전트의 체계적 훈련 및 벤치마킹 프레임워크. 138개 태스크, 9개 앱 환경, 726개 trace. ACL 2025. ![GitHub Repo stars](https://img.shields.io/github/stars/THUDM/Android-Lab?style=social)
+- [SPA-Bench](https://github.com/ai-agents-2030/SPA-Bench) - 11개 에이전트를 통합 평가하는 340개 태스크 기반 종합 스마트폰 에이전트 벤치마크. 300 단일앱 + 40 크로스앱 태스크. ICLR 2025 Spotlight. ![GitHub Repo stars](https://img.shields.io/github/stars/ai-agents-2030/SPA-Bench?style=social)
+- [MobileAgentBench](https://github.com/MobileAgentBench/mobile-agent-bench) - 10개 오픈소스 앱의 100개 태스크로 모바일 LLM 에이전트를 효율적으로 벤치마킹하는 자동화 평가 도구. ![GitHub Repo stars](https://img.shields.io/github/stars/MobileAgentBench/mobile-agent-bench?style=social)
+- [B-MoCA (KAIST)](https://github.com/jylee425/b-moca) - 다양한 디바이스 설정(UI 레이아웃, 언어)에서 모바일 에이전트 일반화 성능을 평가하는 인터랙티브 벤치마크. 131개 일상 태스크. CoLLAs 2025. ![GitHub Repo stars](https://img.shields.io/github/stars/jylee425/b-moca?style=social)
 
 ## AI 웹 자동화 도구
 
