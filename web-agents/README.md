@@ -2,7 +2,7 @@
 
 <!-- title -->
 
-# Awesome Web Agents
+# Awesome Web Agents (AI 웹 에이전트 모음)
 
 
 <p align="center">
@@ -15,209 +15,192 @@
   <a href="https://discord.gg/steel-dev" target="_blank">
 			<img src="https://img.shields.io/static/v1?label=&message=Join%20the%20discord&color=mediumslateblue">
 		</a>
-<!--   <a href="https://github.com/steel-dev/awesome-web-agents/actions/workflows/lint.yaml" target="_blank">
-    <img src="https://github.com/steel-dev/awesome-web-agents/actions/workflows/lint.yaml/badge.svg">
-  </a>-->
 </p>
 
 <!-- subtitle -->
 
-A curated list of tools, frameworks, and resources for building AI agents that can browse and interact with the web.
+AI가 웹을 탐색하고 상호작용할 수 있도록 하는 도구, 프레임워크, 리소스를 정리한 큐레이션 목록입니다.
 
 </div>
 
-<h2>About Steel</h2>
+<h2>Steel 소개</h2>
 <!-- image -->
 
 <a href="https://steel.dev" target="_blank" rel="noopener noreferrer">
   <img src="steel_hero.png" />
 </a>
 
-Steel is an [open-source](https://github.com/steel-dev/steel-browser) browser API built specifically for AI agents. We make it easy to build AI applications that can effectively interact with the web.
+Steel은 AI 에이전트를 위해 만들어진 [오픈소스](https://github.com/steel-dev/steel-browser) 브라우저 API입니다. 웹과 효과적으로 상호작용하는 AI 애플리케이션을 쉽게 구축할 수 있습니다.
 
-✨ Get started for free [here](https://app.steel.dev).
-<!-- description -->
-<!-- TOC -->
+✨ [여기서](https://app.steel.dev) 무료로 시작하세요.
 
-<h2>Contents</h2>
+<h2>목차</h2>
 
-- [Awesome Web Agents](#awesome-web-agents)
-  - [Autonomous Web Agents](#autonomous-web-agents)
-    - [AI Browsers](#ai-browsers)
-    - [Computer-use Agents](#computer-use-agents)
-  - [AI Web Automation Tools](#ai-web-automation-tools)
-    - [Dev Tools](#dev-tools)
-  - [AI Web Scrapers/Crawlers](#ai-web-scraperscrawlers)
-  - [Web Search \& Query Tools](#web-search--query-tools)
-  - [Benchmarks \& Research](#benchmarks--research)
-  - [Tutorials \& Guides](#tutorials--guides)
+- [Awesome Web Agents (AI 웹 에이전트 모음)](#awesome-web-agents-ai-웹-에이전트-모음)
+  - [자율 웹 에이전트](#자율-웹-에이전트)
+    - [AI 브라우저](#ai-브라우저)
+    - [컴퓨터 사용 에이전트](#컴퓨터-사용-에이전트)
+  - [AI 웹 자동화 도구](#ai-웹-자동화-도구)
+    - [개발 도구](#개발-도구)
+  - [AI 웹 스크레이퍼/크롤러](#ai-웹-스크레이퍼크롤러)
+  - [웹 검색 및 쿼리 도구](#웹-검색-및-쿼리-도구)
+  - [벤치마크 및 연구](#벤치마크-및-연구)
+  - [튜토리얼 및 가이드](#튜토리얼-및-가이드)
   - [금융공기업 NCS 기출문제 모음](#금융공기업-ncs-기출문제-모음)
-  - [Interested in implementing Steel?](#interested-in-implementing-steel)
-  - [Join the Community](#join-the-community)
-  - [Contributing](#contributing)
-    - [Contributors](#contributors)
 
 <!-- CONTENT -->
 
-<!--
-## Featured (new releases)
+## 자율 웹 에이전트
 
-- [Apple](https://apple.com) - Apple as a placeholder.
-- [Opera Agentic Feature](https://techcrunch.com/2025/03/03/opera-announces-a-new-agentic-feature-for-its-browser/) - Opera announces a new agentic feature for its browser, showcasing innovative web agent integration.
+사용자 친화적인 인터페이스를 통해 자율적으로 웹을 탐색하고 상호작용하는 AI 에이전트입니다. (브라우저 에이전트라고도 함)
 
--->
+- [Surf.new](https://surf.new) - 다양한 웹 에이전트와 대화할 수 있는 오픈소스 플레이그라운드. ![GitHub Repo stars](https://img.shields.io/github/stars/steel-dev/surf.new?style=social)
+- [OpenAI Operator](https://openai.com/index/introducing-operator/) - OpenAI의 웹 브라우징 AI 에이전트. 현재 ChatGPT Pro/Plus/Team 사용자를 위한 에이전트 모드로 통합됨.
+- [Browser-Use](https://www.browser-use.com) - 웹을 LLM 친화적으로 만드는 최첨단 에이전트 및 프레임워크. ![GitHub Repo stars](https://img.shields.io/github/stars/Browser-Use/browser-use?style=social)
+- [Skyvern-AI](https://www.skyvern.com/) - 브라우저 기반 워크플로우를 자동화하는 프레임워크. ![GitHub Repo stars](https://img.shields.io/github/stars/Skyvern-AI/skyvern?style=social)
+- [Proxy by Convergence](https://convergence.ai) - 간단한 대화를 통해 웹을 탐색하고 작업을 수행하는 AI 디지털 어시스턴트.
+- [Google Project Mariner](https://deepmind.google/technologies/project-mariner/) - 브라우저에서 시작하는 인간-에이전트 상호작용의 미래를 탐구하는 연구 프로토타입.
+- [Runner H](https://www.hcompany.ai/) - 복잡하고 번거로운 다단계 작업을 반복적인 수동 입력 없이 자동화하는 최첨단 AI 에이전트.
+- [WebVoyager (에이전트)](https://github.com/MinorJerry/WebVoyager) - 시각 기능이 탑재된 웹 에이전트. ![GitHub Repo stars](https://img.shields.io/github/stars/MinorJerry/WebVoyager?style=social)
+- [AgentGPT](https://github.com/reworkd/AgentGPT) - 브라우저에서 자율 AI 에이전트를 배포. ![GitHub Repo stars](https://img.shields.io/github/stars/reworkd/AgentGPT?style=social)
+- [Agent-E](https://github.com/EmergenceAI/Agent-E) - HTML DOM 정제 기능을 갖춘 에이전트 및 프레임워크. ![GitHub Repo stars](https://img.shields.io/github/stars/EmergenceAI/Agent-E?style=social)
+- [Kura](https://www.trykura.com/) - 기업을 위한 웹 에이전트.
+- [Manus](https://manus.im/) - 브라우저, 터미널, 텍스트 편집기에서 장기 실행 작업을 수행하는 범용 AI 에이전트. 2025년 12월 Meta에 인수됨.
+- [doBrowser](https://www.dobrowser.io) - 자연어를 이해하고 브라우저에서 대신 작업을 수행하는 AI 크롬 확장 프로그램.
+- [WebSurfer (Autogen)](https://microsoft.github.io/autogen/stable/reference/python/autogen_ext.agents.web_surfer.html#autogen_ext.agents.web_surfer.MultimodalWebSurfer) - 웹 검색 및 웹 페이지 방문이 가능한 멀티모달 에이전트. ![GitHub Repo stars](https://img.shields.io/github/stars/microsoft/autogen?style=social)
+- [Magentic-One](https://www.microsoft.com/en-us/research/articles/magentic-one-a-generalist-multi-agent-system-for-solving-complex-tasks/) - Autogen의 MultimodalWebSurfer를 통한 웹 서핑을 포함하여 복잡한 작업을 해결하는 범용 멀티 에이전트 시스템.
+- [Harpa.ai](https://harpa.ai/) - 자연어를 이해하고 대신 작업을 수행하는 AI 크롬 확장 프로그램 및 브라우저 에이전트.
+- [Yutori](https://yutori.com/) - 자연어 프롬프트로 브라우저 기반 작업을 병렬로 실행하는 멀티 에이전트 시스템.
+- [Automina](https://automina.app/) - 자연어 제어가 가능한 AI 브라우저 자동화 도구.
+- [rtrvr.ai](https://www.rtrvr.ai/) - 프롬프트만으로 자율적으로 작업을 수행하고, 시트에 스크래핑하고, API를 호출하는 AI 웹 에이전트 크롬 확장 프로그램.
+- [Nanobrowser](https://nanobrowser.ai) - 유연한 LLM 옵션과 멀티 에이전트 시스템을 갖춘 오픈소스 로컬 우선 AI 웹 에이전트 크롬 확장 프로그램. ![GitHub Repo stars](https://img.shields.io/github/stars/nanobrowser/nanobrowser?style=social)
+- [Browserable](https://browserable.ai) - AI 에이전트를 위한 오픈소스 셀프호스팅 브라우저 자동화 라이브러리. ![GitHub Repo stars](https://img.shields.io/github/stars/browserable/browserable?style=social)
+- [Tongyi WebAgent](https://github.com/Alibaba-NLP/WebAgent) - 알리바바 그룹 Tongyi Lab에서 만든 정보 탐색용 웹에이전트. ![GitHub Repo stars](https://img.shields.io/github/stars/Alibaba-NLP/WebAgent?style=social)
+- [Agent-S](https://github.com/simular-ai/Agent-S) - 사람처럼 컴퓨터를 사용하는 오픈 에이전트 프레임워크. Agent S3는 OSWorld에서 인간 수준의 성능(72.60%)을 돌파. ICLR 2025 최우수 논문상. ![GitHub Repo stars](https://img.shields.io/github/stars/simular-ai/Agent-S?style=social)
+- [Amazon Nova Act](https://github.com/aws/nova-act) - AWS의 브라우저 에이전트 구축용 Python SDK. ScreenSpot Web Text 벤치마크 0.939점, Playwright 통합. ![GitHub Repo stars](https://img.shields.io/github/stars/aws/nova-act?style=social)
+- [BrowserOS](https://github.com/browseros-ai/BrowserOS) - AI 에이전트를 네이티브로 실행하는 오픈소스 Chromium 포크. 31개 도구를 갖춘 MCP 서버. Claude, OpenAI, Gemini, Ollama 지원. ![GitHub Repo stars](https://img.shields.io/github/stars/browseros-ai/BrowserOS?style=social)
+- [AutoAgent](https://github.com/HKUDS/AutoAgent) - 연구 및 정보 검색을 위한 멀티 에이전트 시스템이 포함된 완전 자동화 제로코드 LLM 에이전트 프레임워크. ![GitHub Repo stars](https://img.shields.io/github/stars/HKUDS/AutoAgent?style=social)
+- [Notte](https://github.com/nottelabs/notte) - 웹 에이전트를 구축하고 안정적인 브라우저 인프라에서 서버리스 웹 자동화 함수를 배포하는 프레임워크. ![GitHub Repo stars](https://img.shields.io/github/stars/nottelabs/notte?style=social)
+- [TheAgenticBrowser](https://github.com/TheAgenticAI/TheAgenticBrowser) - PydanticAI 기반의 멀티 에이전트 아키텍처를 사용한 자연어 브라우저 자동화. ![GitHub Repo stars](https://img.shields.io/github/stars/TheAgenticAI/TheAgenticBrowser?style=social)
+- [Genspark](https://www.genspark.ai/) - 여러 소스를 교차 검증하고 출처가 포함된 리포트를 생성하는 최고 등급의 AI 연구 에이전트.
+- [Kortix](https://www.kortix.ai/) - 자율 웹 작업을 위한 범용 AI 에이전트 플랫폼.
 
-## Autonomous Web Agents
+### AI 브라우저
 
-AI agents that autonomously navigate and interact with the web through a user-friendly interface. (a.k.a Browser Agents)
+AI가 기본 내장된 에이전트 기능을 갖춘 브라우저입니다.
 
-- [Surf.new](https://surf.new) - An open-source playground for chatting with different web agents. ![GitHub Repo stars](https://img.shields.io/github/stars/steel-dev/surf.new?style=social)
-- [OpenAI Operator](https://openai.com/index/introducing-operator/) - OpenAI's AI agent that browses the web for you. Now integrated into ChatGPT as agent mode for Pro/Plus/Team users.
-- [Browser-Use](https://www.browser-use.com) - SOTA agent and framework that makes the web LLM-friendly. ![GitHub Repo stars](https://img.shields.io/github/stars/Browser-Use/browser-use?style=social)
-- [Skyvern-AI](https://www.skyvern.com/) - Framework to automate browser-based workflows. ![GitHub Repo stars](https://img.shields.io/github/stars/Skyvern-AI/skyvern?style=social)
-- [Proxy by Convergence](https://convergence.ai) - Proxy is your AI-powered digital assistant that explores the web and executes tasks through simple conversation.
-- [Google Project Mariner](https://deepmind.google/technologies/project-mariner/) - A research prototype exploring the future of human-agent interaction, starting with your browser.
-- [Runner H](https://www.hcompany.ai/) - Runner H is a state-of-the-art AI agent that will allow anyone to automate complex, cumbersome, multi-step tasks without repetitive and manual input.
-- [WebVoyager (Agent)](https://github.com/MinorJerry/WebVoyager) - Vision-enabled web agent. ![GitHub Repo stars](https://img.shields.io/github/stars/MinorJerry/WebVoyager?style=social)
-- [AgentGPT](https://github.com/reworkd/AgentGPT) - Deploy autonomous AI agents in your browser. ![GitHub Repo stars](https://img.shields.io/github/stars/reworkd/AgentGPT?style=social)
-- [Agent-E](https://github.com/EmergenceAI/Agent-E) - Agent & framework with HTML DOM distillation. ![GitHub Repo stars](https://img.shields.io/github/stars/EmergenceAI/Agent-E?style=social)
-- [Kura](https://www.trykura.com/) - Web Agents for the Enterprise.
-- [Manus](https://manus.im/) - A general AI agent for long-running tasks across browsers, terminals, and text editors. Acquired by Meta in Dec 2025.
-- [doBrowser](https://www.dobrowser.io) - An AI-powered Chrome extension that understands natural language and takes actions in your browser on your behalf.
-- [WebSurfer (Autogen)](https://microsoft.github.io/autogen/stable/reference/python/autogen_ext.agents.web_surfer.html#autogen_ext.agents.web_surfer.MultimodalWebSurfer) - MultimodalWebSurfer is a multimodal agent that can search the web and visit web pages. ![GitHub Repo stars](https://img.shields.io/github/stars/microsoft/autogen?style=social)
-- [Magentic-One](https://www.microsoft.com/en-us/research/articles/magentic-one-a-generalist-multi-agent-system-for-solving-complex-tasks/) - A generalist multi-agent system for solving complex tasks including surfing the web via Autogen's MultimodalWebSurfer.
-- [Harpa.ai](https://harpa.ai/) - An AI-powered Chrome extension & browser agent that understands natural language and takes actions on your behalf.
-- [Yutori](https://yutori.com/) - A multi-agent system that executes browser-based tasks in parallel given a natural language prompt.
-- [Automina](https://automina.app/) - AI browser automation tool with natural language control.
-- [rtrvr.ai](https://www.rtrvr.ai/) - AI Web Agent Chrome Extension that autonomously does tasks, scrapes to Sheets, and calls API's – all with just prompts and your own browser!
-- [Nanobrowser](https://nanobrowser.ai) - An open-source & local-first AI web agent Chrome extension with flexible LLM options and multi-agent system. ![GitHub Repo stars](https://img.shields.io/github/stars/nanobrowser/nanobrowser?style=social)
-- [Browserable](https://browserable.ai) - An open-source & self-hostable browser automation library for AI agents. ![GitHub Repo stars](https://img.shields.io/github/stars/browserable/browserable?style=social)
-- [Tongyi WebAgent](https://github.com/Alibaba-NLP/WebAgent) - WebAgent for Information Seeking bulit by Tongyi Lab, Alibaba Group. ![GitHub Repo stars](https://img.shields.io/github/stars/Alibaba-NLP/WebAgent?style=social)
-- [Agent-S](https://github.com/simular-ai/Agent-S) - Open agentic framework that uses computers like a human. Agent S3 surpassed human-level performance on OSWorld (72.60%). ICLR 2025 Best Paper. ![GitHub Repo stars](https://img.shields.io/github/stars/simular-ai/Agent-S?style=social)
-- [Amazon Nova Act](https://github.com/aws/nova-act) - Python SDK for building browser agents by AWS. 0.939 on ScreenSpot Web Text benchmark, integrates with Playwright. ![GitHub Repo stars](https://img.shields.io/github/stars/aws/nova-act?style=social)
-- [BrowserOS](https://github.com/browseros-ai/BrowserOS) - Open-source Chromium fork that runs AI agents natively. Acts as MCP server with 31 tools. Supports Claude, OpenAI, Gemini, Ollama. ![GitHub Repo stars](https://img.shields.io/github/stars/browseros-ai/BrowserOS?style=social)
-- [AutoAgent](https://github.com/HKUDS/AutoAgent) - Fully-automated zero-code LLM agent framework with multi-agent system for research and information retrieval. ![GitHub Repo stars](https://img.shields.io/github/stars/HKUDS/AutoAgent?style=social)
-- [Notte](https://github.com/nottelabs/notte) - Framework to build web agents and deploy serverless web automation functions on reliable browser infrastructure. ![GitHub Repo stars](https://img.shields.io/github/stars/nottelabs/notte?style=social)
-- [TheAgenticBrowser](https://github.com/TheAgenticAI/TheAgenticBrowser) - Agent-based browser automation using natural language, built on PydanticAI with multi-agent architecture. ![GitHub Repo stars](https://img.shields.io/github/stars/TheAgenticAI/TheAgenticBrowser?style=social)
-- [Genspark](https://www.genspark.ai/) - Top-rated AI agent for research that cross-checks multiple sources and produces cited reports.
-- [Kortix](https://www.kortix.ai/) - General AI agent platform for autonomous web tasks.
+- [ChatGPT Atlas](https://openai.com/index/introducing-operator/) - 모든 탭에서 자율 다단계 작업을 위한 에이전트 모드가 탑재된 OpenAI의 에이전트 브라우저.
+- [Perplexity Comet](https://www.perplexity.ai/comet) - Perplexity AI가 내장된 Chromium 기반 브라우저. 자율 탐색, 양식 작성, 이메일/캘린더 관리 가능.
+- [Opera Neon](https://www.opera.com) - 4개의 특화 에이전트를 갖춘 에이전트 브라우저: Neon Do (웹 자동화), Neon Make (코드/크리에이티브), ODRA (심층 리서치), 채팅.
+- [Google Chrome Auto Browse](https://google.com) - Premium 구독자를 위한 Gemini AI 사이드 패널을 통한 자율 작업 완료. 2026년 1월 출시.
+- [Fellou](https://fellou.ai/) - 로그인된 계정에서 시각적 작업 계획으로 심층 연구를 자동화하는 최초의 공간 에이전트 AI 브라우저.
+- [Dia Browser](https://www.diabrowser.com/) - The Browser Company(Arc)가 만든 AI 네이티브 브라우저. 2025년 9월 Atlassian에 인수됨.
 
-### AI Browsers
+### 컴퓨터 사용 에이전트
 
-AI-native browsers with built-in agent capabilities.
+- [Anthropic Computer Use](https://www.anthropic.com/news/3-5-models-and-computer-use) - 브라우저를 제어할 수 있는 컴퓨터 사용 에이전트.
+- [Self-Operating Computer Framework](https://github.com/OthersideAI/self-operating-computer) - 멀티모달 모델이 컴퓨터를 조작할 수 있게 하는 프레임워크. ![GitHub Repo stars](https://img.shields.io/github/stars/OthersideAI/self-operating-computer?style=social)
+- [Highlight](https://highlightai.com/) - AI 모델이 데스크톱 활동을 이해할 수 있게 해주는 도구. 더 빠른 작업 처리 가능.
+- [OpenInterpreter](https://github.com/openinterpreter/open-interpreter) - 코드 작성 및 실행, 브라우저 제어가 가능한 오픈소스 CLI 기반 에이전트. ![GitHub Repo stars](https://img.shields.io/github/stars/openinterpreter/open-interpreter?style=social)
+- [UI-TARS](https://github.com/bytedance/UI-TARS?tab=readme-ov-file) - 인간과 같은 인지, 추론, 행동 능력으로 GUI와 원활하게 상호작용하는 GUI 에이전트 모델. ![GitHub Repo stars](https://img.shields.io/github/stars/bytedance/UI-TARS?style=social)
+- [OpenAI Computer-Using Agent (CUA)](https://openai.com/index/computer-using-agent/) - GPT-4o 비전과 강화학습을 결합. WebVoyager 87%, OSWorld 38.1%. 현재 ChatGPT 에이전트 모드에 통합됨.
+- [Microsoft Computer Use for Copilot Studio](https://www.microsoft.com/en-us/copilot/copilot-studio) - Copilot Studio 에이전트가 Microsoft 호스팅 인프라에서 GUI를 통해 모든 애플리케이션과 상호작용할 수 있게 함.
 
-- [ChatGPT Atlas](https://openai.com/index/introducing-operator/) - OpenAI's agentic browser with Agent Mode for autonomous multi-step tasks in every tab.
-- [Perplexity Comet](https://www.perplexity.ai/comet) - Chromium-based browser with Perplexity AI built in. Autonomous navigation, form-filling, email/calendar management.
-- [Opera Neon](https://www.opera.com) - Agentic browser with four specialized agents: Neon Do (web automation), Neon Make (code/creative), ODRA (deep research), and chat.
-- [Google Chrome Auto Browse](https://google.com) - Autonomous task completion via Gemini AI side panel for Premium subscribers. Launched Jan 2026.
-- [Fellou](https://fellou.ai/) - First spatial agentic AI browser that automates deep research across logged-in accounts with visual task planning.
-- [Dia Browser](https://www.diabrowser.com/) - AI-native browser from The Browser Company (Arc). Acquired by Atlassian in Sept 2025.
+## AI 웹 자동화 도구
 
-### Computer-use Agents
+자연어 지시를 웹 상호작용으로 변환하는 도구, 프레임워크 및 라이브러리입니다.
 
-- [Anthropic Computer Use](https://www.anthropic.com/news/3-5-models-and-computer-use) - Computer use agent that can control your browser.
-- [Self-Operating Computer Framework](https://github.com/OthersideAI/self-operating-computer) - A framework to enable multimodal models to operate a computer. ![GitHub Repo stars](https://img.shields.io/github/stars/OthersideAI/self-operating-computer?style=social)
-- [Highlight](https://highlightai.com/) - Highlight AI lets models understand your desktop activity. Get stuff done faster.
-- [OpenInterpreter](https://github.com/openinterpreter/open-interpreter) - An open-source CLI based agent that can write & execute code as well as control your browser. ![GitHub Repo stars](https://img.shields.io/github/stars/openinterpreter/open-interpreter?style=social)
-- [UI-TARS](https://github.com/bytedance/UI-TARS?tab=readme-ov-file) - A GUI agent model designed to interact seamlessly with GUIs using human-like perception, reasoning, and action capabilities. ![GitHub Repo stars](https://img.shields.io/github/stars/bytedance/UI-TARS?style=social)
-- [OpenAI Computer-Using Agent (CUA)](https://openai.com/index/computer-using-agent/) - Combines GPT-4o vision with RL. 87% on WebVoyager, 38.1% on OSWorld. Now integrated into ChatGPT as agent mode.
-- [Microsoft Computer Use for Copilot Studio](https://www.microsoft.com/en-us/copilot/copilot-studio) - Allows Copilot Studio agents to interact with any application through its GUI on Microsoft-hosted infrastructure.
+- [Asteroid.ai](https://asteroid.ai/) - 중소기업의 복잡한 워크플로우를 자동화하는 호스팅 브라우저 에이전트. ![GitHub Repo stars](https://img.shields.io/github/stars/ishan0102/vimGPT?style=social)
+- [PulsarRPA](https://github.com/platonai/pulsarRPA) - AI 기반 데이터 추출 브라우저 자동화. ![GitHub Repo stars](https://img.shields.io/github/stars/platonai/pulsarRPA?style=social)
+- [VimGPT](https://github.com/ishan0102/vimGPT) - Vimium 확장 프로그램을 통해 GPT-4 Vision으로 웹을 탐색하는 실험 프로젝트. ![GitHub Repo stars](https://img.shields.io/github/stars/ishan0102/vimGPT?style=social)
+- [Cekura.io](https://www.cekura.io/) - 기업이 문서를 최신 상태로 유지하도록 도와주는 AI 브라우저 에이전트.
+- [Dex by Dexterity](https://getdexterity.com/) - 브라우저에 내장되어 브라우저를 제어하는 AI 동료.
+- [Autobrowser](https://autobrowser.ai/) - Claude Computer Use를 활용하여 브라우저 작업을 자동화하는 무료 실험적 크롬 확장 프로그램.
+- [Bytebot](https://bytebot.ai) - 대상 사이트에 맞춰 진화하는 AI 기반 스크래핑 자동화 도구.
+- [Runcopycat](https://www.runcopycat.com/) - 화면 녹화를 재사용 가능한 자동화 워크플로우로 변환하는 노코드 브라우저 자동화 플랫폼.
+- [Bardeen.ai](https://bardeen.ai) - 브라우저 내에서 직접 작업과 워크플로우를 자동화할 수 있는 AI 기반 크롬 확장 프로그램.
+- [Starizon.ai](https://starizon.ai/) - 웹 작업 자동화를 위한 브라우저 어시스턴트.
+- [BrowserGPT](https://browsegpt.ai/) - 페이지 요약 및 Q&A를 위한 브라우저 확장 프로그램.
+- [Browse.ai](https://www.browse.ai/) - AI를 활용한 구조화된 데이터 추출이 가능한 크롬 확장 프로그램 웹스크래퍼.
+- [Strawberry Browser](https://www.strawberrybrowser.com/) - 브라우저에 상주하며 반복적인 웹 작업을 자동화하고 워크플로우를 학습하는 개인 어시스턴트.
+- [Deta.surf](https://deta.surf/) - 브라우저, 파일 관리자, AI 어시스턴트를 브라우저 수준의 컨텍스트와 함께 결합한 통합 플랫폼.
+- [Reworkd](https://reworkd.ai) - 에이전트 AI를 사용한 노코드 웹 데이터 추출 솔루션.
+- [Ottogrid](https://ottogrid.ai/) - 수동 리서치를 자동화하는 스프레드시트 기반 웹 에이전트.
 
-## AI Web Automation Tools
+### 개발 도구
 
-Tools, frameworks and libraries that translate natural language instructions into web interactions.
+- [Steel.dev](https://steel.dev) - AI 에이전트 및 앱을 위해 특별히 제작된 오픈소스 헤드리스 브라우저 API. ![GitHub Repo stars](https://img.shields.io/github/stars/steel-dev/steel-browser?style=social)
+- [Omniparser](https://microsoft.github.io/OmniParser/) - 비전 기반 에이전트를 위한 GUI 파싱 도구. ![GitHub Repo stars](https://img.shields.io/github/stars/microsoft/OmniParser?style=social)
+- [LaVague](https://www.lavague.ai/) - 자연어 웹 자동화 프레임워크. ![GitHub Repo stars](https://img.shields.io/github/stars/lavague-ai/LaVague?style=social)
+- [Langchain Playwright toolkit](https://python.langchain.com/docs/integrations/tools/playwright/#use-within-an-agent) - AI 에이전트와의 툴킷 통합.
+- [Browserbase](https://browserbase.com) - AI 에이전트를 위한 서버리스 브라우저 인프라. 시리즈 B 4천만 달러 (2025년 6월), 5천만+ 세션, 1000+ 고객.
+- [Stagehand](https://www.stagehand.dev/) - AI 웹 브라우징 프레임워크. v3에서 Playwright 의존성 제거, 네이티브 CDP 추가, 44% 빨라짐. 다중 언어 SDK (Python, Go, Kotlin, C#, Ruby). ![GitHub Repo stars](https://img.shields.io/github/stars/browserbase/stagehand?style=social)
+- [Tarsier](https://github.com/reworkd/tarsier) - 웹 상호작용 에이전트를 위한 비전 유틸리티 라이브러리. ![GitHub Repo stars](https://img.shields.io/github/stars/reworkd/tarsier?style=social)
+- [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) - 작업 완료 및 웹 브라우징을 위한 실험적 에이전트. ![GitHub Repo stars](https://img.shields.io/github/stars/Significant-Gravitas/AutoGPT?style=social)
+- [Bytebot](https://github.com/bytebot-ai/bytebot) - 가상 데스크톱 환경이 포함된 컨테이너화된 컴퓨터 사용 에이전트 프레임워크. ![GitHub Repo stars](https://img.shields.io/github/stars/bytebot-ai/bytebot?style=social)
+- [Playwright MCP Server](https://github.com/microsoft/playwright-mcp) - Playwright를 통한 브라우저 자동화를 위한 Microsoft의 MCP 서버. 접근성 스냅샷 사용. GitHub Copilot Coding Agent에 내장. ![GitHub Repo stars](https://img.shields.io/github/stars/microsoft/playwright-mcp?style=social)
+- [Vercel Agent Browser](https://github.com/vercel-labs/agent-browser) - Vercel Labs의 AI 에이전트 전용 헤드리스 브라우저 자동화 CLI. ![GitHub Repo stars](https://img.shields.io/github/stars/vercel-labs/agent-browser?style=social)
+- [Browser-Use Web UI](https://github.com/browser-use/web-ui) - DeepSeek-r1의 심층 사고 지원으로 브라우저에서 AI 에이전트 실행. ![GitHub Repo stars](https://img.shields.io/github/stars/browser-use/web-ui?style=social)
 
-- [Asteroid.ai](https://asteroid.ai/) - Hosted Browser Agents for SMEs to automate complex workflows. ![GitHub Repo stars](https://img.shields.io/github/stars/ishan0102/vimGPT?style=social)
-- [PulsarRPA](https://github.com/platonai/pulsarRPA) - AI-powered browser automation for data extraction. ![GitHub Repo stars](https://img.shields.io/github/stars/platonai/pulsarRPA?style=social)
-- [VimGPT](https://github.com/ishan0102/vimGPT) - Experimental project using GPT-4 Vision to browse the web via the Vimium extension. ![GitHub Repo stars](https://img.shields.io/github/stars/ishan0102/vimGPT?style=social)
-- [Cekura.io](https://www.cekura.io/) - An AI browser agent that helps companies maintain up-to-date documentation.
-- [Dex by Dexterity](https://getdexterity.com/) - An AI coworker embedding into and controlling your browser.
-- [Autobrowser](https://autobrowser.ai/) - A free, experimental Chrome extension that leverages Claude Computer Use to automate tasks in your browser.
-- [Bytebot](https://bytebot.ai) - Bytebot provides AI-powered scraping automations that evolve with your target sites.
-- [Runcopycat](https://www.runcopycat.com/) - A no-code browser automation platform that turns screen recordings into reusable automated workflows.
-- [Bardeen.ai](https://bardeen.ai) - A Chrome extension that enables AI-powered browser automations, allowing users to automate tasks and workflows directly within the browser.
-- [Starizon.ai](https://starizon.ai/) - Browser assistant for web task automation.
-- [BrowserGPT](https://browsegpt.ai/) - Browser extension for page summaries and Q&A.
-- [Browse.ai](https://www.browse.ai/) - Chrome extension webscraping that can leverage AI for structured data extraction.
-- [Strawberry Browser](https://www.strawberrybrowser.com/) - A personal assistant that sits in your browser, automates repetitive web actions, learns your workflows.
-- [Deta.surf](https://deta.surf/) - An integrated platform that combines a browser, file manager, and AI assistant with browser-level context.
-- [Reworkd](https://reworkd.ai) - No-code web data extraction solution using agentic AI.
-- [Ottogrid](https://ottogrid.ai/) - Spreadsheet based web agents to automate manual research.
+## AI 웹 스크레이퍼/크롤러
 
-### Dev Tools
+AI를 활용하여 웹사이트를 탐색하고 콘텐츠를 추출하는 웹 크롤러 및 스크레이퍼입니다.
 
-- [Steel.dev](https://steel.dev) - Open-source headless browser API built specifically for AI agents and apps. ![GitHub Repo stars](https://img.shields.io/github/stars/steel-dev/steel-browser?style=social)
-- [Omniparser](https://microsoft.github.io/OmniParser/) - Tool for parsing GUIs for vision based agents. ![GitHub Repo stars](https://img.shields.io/github/stars/microsoft/OmniParser?style=social)
-- [LaVague](https://www.lavague.ai/) - Framework for natural language web automation. ![GitHub Repo stars](https://img.shields.io/github/stars/lavague-ai/LaVague?style=social)
-- [Langchain Playwright toolkit](https://python.langchain.com/docs/integrations/tools/playwright/#use-within-an-agent) - Toolkit integration with AI agents.
-- [Browserbase](https://browserbase.com) - Serverless browser infrastructure for AI agents. $40M Series B (June 2025), 50M+ sessions, 1000+ customers.
-- [Stagehand](https://www.stagehand.dev/) - AI web browsing framework. v3 removed Playwright dependency, added native CDP, 44% faster. Multi-language SDKs (Python, Go, Kotlin, C#, Ruby). ![GitHub Repo stars](https://img.shields.io/github/stars/browserbase/stagehand?style=social)
-- [Tarsier](https://github.com/reworkd/tarsier) - Vision utilities library for web interaction agents. ![GitHub Repo stars](https://img.shields.io/github/stars/reworkd/tarsier?style=social)
-- [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) - Experimental agent for task completion and web browsing. ![GitHub Repo stars](https://img.shields.io/github/stars/Significant-Gravitas/AutoGPT?style=social)
-- [Bytebot](https://github.com/bytebot-ai/bytebot) - Containerized computer use agent framework with a virtual desktop environment. ![GitHub Repo stars](https://img.shields.io/github/stars/bytebot-ai/bytebot?style=social)
-- [Playwright MCP Server](https://github.com/microsoft/playwright-mcp) - Microsoft's MCP server for browser automation via Playwright. Uses accessibility snapshots. Built into GitHub Copilot Coding Agent. ![GitHub Repo stars](https://img.shields.io/github/stars/microsoft/playwright-mcp?style=social)
-- [Vercel Agent Browser](https://github.com/vercel-labs/agent-browser) - Headless browser automation CLI specifically for AI agents from Vercel Labs. ![GitHub Repo stars](https://img.shields.io/github/stars/vercel-labs/agent-browser?style=social)
-- [Browser-Use Web UI](https://github.com/browser-use/web-ui) - Run AI agents in your browser with DeepSeek-r1 support for deep thinking. ![GitHub Repo stars](https://img.shields.io/github/stars/browser-use/web-ui?style=social)
+- [FireCrawl](https://www.firecrawl.dev/) - 웹사이트를 LLM 친화적인 마크다운으로 변환하는 API. ![GitHub Repo stars](https://img.shields.io/github/stars/mendableai/firecrawl?style=social)
+- [Crawl4AI](https://crawl4ai.com) - 오픈소스 LLM 친화적 웹 크롤러 및 스크레이퍼. ![GitHub Repo stars](https://img.shields.io/github/stars/unclecode/crawl4ai?style=social)
+- [ScrapeGraphAI](https://scrapegraphai.com/) - AI 기반 Python 스크레이퍼. ![GitHub Repo stars](https://img.shields.io/github/stars/ScrapeGraphAI/Scrapegraph-ai?style=social)
+- [WebAgent (OpenAgents)](https://github.com/xlang-ai/OpenAgents) - OpenAgents 플랫폼(홍콩대)의 웹 브라우징 에이전트 모듈. 대규모 멀티모달 에이전트 프레임워크의 일부로 자연어를 통한 자율 웹사이트 탐색 지원. ![GitHub Repo stars](https://img.shields.io/github/stars/xlang-ai/OpenAgents?style=social)
+- [Expand.ai](https://www.expand.ai/) - 모든 웹사이트를 신뢰할 수 있는 타입 안전 API로 변환.
+- [LLM Scraper](https://github.com/mishushakov/llm-scraper) - LLM을 활용한 지능형 스크래핑 및 콘텐츠 이해 도구. ![GitHub Repo stars](https://img.shields.io/github/stars/mishushakov/llm-scraper?style=social)
+- [SpiderCreator](https://github.com/carlosplanchon/spidercreator) - 자연어 프롬프트로 복잡한 Playwright 스파이더 생성. ![GitHub Repo stars](https://img.shields.io/github/stars/carlosplanchon/spidercreator?style=social)
+- [Scrapling](https://github.com/D4Vinci/Scrapling) - 인터랙티브 셸이 포함된 적응형 웹 스크래핑 프레임워크. 92% 테스트 커버리지, BeautifulSoup과 유사한 API. ![GitHub Repo stars](https://img.shields.io/github/stars/D4Vinci/Scrapling?style=social)
+- [Crawl4AI MCP Server](https://github.com/sadiuysal/crawl4ai-mcp-server) - Crawl4AI를 AI 에이전트용 도구로 노출하는 MCP 서버. 셀프호스팅 Firecrawl 대안. OpenAI Agents SDK, Cursor, Claude Code와 호환. ![GitHub Repo stars](https://img.shields.io/github/stars/sadiuysal/crawl4ai-mcp-server?style=social)
 
-## AI Web Scrapers/Crawlers
+## 웹 검색 및 쿼리 도구
 
-Web crawlers & scrapers that leverage AI to navigate websites and extract content.
+에이전트가 자연어로 웹을 검색하거나 웹 데이터를 쿼리하는 데 도움이 되는 유틸리티입니다.
 
-- [FireCrawl](https://www.firecrawl.dev/) - APIs for turning websites into LLM-friendly markdown. ![GitHub Repo stars](https://img.shields.io/github/stars/mendableai/firecrawl?style=social)
-- [Crawl4AI](https://crawl4ai.com) - Open-source LLM Friendly Web Crawler & Scraper. ![GitHub Repo stars](https://img.shields.io/github/stars/unclecode/crawl4ai?style=social)
-- [ScrapeGraphAI](https://scrapegraphai.com/) - Python scraper based on AI. ![GitHub Repo stars](https://img.shields.io/github/stars/ScrapeGraphAI/Scrapegraph-ai?style=social)
-- [WebAgent (OpenAgents)](https://github.com/xlang-ai/OpenAgents) - The web-browsing agent module of the OpenAgents platform (HKU). Enables autonomous navigation of websites via natural language, as part of a larger multi-modal agent framework. ![GitHub Repo stars](https://img.shields.io/github/stars/xlang-ai/OpenAgents?style=social)
-- [Expand.ai](https://www.expand.ai/) - Turns any website into a type-safe API you can rely on.
-- [LLM Scraper](https://github.com/mishushakov/llm-scraper) - Uses LLMs for intelligent scraping and content understanding. ![GitHub Repo stars](https://img.shields.io/github/stars/mishushakov/llm-scraper?style=social)
-- [SpiderCreator](https://github.com/carlosplanchon/spidercreator) - Create complex Playwright spiders with natural language prompts. ![GitHub Repo stars](https://img.shields.io/github/stars/carlosplanchon/spidercreator?style=social)
-- [Scrapling](https://github.com/D4Vinci/Scrapling) - Adaptive web scraping framework with interactive shell. 92% test coverage, BeautifulSoup-like API. ![GitHub Repo stars](https://img.shields.io/github/stars/D4Vinci/Scrapling?style=social)
-- [Crawl4AI MCP Server](https://github.com/sadiuysal/crawl4ai-mcp-server) - MCP server exposing Crawl4AI as tools for AI agents. Self-hosted Firecrawl alternative. Compatible with OpenAI Agents SDK, Cursor, Claude Code. ![GitHub Repo stars](https://img.shields.io/github/stars/sadiuysal/crawl4ai-mcp-server?style=social)
+- [AgentQL](https://www.agentql.com/) - 웹을 AI 친화적으로 만드는 쿼리 언어 및 툴킷. ![GitHub Repo stars](https://img.shields.io/github/stars/tinyfish-io/agentql?style=social)
+- [SerpAPI](https://serpapi.com/) - 에이전트에 구글 검색 결과를 제공하는 검색 API.
+- [Serper.dev](https://serper.dev/) - 에이전트에 구글 검색 결과를 제공하는 고성능 저비용 검색 API.
+- [Jina.ai](https://jina.ai/) - 웹 데이터를 위한 뉴럴 검색 플랫폼.
+- [Exa.ai](https://exa.ai) - AI를 위한 시맨틱 검색 엔진.
 
-## Web Search & Query Tools
+## 벤치마크 및 연구
 
-Utilities that help agents search the web or query web data via natural language.
+웹 기능을 갖춘 AI 에이전트를 평가하고 발전시키기 위한 데이터셋, 벤치마크, 주요 연구입니다.
 
-- [AgentQL](https://www.agentql.com/) - A query language and toolkit that makes the web AI-ready. ![GitHub Repo stars](https://img.shields.io/github/stars/tinyfish-io/agentql?style=social)
-- [SerpAPI](https://serpapi.com/) - Search API that provides Google Search results for your agents.
-- [Serper.dev](https://serper.dev/) - Performant and cost effective search API that provides Google Search results for your agents.
-- [Jina.ai](https://jina.ai/) - Neural search platform for web data.
-- [Exa.ai](https://exa.ai) - Semantic Search Engine for AI.
+- [Web Agent Leaderboard](https://leaderboard.steel.dev) - 널리 사용되는 WebVoyager 벤치마크에서 다양한 AI 에이전트 제품의 성능을 비교하는 웹 에이전트 리더보드. ![GitHub Repo stars](https://img.shields.io/github/stars/steel-dev/leaderboard?style=social)
+- [Web Games by Convergence](https://webgames.convergence.ai/) - 범용 웹 브라우징 AI 에이전트를 테스트하기 위해 설계된 챌린지 모음. ![GitHub Repo stars](https://img.shields.io/github/stars/convergence-ai/webgames?style=social)
+- [Bananalyzer](https://github.com/reworkd/bananalyzer) - 웹 기반 AI 에이전트를 위한 오픈소스 평가 프레임워크. ![GitHub Repo stars](https://img.shields.io/github/stars/reworkd/bananalyzer?style=social)
+- [Mind2Web](https://osu-nlp-group.github.io/Mind2Web) - 범용 웹 에이전트를 위한 대규모 데이터셋. ![GitHub Repo stars](https://img.shields.io/github/stars/OSU-NLP-Group/Mind2Web?style=social)
+- [World of Bits](https://proceedings.mlr.press/v70/shi17a/shi17a.pdf) - OpenAI의 연구 논문. 에이전트가 키보드와 마우스 조작으로 인터넷에서 작업을 완료하는 플랫폼 소개.
+- [MiniWoB++](https://miniwob.farama.org) - 합성 환경에서 104개의 미니 웹 브라우저 작업을 포함하는 고전적인 테스트 스위트. OpenAI MiniWoB 벤치마크의 확장판. ![GitHub Repo stars](https://img.shields.io/github/stars/Farama-Foundation/miniwob-plusplus?style=social)
+- [WebArena](https://webarena.dev) - 자율 에이전트를 위한 현실적이고 셀프호스팅 가능한 웹 환경. 에이전트 성능을 추적하는 공식 리더보드 포함. ![GitHub Repo stars](https://img.shields.io/github/stars/web-arena-x/webarena?style=social)
+- [WebCanvas](https://github.com/iMeanAI/WebCanvas) - 동적 웹 환경을 위한 온라인 평가 프레임워크. 실제 웹사이트에서 에이전트를 테스트. ![GitHub Repo stars](https://img.shields.io/github/stars/iMeanAI/WebCanvas?style=social)
+- [WebGPT](https://openai.com/research/webgpt) - OpenAI의 브라우저 보조 질문 응답 연구 프로젝트.
+- [WebShop](https://webshop-pnlp.github.io) - 118만 개의 실제 Amazon 제품이 포함된 시뮬레이션 전자상거래 쇼핑 환경. ![GitHub Repo stars](https://img.shields.io/github/stars/princeton-nlp/WebShop?style=social)
+- [WebVoyager (벤치마크)](https://github.com/MinorJerry/WebVoyager) - 실제 웹사이트 상호작용을 위해 GPT-4V를 사용하는 비전 지원 웹 에이전트. ![GitHub Repo stars](https://img.shields.io/github/stars/MinorJerry/WebVoyager?style=social)
+- [WorkArena](https://github.com/ServiceNow/WorkArena) - 기업 "지식 근로자" 시나리오를 위한 33개의 브라우저 기반 작업 스위트. ![GitHub Repo stars](https://img.shields.io/github/stars/ServiceNow/WorkArena?style=social)
+- [BrowserGym by ServiceNow](https://github.com/ServiceNow/BrowserGym) - 웹 작업 자동화를 위한 Gym 환경. ![GitHub Repo stars](https://img.shields.io/github/stars/ServiceNow/BrowserGym?style=social)
+- [WebArena Verified](https://openreview.net/forum?id=CSIo4D7xBG) - 강화된 측정을 통한 WebArena의 재현 가능한 재평가. 위음성률 11.3% 감소. ICLR 2026.
+- [MM-BrowseComp](https://openreview.net/forum?id=zIT4MLbjlO) - 웹페이지의 이미지/동영상을 활용한 멀티모달 검색 및 추론을 테스트하는 224개 수작업 질문. ICLR 2026.
+- [WebChoreArena](https://openreview.net/forum?id=d0xqdsR41U) - 대규모 메모리, 계산, 장기 기억 챌린지에 걸친 노동 집약적 웹 작업을 테스트하는 532개 큐레이션된 과제. ICLR 2026.
+- [ST-WebAgentBench](https://openreview.net/forum?id=IIzehISTBe) - 6개 차원에 걸친 웹 에이전트의 안전성과 신뢰성을 위한 벤치마크. ICLR 2025.
+- [Deep Research Bench](https://futuresearch.ai/deep-research-bench/) - 레트로 및 라이브 평가를 통해 LLM 에이전트의 웹 리서치 수행 능력을 벤치마킹.
 
-## Benchmarks & Research
+## 튜토리얼 및 가이드
 
-Datasets, benchmarks, and notable research efforts for evaluating and advancing web-capable AI agents.
+AI 웹 에이전트를 구축, 배포 또는 활용하는 방법을 배우기 위한 리소스입니다.
 
-- [Web Agent Leaderboard](https://leaderboard.steel.dev) - Web agent leaderboard compiling different AI agent products and how they perform on the widely used WebVoyager benchmarks. ![GitHub Repo stars](https://img.shields.io/github/stars/steel-dev/leaderboard?style=social)
-- [Web Games by Convergence](https://webgames.convergence.ai/) - a collection of challenges designed for testing general-purpose web-browsing AI agents. ![GitHub Repo stars](https://img.shields.io/github/stars/convergence-ai/webgames?style=social)
-- [Bananalyzer](https://github.com/reworkd/bananalyzer) - An open-source evaluation framework for web-based AI agents. ![GitHub Repo stars](https://img.shields.io/github/stars/reworkd/bananalyzer?style=social)
-- [Mind2Web](https://osu-nlp-group.github.io/Mind2Web) - A large-scale dataset for generalist web agents. ![GitHub Repo stars](https://img.shields.io/github/stars/OSU-NLP-Group/Mind2Web?style=social)
-- [World of Bits: An Open-Domain Platform for Web-Based Agents](https://proceedings.mlr.press/v70/shi17a/shi17a.pdf) - OpenAI's research paper that introduces World or Bits: a platform where agents complete tasks on the internet by performing low-level keyboard and mouse actions.
-- [MiniWoB++](https://miniwob.farama.org) - A classic suite of 104 mini web browser tasks in a synthetic environment. It's is an extension of the OpenAI MiniWoB benchmark. ![GitHub Repo stars](https://img.shields.io/github/stars/Farama-Foundation/miniwob-plusplus?style=social)
-- [WebArena](https://webarena.dev) - A realistic, self-hostable web environment for autonomous agents. Includes official leaderboard tracking agent performance. ![GitHub Repo stars](https://img.shields.io/github/stars/web-arena-x/webarena?style=social)
-- [WebCanvas](https://github.com/iMeanAI/WebCanvas) - An online evaluation framework for dynamic web environments. Tests agents on live websites. ![GitHub Repo stars](https://img.shields.io/github/stars/iMeanAI/WebCanvas?style=social)
-- [WebGPT](https://openai.com/research/webgpt) - OpenAI's browser-assisted question-answering research project.
-- [WebShop](https://webshop-pnlp.github.io) - A simulated e-commerce shopping environment with 1.18M real Amazon products. ![GitHub Repo stars](https://img.shields.io/github/stars/princeton-nlp/WebShop?style=social)
-- [WebVoyager (Benchmark)](https://github.com/MinorJerry/WebVoyager) - Vision-enabled web agent using GPT-4V for real-world website interaction. ![GitHub Repo stars](https://img.shields.io/github/stars/MinorJerry/WebVoyager?style=social)
-- [WorkArena](https://github.com/ServiceNow/WorkArena) - A suite of 33 browser-based tasks for enterprise "knowledge worker" scenarios. ![GitHub Repo stars](https://img.shields.io/github/stars/ServiceNow/WorkArena?style=social)
-- [BrowserGym by ServiceNow](https://github.com/ServiceNow/BrowserGym) - A gym environment for web task automation. ![GitHub Repo stars](https://img.shields.io/github/stars/ServiceNow/BrowserGym?style=social)
-- [WebArena Verified](https://openreview.net/forum?id=CSIo4D7xBG) - Reproducible re-evaluation of WebArena with strengthened measurement. Reduces false-negative rate by 11.3%. ICLR 2026.
-- [MM-BrowseComp](https://openreview.net/forum?id=zIT4MLbjlO) - 224 hand-crafted questions testing multimodal retrieval and reasoning with images/videos on webpages. ICLR 2026.
-- [WebChoreArena](https://openreview.net/forum?id=d0xqdsR41U) - 532 curated tasks testing labor-intensive web tasks across Massive Memory, Calculation, and Long-Term Memory challenges. ICLR 2026.
-- [ST-WebAgentBench](https://openreview.net/forum?id=IIzehISTBe) - Benchmark for safety and trustworthiness of web agents across 6 dimensions. ICLR 2025.
-- [Deep Research Bench](https://futuresearch.ai/deep-research-bench/) - Benchmarks how well LLM agents perform web research with both retro and live evaluations.
-
-## Tutorials & Guides
-
-Resources for learning how to build, deploy, or utilize AI web agents.
-
-- [LangGraph WebVoyager Tutorial](https://langchain-ai.github.io/langgraph/tutorials/web-navigation/web_voyager/) - Tutorial demonstrating how to build a web navigation agent using LangGraph Agents, Vision Models, and Web Voyager.
-- [Build an AI Browser Agent](https://dzone.com/articles/build-ai-browser-agent-llms-playwright-browser-use) - Step-by-step guide to create an AI that browses the web using Playwright and the Browser-Use library.
-- [Install & Run Browser-Use Locally](https://aleksandarhaber.com/install-and-run-browser-use-ai-agents-locally-using-ollama/) - Instructions on installing the open-source Browser-Use agent with a local LLM.
-- [Build a Browser Agent with DeepSeek](https://nodeshift.com/blog/build-a-browser-use-agent-with-deepseek-a-step-by-step-guide) - Walks through deploying a Browser-Use web UI agent powered by the DeepSeek model on a cloud VM.
-- [DeepLearning.AI - Building AI Browser Agents](https://www.deeplearning.ai/short-courses/building-ai-browser-agents/) - Short course on building agents that navigate and interact with websites reliably.
-- [Playwright MCP Comprehensive Guide](https://medium.com/@bluudit/playwright-mcp-comprehensive-guide-to-ai-powered-browser-automation-in-2025-712c9fd6cffa) - Guide to AI-powered browser automation with Playwright MCP.
-- [AI Web Agents Complete Guide (Skyvern)](https://www.skyvern.com/blog/ai-web-agents-complete-guide-to-intelligent-browser-automation-november-2025/) - Comprehensive guide to intelligent browser automation.
-- [Agentic Browser Landscape 2026](https://www.nohackspod.com/blog/agentic-browser-landscape-2026) - Complete landscape guide covering major players, architectures, and trends.
+- [LangGraph WebVoyager 튜토리얼](https://langchain-ai.github.io/langgraph/tutorials/web-navigation/web_voyager/) - LangGraph Agents, Vision Models, Web Voyager를 사용하여 웹 탐색 에이전트를 구축하는 방법을 보여주는 튜토리얼.
+- [AI 브라우저 에이전트 만들기](https://dzone.com/articles/build-ai-browser-agent-llms-playwright-browser-use) - Playwright와 Browser-Use 라이브러리를 사용하여 웹을 탐색하는 AI를 만드는 단계별 가이드.
+- [Browser-Use 로컬 설치 및 실행](https://aleksandarhaber.com/install-and-run-browser-use-ai-agents-locally-using-ollama/) - 로컬 LLM으로 오픈소스 Browser-Use 에이전트를 설치하는 방법.
+- [DeepSeek으로 브라우저 에이전트 만들기](https://nodeshift.com/blog/build-a-browser-use-agent-with-deepseek-a-step-by-step-guide) - 클라우드 VM에서 DeepSeek 모델로 구동되는 Browser-Use 웹 UI 에이전트 배포 과정 안내.
+- [DeepLearning.AI - AI 브라우저 에이전트 만들기](https://www.deeplearning.ai/short-courses/building-ai-browser-agents/) - 웹사이트를 안정적으로 탐색하고 상호작용하는 에이전트 구축에 대한 단기 강좌.
+- [Playwright MCP 종합 가이드](https://medium.com/@bluudit/playwright-mcp-comprehensive-guide-to-ai-powered-browser-automation-in-2025-712c9fd6cffa) - Playwright MCP를 활용한 AI 기반 브라우저 자동화 가이드.
+- [AI 웹 에이전트 완벽 가이드 (Skyvern)](https://www.skyvern.com/blog/ai-web-agents-complete-guide-to-intelligent-browser-automation-november-2025/) - 지능형 브라우저 자동화에 대한 종합 가이드.
+- [2026년 에이전트 브라우저 현황](https://www.nohackspod.com/blog/agentic-browser-landscape-2026) - 주요 플레이어, 아키텍처, 트렌드를 다루는 완벽한 현황 가이드.
 
 ## 금융공기업 NCS 기출문제 모음
 
@@ -227,24 +210,22 @@ Resources for learning how to build, deploy, or utilize AI web agents.
 
 <!-- END CONTENT -->
 
-## Interested in implementing Steel?
-Feel free to reach out at [team@steel.dev](mailto:team@steel.dev?subject=Hello%20from%20github!) or on [Discord](https://discord.gg/steel-dev).
+## Steel 도입에 관심이 있으신가요?
+[team@steel.dev](mailto:team@steel.dev?subject=Hello%20from%20github!)로 연락하시거나 [Discord](https://discord.gg/steel-dev)에서 문의하세요.
 
-Steel is an [open-source](https://github.com/steel-dev/steel-browser) browser API built specifically for AI agents. Get started for free [here](https://app.steel.dev).
+Steel은 AI 에이전트를 위해 특별히 제작된 [오픈소스](https://github.com/steel-dev/steel-browser) 브라우저 API입니다. [여기서](https://app.steel.dev) 무료로 시작하세요.
 
 
-## Join the Community
+## 커뮤니티 참여
 
-<!-- list people worth following on social sites (Twitter, LinkedIn, GitHub, YouTube etc.) -->
+- X에서 [@steeldotdev](https://x.com/steeldotdev) 팔로우하기
+- [Discord 커뮤니티](https://discord.gg/steel-dev) 참여하기
+- [team@steel.dev](mailto:team@steel.dev?subject=Hello%20from%20github!)로 연락하기
 
-- Follow [@steeldotdev](https://x.com/steeldotdev) on X.
-- Join the [Discord community](https://discord.gg/steel-dev).
-- Feel free to reach out to us at [team@steel.dev](mailto:team@steel.dev?subject=Hello%20from%20github!)
+## 기여하기
 
-## Contributing
+[어떤 형태의 기여든 환영합니다. 가이드라인을 따라주세요](contributing.md)!
 
-[Contributions of any kind welcome, just follow the guidelines](contributing.md)!
+### 기여자
 
-### Contributors
-
-[Thanks goes to these contributors](https://github.com/steel-dev/awesome-web-agents/graphs/contributors)!
+[이 기여자들에게 감사드립니다](https://github.com/steel-dev/awesome-web-agents/graphs/contributors)!
