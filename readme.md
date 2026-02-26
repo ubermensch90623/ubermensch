@@ -50,6 +50,7 @@ Steel is an [open-source](https://github.com/steel-dev/steel-browser) browser AP
   - [Web Search \& Query Tools](#web-search--query-tools)
   - [Benchmarks \& Research](#benchmarks--research)
   - [Tutorials \& Guides](#tutorials--guides)
+  - [금융공기업 NCS 기출문제 모음](#금융공기업-ncs-기출문제-모음)
   - [Interested in implementing Steel?](#interested-in-implementing-steel)
   - [Join the Community](#join-the-community)
   - [Contributing](#contributing)
@@ -183,6 +184,12 @@ Resources for learning how to build, deploy, or utilize AI web agents.
 - [Build an AI Browser Agent](https://dzone.com/articles/build-ai-browser-agent-llms-playwright-browser-use) - Step-by-step guide to create an AI that browses the web using Playwright and the Browser-Use library.
 - [Install & Run Browser-Use Locally](https://aleksandarhaber.com/install-and-run-browser-use-ai-agents-locally-using-ollama/) - Instructions on installing the open-source Browser-Use agent with a local LLM.
 - [Build a Browser Agent with DeepSeek](https://nodeshift.com/blog/build-a-browser-use-agent-with-deepseek-a-step-by-step-guide) - Walks through deploying a Browser-Use web UI agent powered by the DeepSeek model on a cloud VM.
+
+## 금융공기업 NCS 기출문제 모음
+
+금융공기업 NCS 기출문제 및 학습 자료를 과목별, 기관별, 년도별로 분류한 큐레이션 목록입니다.
+
+**[금융공기업 NCS 기출문제 모음 바로가기 →](ncs-financial-exams.md)**
 
 <!-- END CONTENT -->
 
