@@ -133,6 +133,8 @@ AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스�
 - [AppAgentX (Westlake AGI Lab)](https://github.com/Westlake-AGI-Lab/AppAgentX) - AppAgent의 차세대 버전. 반복 작업을 고수준 숏컷으로 진화시키는 메모리 기반 GUI 에이전트. LangChain/Neo4j/Pinecone 기반. ![GitHub Repo stars](https://img.shields.io/github/stars/Westlake-AGI-Lab/AppAgentX?style=social)
 - [Midscene.js (ByteDance)](https://github.com/web-infra-dev/midscene) - 비전 모델 기반 자연어 UI 자동화 프레임워크. Web/Android(adb)/iOS(WDA) 지원. UI-TARS, GPT-4o, Gemini 호환. MCP 서비스 제공. MIT 라이선스. ![GitHub Repo stars](https://img.shields.io/github/stars/web-infra-dev/midscene?style=social)
 - [GUI Odyssey (OpenGVLab)](https://github.com/OpenGVLab/GUI-Odyssey) - 212개 앱, 1,400개 조합의 크로스앱 모바일 내비게이션 대규모 데이터셋. 8,834 에피소드. ICCV 2025. ![GitHub Repo stars](https://img.shields.io/github/stars/OpenGVLab/GUI-Odyssey?style=social)
+- [MLLM Engine](https://github.com/UbiquitousLearning/mllm) - 모바일 디바이스에서 멀티모달 LLM을 고속 실행하는 온디바이스 추론 엔진. Qualcomm NPU AOT 풀 그래프 실행 지원. MIT 라이선스. ![GitHub Repo stars](https://img.shields.io/github/stars/UbiquitousLearning/mllm?style=social)
+- [LFM2.5 (Liquid AI)](https://www.liquid.ai/blog/introducing-lfm2-5-the-next-generation-of-on-device-ai) - 온디바이스 에이전트 AI를 위한 차세대 소형 언어 모델. 차량, 모바일, IoT 등 제한된 하드웨어에서 네이티브 실행. 오디오 모델 전작 대비 8배 빠름.
 
 ### 모바일 개발 및 테스트 도구
 
@@ -148,6 +150,15 @@ AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스�
 - [Appium MCP (공식)](https://github.com/appium/appium-mcp) - Appium의 공식 MCP 서버. Claude 등 AI 에이전트가 자연어로 Android/iOS 디바이스를 자동화할 수 있게 연결. ![GitHub Repo stars](https://img.shields.io/github/stars/appium/appium-mcp?style=social)
 - [Claude-in-Mobile](https://github.com/AlexGladkov/claude-in-mobile) - Claude를 통해 자연어로 Android/iOS/Desktop/Aurora OS 디바이스를 제어하는 MCP 서버. 단일 2MB Rust 바이너리. ![GitHub Repo stars](https://img.shields.io/github/stars/AlexGladkov/claude-in-mobile?style=social)
 - [Mobile MCP (Mobile Next)](https://github.com/mobile-next/mobile-mcp) - iOS/Android 실기기·에뮬레이터·시뮬레이터를 플랫폼 무관하게 자동화하는 MCP 서버. 접근성 스냅샷 + 스크린샷 기반 좌표 탭 지원. Claude, Cursor, Copilot 등 MCP 클라이언트와 호환. Apache-2.0. ![GitHub Repo stars](https://img.shields.io/github/stars/mobile-next/mobile-mcp?style=social)
+- [mcp-scrcpy-vision (Anthropic)](https://lobehub.com/mcp/anthropics-mcp-scrcpy-vision) - Anthropic의 scrcpy 기반 Android 비전+제어 MCP 서버. 스트리밍 시 탭/스와이프 5-10ms 초저지연. uiautomator UI 자동화, 파일 전송, 클립보드, 멀티 디바이스, WiFi ADB 지원.
+- [screen-buffer-mcp](https://github.com/vladkarpman/screen-buffer-mcp) - scrcpy 프레임 버퍼로 ~50ms 초고속 Android 스크린샷을 제공하는 MCP 서버. 10프레임 순환 버퍼로 최근 프레임 즉시 접근. adb 폴백 지원. ![GitHub Repo stars](https://img.shields.io/github/stars/vladkarpman/screen-buffer-mcp?style=social)
+- [Ultimate Android MCP](https://github.com/oddlyspaced/ultimate-android-mcp) - LLM에 최대 범위의 Android 제어 기능을 제공하는 MCP 서버. 앱 관리, UI 상호작용, 디바이스 정보 조회, scrcpy 화면 공유 지원. ![GitHub Repo stars](https://img.shields.io/github/stars/oddlyspaced/ultimate-android-mcp?style=social)
+- [Android MCP Server (minhalvp)](https://github.com/minhalvp/android-mcp-server) - ADB를 통해 Android 디바이스를 프로그래밍 방식으로 제어하는 MCP 서버. Claude 등 MCP 클라이언트와 호환. 유연한 디바이스 설정. ![GitHub Repo stars](https://img.shields.io/github/stars/minhalvp/android-mcp-server?style=social)
+- [adb-mcp](https://github.com/srmorete/adb-mcp) - TypeScript 기반 ADB MCP 서버. UI 계층 구조를 XML로 덤프하는 inspect_ui 기능으로 AI 에이전트의 화면 구조 이해 지원. ![GitHub Repo stars](https://img.shields.io/github/stars/srmorete/adb-mcp?style=social)
+- [Android Puppeteer MCP](https://lobehub.com/mcp/pedro-rivas-android-puppeteer-mcp) - uiautomator2 기반 시각 우선 Android MCP 서버. 지능형 UI 요소 탐지, 터치 상호작용, 텍스트 입력, scrcpy 비디오 녹화 통합.
+- [iPhone MCP (Lakr233)](https://github.com/Lakr233/iphone-mcp) - Appium + XCUITest + WebDriverAgent 기반 iPhone 자동화 MCP 서버. 성숙한 iOS 자동화 도구 위에 AI 친화적 MCP 인터페이스 제공. ![GitHub Repo stars](https://img.shields.io/github/stars/Lakr233/iphone-mcp?style=social)
+- [XcodeBuildMCP (Sentry)](https://github.com/getsentry/XcodeBuildMCP) - AI 에이전트가 Xcode를 완전 제어하는 MCP 서버+CLI. iOS/macOS 앱 빌드, 테스트, 디버그, 배포 자동화. 시뮬레이터 UI 상호작용 및 스크린샷 지원. Cursor, Claude Code, VS Code 호환. ![GitHub Repo stars](https://img.shields.io/github/stars/getsentry/XcodeBuildMCP?style=social)
+- [iOS Simulator MCP](https://lobehub.com/mcp/joshuayoes-ios-simulator-mcp) - iOS 시뮬레이터 UI 상호작용, 검사, 제어를 위한 MCP 서버. Anthropic Claude Code 모범 사례 및 React Native 뉴스레터에 소개됨.
 
 ### 모바일 벤치마크
 
@@ -158,6 +169,7 @@ AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스�
 - [SPA-Bench](https://github.com/ai-agents-2030/SPA-Bench) - 11개 에이전트를 통합 평가하는 340개 태스크 기반 종합 스마트폰 에이전트 벤치마크. 300 단일앱 + 40 크로스앱 태스크. ICLR 2025 Spotlight. ![GitHub Repo stars](https://img.shields.io/github/stars/ai-agents-2030/SPA-Bench?style=social)
 - [MobileAgentBench](https://github.com/MobileAgentBench/mobile-agent-bench) - 10개 오픈소스 앱의 100개 태스크로 모바일 LLM 에이전트를 효율적으로 벤치마킹하는 자동화 평가 도구. ![GitHub Repo stars](https://img.shields.io/github/stars/MobileAgentBench/mobile-agent-bench?style=social)
 - [B-MoCA (KAIST)](https://github.com/jylee425/b-moca) - 다양한 디바이스 설정(UI 레이아웃, 언어)에서 모바일 에이전트 일반화 성능을 평가하는 인터랙티브 벤치마크. 131개 일상 태스크. CoLLAs 2025. ![GitHub Repo stars](https://img.shields.io/github/stars/jylee425/b-moca?style=social)
+- [AndroidArena](https://github.com/AndroidArenaAgent/AndroidArena) - 크로스앱 협업과 사용자 제약 조건(보안, 선호도) 준수를 평가하는 LLM 에이전트 벤치마크. 탐색 전략으로 성공률 27% 향상. ![GitHub Repo stars](https://img.shields.io/github/stars/AndroidArenaAgent/AndroidArena?style=social)
 
 ## AI 웹 자동화 도구
 
