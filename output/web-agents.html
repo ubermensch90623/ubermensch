@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Awesome Web Agents</title>
 <style>
-  body { max-width: 900px; margin: 40px auto; padding: 0 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6; color: #24292e; background: #fff; }
-  h1 { border-bottom: 1px solid #eaecef; padding-bottom: 10px; }
+  * { box-sizing: border-box; }
+  body { max-width: 960px; margin: 40px auto; padding: 0 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6; color: #24292e; background: #fff; }
+  h1 { border-bottom: 2px solid #0366d6; padding-bottom: 10px; }
   h2 { border-bottom: 1px solid #eaecef; padding-bottom: 8px; margin-top: 40px; }
   h3 { margin-top: 30px; }
   a { color: #0366d6; text-decoration: none; }
@@ -22,15 +23,27 @@
   ul { padding-left: 2em; }
   li { margin: 4px 0; }
   img { max-width: 100%; }
-  .nav { background: #f6f8fa; padding: 12px 20px; border-radius: 6px; margin-bottom: 30px; }
-  .nav a { margin-right: 20px; font-weight: 600; }
+
+  /* Tab navigation */
+  .tabs { display: flex; gap: 0; border-bottom: 2px solid #0366d6; margin-bottom: 30px; position: sticky; top: 0; background: #fff; z-index: 10; padding-top: 10px; }
+  .tab-btn { padding: 10px 24px; border: none; background: #f6f8fa; cursor: pointer; font-size: 15px; font-weight: 600; color: #586069; border-radius: 6px 6px 0 0; margin-right: 2px; transition: all 0.2s; }
+  .tab-btn:hover { background: #e1e4e8; color: #24292e; }
+  .tab-btn.active { background: #0366d6; color: #fff; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Back to top */
+  .top-btn { position: fixed; bottom: 30px; right: 30px; background: #0366d6; color: #fff; border: none; border-radius: 50%; width: 48px; height: 48px; font-size: 22px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: none; z-index: 99; }
+  .top-btn:hover { background: #0256b9; }
+
+  @media print { .tabs, .top-btn { display: none !important; } .tab-content { display: block !important; page-break-before: always; } }
 </style>
 </head>
 <body>
-<div class="nav">
-  <a href="index.html">HOME</a>
-  <a href="ncs-financial-exams.html">NCS 기출문제</a>
-  <a href="web-agents.html">Web Agents</a>
+<div class="tabs">
+  <a class="tab-btn" href="index.html">HOME</a>
+  <a class="tab-btn" href="ncs-financial-exams.html">NCS 기출문제</a>
+  <a class="tab-btn" href="web-agents.html">Web Agents</a>
 </div>
 <div align="center">
 
@@ -271,5 +284,11 @@ A curated list of tools, frameworks, and resources for building AI agents that c
 <p><a href="contributing.md">Contributions of any kind welcome, just follow the guidelines</a>!</p>
 <h3 id="contributors">Contributors</h3>
 <p><a href="https://github.com/steel-dev/awesome-web-agents/graphs/contributors">Thanks goes to these contributors</a>!</p>
+<button class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+<script>
+window.addEventListener('scroll', function() {
+  document.querySelector('.top-btn').style.display = window.scrollY > 400 ? 'block' : 'none';
+});
+</script>
 </body>
 </html>
