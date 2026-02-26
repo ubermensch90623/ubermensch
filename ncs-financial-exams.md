@@ -6,9 +6,11 @@
 
 - [학습 자료 및 사이트](#학습-자료-및-사이트)
   - [공식 사이트](#공식-사이트)
-  - [무료 학습 자료](#무료-학습-자료)
+  - [무료 경제/금융 학습 자료](#무료-경제금융-학습-자료)
+  - [무료 모의고사 및 기출문제 플랫폼](#무료-모의고사-및-기출문제-플랫폼)
   - [온라인 강의 플랫폼](#온라인-강의-플랫폼)
   - [커뮤니티](#커뮤니티)
+  - [참고/정보 사이트](#참고정보-사이트)
 - [과목별 분류](#과목별-분류)
   - [의사소통](#의사소통)
   - [문제해결](#문제해결)
@@ -16,6 +18,7 @@
   - [수리능력](#수리능력)
   - [경제학](#경제학)
 - [기관별 분류](#기관별-분류)
+  - [금융공기업 시험 개요](#금융공기업-시험-개요)
   - [한국은행](#한국은행)
   - [금융감독원](#금융감독원)
   - [한국산업은행](#한국산업은행)
@@ -42,35 +45,75 @@
 
 ### 공식 사이트
 
-- [NCS 국가직무능력표준](https://www.ncs.go.kr/) - NCS 공식 포털. 직업기초능력 학습 모듈, 채용 정보, 자가진단 도구 제공.
-- [NCS 직업기초능력 학습자료실](https://ncs.go.kr/blind/blp/bbs_lib_list.do?libDstinCd=55) - 의사소통, 수리능력, 문제해결 등 10개 영역 공식 학습자료 무료 다운로드.
-- [공공데이터포털 - 직업기초능력 학습자료](https://www.data.go.kr/data/15077168/fileData.do) - 한국산업인력공단 제공 영역별 학습자료 데이터셋.
-- [공공기관 채용정보 시스템 (알리오)](https://job.alio.go.kr/) - 기획재정부 운영 공공기관 채용 공고 통합 시스템.
+- [NCS 국가직무능력표준](https://www.ncs.go.kr/) - NCS 공식 포털. 24개 대분류, 80개 중분류, 238개 소분류, 887개 세분류 체계로 구성된 국가직무능력표준 정보 제공.
+- [NCS 직업기초능력 학습자료실](https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121) - 의사소통, 수리능력, 문제해결 등 10개 영역 공식 학습자료 무료 다운로드.
+- [NCS 채용모델 필기문항](https://ncs.go.kr/blind/rh13/bbs_lib_list.do?libDstinCd=48) - NCS 기반 채용 모델 공식 필기시험 샘플 문항.
+- [NCS 필기문항 예시문항](https://ncs.go.kr/blind/blp/bbs_lib_list.do?libDstinCd=55) - 시험 대비를 위한 추가 예시 문항.
+- [NCS 학습모듈 검색](https://www.ncs.go.kr/th06/bbs_lib_list.do?libDstinCd=18) - 분야·키워드별 NCS 학습모듈 다운로드. 공공누리 제2유형 무료 이용.
+- [NCS 학습 자료실](https://www.ncs.go.kr/th02/TH0203List.do?dirSeq=145) - 통합 학습 자료 아카이브.
+- [한국산업인력공단 NCS](https://www.hrdkorea.or.kr/1/7/1) - NCS 운영기관의 프로그램 안내.
+- [공공데이터포털 - 직업기초능력 학습자료](https://www.data.go.kr/data/15077168/fileData.do) - 한국산업인력공단 제공 영역별 학습자료 데이터셋. 학습자용 가이드, 강사용 가이드, 학습확인 자료, 동영상 강의 포함.
+- [공공기관 채용정보 시스템 (잡알리오)](https://job.alio.go.kr/) - 기획재정부 운영 공공기관 채용 공고 통합 시스템. 지역, 채용유형, 기관별 검색 가능.
+- [공공기관 경영정보 공개시스템 (알리오)](https://www.alio.go.kr/) - 공공기관 경영정보 공개 시스템. 채용 공고, 임원 채용, 기관 데이터 포함.
+- [클린아이 잡플러스](https://job.cleaneye.go.kr/) - 지방공공기관 채용정보 사이트.
+- [한국은행 채용사이트](https://apply.bok.or.kr/) - 한국은행 공식 채용 포털. 기출자료 아카이브 및 채용공고 확인.
 - [나라일터](https://www.gojobs.go.kr/) - 정부 공식 공공기관 채용 포털.
+- [잡코리아 채용일정](https://www.jobkorea.co.kr/starter/recruitment_schedule) - 공공기관 및 공기업 채용 일정 캘린더.
 
-### 무료 학습 자료
+### 무료 경제/금융 학습 자료
 
+- [한국은행 경제금융용어 700선 (PDF)](https://www.bok.or.kr/portal/bbs/B0000249/view.do?nttId=235017&menuNo=200765) - 한국은행이 정리한 700개 핵심 경제/금융 용어. PDF 무료 다운로드.
+- [한국은행 알기 쉬운 경제이야기](https://www.bok.or.kr/portal/bbs/B0000249/view.do?menuNo=200765&nttId=10061816) - GDP, 물가, 국제수지 등 핵심 경제개념 쉬운 해설 시리즈.
+- [한국은행 경제교육 발간자료](https://www.bok.or.kr/portal/bbs/B0000249/list.do?menuNo=200765) - 한국은행 경제교육 간행물 전체 목록.
+- [한은금요강좌](https://www.bok.or.kr/portal/main/contents.do?menuNo=200496) - 통화정책, 금융시장, 통계 등 심화 경제분석 공개 강좌.
+- [KDI 경제교육·정보센터](https://eiec.kdi.re.kr/) - 한국개발연구원 무료 경제교육 포털. 학습 동영상, 카드뉴스, 시사경제용어, 경제개념, Q&A 제공.
+- [경제배움e+](https://www.econedu.go.kr/) - 기획재정부 디지털 경제교육 플랫폼. 시장경제, 경제이론, 수요·공급, 기업·생산성 주제 학습.
+- [KOCW 무료 대학 공개강의](https://www.kocw.net/) - 무료 대학 수준 경제학 강의 제공:
+  - [경제학원론1 (건국대학교)](http://www.kocw.net/home/cview.do?mty=p&kemId=865370)
+  - [경제학입문 (연세대학교)](http://kocw.net/home/cview.do?mty=p&kemId=1192064)
+  - [미시경제학 (한양대학교)](http://www.kocw.net/home/search/kemView.do?kemId=859693)
 - [링커리어 - 2025 최신 NCS 기출문제 정리](https://community.linkareer.com/employment_data/4251423) - 출제 경향, 영역별 문제 예시 및 해설, 학습법 정리.
-- [링커리어 - NCS 기출문제 유형별 풀이 전략](https://community.linkareer.com/employment_data/4182192) - 핵심 4개 영역 대표 유형과 풀이 전략.
-- [NCS 정복 자료실 (인사이트코리아)](https://insightkorea.or.kr/mod/data/view.php?id=640) - NCS 기출 문제집 및 학습 자료 공유 플랫폼.
-- [잡코리아 - 공기업 NCS 모의고사](https://www.jobkorea.co.kr/Starter/AptitudeTest/PubCoMockTest) - 기출 모의고사 및 해설 강의 (일부 무료).
-- [사람인 - 공기업 모의고사](https://www.saramin.co.kr/zf_user/member/mock-exam/public-company) - NCS 실전 기출 문제 모음 (ID당 무료 1회).
+- [링커리어 - NCS 기출문제 유형별 풀이 전략](https://community.linkareer.com/employment_data/4182192) - 핵심 4개 영역(의사소통, 수리, 문제해결, 자원관리) 대표 유형과 풀이 전략.
+- [한국은행 통계직렬 준비자료 (GitHub Pages)](https://yitae-kwon.github.io/bok-stat/) - 한국은행 통계직렬 개인 학습 노트. 금융공기업 계량경제학 대비에도 유용.
+
+### 무료 모의고사 및 기출문제 플랫폼
+
+- [링커리어 CBT](https://cbt.linkareer.com/) - 실제 기출 기반 무료 온라인 CBT 모의고사 (위포트 연구소 제공). 공기업별 모의고사: [공기업 CBT](https://cbt.linkareer.com/exam/public-company).
+- [잡코리아 - 공기업 NCS 모의고사](https://www.jobkorea.co.kr/Starter/AptitudeTest/PubCoMockTest) - 기출 모의고사 및 해설 강의. 공기밥닷컴과 제휴하여 약 30,000문항 이상 제공.
+- [사람인 - 공기업 모의고사](https://www.saramin.co.kr/zf_user/member/mock-exam/public-company) - NCS 실전 기출 문제 모음 (무료 및 유료 혼합).
+- [공기밥닷컴](http://www.gongibob.com/) - 한국 최대 공기업 기출문제 데이터베이스. 실제 시험 기출 30,000문항 이상 보유. 시험별, 과목별, 무제한 패키지 제공.
+- [NCS Information](https://www.ncs-information.com/) - NCS 기출 데이터 및 기관별 가이드 통합 정보 사이트.
+- [해커스 무료 교재 다운로드](https://ejob.hackers.com/book/free_down) - NCS 관련 무료 교재 다운로드.
 
 ### 온라인 강의 플랫폼
 
-- [에듀윌 공기업](https://public.eduwill.net/) - NCS 인강, 기본서, 모의고사 제공. 한경비즈니스 취업교육 1위.
-- [시대에듀 NCS](https://www.sdedu.co.kr/cp/?cat_id=004024) - NCS 통합기본서, 최종모의고사, 무료 특강 제공.
-- [해커스 공기업](https://public.hackers.com/) - NCS 합격 강의, 기관별 특화 과정 제공.
-- [공단기 (공기업단기)](https://public.conects.com/) - NCS, 경영학, 경제학, 행정학 등 전공 무제한 수강 패키지.
-- [위포트 NCS](https://ncs.weport.co.kr/) - 공기업 NCS 필기 대비 강의, 자소서첨삭, 모의면접 제공.
+- [에듀윌 공기업](https://brand.eduwill.net/) - NCS 인강, 기본서, 모의고사 제공. 한경비즈니스 취업교육 브랜드 만족도 1위.
+- [시대에듀 NCS](https://www.sdedu.co.kr/) - NCS 통합기본서, 최종모의고사, 무료 특강. 「기출이 답이다」 IBK기업은행 시리즈 출판.
+- [해커스 공기업](https://public.hackers.com/) - NCS 모듈형/PSAT형 합격 강의, 무료 모의고사, 기관별 특화 과정.
+- [공기업단기 (공단기)](https://public.conects.com/) - NCS, 경영학, 경제학, 행정학 등 전과목 전문 강사 무제한 수강 패키지. 합격 시 수강료 환급.
+- [위포트 NCS](https://ncs.weport.co.kr/) - 10년간 72,465명 이상 합격. 공기업 NCS 필기 대비 강의, 자소서첨삭, 모의면접 제공.
+- [고범석 경제학아카데미](https://www.koeconomics.com/) - 금융공기업 경제학 전문 입시 학원 (한국은행, 산업은행, 수출입은행 등 대상). 무료 강의, 기출 아카이브, Q&A 제공.
 - [와우패스 금융NCS](https://www.wowpass.com/) - 금융권 NCS 직무수행능력 대비 과정 (국민은행, 기업은행, 농협은행 등).
 - [혼잡](https://m.honjob.co.kr/) - 금융공기업 기본서 정답/해설, 실전모의고사 자료 제공.
 
 ### 커뮤니티
 
+- [독취사 (독하게 취업하는 사람들)](https://cafe.naver.com/dokchi) - 한국 최대 취업 네이버 카페 (300만+ 회원). 실시간 채용공고, 자소서 첨삭, 스터디 모집, 합격 후기. 등급별 접근 체계.
+- [공취모 (공기업 취업준비생 모임)](https://cafe.naver.com/) - 100만+ 회원. 공기업 취업 전용 카페. 무료 취업 가이드 PDF, 기관별 합격 수기, 스터디 모집.
+- [공준모 (공기업/교직원 취업 카페)](https://cafe.naver.com/studentstudyhard) - 100만+ 회원. 현직 공기업/교육기관 직원 운영. 자소서 가이드, 적성검사 가이드, 상담 게시판.
+- [링커리어 커뮤니티](https://community.linkareer.com/) - 대학생 취업 고민, 인턴 경험, 취업 팁 공유 커뮤니티. NCS 커뮤니티: [CBT NCS](https://cbt-community.linkareer.com/cbt-ncs).
+- [위포트 커뮤니티](https://community.weport.co.kr/) - 스터디 그룹 (5일 NCS 완성 스터디 등), 취업 팁, 실제 합격 후기.
+- [DC인사이드 공기업 갤러리](https://m.dcinside.com/board/rhdrldjq/) - 현직 직원 및 취업 준비생의 NCS 시험, 팁, 경험 공유 익명 게시판.
+- [DC인사이드 경제 갤러리](https://gall.dcinside.com/board/view/?id=economy) - A매치/B매치 금융공기업 시험 전략 및 요약 토론.
 - [공취사 (공기업취업사관학교)](https://gongchisa.modoo.at/) - 공기업 채용정보, NCS 자료, 필기시험/면접후기 무료 제공 커뮤니티.
-- [잡코리아 공채 일정](https://www.jobkorea.co.kr/starter/recruitment_schedule) - 공공기관 및 공기업 채용 일정 확인.
 - [잡로드 금융공기업](https://blog.jobroadclass.co.kr/) - 금융공기업 필기시험 일정 및 합격 전략 블로그.
+
+### 참고/정보 사이트
+
+- [나무위키 - 국가직무능력표준](https://namu.wiki/w/%EA%B5%AD%EA%B0%80%EC%A7%81%EB%AC%B4%EB%8A%A5%EB%A0%A5%ED%91%9C%EC%A4%80) - NCS 시험 전략, 과목 분석, 난이도 비교 등 종합 위키 문서.
+- [나무위키 - 경제학/시험](https://namu.wiki/w/%EA%B2%BD%EC%A0%9C%ED%95%99/%EC%8B%9C%ED%97%98) - 한국은행, 산업은행, 수출입은행 등 각 공공기관별 경제학 시험 상세 분석.
+- [슈퍼루키](https://www.superookie.com/contents/5f9fdb5c8b129f18d5153a1e) - NCS 학습 방법 가이드.
+- [NCS 정복 자료실 (인사이트코리아)](https://insightkorea.or.kr/mod/data/view.php?id=640) - NCS 기출 문제집 및 학습 자료 공유 플랫폼.
 
 ---
 
@@ -87,7 +130,7 @@ NCS 직업기초능력 중 의사소통능력 영역. 문서이해, 문서작성
 - 회의록, 보고서, 공문서 등 실무 문서 이해
 
 **학습 자료:**
-- [NCS 공식 의사소통능력 학습모듈](https://www.ncs.go.kr/) - NCS 포털에서 "의사소통" 검색
+- [NCS 공식 의사소통능력 학습모듈](https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121) - 의사소통 영역 공식 학습자료
 - [에듀윌 NCS 의사소통 기본서](https://book.eduwill.net/) - 영역별 기본서 시리즈
 
 ---
@@ -103,7 +146,7 @@ NCS 직업기초능력 중 문제해결능력 영역. 사고력, 문제처리능
 - 업무 프로세스 개선 방안
 
 **학습 자료:**
-- [NCS 공식 문제해결능력 학습모듈](https://www.ncs.go.kr/) - NCS 포털에서 "문제해결" 검색
+- [NCS 공식 문제해결능력 학습모듈](https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121) - 문제해결 영역 공식 학습자료
 - [링커리어 문제해결 유형 분석](https://community.linkareer.com/employment_data/4182192)
 
 ---
@@ -119,7 +162,7 @@ NCS 직업기초능력 중 수리능력의 하위 영역으로, 도표 분석 �
 - 자료에 근거한 추론 및 판단
 
 **학습 자료:**
-- [NCS 공식 수리능력 학습모듈](https://www.ncs.go.kr/) - "도표분석" 및 "도표작성" 섹션
+- [NCS 공식 수리능력 학습모듈](https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121) - "도표분석" 및 "도표작성" 섹션
 - [잡코리아 NCS 자료해석 모의고사](https://www.jobkorea.co.kr/Starter/AptitudeTest/PubCoMockTest)
 
 ---
@@ -135,7 +178,7 @@ NCS 직업기초능력 중 수리능력 영역. 기초연산, 기초통계, 도�
 - 예산, 매출, 비용 등 실무 수리 문제
 
 **학습 자료:**
-- [NCS 공식 수리능력 학습모듈](https://www.ncs.go.kr/) - NCS 포털에서 "수리능력" 검색
+- [NCS 공식 수리능력 학습모듈](https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121) - "수리능력" 영역 학습자료
 - [공공데이터포털 수리능력 학습자료](https://www.data.go.kr/data/15077168/fileData.do)
 
 ---
@@ -151,6 +194,11 @@ NCS 직업기초능력 중 수리능력 영역. 기초연산, 기초통계, 도�
 - 국제경제학: 환율결정, 국제수지, 무역이론
 
 **학습 자료:**
+- [한국은행 경제금융용어 700선](https://www.bok.or.kr/portal/bbs/B0000249/view.do?nttId=235017&menuNo=200765) - 핵심 용어 PDF 무료 다운로드
+- [한국은행 알기 쉬운 경제이야기](https://www.bok.or.kr/portal/bbs/B0000249/view.do?menuNo=200765&nttId=10061816) - 경제 기초 개념 해설
+- [KDI 경제교육·정보센터](https://eiec.kdi.re.kr/) - 경제개념, 시사경제, Q&A 무료 학습
+- [KOCW 경제학 공개강의](https://www.kocw.net/) - 대학 수준 경제학 무료 강의
+- [고범석 경제학아카데미](https://www.koeconomics.com/) - 금융공기업 경제학 전문 강의 및 기출 아카이브
 - [공단기 경제학 강의](https://public.conects.com/) - 금융공기업 경제학 전공 패키지
 - [와우패스 금융NCS 경제학](https://www.wowpass.com/) - 금융권 경제학 대비 과정
 
@@ -158,9 +206,26 @@ NCS 직업기초능력 중 수리능력 영역. 기초연산, 기초통계, 도�
 
 ## 기관별 분류
 
+### 금융공기업 시험 개요
+
+주요 금융공기업(A매치/B매치)의 시험 형식 및 핵심 과목 비교:
+
+| 기관 | 시험 형식 | 핵심 과목 |
+|------|-----------|-----------|
+| **한국은행** | 논술형 필기 (최고 난이도) | 미시경제학, 거시경제학, 계량경제학, 화폐금융론, 국제경제학 |
+| **금융감독원** | 혼합형 (NCS + 전공) | 경제학, 경영학, 법학 (택1) |
+| **한국산업은행** | 전과목 주관식/논술 | 경제학 + 금융 시사 논술 |
+| **한국수출입은행** | 전과목 주관식 (단답 + 논술) | 경제학 (계산 중심, 화폐금융론 비중 낮음) |
+| **IBK기업은행** | NCS + 전공시험 | NCS 핵심역량 + 금융지식 |
+| **한국거래소** | NCS + 전공시험 | 경제학, 재무관리, 회계학, 법학 |
+| **신용보증기금** | NCS + 직무수행능력 | 경제학, 경영학, 회계학 |
+| **기술보증기금** | NCS + 전공시험 | 경제학/경영학 (선택) |
+
+---
+
 ### 한국은행
 
-> 한국은행 채용 포털: [https://www.bok.or.kr/](https://www.bok.or.kr/)
+> 한국은행 채용 포털: [https://apply.bok.or.kr/](https://apply.bok.or.kr/)
 
 **채용 직렬:** 종합기획직원 (G5) - 경제, 경영, 법률, IT 직렬
 
@@ -173,6 +238,7 @@ NCS 직업기초능력 중 수리능력 영역. 기초연산, 기초통계, 도�
 **기출 정보:**
 - 2025년 상반기 채용 공고 확인: [한국은행 채용 안내](https://www.bok.or.kr/portal/bbs/P0000561/view.do?nttId=10086019)
 - 별도의 NCS 직업기초능력평가 없이 전공 필기 위주로 선발
+- [고범석 경제학아카데미 기출 아카이브](https://www.koeconomics.com/) - 한국은행 경제학 기출 분석
 
 ---
 
@@ -200,6 +266,7 @@ NCS 직업기초능력 중 수리능력 영역. 기초연산, 기초통계, 도�
 
 **필기시험 특징:**
 - NCS 직업기초능력평가 + 전공시험
+- 전과목 주관식/논술 형태
 - 주요 과목: 경제학, 경영학, 재무관리
 - NCS 모듈형/피셋형 유형 혼합 출제
 
@@ -230,7 +297,9 @@ NCS 직업기초능력 중 수리능력 영역. 기초연산, 기초통계, 도�
 
 **필기시험 특징:**
 - NCS 직업기초능력평가 + 전공시험
-- 전공: 경제학, 경영학, 법학 등 직렬별 상이
+- 전과목 주관식 (단답 + 논술)
+- 전공: 경제학(계산 중심), 경영학, 법학 등 직렬별 상이
+- 화폐금융론 비중 상대적으로 낮음
 - 2025년 4월 필기시험 예정 (잡로드 일정 참조)
 
 **기출 정보:**
