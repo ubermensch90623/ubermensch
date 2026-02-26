@@ -124,6 +124,9 @@ AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스�
 - [Agent-S (Simular AI)](https://github.com/simular-ai/Agent-S) - 컴퓨터와 모바일 디바이스를 사람처럼 사용하는 오픈 에이전트 프레임워크. OSWorld 인간 수준 성능(72.60%) 돌파. ICLR 2025 최우수 논문상. ![GitHub Repo stars](https://img.shields.io/github/stars/simular-ai/Agent-S?style=social)
 - [Open-AutoGLM (Zhipu)](https://github.com/zai-org/Open-AutoGLM) - 멀티모달 AI로 스마트폰 화면을 인식하여 자연어 명령으로 폰을 자율 조작하는 오픈소스 에이전트. Android 50개+, HarmonyOS 60개+ 앱 지원. Apache-2.0. ![GitHub Repo stars](https://img.shields.io/github/stars/zai-org/Open-AutoGLM?style=social)
 - [DigiRL](https://github.com/DigiRL-agent/digirl) - 자율 강화학습으로 실제 환경에서 모바일 디바이스를 제어하는 에이전트 훈련 프레임워크. Android-in-the-Wild 성공률 67.2%. ![GitHub Repo stars](https://img.shields.io/github/stars/DigiRL-agent/digirl?style=social)
+- [OpenPhone (HKUDS)](https://github.com/HKUDS/OpenPhone) - 최초의 오픈소스 3B 파라미터 온디바이스 모바일 에이전트 파운데이션 모델. 클라우드 의존 없이 프라이버시를 지키며 스마트폰에서 직접 실행. Qwen2.5-VL-3B 기반, GRPO 강화학습으로 9B 모델 대비 동등 성능. MIT 라이선스. ![GitHub Repo stars](https://img.shields.io/github/stars/HKUDS/OpenPhone?style=social)
+- [CogAgent (Zhipu AI)](https://github.com/zai-org/CogAgent) - 칭화대·Zhipu AI의 엔드투엔드 VLM 기반 GUI 에이전트. CogAgent-9B로 PC·모바일(Android 13-15) GUI 작업에서 SOTA 달성. CVPR 2024 Highlight (상위 3%). ![GitHub Repo stars](https://img.shields.io/github/stars/zai-org/CogAgent?style=social)
+- [UI-Genie](https://github.com/Euphoria16/UI-Genie) - 자가 개선(Self-Improving) 방식으로 모바일 GUI 에이전트 성능을 반복적으로 향상시키는 프레임워크. NeurIPS 2025 채택. ![GitHub Repo stars](https://img.shields.io/github/stars/Euphoria16/UI-Genie?style=social)
 
 ### 모바일 개발 및 테스트 도구
 
@@ -135,11 +138,13 @@ AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스�
 
 - [Appium MCP (공식)](https://github.com/appium/appium-mcp) - Appium의 공식 MCP 서버. Claude 등 AI 에이전트가 자연어로 Android/iOS 디바이스를 자동화할 수 있게 연결. ![GitHub Repo stars](https://img.shields.io/github/stars/appium/appium-mcp?style=social)
 - [Claude-in-Mobile](https://github.com/AlexGladkov/claude-in-mobile) - Claude를 통해 자연어로 Android/iOS/Desktop/Aurora OS 디바이스를 제어하는 MCP 서버. 단일 2MB Rust 바이너리. ![GitHub Repo stars](https://img.shields.io/github/stars/AlexGladkov/claude-in-mobile?style=social)
+- [Mobile MCP (Mobile Next)](https://github.com/mobile-next/mobile-mcp) - iOS/Android 실기기·에뮬레이터·시뮬레이터를 플랫폼 무관하게 자동화하는 MCP 서버. 접근성 스냅샷 + 스크린샷 기반 좌표 탭 지원. Claude, Cursor, Copilot 등 MCP 클라이언트와 호환. Apache-2.0. ![GitHub Repo stars](https://img.shields.io/github/stars/mobile-next/mobile-mcp?style=social)
 
 ### 모바일 벤치마크
 
 - [AndroidWorld (Google Research)](https://github.com/google-research/android_world) - 20개 앱, 116개 작업의 동적 모바일 에이전트 벤치마크 환경. 수백만 개의 고유 작업 변형 생성 가능. ICLR 2025. ![GitHub Repo stars](https://img.shields.io/github/stars/google-research/android_world?style=social)
 - [MobileWorld (Tongyi-MAI)](https://github.com/Tongyi-MAI/MobileWorld) - AndroidWorld의 후속 벤치마크. 201개 작업, 62.2% 다중 앱 태스크, 에이전트-사용자 상호작용 및 MCP 도구 통합 평가. ![GitHub Repo stars](https://img.shields.io/github/stars/Tongyi-MAI/MobileWorld?style=social)
+- [Android Agent Arena (A3)](https://openreview.net/forum?id=zE2tVigoub) - Google Play 20개 카테고리, 20개 실제 온라인 앱에서 100개 작업을 평가하는 모바일 GUI 에이전트 벤치마크. 기존 정적 벤치마크의 한계를 극복한 실시간 앱 평가 시스템. ICLR 2026.
 
 ## AI 웹 자동화 도구
 
