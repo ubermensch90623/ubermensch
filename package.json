@@ -1,0 +1,19 @@
+{
+  "name": "notebooklm-mcp-integration",
+  "version": "1.0.0",
+  "description": "NotebookLM + Claude MCP Integration - Google NotebookLM을 Claude에 연결",
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "mcp:start": "npx notebooklm-mcp@latest",
+    "mcp:config": "npx notebooklm-mcp config get",
+    "mcp:profile:minimal": "npx notebooklm-mcp config set profile minimal",
+    "mcp:profile:standard": "npx notebooklm-mcp config set profile standard",
+    "mcp:profile:full": "npx notebooklm-mcp config set profile full"
+  },
+  "keywords": ["notebooklm", "mcp", "claude", "ai", "research"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "notebooklm-mcp": "^1.2.1"
+  }
+}
