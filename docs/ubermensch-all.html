@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ubermensch - 금융공기업 NCS &amp; Web Agents</title>
+<style>
+  * { box-sizing: border-box; }
+  body { max-width: 960px; margin: 40px auto; padding: 0 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6; color: #24292e; background: #fff; }
+  h1 { border-bottom: 2px solid #0366d6; padding-bottom: 10px; }
+  h2 { border-bottom: 1px solid #eaecef; padding-bottom: 8px; margin-top: 40px; }
+  h3 { margin-top: 30px; }
+  a { color: #0366d6; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+  th, td { border: 1px solid #dfe2e5; padding: 8px 13px; text-align: left; }
+  th { background: #f6f8fa; font-weight: 600; }
+  tr:nth-child(even) { background: #f6f8fa; }
+  code { background: #f6f8fa; padding: 2px 6px; border-radius: 3px; font-size: 85%; }
+  pre { background: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  blockquote { border-left: 4px solid #dfe2e5; margin: 0; padding: 0 16px; color: #6a737d; }
+  ul { padding-left: 2em; }
+  li { margin: 4px 0; }
+  img { max-width: 100%; }
+
+  /* Tab navigation */
+  .tabs { display: flex; gap: 0; border-bottom: 2px solid #0366d6; margin-bottom: 30px; position: sticky; top: 0; background: #fff; z-index: 10; padding-top: 10px; }
+  .tab-btn { padding: 10px 24px; border: none; background: #f6f8fa; cursor: pointer; font-size: 15px; font-weight: 600; color: #586069; border-radius: 6px 6px 0 0; margin-right: 2px; transition: all 0.2s; }
+  .tab-btn:hover { background: #e1e4e8; color: #24292e; }
+  .tab-btn.active { background: #0366d6; color: #fff; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Back to top */
+  .top-btn { position: fixed; bottom: 30px; right: 30px; background: #0366d6; color: #fff; border: none; border-radius: 50%; width: 48px; height: 48px; font-size: 22px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: none; z-index: 99; }
+  .top-btn:hover { background: #0256b9; }
+
+  @media print { .tabs, .top-btn { display: none !important; } .tab-content { display: block !important; page-break-before: always; } }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('home')">HOME</button>
+  <button class="tab-btn" onclick="switchTab('ncs')">NCS 기출문제</button>
+  <button class="tab-btn" onclick="switchTab('agents')">Web Agents</button>
+</div>
+
+<div id="tab-home" class="tab-content active"><div align="center">
+
+# Ubermensch
+
+**AI 시대의 취업 준비 & 웹 에이전트 리소스 허브**
+
+[![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+
+</div>
+
+<hr />
+<h2 id="_1">프로젝트 소개</h2>
+<p>금융공기업 NCS 시험 대비 자료와 AI 웹 에이전트 큐레이션 리스트를 한 곳에 모은 리소스 허브입니다.</p>
+<h2 id="_2">목차</h2>
+<h3 id="ncs">NCS 금융공기업 취업 준비</h3>
+<table>
+<thead>
+<tr>
+<th>문서</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="ncs/financial-exams.md">금융공기업 NCS 기출문제 모음</a></td>
+<td>과목별 · 기관별 · 년도별 기출문제 및 학습 자료 (13개 기관, 5개 과목)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ai-web-agents">AI Web Agents</h3>
+<table>
+<thead>
+<tr>
+<th>문서</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="web-agents/README.md">Awesome Web Agents</a></td>
+<td>AI 웹 에이전트 도구 · 프레임워크 · 벤치마크 큐레이션 리스트</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">구조</h2>
+<pre><code>ubermensch/
+├── README.md                    # 이 파일
+├── ncs/
+│   └── financial-exams.md       # 금융공기업 NCS 기출문제 모음
+├── web-agents/
+│   └── README.md                # Awesome Web Agents 리스트
+├── contributing.md
+├── code_of_conduct.md
+└── license
+</code></pre>
+<h2 id="_4">기여하기</h2>
+<p>새로운 자료나 도구를 추가하고 싶다면 <a href="contributing.md">기여 안내</a>를 참조해주세요.</p>
+<h2 id="_5">라이선스</h2>
+<p><a href="license">CC0 1.0 Universal</a></p></div>
+<div id="tab-ncs" class="tab-content"><h1 id="ncs">금융공기업 NCS 기출문제 모음</h1>
+<blockquote>
+<p>금융공기업 NCS 기출문제 및 학습 자료를 과목별, 기관별, 년도별로 분류한 큐레이션 목록입니다. (2021~2026)</p>
+</blockquote>
+<h2 id="_1">목차</h2>
+<ul>
+<li><a href="#학습-자료-및-사이트">학습 자료 및 사이트</a></li>
+<li><a href="#공식-사이트">공식 사이트</a></li>
+<li><a href="#무료-경제금융-학습-자료">무료 경제/금융 학습 자료</a></li>
+<li><a href="#무료-모의고사-및-기출문제-플랫폼">무료 모의고사 및 기출문제 플랫폼</a></li>
+<li><a href="#온라인-강의-플랫폼">온라인 강의 플랫폼</a></li>
+<li><a href="#커뮤니티">커뮤니티</a></li>
+<li><a href="#참고정보-사이트">참고/정보 사이트</a></li>
+<li><a href="#psat형-ncs-대비-전략">PSAT형 NCS 대비 전략</a></li>
+<li><a href="#금융공기업-학습-로드맵">금융공기업 학습 로드맵</a></li>
+<li><a href="#과목별-분류">과목별 분류</a></li>
+<li><a href="#의사소통">의사소통</a></li>
+<li><a href="#문제해결">문제해결</a></li>
+<li><a href="#자료해석">자료해석</a></li>
+<li><a href="#수리능력">수리능력</a></li>
+<li><a href="#경제학">경제학</a></li>
+<li><a href="#자원관리능력">자원관리능력</a></li>
+<li><a href="#정보능력">정보능력</a></li>
+<li><a href="#조직이해능력">조직이해능력</a></li>
+<li><a href="#직업윤리">직업윤리</a></li>
+<li><a href="#기술능력">기술능력</a></li>
+<li><a href="#기관별-분류">기관별 분류</a></li>
+<li><a href="#금융공기업-시험-개요">금융공기업 시험 개요</a></li>
+<li><a href="#한국은행">한국은행</a></li>
+<li><a href="#금융감독원">금융감독원</a></li>
+<li><a href="#한국산업은행">한국산업은행</a></li>
+<li><a href="#ibk기업은행">IBK기업은행</a></li>
+<li><a href="#한국수출입은행">한국수출입은행</a></li>
+<li><a href="#한국투자공사">한국투자공사</a></li>
+<li><a href="#한국자산관리공사">한국자산관리공사</a></li>
+<li><a href="#한국주택금융공사">한국주택금융공사</a></li>
+<li><a href="#예금보험공사">예금보험공사</a></li>
+<li><a href="#신용보증기금">신용보증기금</a></li>
+<li><a href="#기술보증기금">기술보증기금</a></li>
+<li><a href="#한국거래소">한국거래소</a></li>
+<li><a href="#서울보증보험">서울보증보험</a></li>
+<li><a href="#nh농협은행">NH농협은행</a></li>
+<li><a href="#한국예탁결제원">한국예탁결제원</a></li>
+<li><a href="#한국무역보험공사">한국무역보험공사</a></li>
+<li><a href="#주택도시보증공사">주택도시보증공사</a></li>
+<li><a href="#서민금융진흥원">서민금융진흥원</a></li>
+<li><a href="#신용회복위원회">신용회복위원회</a></li>
+<li><a href="#금융결제원">금융결제원</a></li>
+<li><a href="#한국증권금융">한국증권금융</a></li>
+<li><a href="#코스콤">코스콤</a></li>
+<li><a href="#신용정보원">신용정보원</a></li>
+<li><a href="#금융보안원">금융보안원</a></li>
+<li><a href="#한국장학재단">한국장학재단</a></li>
+<li><a href="#농업정책보험금융원">농업정책보험금융원</a></li>
+<li><a href="#농림수산업자신용보증기금">농림수산업자신용보증기금</a></li>
+<li><a href="#신용보증재단중앙회">신용보증재단중앙회</a></li>
+<li><a href="#우체국금융개발원">우체국금융개발원</a></li>
+<li><a href="#한국성장금융">한국성장금융</a></li>
+<li><a href="#한국벤처투자">한국벤처투자</a></li>
+<li><a href="#은행연합회">은행연합회</a></li>
+<li><a href="#보험개발원">보험개발원</a></li>
+<li><a href="#생명보험협회">생명보험협회</a></li>
+<li><a href="#손해보험협회">손해보험협회</a></li>
+<li><a href="#금융투자협회">금융투자협회</a></li>
+<li><a href="#한국조폐공사">한국조폐공사</a></li>
+<li><a href="#한국재정정보원">한국재정정보원</a></li>
+<li><a href="#년도별-분류">년도별 분류</a></li>
+<li><a href="#2026년">2026년</a></li>
+<li><a href="#2025년">2025년</a></li>
+<li><a href="#2024년">2024년</a></li>
+<li><a href="#2023년">2023년</a></li>
+<li><a href="#2022년">2022년</a></li>
+<li><a href="#2021년">2021년</a></li>
+</ul>
+<hr />
+<h2 id="_2">학습 자료 및 사이트</h2>
+<h3 id="_3">공식 사이트</h3>
+<ul>
+<li><a href="https://www.ncs.go.kr/">NCS 국가직무능력표준</a> - NCS 공식 포털. 24개 대분류, 80개 중분류, 238개 소분류, 887개 세분류 체계로 구성된 국가직무능력표준 정보 제공.</li>
+<li><a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 직업기초능력 학습자료실</a> - 의사소통, 수리능력, 문제해결 등 10개 영역 공식 학습자료 무료 다운로드.</li>
+<li><a href="https://ncs.go.kr/blind/rh13/bbs_lib_list.do?libDstinCd=48">NCS 채용모델 필기문항</a> - NCS 기반 채용 모델 공식 필기시험 샘플 문항.</li>
+<li><a href="https://ncs.go.kr/blind/blp/bbs_lib_list.do?libDstinCd=55">NCS 필기문항 예시문항</a> - 시험 대비를 위한 추가 예시 문항.</li>
+<li><a href="https://www.ncs.go.kr/th06/bbs_lib_list.do?libDstinCd=18">NCS 학습모듈 검색</a> - 분야·키워드별 NCS 학습모듈 다운로드. 공공누리 제2유형 무료 이용.</li>
+<li><a href="https://www.ncs.go.kr/th02/TH0203List.do?dirSeq=145">NCS 학습 자료실</a> - 통합 학습 자료 아카이브.</li>
+<li><a href="https://www.hrdkorea.or.kr/1/7/1">한국산업인력공단 NCS</a> - NCS 운영기관의 프로그램 안내.</li>
+<li><a href="https://www.data.go.kr/data/15077168/fileData.do">공공데이터포털 - 직업기초능력 학습자료</a> - 한국산업인력공단 제공 영역별 학습자료 데이터셋. 학습자용 가이드, 강사용 가이드, 학습확인 자료, 동영상 강의 포함.</li>
+<li><a href="https://job.alio.go.kr/">공공기관 채용정보 시스템 (잡알리오)</a> - 기획재정부 운영 공공기관 채용 공고 통합 시스템. 지역, 채용유형, 기관별 검색 가능.</li>
+<li><a href="https://www.alio.go.kr/">공공기관 경영정보 공개시스템 (알리오)</a> - 공공기관 경영정보 공개 시스템. 채용 공고, 임원 채용, 기관 데이터 포함.</li>
+<li><a href="https://job.cleaneye.go.kr/">클린아이 잡플러스</a> - 지방공공기관 채용정보 사이트.</li>
+<li><a href="https://www.alioplus.go.kr/news/recruitList.do">알리오플러스</a> - 공공기관 채용정보, 기관정보, 사업정보 제공. 채용형 인턴 공고 포함.</li>
+<li><a href="https://apply.bok.or.kr/">한국은행 채용사이트</a> - 한국은행 공식 채용 포털. 기출자료 아카이브 및 채용공고 확인.</li>
+<li><a href="https://www.gojobs.go.kr/">나라일터</a> - 정부 공식 공공기관 채용 포털.</li>
+<li><a href="https://www.gosi.kr/">사이버국가고시센터</a> - 인사혁신처 운영. PSAT 기출문제 및 정답 공식 제공. NCS PSAT형 대비에 필수.</li>
+<li><a href="https://www.jobkorea.co.kr/starter/recruitment_schedule">잡코리아 채용일정</a> - 공공기관 및 공기업 채용 일정 캘린더.</li>
+<li><a href="https://www.financejobfair.co.kr/">금융권 공동채용 박람회</a> - 금융업계 최신 정보, 취업 멘토링, 채용일정 안내.</li>
+<li><a href="https://publicjob.kr/">2026 공공기관 채용정보박람회</a> - 온라인 NCS 모의고사 포함. 2026년 2월 개최.</li>
+<li><a href="https://www.jobkorea.co.kr/starter/calendar">잡코리아 2026 공채 달력</a> - 2026년 공채 일정 캘린더 뷰.</li>
+<li><a href="https://job.incruit.com/entry/publicschedule/publicorgsched.asp">인크루트 공공기관 채용일정</a> - 기획재정부 '2026년 공공기관 채용계획 디렉토리북' 기반.</li>
+</ul>
+<h3 id="_4">무료 경제/금융 학습 자료</h3>
+<ul>
+<li><a href="https://www.bok.or.kr/portal/bbs/B0000249/view.do?nttId=235017&amp;menuNo=200765">한국은행 경제금융용어 700선 (PDF)</a> - 한국은행이 정리한 700개 핵심 경제/금융 용어. PDF 무료 다운로드.</li>
+<li><a href="https://www.bok.or.kr/portal/bbs/B0000249/view.do?menuNo=200765&amp;nttId=10061816">한국은행 알기 쉬운 경제이야기</a> - GDP, 물가, 국제수지 등 핵심 경제개념 쉬운 해설 시리즈.</li>
+<li><a href="https://www.bok.or.kr/portal/bbs/B0000249/list.do?menuNo=200765">한국은행 경제교육 발간자료</a> - 한국은행 경제교육 간행물 전체 목록.</li>
+<li><a href="https://www.bok.or.kr/portal/bbs/B0000216/list.do?menuNo=200134">한국은행 온라인 학습</a> - 대상별(어린이, 청소년, 일반인) 경제교육 e-러닝 콘텐츠 무료 제공.</li>
+<li><a href="https://www.bok.or.kr/portal/main/contents.do?menuNo=201130">한국은행 경제특강</a> - 대학생 및 일반인 대상 금융·경제 10여 개 주제 특강 프로그램.</li>
+<li><a href="https://www.bok.or.kr/portal/main/contents.do?menuNo=200496">한은금요강좌</a> - 통화정책, 금융시장, 통계 등 심화 경제분석 공개 강좌. 지난 강의는 한국은행 YouTube 채널에서 시청 가능.</li>
+<li><a href="https://eiec.kdi.re.kr/">KDI 경제교육·정보센터</a> - 한국개발연구원 무료 경제교육 포털. 학습 동영상, 카드뉴스, 시사경제용어, 경제개념, Q&amp;A 제공.</li>
+<li><a href="https://www.econedu.go.kr/">경제배움e+</a> - 기획재정부 디지털 경제교육 플랫폼. 시장경제, 경제이론, 수요·공급, 기업·생산성 주제 학습.</li>
+<li><a href="https://www.kocw.net/">KOCW 무료 대학 공개강의</a> - 무료 대학 수준 경제학 강의 제공:</li>
+<li><a href="http://www.kocw.net/home/cview.do?mty=p&amp;kemId=865370">경제학원론1 (건국대학교)</a></li>
+<li><a href="http://kocw.net/home/cview.do?mty=p&amp;kemId=1192064">경제학입문 (연세대학교)</a></li>
+<li><a href="http://www.kocw.net/home/search/kemView.do?kemId=859693">미시경제학 (한양대학교)</a></li>
+<li><a href="https://community.linkareer.com/employment_data/4251423">링커리어 - 2025 최신 NCS 기출문제 정리</a> - 출제 경향, 영역별 문제 예시 및 해설, 학습법 정리.</li>
+<li><a href="https://community.linkareer.com/employment_data/4182192">링커리어 - NCS 기출문제 유형별 풀이 전략</a> - 핵심 4개 영역(의사소통, 수리, 문제해결, 자원관리) 대표 유형과 풀이 전략.</li>
+<li><a href="https://yitae-kwon.github.io/bok-stat/">한국은행 통계직렬 준비자료 (GitHub Pages)</a> - 한국은행 통계직렬 개인 학습 노트. 금융공기업 계량경제학 대비에도 유용.</li>
+</ul>
+<h3 id="_5">무료 모의고사 및 기출문제 플랫폼</h3>
+<ul>
+<li><a href="https://cbt.linkareer.com/">링커리어 CBT</a> - 실제 기출 기반 무료 온라인 CBT 모의고사 (위포트 연구소 제공). 공기업별 모의고사: <a href="https://cbt.linkareer.com/exam/public-company">공기업 CBT</a>.</li>
+<li><a href="https://www.jobkorea.co.kr/Starter/AptitudeTest/PubCoMockTest">잡코리아 - 공기업 NCS 모의고사</a> - 기출 모의고사 및 해설 강의. 공기밥닷컴과 제휴하여 약 30,000문항 이상 제공.</li>
+<li><a href="https://www.saramin.co.kr/zf_user/member/mock-exam/public-company">사람인 - 공기업 모의고사</a> - NCS 실전 기출 문제 모음 (무료 및 유료 혼합).</li>
+<li><a href="http://www.gongibob.com/">공기밥닷컴</a> - 한국 최대 공기업 기출문제 데이터베이스. 실제 시험 기출 30,000문항 이상 보유. 시험별, 과목별, 무제한 패키지 제공.</li>
+<li><a href="https://www.ncs-information.com/">NCS Information</a> - NCS 기출 데이터 및 기관별 가이드 통합 정보 사이트.</li>
+<li><a href="https://ejob.hackers.com/book/free_down">해커스 무료 교재 다운로드</a> - NCS 관련 무료 교재 다운로드.</li>
+<li><a href="https://public.hackers.com/event/?k=ncs200">해커스 NCS 200제 무료 배포</a> - 출제적중 NCS 200제 교재 무료 배포. 신규회원 매일 선착순 30명 제공.</li>
+<li><a href="https://www.antant.co.kr/">ALL NCS TEST (A.N.T)</a> - NCS 문제해결, 의사소통, 자원관리, 자료해석 영역 온라인 모의고사. 기관별 기출 기반 문제 제공.</li>
+<li><a href="https://gongchisa.oopy.io/">공취사 PSAT 기출문제 아카이브</a> - 민경채·7급·5급 전 년도 PSAT 문항 및 해설 무료 제공. PSAT형 NCS 학습에 최적.</li>
+<li><a href="https://cbt.linkareer.com/exam/detail/1134">링커리어 PSAT CBT</a> - PSAT 과년도 기출 온라인 CBT. 증가율·감소율 등 연산 문제 연습 가능.</li>
+</ul>
+<h3 id="_6">온라인 강의 플랫폼</h3>
+<ul>
+<li><a href="https://brand.eduwill.net/">에듀윌 공기업</a> - NCS 인강, 기본서, 모의고사 제공. 한경비즈니스 취업교육 브랜드 만족도 1위.</li>
+<li><a href="https://www.sdedu.co.kr/">시대에듀 NCS</a> - NCS 통합기본서, 최종모의고사, 무료 특강. 「기출이 답이다」 IBK기업은행 시리즈 출판.</li>
+<li><a href="https://public.hackers.com/">해커스 공기업</a> - NCS 모듈형/PSAT형 합격 강의, 무료 모의고사, 기관별 특화 과정.</li>
+<li><a href="https://public.conects.com/">공기업단기 (공단기)</a> - NCS, 경영학, 경제학, 행정학 등 전과목 전문 강사 무제한 수강 패키지. 합격 시 수강료 환급.</li>
+<li><a href="https://ncs.weport.co.kr/">위포트 NCS</a> - 10년간 72,465명 이상 합격. 공기업 NCS 필기 대비 강의, 자소서첨삭, 모의면접 제공.</li>
+<li><a href="https://www.koeconomics.com/">고범석 경제학아카데미</a> - 금융공기업 경제학 전문 입시 학원 (한국은행, 산업은행, 수출입은행 등 대상). 무료 강의, 기출 아카이브, Q&amp;A 제공.</li>
+<li><a href="https://www.wowpass.com/">와우패스 금융NCS</a> - 금융권 NCS 직무수행능력 대비 과정 (국민은행, 기업은행, 농협은행 등).</li>
+<li><a href="https://m.honjob.co.kr/">혼잡</a> - 금융공기업 기본서 정답/해설, 실전모의고사 자료 제공.</li>
+<li><a href="https://www.sdedu.co.kr/pass_sidae_new/">시대에듀 합격시대</a> - 맞춤형 온라인 테스트 서비스. NCS 및 금융공기업 필기 대비.</li>
+</ul>
+<h3 id="_7">커뮤니티</h3>
+<ul>
+<li><a href="https://cafe.naver.com/dokchi">독취사 (독하게 취업하는 사람들)</a> - 한국 최대 취업 네이버 카페 (300만+ 회원). 실시간 채용공고, 자소서 첨삭, 스터디 모집, 합격 후기. 등급별 접근 체계.</li>
+<li><a href="https://cafe.naver.com/">공취모 (공기업 취업준비생 모임)</a> - 100만+ 회원. 공기업 취업 전용 카페. 무료 취업 가이드 PDF, 기관별 합격 수기, 스터디 모집.</li>
+<li><a href="https://cafe.naver.com/studentstudyhard">공준모 (공기업/교직원 취업 카페)</a> - 100만+ 회원. 현직 공기업/교육기관 직원 운영. 자소서 가이드, 적성검사 가이드, 상담 게시판.</li>
+<li><a href="https://community.linkareer.com/">링커리어 커뮤니티</a> - 대학생 취업 고민, 인턴 경험, 취업 팁 공유 커뮤니티. NCS 커뮤니티: <a href="https://cbt-community.linkareer.com/cbt-ncs">CBT NCS</a>.</li>
+<li><a href="https://community.weport.co.kr/">위포트 커뮤니티</a> - 스터디 그룹 (5일 NCS 완성 스터디 등), 취업 팁, 실제 합격 후기.</li>
+<li><a href="https://m.dcinside.com/board/rhdrldjq/">DC인사이드 공기업 갤러리</a> - 현직 직원 및 취업 준비생의 NCS 시험, 팁, 경험 공유 익명 게시판.</li>
+<li><a href="https://gall.dcinside.com/board/view/?id=economy">DC인사이드 경제 갤러리</a> - A매치/B매치 금융공기업 시험 전략 및 요약 토론.</li>
+<li><a href="https://gongchisa.modoo.at/">공취사 (공기업취업사관학교)</a> - 공기업 채용정보, NCS 자료, 필기시험/면접후기 무료 제공 커뮤니티.</li>
+<li><a href="https://cafe.daum.net/breakjob">취업뽀개기 (취뽀)</a> - Daum 카페. NCS, 공기업, 인턴 등 취업 정보 종합. 공기밥닷컴 연계 기출문제 공유.</li>
+<li><a href="https://cafe.daum.net/publiccom">공준모 (공공기관을 준비하는 사람들의 모임)</a> - Daum 카페. 공공기관 채용 정보 및 스터디 모집.</li>
+<li><a href="https://www.teamblind.com/">블라인드</a> - 현직자 익명 커뮤니티. 금융공기업 연봉, 커리어 조언, 채용 관련 실질적 정보 교류.</li>
+<li><a href="https://blog.jobroadclass.co.kr/">잡로드 금융공기업</a> - 금융공기업 필기시험 일정 및 합격 전략 블로그. 2026 공기업 취업 플래너 (Notion 템플릿) 제공.</li>
+<li><a href="https://www.shutupnsucceed.com/main/index">닥치고 공기업</a> - NCS 기본서 정오표, 유형정리표, 복기노트 양식, 커뮤니티 게시판.</li>
+</ul>
+<h3 id="_8">참고/정보 사이트</h3>
+<ul>
+<li><a href="https://namu.wiki/w/%EA%B5%AD%EA%B0%80%EC%A7%81%EB%AC%B4%EB%8A%A5%EB%A0%A5%ED%91%9C%EC%A4%80">나무위키 - 국가직무능력표준</a> - NCS 시험 전략, 과목 분석, 난이도 비교 등 종합 위키 문서.</li>
+<li><a href="https://namu.wiki/w/%EA%B2%BD%EC%A0%9C%ED%95%99/%EC%8B%9C%ED%97%98">나무위키 - 경제학/시험</a> - 한국은행, 산업은행, 수출입은행 등 각 공공기관별 경제학 시험 상세 분석.</li>
+<li><a href="https://namu.wiki/w/%EA%B3%B5%EA%B3%B5%EA%B8%B0%EA%B4%80/%EC%B1%84%EC%9A%A9">나무위키 - 공공기관/채용</a> - 공공기관 채용 프로세스, NCS 도입 경위, 6대 출제사(휴노/한사능/휴스테이션/인크루트/사람인/매일경제) 분석.</li>
+<li><a href="https://www.superookie.com/contents/5f9fdb5c8b129f18d5153a1e">슈퍼루키</a> - NCS 학습 방법 가이드.</li>
+<li><a href="https://insightkorea.or.kr/mod/data/view.php?id=640">NCS 정복 자료실 (인사이트코리아)</a> - NCS 기출 문제집 및 학습 자료 공유 플랫폼.</li>
+<li><a href="https://community.linkareer.com/employment_data/4997977">링커리어 - 금융공기업 취업 자료</a> - 금융공기업 리스트, 스펙, 티어, 현실, 시험 과목 종합 정리.</li>
+</ul>
+<h3 id="psat-ncs">PSAT형 NCS 대비 전략</h3>
+<p>최근 공기업 NCS가 PSAT(공직적격성평가)과 유사한 형태로 출제되는 추세가 강화되고 있습니다. PSAT 기출문제는 NCS 학습의 가장 효과적인 자료입니다.</p>
+<p><strong>추천 학습 순서:</strong>
+1. <strong>민경채 PSAT</strong> 기출부터 시작 (난이도 하) → 65~70점 이상이면 양호
+2. <strong>7급 PSAT</strong> 기출 (난이도 중)
+3. <strong>5급 PSAT</strong> 기출 (난이도 상)</p>
+<p><strong>영역 대응:</strong>
+| PSAT 영역 | NCS 대응 영역 |
+|-----------|--------------|
+| 언어논리 | 의사소통능력 |
+| 자료해석 | 수리능력, 자료해석 |
+| 상황판단 | 문제해결능력 |</p>
+<p><strong>핵심 자료:</strong>
+- <a href="https://gongchisa.oopy.io/">공취사 PSAT 기출 전년도 아카이브</a> - 민경채~5급 전 년도 문항 + 해설 무료
+- <a href="https://www.gosi.kr/">사이버국가고시센터</a> - 인사혁신처 공식 PSAT 기출 + 정답
+- <a href="https://gongchisa.oopy.io/13f08cf5-64a0-4d40-aee9-b5da56291bee">공취사 PSAT형 NCS 학습 방법</a> - PSAT형 NCS 학습 전략 가이드</p>
+<hr />
+<h3 id="_9">금융공기업 학습 로드맵</h3>
+<p>준비 기간별 추천 학습 로드맵입니다.</p>
+<p><strong>6개월 플랜 (NCS + 전공 병행):</strong></p>
+<pre><code>[1~2개월] 기초 다지기
+├── NCS 직업기초능력 기본서 1회독
+├── 민경채 PSAT 기출 풀이 시작
+└── 경제학 기본 개념 (맨큐 경제학 or 이준구 미시)
+
+[3~4개월] 심화 학습
+├── 7급 PSAT 기출 풀이
+├── NCS 모의고사 매주 1~2회
+├── 전공과목 심화 (기관별 과목 집중)
+└── 금융시사 정리 시작
+
+[5~6개월] 실전 대비
+├── 5급 PSAT 기출 풀이 (상위권 목표 시)
+├── 기관별 기출복원 문제 집중 풀이
+├── 실전 모의고사 (시간 관리 훈련)
+└── 금융시사 + 최근 정책 동향 정리
+</code></pre>
+<p><strong>기관별 난이도 (참고):</strong>
+| 난이도 | 기관 |
+|--------|------|
+| S | 한국은행 |
+| A | 금융감독원, 한국산업은행, 한국수출입은행 |
+| A- | 금융결제원, 한국증권금융, 코스콤, 신용정보원, 금융보안원, 은행연합회, 보험개발원, 금융투자협회 |
+| B+ | 한국투자공사, 한국거래소, 한국예탁결제원 |
+| B | IBK기업은행, 한국자산관리공사, 예금보험공사, 주택도시보증공사 |
+| B- | 신용보증기금, 기술보증기금, 한국주택금융공사, 생명보험협회, 손해보험협회, 한국조폐공사 |
+| C+ | NH농협은행, 서울보증보험, 한국무역보험공사, 신용보증재단중앙회, 한국장학재단 |
+| C | 서민금융진흥원, 우체국금융개발원, 한국재정정보원, 신용회복위원회, 농업정책보험금융원, 한국성장금융, 한국벤처투자, 농림수산업자신용보증기금 |</p>
+<hr />
+<h2 id="_10">과목별 분류</h2>
+<h3 id="_11">의사소통</h3>
+<p>NCS 직업기초능력 중 의사소통능력 영역. 문서이해, 문서작성, 경청, 의사표현, 기초외국어 등의 하위능력을 평가.</p>
+<p><strong>출제 유형:</strong>
+- 지문 독해 및 핵심 내용 파악
+- 문서 작성 시 적절한 표현 선택
+- 비즈니스 커뮤니케이션 상황 판단
+- 회의록, 보고서, 공문서 등 실무 문서 이해</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 공식 의사소통능력 학습모듈</a> - 의사소통 영역 공식 학습자료
+- <a href="https://book.eduwill.net/">에듀윌 NCS 의사소통 기본서</a> - 영역별 기본서 시리즈</p>
+<hr />
+<h3 id="_12">문제해결</h3>
+<p>NCS 직업기초능력 중 문제해결능력 영역. 사고력, 문제처리능력 등을 평가.</p>
+<p><strong>출제 유형:</strong>
+- 논리적 추론 (연역/귀납 추론)
+- 문제 상황 분석 및 대안 도출
+- 의사결정 과정 평가
+- 업무 프로세스 개선 방안</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 공식 문제해결능력 학습모듈</a> - 문제해결 영역 공식 학습자료
+- <a href="https://community.linkareer.com/employment_data/4182192">링커리어 문제해결 유형 분석</a>
+- <a href="https://gongchisa.oopy.io/">공취사 PSAT 상황판단 기출</a> - PSAT 상황판단 영역 기출. NCS 문제해결과 유사 유형. 민경채→7급→5급 순서로 학습 권장.</p>
+<hr />
+<h3 id="_13">자료해석</h3>
+<p>NCS 직업기초능력 중 수리능력의 하위 영역으로, 도표 분석 및 자료 해석 능력을 평가.</p>
+<p><strong>출제 유형:</strong>
+- 표, 그래프, 차트 등 통계 자료 해석
+- 자료 간 비교 및 추이 분석
+- 복합 자료 종합 해석
+- 자료에 근거한 추론 및 판단</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 공식 수리능력 학습모듈</a> - "도표분석" 및 "도표작성" 섹션
+- <a href="https://www.jobkorea.co.kr/Starter/AptitudeTest/PubCoMockTest">잡코리아 NCS 자료해석 모의고사</a>
+- <a href="https://gongchisa.oopy.io/">공취사 PSAT 자료해석 기출</a> - PSAT 자료해석 전 년도 기출 무료 제공. NCS 자료해석과 동일 유형.
+- <a href="https://www.gosi.kr/">사이버국가고시센터 PSAT 기출</a> - 공무원 PSAT 자료해석 공식 기출문제 및 정답.</p>
+<hr />
+<h3 id="_14">수리능력</h3>
+<p>NCS 직업기초능력 중 수리능력 영역. 기초연산, 기초통계, 도표분석, 도표작성 등을 평가.</p>
+<p><strong>출제 유형:</strong>
+- 사칙연산 응용 (비율, 증감률 계산)
+- 통계 기초 (평균, 분산, 표준편차)
+- 업무 관련 수치 계산 문제
+- 예산, 매출, 비용 등 실무 수리 문제</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 공식 수리능력 학습모듈</a> - "수리능력" 영역 학습자료
+- <a href="https://www.data.go.kr/data/15077168/fileData.do">공공데이터포털 수리능력 학습자료</a></p>
+<hr />
+<h3 id="_15">경제학</h3>
+<p>금융공기업 필기시험에서 전공과목으로 출제되는 경제학. 기관별로 거시경제학, 미시경제학, 화폐금융론, 국제경제학 등 범위가 상이.</p>
+<p><strong>출제 유형:</strong>
+- 미시경제학: 수요·공급, 시장균형, 탄력성, 소비자·생산자이론
+- 거시경제학: GDP, 통화정책, 재정정책, IS-LM 모형, 총수요·총공급
+- 화폐금융론: 금리결정이론, 통화정책 수단, 금융시장 구조
+- 국제경제학: 환율결정, 국제수지, 무역이론</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.bok.or.kr/portal/bbs/B0000249/view.do?nttId=235017&amp;menuNo=200765">한국은행 경제금융용어 700선</a> - 핵심 용어 PDF 무료 다운로드
+- <a href="https://www.bok.or.kr/portal/bbs/B0000249/view.do?menuNo=200765&amp;nttId=10061816">한국은행 알기 쉬운 경제이야기</a> - 경제 기초 개념 해설
+- <a href="https://eiec.kdi.re.kr/">KDI 경제교육·정보센터</a> - 경제개념, 시사경제, Q&amp;A 무료 학습
+- <a href="https://www.kocw.net/">KOCW 경제학 공개강의</a> - 대학 수준 경제학 무료 강의
+- <a href="https://www.koeconomics.com/">고범석 경제학아카데미</a> - 금융공기업 경제학 전문 강의 및 기출 아카이브
+- <a href="https://public.conects.com/">공단기 경제학 강의</a> - 금융공기업 경제학 전공 패키지. 장선구 경제학 강사 등 전문 강사진.
+- <a href="https://www.wowpass.com/">와우패스 금융NCS 경제학</a> - 금융권 경제학 대비 과정
+- <a href="https://www.econedu.go.kr/">경제배움e+</a> - 기획재정부 디지털 경제교육 플랫폼. 시장경제, 수요·공급, 기업·생산성 등 기초 학습.
+- <a href="https://www.bok.or.kr/portal/bbs/B0000216/list.do?menuNo=200134">한국은행 온라인 학습 (경제학)</a> - 통화정책, 금융시장, 거시경제 등 한국은행 자체 제작 무료 e-러닝.</p>
+<hr />
+<h3 id="_16">자원관리능력</h3>
+<p>NCS 직업기초능력 중 자원관리능력 영역. 시간, 예산, 물적자원, 인적자원을 효율적으로 관리하는 능력을 평가.</p>
+<p><strong>출제 유형:</strong>
+- 프로젝트 일정 관리 및 우선순위 결정
+- 예산 편성 및 비용 분석
+- 자원 배분 최적화 문제
+- 업무 효율성 개선 방안</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 공식 자원관리능력 학습모듈</a> - 자원관리 영역 공식 학습자료
+- <a href="https://www.data.go.kr/data/15077168/fileData.do">공공데이터포털 자원관리 학습자료</a></p>
+<hr />
+<h3 id="_17">정보능력</h3>
+<p>NCS 직업기초능력 중 정보능력 영역. 컴퓨터 활용, 정보처리 능력을 평가. 최근 디지털 전환에 따라 비중 증가 추세.</p>
+<p><strong>출제 유형:</strong>
+- 스프레드시트 함수 및 데이터 처리
+- 데이터베이스 기초 개념
+- 정보 검색 및 활용
+- IT 보안 기초 및 디지털 리터러시
+- AI·빅데이터·클라우드 등 신기술 기초 (2025년~)</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 공식 정보능력 학습모듈</a> - 정보능력 영역 공식 학습자료
+- <a href="https://www.tta.or.kr/">한국정보통신기술협회(TTA)</a> - IT 표준 및 기술 용어 참고</p>
+<hr />
+<h3 id="_18">조직이해능력</h3>
+<p>NCS 직업기초능력 중 조직이해능력 영역. 조직 구조, 경영이해, 업무이해, 국제감각 등을 평가.</p>
+<p><strong>출제 유형:</strong>
+- 조직 구조 및 의사결정 체계 이해
+- 경영 전략 및 비전 분석
+- 업무 프로세스 파악
+- 글로벌 비즈니스 상황 판단</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 공식 조직이해능력 학습모듈</a> - 조직이해 영역 공식 학습자료</p>
+<hr />
+<h3 id="_19">직업윤리</h3>
+<p>NCS 직업기초능력 중 직업윤리 영역. 근로윤리, 공동체윤리 등을 평가.</p>
+<p><strong>출제 유형:</strong>
+- 직장 내 윤리적 딜레마 상황 판단
+- 공직자 윤리 및 이해충돌 방지
+- 내부고발, 공익신고 관련 판단
+- 금융윤리 및 컴플라이언스 기초</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 공식 직업윤리 학습모듈</a> - 직업윤리 영역 공식 학습자료
+- <a href="https://consumer.fss.or.kr/">금융감독원 금융소비자 정보포털</a> - 금융윤리 및 소비자보호 관련 자료</p>
+<hr />
+<h3 id="_20">기술능력</h3>
+<p>NCS 직업기초능력 중 기술능력 영역. 기술이해, 기술선택, 기술적용 능력을 평가.</p>
+<p><strong>출제 유형:</strong>
+- 신기술 동향 이해 (핀테크, AI, 블록체인 등)
+- 기술 도입 의사결정
+- 기술 활용 사례 분석
+- 디지털 전환 관련 문제</p>
+<p><strong>학습 자료:</strong>
+- <a href="https://www.ncs.go.kr/th03/TH0302List.do?dirSeq=121">NCS 공식 기술능력 학습모듈</a> - 기술능력 영역 공식 학습자료
+- <a href="https://www.korfin.kr/">한국핀테크산업협회</a> - 핀테크 동향 및 금융 기술 자료</p>
+<hr />
+<h2 id="_21">기관별 분류</h2>
+<h3 id="_22">금융공기업 시험 개요</h3>
+<p>주요 금융공기업(A매치/B매치)의 시험 형식 및 핵심 과목 비교:</p>
+<table>
+<thead>
+<tr>
+<th>기관</th>
+<th>시험 형식</th>
+<th>핵심 과목</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>한국은행</strong></td>
+<td>논술형 필기 (최고 난이도)</td>
+<td>미시경제학, 거시경제학, 계량경제학, 화폐금융론, 국제경제학</td>
+</tr>
+<tr>
+<td><strong>금융감독원</strong></td>
+<td>혼합형 (NCS + 전공)</td>
+<td>경제학, 경영학, 법학 (택1)</td>
+</tr>
+<tr>
+<td><strong>한국산업은행</strong></td>
+<td>전과목 주관식/논술</td>
+<td>경제학 + 금융 시사 논술</td>
+</tr>
+<tr>
+<td><strong>한국수출입은행</strong></td>
+<td>전과목 주관식 (단답 + 논술)</td>
+<td>경제학 (계산 중심, 화폐금융론 비중 낮음)</td>
+</tr>
+<tr>
+<td><strong>IBK기업은행</strong></td>
+<td>NCS + 전공시험</td>
+<td>NCS 핵심역량 + 금융지식</td>
+</tr>
+<tr>
+<td><strong>한국거래소</strong></td>
+<td>NCS + 전공시험</td>
+<td>경제학, 재무관리, 회계학, 법학</td>
+</tr>
+<tr>
+<td><strong>신용보증기금</strong></td>
+<td>NCS + 직무수행능력</td>
+<td>경제학, 경영학, 회계학</td>
+</tr>
+<tr>
+<td><strong>기술보증기금</strong></td>
+<td>NCS + 전공시험</td>
+<td>경제학/경영학 (선택)</td>
+</tr>
+<tr>
+<td><strong>NH농협은행</strong></td>
+<td>NCS + 직무수행능력</td>
+<td>NCS 핵심역량 + 농업상식 + 디지털</td>
+</tr>
+<tr>
+<td><strong>한국예탁결제원</strong></td>
+<td>NCS + 전공시험</td>
+<td>경제학, 회계학, 법학, IT</td>
+</tr>
+<tr>
+<td><strong>한국무역보험공사</strong></td>
+<td>NCS + 전공시험</td>
+<td>경제학, 경영학, 무역학, 법학</td>
+</tr>
+<tr>
+<td><strong>주택도시보증공사</strong></td>
+<td>NCS(40문항) + 전공필기(100문항)</td>
+<td>법학, 경영학, 경제학, 한국사</td>
+</tr>
+<tr>
+<td><strong>서민금융진흥원</strong></td>
+<td>NCS 기반 (PT면접 + 경험면접)</td>
+<td>금융·보험 직무</td>
+</tr>
+<tr>
+<td><strong>신용회복위원회</strong></td>
+<td>NCS 필기 + 면접 (IT: 코딩테스트)</td>
+<td>채무조정·금융지식</td>
+</tr>
+<tr>
+<td><strong>금융결제원</strong></td>
+<td>NCS 기반 필기 + 면접</td>
+<td>일반직(경영·경제), 전산직(전산학)</td>
+</tr>
+<tr>
+<td><strong>한국증권금융</strong></td>
+<td>전공필기 + 논술 + 면접</td>
+<td>경영학, 경제학 + 금융시사 논술</td>
+</tr>
+<tr>
+<td><strong>코스콤</strong></td>
+<td>NCS 기반</td>
+<td>IT, 경영, 회계</td>
+</tr>
+<tr>
+<td><strong>신용정보원</strong></td>
+<td>NCS + 직무수행능력</td>
+<td>일반직, IT개발</td>
+</tr>
+<tr>
+<td><strong>금융보안원</strong></td>
+<td>NCS 적성 + 전공실기</td>
+<td>일반기획(경영·경제), IT(정보보안·컴퓨터공학)</td>
+</tr>
+<tr>
+<td><strong>한국장학재단</strong></td>
+<td>NCS + 직무수행능력</td>
+<td>의사소통, 문제해결, 수리능력, 직업윤리</td>
+</tr>
+<tr>
+<td><strong>한국조폐공사</strong></td>
+<td>NCS 직업기초능력만</td>
+<td>NCS 의사소통, 수리, 문제해결</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_23">한국은행</h3>
+<blockquote>
+<p>한국은행 채용 포털: <a href="https://apply.bok.or.kr/">https://apply.bok.or.kr/</a></p>
+</blockquote>
+<p><strong>채용 직렬:</strong> 종합기획직원 (G5) - 경제, 경영, 법률, IT 직렬</p>
+<p><strong>필기시험 특징:</strong>
+- NCS가 아닌 <strong>전공필기시험</strong> 위주 (자체 출제)
+- 경제직렬: 거시경제학, 미시경제학, 계량경제학, 화폐금융론
+- 경영직렬: 재무회계, 재무관리, 원가관리회계, 경영학
+- 난이도: 금융공기업 중 최상위, 공인회계사 1차~2차 수준</p>
+<p><strong>기출 정보:</strong>
+- 2025년 상반기 채용 공고 확인: <a href="https://www.bok.or.kr/portal/bbs/P0000561/view.do?nttId=10086019">한국은행 채용 안내</a>
+- 별도의 NCS 직업기초능력평가 없이 전공 필기 위주로 선발
+- <a href="https://www.koeconomics.com/">고범석 경제학아카데미 기출 아카이브</a> - 한국은행 경제학 기출 분석</p>
+<hr />
+<h3 id="_24">금융감독원</h3>
+<blockquote>
+<p>금융감독원 채용 포털: <a href="https://www.fss.or.kr/">https://www.fss.or.kr/</a></p>
+</blockquote>
+<p><strong>채용 직렬:</strong> 종합직원 (5급)</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력 + 전공시험 병행
+- 전공: 재무회계, 재무관리, 경제학 등
+- 서류전형 없이 전원 필기시험 응시 가능한 경우 있음
+- CPA, 변호사, 보험계리사 자격증 가점</p>
+<p><strong>기출 정보:</strong>
+- 2024년: 120명 채용, 경쟁률 약 18:1
+- 2023년: 130명 채용, 경쟁률 약 24:1</p>
+<hr />
+<h3 id="_25">한국산업은행</h3>
+<blockquote>
+<p>한국산업은행 채용 포털: <a href="https://kdb.incruit.com/">https://kdb.incruit.com/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 전과목 주관식/논술 형태
+- 주요 과목: 경제학, 경영학, 재무관리
+- NCS 모듈형/피셋형 유형 혼합 출제</p>
+<p><strong>기출 정보:</strong>
+- 매년 상반기/하반기 정기 채용 실시
+- 기출복원 문제: 시대에듀, 에듀윌 교재 참조</p>
+<hr />
+<h3 id="ibk">IBK기업은행</h3>
+<blockquote>
+<p>IBK기업은행 채용 포털: <a href="https://www.ibk.co.kr/">https://www.ibk.co.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 금융일반, 디지털 과목 포함
+- 의사소통, 수리능력, 문제해결, 자료해석 등 출제</p>
+<p><strong>기출 정보:</strong>
+- <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000010896645">시대에듀 IBK기업은행 6개년 기출+무료NCS특강</a> - 2019~2024년 기출복원문제 수록
+- 온라인 모의고사: 금융일반 2회 + 디지털 2회 + NCS 통합 1회</p>
+<hr />
+<h3 id="_26">한국수출입은행</h3>
+<blockquote>
+<p>한국수출입은행 채용 포털: <a href="https://www.koreaexim.go.kr/">https://www.koreaexim.go.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 전과목 주관식 (단답 + 논술)
+- 전공: 경제학(계산 중심), 경영학, 법학 등 직렬별 상이
+- 화폐금융론 비중 상대적으로 낮음
+- 2025년 4월 필기시험 예정 (잡로드 일정 참조)</p>
+<p><strong>기출 정보:</strong>
+- 기출복원 문제: 주요 NCS 교재 출판사 참조</p>
+<hr />
+<h3 id="_27">한국투자공사</h3>
+<blockquote>
+<p>한국투자공사(KIC) 채용 포털: <a href="https://www.kic.kr/">https://www.kic.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- 전공필기 위주 (경제학, 재무관리 등)
+- 영어 능력 중시 (글로벌 투자기관)
+- 소규모 채용으로 높은 경쟁률</p>
+<p><strong>기출 정보:</strong>
+- 채용 규모가 작아 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_28">한국자산관리공사</h3>
+<blockquote>
+<p>한국자산관리공사(KAMCO) 채용 포털: <a href="https://www.kamco.or.kr/">https://www.kamco.or.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 의사소통, 수리능력, 문제해결 등 주요 영역 출제
+- 전공: 법학, 경제학, 경영학 등</p>
+<p><strong>기출 정보:</strong>
+- 기출복원 문제: 공취사 카페, NCS 교재 참조</p>
+<hr />
+<h3 id="_29">한국주택금융공사</h3>
+<blockquote>
+<p>한국주택금융공사(HF) 채용 포털: <a href="https://www.hf.go.kr/">https://www.hf.go.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 주요 과목: 경제학, 부동산학, 재무관리
+- 주택금융 관련 전문지식 추가 출제</p>
+<p><strong>기출 정보:</strong>
+- 기출복원 문제: NCS 교재 및 공취사 참조</p>
+<hr />
+<h3 id="_30">예금보험공사</h3>
+<blockquote>
+<p>예금보험공사(KDIC) 채용 포털: <a href="https://www.kdic.or.kr/">https://www.kdic.or.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 전공: 경제학, 회계학, 법학 등 직렬별 상이
+- 금융 안정 및 예금보험 관련 문제 출제 가능</p>
+<p><strong>기출 정보:</strong>
+- 기출복원 문제: NCS 교재 및 커뮤니티 참조</p>
+<hr />
+<h3 id="_31">신용보증기금</h3>
+<blockquote>
+<p>신용보증기금 채용 포털: <a href="https://www.kodit.co.kr/">https://www.kodit.co.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 의사소통, 수리능력, 문제해결 중심
+- 전공: 경제학, 경영학, 회계학</p>
+<p><strong>기출 정보:</strong>
+- 2025년 4월 필기시험 예정
+- 기출복원 문제: 시대에듀, 에듀윌 교재 참조</p>
+<hr />
+<h3 id="_32">기술보증기금</h3>
+<blockquote>
+<p>기술보증기금 채용 포털: <a href="https://www.kibo.or.kr/">https://www.kibo.or.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 기술평가 관련 전문지식 추가 출제 가능
+- IT, 공학 직렬 별도 운영</p>
+<p><strong>기출 정보:</strong>
+- 기출복원 문제: NCS 교재 및 커뮤니티 참조</p>
+<hr />
+<h3 id="_33">한국거래소</h3>
+<blockquote>
+<p>한국거래소(KRX) 채용 포털: <a href="https://www.krx.co.kr/">https://www.krx.co.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 전공: 경제학, 재무관리, 회계학, 법학
+- 자본시장 관련 전문지식 출제</p>
+<p><strong>기출 정보:</strong>
+- 채용 규모에 따라 기출 복원 자료 제한적일 수 있음</p>
+<hr />
+<h3 id="_34">서울보증보험</h3>
+<blockquote>
+<p>서울보증보험(SGI) 채용 포털: <a href="https://www.sgic.co.kr/">https://www.sgic.co.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 보험 및 보증 관련 전문지식 출제 가능
+- 의사소통, 수리능력, 문제해결 중심</p>
+<p><strong>기출 정보:</strong>
+- 기출복원 문제: NCS 교재 및 커뮤니티 참조</p>
+<hr />
+<h3 id="nh">NH농협은행</h3>
+<blockquote>
+<p>NH농협은행 채용 포털: <a href="https://recruit.nonghyup.com/">https://recruit.nonghyup.com/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 의사소통, 수리능력, 문제해결, 자원관리 등 출제
+- 농업·농촌 관련 상식 문제 출제 가능
+- 디지털 역량 평가 포함 (2024년~)</p>
+<p><strong>기출 정보:</strong>
+- <a href="https://book.eduwill.net/">에듀윌 NH농협 기출문제집</a> - 최근 기출복원문제 수록
+- 매년 상·하반기 대규모 채용 실시 (200~300명 이상)</p>
+<hr />
+<h3 id="_35">한국예탁결제원</h3>
+<blockquote>
+<p>한국예탁결제원(KSD) 채용 포털: <a href="https://www.ksd.or.kr/">https://www.ksd.or.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 전공: 경제학, 회계학, 법학, IT 등 직렬별 상이
+- 자본시장 인프라 관련 지식 출제</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적
+- 한국거래소와 유사한 출제 경향</p>
+<hr />
+<h3 id="_36">한국무역보험공사</h3>
+<blockquote>
+<p>한국무역보험공사(K-SURE) 채용 포털: <a href="https://www.ksure.or.kr/">https://www.ksure.or.kr/</a></p>
+</blockquote>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 전공: 경제학, 경영학, 무역학, 법학
+- 무역보험·수출보증 관련 전문지식 출제</p>
+<p><strong>기출 정보:</strong>
+- 기출복원 문제: NCS 교재 및 커뮤니티 참조
+- 매년 정기 채용 실시</p>
+<hr />
+<h3 id="_37">주택도시보증공사</h3>
+<blockquote>
+<p>주택도시보증공사(HUG) 채용 포털: <a href="https://www.khug.or.kr/hug/web/ci/re/cire000051.jsp">https://www.khug.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 국토교통부 산하 공기업. 주택 관련 보증업무 및 정책사업 수행, 주택도시기금 운용·관리. 본사 부산 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가(40문항) + 전공필기(100문항)
+- NCS: 의사소통, 수리능력, 문제해결, 조직이해, 대인관계
+- 전공: 법학, 경영학, 경제학, 한국사 (직렬별 상이)
+- 모집 직렬: 경영, 경제, 부동산, 건축, 전산, 통계 등
+- 난이도: 경영직렬 기준 CPA 1차 수준, 문항 수 많고 타임어택 심함
+- 필기시험 장소: 부산 및 서울</p>
+<p><strong>기출 정보:</strong>
+- 우대 자격증: 변호사, CPA, 세무사, 감정평가사, 건축사, 한국사능력검정 2급 이상 등
+- <a href="https://www.khug.or.kr/hug/web/ci/re/cire000006.jsp">NCS 채용 안내</a> - HUG 공식 NCS 채용 소개</p>
+<hr />
+<h3 id="_38">서민금융진흥원</h3>
+<blockquote>
+<p>서민금융진흥원(Kinfa) 채용 포털: <a href="https://www.kinfa.or.kr/notificationPromotion/recruitmentNotice.do">https://www.kinfa.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하 기타공공기관. 서민·취약계층 금융지원, 소액대출(미소금융·햇살론 등) 및 금융복지 상담. 서울 중구 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시 (금융·보험 직무 분류)
+- 전형절차: 서류전형 → 필기전형 → PT면접(1차) → 경험면접(2차)
+- 학력·연령 제한 없음
+- 비대면 서민금융 플랫폼 '잇다' 관련 시사 출제 가능</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적
+- <a href="https://kinfa.scout.co.kr/jobinfo/">서민금융진흥원 채용정보</a> - 스카우트 채용 페이지</p>
+<hr />
+<h3 id="_39">신용회복위원회</h3>
+<blockquote>
+<p>신용회복위원회 채용 포털: <a href="https://www.ccrs.or.kr/">https://www.ccrs.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 인가 신용회복지원 전문기관. 과다채무자 채무조정·신용회복 지원, 개인워크아웃·프리워크아웃 운영, 서민금융 상담. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 의사소통, 수리능력, 문제해결 중심
+- 채무조정·신용회복 관련 금융지식 출제 가능</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적
+- 서민금융진흥원과 유사한 출제 경향</p>
+<hr />
+<h3 id="_40">금융결제원</h3>
+<blockquote>
+<p>금융결제원(KFTC) 채용 포털: <a href="https://www.kftc.or.kr/">https://www.kftc.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하 기타공공기관. 은행 간 자금이체·결제 인프라 운영, 오픈뱅킹·계좌이동서비스 등 금융 IT 인프라 제공. 서울 강남구·분당 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 모집직무: 일반직(경영, 경제학) / 전산직(전산학)
+- 전형절차: 서류전형 → 필기전형 → 1차 면접 → 2차 면접 → 건강검진
+- 학력·연령 제한 없음 (남성 군필 또는 면제)
+- 상·하반기 정기 채용</p>
+<p><strong>기출 정보:</strong>
+- 기출복원 문제: NCS 교재 및 커뮤니티 참조
+- 자기소개서에서 금융결제원 서비스 이용 경험 문항 출제</p>
+<hr />
+<h3 id="_41">한국증권금융</h3>
+<blockquote>
+<p>한국증권금융(KSFC) 채용 포털: <a href="https://www.ksfc.co.kr/">https://www.ksfc.co.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하. 증권시장 유동성 공급, 증권담보금융, 예수금 관리, 증권저축 등 자본시장 지원 기관. 서울 여의도 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 전공: 경제학, 회계학, 재무관리
+- 자본시장 관련 전문지식 출제</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적
+- 한국거래소·한국예탁결제원과 유사한 출제 경향</p>
+<hr />
+<h3 id="_42">코스콤</h3>
+<blockquote>
+<p>코스콤(KOSCOM) 채용 포털: <a href="https://koscom.applyin.co.kr/">https://koscom.applyin.co.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 한국거래소 자회사. 자본시장 IT 인프라 구축·운영, 증권거래시스템·시세정보시스템 개발, 금융 데이터 서비스. 서울 여의도 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 모집분야: IT, 경영, 회계 등
+- 상·하반기 정기 채용
+- 경력직: 회계사, 생성형AI 서비스개발, 언론홍보 등 별도 모집</p>
+<p><strong>기출 정보:</strong>
+- <a href="https://www.koscom.co.kr/portal/bbs/B0000015/list.do?menuNo=200386">코스콤 공식 채용 안내</a>
+- 2026년 상반기 채용 진행 중</p>
+<hr />
+<h3 id="_43">신용정보원</h3>
+<blockquote>
+<p>신용정보원(KCIS) 채용 포털: <a href="https://www.kcredit.or.kr/">https://www.kcredit.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하 기타공공기관. 개인·기업 신용정보 집중관리, 신용정보 DB 운영, 금융사기 탐지 등. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- NCS 직업기초능력평가 + 직무수행능력평가
+- IT·데이터 직렬 별도 운영</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_44">금융보안원</h3>
+<blockquote>
+<p>금융보안원(FSI) 채용 포털: <a href="https://www.fsec.or.kr/">https://www.fsec.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하. 금융권 정보보호·사이버보안 전문기관, 전자금융 보안 관제, 금융 ISAC 운영, 금융보안 인증. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 정보보안·IT 전문 직렬 위주
+- 전공: 정보보안, 컴퓨터공학, 네트워크 등
+- 보안 자격증(CISSP, CISA 등) 우대</p>
+<p><strong>기출 정보:</strong>
+- IT/보안 특화 기관으로 일반 금융공기업과 시험 유형 상이</p>
+<hr />
+<h3 id="_45">한국장학재단</h3>
+<blockquote>
+<p>한국장학재단(KOSAF) 채용 포털: <a href="https://www.kosaf.go.kr/">https://www.kosaf.go.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 교육부 산하 준정부기관. 학자금 대출, 국가장학금 운영, 학자금 지원구간(소득분위) 산정, 취업후상환 학자금대출 운영. 서울·대구(본사) 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 의사소통, 수리능력, 문제해결 중심
+- 전공: 경영학, 경제학, 행정학, IT 등
+- 매년 100명 이상 대규모 채용</p>
+<p><strong>기출 정보:</strong>
+- NCS 교재 및 커뮤니티에 기출복원 문제 수록
+- 에듀윌, 시대에듀 교재 참조</p>
+<hr />
+<h3 id="_46">농업정책보험금융원</h3>
+<blockquote>
+<p>농업정책보험금융원(APFS) 채용 포털: <a href="https://www.apfs.kr/">https://www.apfs.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 농림축산식품부 산하 기타공공기관. 농업재해보험·가축재해보험 관리, 농업정책자금 관리, 농식품 투·융자 지원. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 농업·보험 관련 전문지식 출제 가능</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_47">농림수산업자신용보증기금</h3>
+<blockquote>
+<p>농림수산업자신용보증기금(농신보) 채용 포털: <a href="https://www.nongshinbo.nonghyup.com/">https://www.nongshinbo.nonghyup.com/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 농림축산식품부 산하. 농림수산업자에 대한 신용보증 제공, 농어업인 자금조달 지원, 농어촌 경제 활성화. NH농협 위탁 운영.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 농업·수산업 관련 상식 출제 가능
+- NH농협은행과 유사한 출제 경향</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_48">신용보증재단중앙회</h3>
+<blockquote>
+<p>신용보증재단중앙회 채용 포털: <a href="https://www.koreg.or.kr/">https://www.koreg.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하 기타공공기관. 전국 16개 지역신용보증재단 관리·지원, 소상공인·중소기업 신용보증 정책 총괄. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 전공: 경제학, 경영학, 행정학
+- 서울신용보증재단 등 지역재단 별도 채용</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적
+- 신용보증기금과 유사한 출제 경향</p>
+<hr />
+<h3 id="_49">우체국금융개발원</h3>
+<blockquote>
+<p>우체국금융개발원 채용 포털: <a href="https://www.postallife.or.kr/">https://www.postallife.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 과학기술정보통신부 산하 기타공공기관. 우체국예금·우체국보험 상품개발 및 운용, 우체국금융 IT시스템 운영·관리.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- NCS 직업기초능력평가 + 직무수행능력평가
+- 전공: 보험학, 경영학, 경제학, IT 등</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_50">한국성장금융</h3>
+<blockquote>
+<p>한국성장금융 채용 포털: <a href="https://www.kgrowth.or.kr/">https://www.kgrowth.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하. 성장지원펀드·벤처펀드 등 정책금융 펀드 출자 및 운용, 혁신기업 성장금융 지원. 서울 소재. 2022년 설립.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 소규모 전문인력 채용 위주
+- 전공: 경영학, 경제학, 재무관리</p>
+<p><strong>기출 정보:</strong>
+- 신생 기관으로 기출 자료 매우 제한적</p>
+<hr />
+<h3 id="_51">한국벤처투자</h3>
+<blockquote>
+<p>한국벤처투자(KVIC) 채용 포털: <a href="https://www.kvic.or.kr/">https://www.kvic.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 중소벤처기업부 산하 기타공공기관. 벤처펀드(모태펀드) 운용, 벤처·창업기업 투자 지원, 벤처투자 생태계 조성. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 전공: 경영학, 경제학, 재무관리
+- 벤처투자·VC 관련 전문지식 우대</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_52">은행연합회</h3>
+<blockquote>
+<p>은행연합회(KFB) 포털: <a href="https://www.kfb.or.kr/">https://www.kfb.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하. 은행업 관련 정책 연구·건의, 소비자보호, 은행 공동 업무 수행, 전국은행연합회 운영. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 소규모 채용
+- 전공: 경제학, 경영학, 법학</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적
+- 금융감독원·금융결제원과 유사한 출제 경향</p>
+<hr />
+<h3 id="_53">보험개발원</h3>
+<blockquote>
+<p>보험개발원(KIDI) 포털: <a href="https://www.kidi.or.kr/">https://www.kidi.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하. 보험요율 산출·검증, 보험통계 관리, 보험 관련 연구·분석, 보험사기 방지. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 전공: 보험학, 통계학, 경제학, 수학(보험계리)
+- 보험계리사·통계 자격증 우대</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_54">생명보험협회</h3>
+<blockquote>
+<p>생명보험협회(KLIA) 포털: <a href="https://www.klia.or.kr/">https://www.klia.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하. 생명보험업 관련 조사·연구, 소비자보호, 보험모집 관리, 업계 공동사업 수행. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 소규모 채용
+- 전공: 보험학, 경영학, 법학</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_55">손해보험협회</h3>
+<blockquote>
+<p>손해보험협회(KNIA) 포털: <a href="https://www.knia.or.kr/">https://www.knia.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하. 손해보험업 관련 조사·연구, 소비자보호, 자동차보험 진료비 심사, 보험사기 방지 활동. 서울 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 소규모 채용
+- 전공: 보험학, 경영학, 법학</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_56">금융투자협회</h3>
+<blockquote>
+<p>금융투자협회(KOFIA) 포털: <a href="https://www.kofia.or.kr/">https://www.kofia.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 금융위원회 산하. 금융투자업(증권·자산운용·선물 등) 자율규제 기관, 투자자 보호, 금융투자전문인력 자격시험 운영. 서울 여의도 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- 전공: 경제학, 재무관리, 회계학, 법학
+- 자본시장 관련 전문지식 출제</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h3 id="_57">한국조폐공사</h3>
+<blockquote>
+<p>한국조폐공사(KOMSCO) 채용 포털: <a href="https://www.komsco.com/">https://www.komsco.com/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 기획재정부 산하 공기업. 화폐(지폐·주화) 제조, 우표·훈장 등 유가증권 제작, 보안인쇄, ID카드·여권 제조. 대전 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 직업기초능력평가 + 전공시험
+- 의사소통, 수리능력, 문제해결 중심
+- 전공: 기계, 전기전자, 화학, 경영학 등 직렬별 상이
+- 기술직 비중 높음</p>
+<p><strong>기출 정보:</strong>
+- NCS 교재 및 커뮤니티에 기출복원 문제 일부 수록</p>
+<hr />
+<h3 id="_58">한국재정정보원</h3>
+<blockquote>
+<p>한국재정정보원(KoFPI) 채용 포털: <a href="https://www.kofpi.or.kr/">https://www.kofpi.or.kr/</a></p>
+</blockquote>
+<p><strong>기관 개요:</strong> 기획재정부 산하 기타공공기관. 디지털예산회계시스템(dBrain) 운영, 국가재정정보 관리, 재정 데이터 분석. 세종 소재.</p>
+<p><strong>필기시험 특징:</strong>
+- NCS 기반 채용 실시
+- NCS 직업기초능력평가 + 직무수행능력평가
+- IT 직렬 별도 운영</p>
+<p><strong>기출 정보:</strong>
+- 소규모 채용으로 기출 복원 자료 제한적</p>
+<hr />
+<h2 id="_59">년도별 분류</h2>
+<h3 id="2026">2026년</h3>
+<p><strong>주요 채용 일정:</strong>
+- <a href="https://jasoseol.com/recruit/99869">한국산업은행 2026년 5급 신입행원</a> - 원서접수 2025.9.3~9.17. IT, AI, 에너지, 로봇/기계, 토목/건축, 항공우주, 조선, 글로벌 분야. 서류심사→필기시험→1차면접→2차면접.
+- 한국은행 G5 종합기획직원 채용 (상반기 예정)
+- 금융감독원 종합직원 채용 (예정)
+- IBK기업은행 상·하반기 채용 (예정)
+- <a href="https://www.kamco.or.kr/portal/contents.do?mId=0105040000">한국자산관리공사</a> - 과거 패턴 기준 4~5월 공고 예상
+- <a href="https://www.kdic.or.kr/di/empm/selectPbcrEmpmPbancList.do">예금보험공사</a> - 과거 패턴 기준 8~9월 공고 예상
+- <a href="https://publicjob.kr/">2026 공공기관 채용정보박람회</a> - 2026년 2월 개최, 온라인 NCS 모의고사 포함</p>
+<p><strong>출제 경향 전망:</strong>
+- PSAT형 NCS 출제 비중 지속 확대 (2027년 9급 공무원 PSAT 전환 영향)
+- AI역량검사 별도 단계 도입 기관 증가 (AI 영상면접, 게임형 인지테스트)
+- ESG 경영, 디지털 전환 관련 시사 문제 증가 예상
+- 코딩테스트 병행 기관 증가 추세 (IT/AI 직렬)
+- 2025년 12월 NCS 개정: 생성형AI엔지니어링, AIoT운영플랫폼구축 등 6개 신규 능력단위 신설</p>
+<p><strong>참고 교재:</strong>
+- <a href="https://m.sdedu.co.kr/book/item.php?it_id=1766380644&amp;cat_id=008002004">시대에듀 2026 IBK기업은행 기출</a> - 5개년(2021-2025) 기출복원문제 + IT/디지털 섹션 신설
+- <a href="https://product.kyobobook.co.kr/detail/S000218882053">해커스 2026 NCS 통합 기본서</a> - 모듈형+피듈형 모의고사 5회분 포함
+- <a href="https://book.eduwill.net/goods/select.action?goodsId=0100004138">에듀윌 NCS 10개 영역 기출 600제</a> - 주요 공기업 기출복원 + 무료 영상강의 2강</p>
+<hr />
+<h3 id="2025">2025년</h3>
+<p><strong>주요 채용 실적:</strong>
+- 한국은행 G5 종합기획직원 채용 (상반기)
+- <a href="https://linkareer.com/activity/263048">한국산업은행 2025 하반기 5급</a> - 경영학, 경제학, AI, 전기/전자, 재료/소재, 글로벌 분야. 원서접수 3.12~3.26.
+- <a href="https://linkareer.com/activity/263048">한국수출입은행 2025 하반기</a> - 필기 2단계 변경 (1차 필기→2차 필기→면접). 기술 직렬(토목, 조선/기계, 환경) 신설.
+- <a href="https://www.kdic.or.kr/di/empm/selectPbcrEmpmPbancList.do">예금보험공사 2025 신입</a> - 40명 이내 모집. 원서접수 8.29~9.12, 필기 10.18. 디지털 분야 신설.
+- <a href="https://www.catch.co.kr/NCS/RecruitInfoDetails/506078">한국자산관리공사 2025</a> - 원서접수 4.25~5.9. 금융일반, 건축, IT 분야.
+- IBK기업은행 상·하반기 채용 실시
+- 신용보증기금 NCS+직무수행능력(전공+논술) 병행</p>
+<p><strong>출제 경향:</strong>
+- 실제 직무 상황 반영 문제 강화
+- 정보 해석 중심 문제 증가
+- AI역량검사, 인성검사 병행 기관 증가 (74.5% 기업 AI 채용도구 도입/확대 계획)
+- <a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18738">고용노동부 NCS 개정</a> - 12월, 생성형AI엔지니어링 등 6개 신규 능력단위 + 57개 개정</p>
+<hr />
+<h3 id="2024">2024년</h3>
+<p><strong>주요 채용 실적:</strong>
+- 금융감독원: 120명 채용, 경쟁률 약 18:1
+- 한국은행: G5 종합기획직원 채용 (필기시험 9월)
+- IBK기업은행: 상·하반기 채용 실시</p>
+<p><strong>기출 자료:</strong>
+- IBK기업은행 기출복원문제: 시대에듀 교재 수록
+- 주요 금융권 NCS 기출복원문제: 2024년 문제 수록 교재 다수</p>
+<hr />
+<h3 id="2023">2023년</h3>
+<p><strong>주요 채용 실적:</strong>
+- 금융감독원: 130명 채용, 경쟁률 약 24:1
+- 각 금융공기업 정기 채용 실시</p>
+<p><strong>기출 자료:</strong>
+- IBK기업은행 기출복원문제: 시대에듀 교재 수록
+- 주요 NCS 교재에 2023년 기출 반영</p>
+<hr />
+<h3 id="2022">2022년</h3>
+<p><strong>기출 자료:</strong>
+- 주요 금융공기업 NCS 기출복원문제: 에듀윌, 시대에듀 교재 수록
+- 코로나19 이후 비대면 채용 방식 정착기</p>
+<hr />
+<h3 id="2021">2021년</h3>
+<p><strong>기출 자료:</strong>
+- NCS 직업기초능력 학습자료 대규모 업데이트 (한국산업인력공단, 2021.12.31)
+- <a href="https://www.data.go.kr/data/15077168/fileData.do">공공데이터포털 직업기초능력 학습자료</a> - 2021년 기준 최신 영역별 학습자료
+- 주요 금융공기업 NCS 기출복원문제: 각 교재 출판사 참조</p>
+<hr />
+<h2 id="_60">참고 사항</h2>
+<ul>
+<li>기출문제는 각 기관의 저작권 보호 하에 있으며, 기출 <strong>복원</strong> 문제는 수험생 기억에 기반하여 재구성된 것입니다.</li>
+<li>정확한 채용 일정과 시험 과목은 반드시 해당 기관 공식 채용 공고를 확인하시기 바랍니다.</li>
+<li>본 자료는 학습 참고용이며, 최신 정보와 다를 수 있습니다.</li>
+</ul>
+<hr />
+<h2 id="_61">기여하기</h2>
+<p>새로운 자료나 기출 정보를 공유하고 싶으시면 <a href="../contributing.md">기여 안내</a>를 참조해 주세요.</p></div>
+<div id="tab-agents" class="tab-content"><div align="center">
+
+<!-- title -->
+
+# Awesome Web Agents (AI 웹 에이전트 모음)
+
+
+<p align="center">
+  <a href="https://awesome.re" target="_blank">
+    <img src="https://awesome.re/badge.svg">
+  </a>
+  <a href="https://twitter.com/steeldotdev" target="_blank">
+    <img src="https://img.shields.io/twitter/follow/steeldotdev.svg?logo=twitter">
+  </a>
+  <a href="https://discord.gg/steel-dev" target="_blank">
+            <img src="https://img.shields.io/static/v1?label=&message=Join%20the%20discord&color=mediumslateblue">
+        </a>
+</p>
+
+<!-- subtitle -->
+
+AI가 웹을 탐색하고 상호작용할 수 있도록 하는 도구, 프레임워크, 리소스를 정리한 큐레이션 목록입니다.
+
+</div>
+
+<h2>Steel 소개</h2>
+<!-- image -->
+
+<p><a href="https://steel.dev" target="_blank" rel="noopener noreferrer">
+  <img src="steel_hero.png" />
+</a></p>
+<p>Steel은 AI 에이전트를 위해 만들어진 <a href="https://github.com/steel-dev/steel-browser">오픈소스</a> 브라우저 API입니다. 웹과 효과적으로 상호작용하는 AI 애플리케이션을 쉽게 구축할 수 있습니다.</p>
+<p>✨ <a href="https://app.steel.dev">여기서</a> 무료로 시작하세요.</p>
+<h2>목차</h2>
+
+<ul>
+<li><a href="#awesome-web-agents-ai-웹-에이전트-모음">Awesome Web Agents (AI 웹 에이전트 모음)</a></li>
+<li><a href="#자율-웹-에이전트">자율 웹 에이전트</a><ul>
+<li><a href="#ai-브라우저">AI 브라우저</a></li>
+<li><a href="#컴퓨터-사용-에이전트">컴퓨터 사용 에이전트</a></li>
+</ul>
+</li>
+<li><a href="#모바일-에이전트">모바일 에이전트</a><ul>
+<li><a href="#모바일-개발-및-테스트-도구">모바일 개발 및 테스트 도구</a></li>
+<li><a href="#모바일-mcp-서버">모바일 MCP 서버</a></li>
+<li><a href="#모바일-벤치마크">모바일 벤치마크</a></li>
+</ul>
+</li>
+<li><a href="#ai-웹-자동화-도구">AI 웹 자동화 도구</a><ul>
+<li><a href="#개발-도구">개발 도구</a></li>
+</ul>
+</li>
+<li><a href="#ai-웹-스크레이퍼크롤러">AI 웹 스크레이퍼/크롤러</a></li>
+<li><a href="#웹-검색-및-쿼리-도구">웹 검색 및 쿼리 도구</a></li>
+<li><a href="#벤치마크-및-연구">벤치마크 및 연구</a></li>
+<li><a href="#튜토리얼-및-가이드">튜토리얼 및 가이드</a></li>
+<li><a href="#금융공기업-ncs-기출문제-모음">금융공기업 NCS 기출문제 모음</a></li>
+</ul>
+<!-- CONTENT -->
+
+<h2 id="_1">자율 웹 에이전트</h2>
+<p>사용자 친화적인 인터페이스를 통해 자율적으로 웹을 탐색하고 상호작용하는 AI 에이전트입니다. (브라우저 에이전트라고도 함)</p>
+<ul>
+<li><a href="https://surf.new">Surf.new</a> - 다양한 웹 에이전트와 대화할 수 있는 오픈소스 플레이그라운드. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/steel-dev/surf.new?style=social" /></li>
+<li><a href="https://openai.com/index/introducing-operator/">OpenAI Operator</a> - OpenAI의 웹 브라우징 AI 에이전트. 현재 ChatGPT Pro/Plus/Team 사용자를 위한 에이전트 모드로 통합됨.</li>
+<li><a href="https://www.browser-use.com">Browser-Use</a> - 웹을 LLM 친화적으로 만드는 최첨단 에이전트 및 프레임워크. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Browser-Use/browser-use?style=social" /></li>
+<li><a href="https://www.skyvern.com/">Skyvern-AI</a> - 브라우저 기반 워크플로우를 자동화하는 프레임워크. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Skyvern-AI/skyvern?style=social" /></li>
+<li><a href="https://convergence.ai">Proxy by Convergence</a> - 간단한 대화를 통해 웹을 탐색하고 작업을 수행하는 AI 디지털 어시스턴트.</li>
+<li><a href="https://deepmind.google/technologies/project-mariner/">Google Project Mariner</a> - 브라우저에서 시작하는 인간-에이전트 상호작용의 미래를 탐구하는 연구 프로토타입.</li>
+<li><a href="https://www.hcompany.ai/">Runner H</a> - 복잡하고 번거로운 다단계 작업을 반복적인 수동 입력 없이 자동화하는 최첨단 AI 에이전트.</li>
+<li><a href="https://github.com/MinorJerry/WebVoyager">WebVoyager (에이전트)</a> - 시각 기능이 탑재된 웹 에이전트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/MinorJerry/WebVoyager?style=social" /></li>
+<li><a href="https://github.com/reworkd/AgentGPT">AgentGPT</a> - 브라우저에서 자율 AI 에이전트를 배포. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/reworkd/AgentGPT?style=social" /></li>
+<li><a href="https://github.com/EmergenceAI/Agent-E">Agent-E</a> - HTML DOM 정제 기능을 갖춘 에이전트 및 프레임워크. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/EmergenceAI/Agent-E?style=social" /></li>
+<li><a href="https://www.trykura.com/">Kura</a> - 기업을 위한 웹 에이전트.</li>
+<li><a href="https://manus.im/">Manus</a> - 브라우저, 터미널, 텍스트 편집기에서 장기 실행 작업을 수행하는 범용 AI 에이전트. 2025년 12월 Meta에 인수됨.</li>
+<li><a href="https://www.dobrowser.io">doBrowser</a> - 자연어를 이해하고 브라우저에서 대신 작업을 수행하는 AI 크롬 확장 프로그램.</li>
+<li><a href="https://microsoft.github.io/autogen/stable/reference/python/autogen_ext.agents.web_surfer.html#autogen_ext.agents.web_surfer.MultimodalWebSurfer">WebSurfer (Autogen)</a> - 웹 검색 및 웹 페이지 방문이 가능한 멀티모달 에이전트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/microsoft/autogen?style=social" /></li>
+<li><a href="https://www.microsoft.com/en-us/research/articles/magentic-one-a-generalist-multi-agent-system-for-solving-complex-tasks/">Magentic-One</a> - Autogen의 MultimodalWebSurfer를 통한 웹 서핑을 포함하여 복잡한 작업을 해결하는 범용 멀티 에이전트 시스템.</li>
+<li><a href="https://harpa.ai/">Harpa.ai</a> - 자연어를 이해하고 대신 작업을 수행하는 AI 크롬 확장 프로그램 및 브라우저 에이전트.</li>
+<li><a href="https://yutori.com/">Yutori</a> - 자연어 프롬프트로 브라우저 기반 작업을 병렬로 실행하는 멀티 에이전트 시스템.</li>
+<li><a href="https://automina.app/">Automina</a> - 자연어 제어가 가능한 AI 브라우저 자동화 도구.</li>
+<li><a href="https://www.rtrvr.ai/">rtrvr.ai</a> - 프롬프트만으로 자율적으로 작업을 수행하고, 시트에 스크래핑하고, API를 호출하는 AI 웹 에이전트 크롬 확장 프로그램.</li>
+<li><a href="https://nanobrowser.ai">Nanobrowser</a> - 유연한 LLM 옵션과 멀티 에이전트 시스템을 갖춘 오픈소스 로컬 우선 AI 웹 에이전트 크롬 확장 프로그램. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/nanobrowser/nanobrowser?style=social" /></li>
+<li><a href="https://browserable.ai">Browserable</a> - AI 에이전트를 위한 오픈소스 셀프호스팅 브라우저 자동화 라이브러리. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/browserable/browserable?style=social" /></li>
+<li><a href="https://github.com/Alibaba-NLP/WebAgent">Tongyi WebAgent</a> - 알리바바 그룹 Tongyi Lab에서 만든 정보 탐색용 웹에이전트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Alibaba-NLP/WebAgent?style=social" /></li>
+<li><a href="https://github.com/simular-ai/Agent-S">Agent-S</a> - 사람처럼 컴퓨터를 사용하는 오픈 에이전트 프레임워크. Agent S3는 OSWorld에서 인간 수준의 성능(72.60%)을 돌파. ICLR 2025 최우수 논문상. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/simular-ai/Agent-S?style=social" /></li>
+<li><a href="https://github.com/aws/nova-act">Amazon Nova Act</a> - AWS의 브라우저 에이전트 구축용 Python SDK. ScreenSpot Web Text 벤치마크 0.939점, Playwright 통합. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/aws/nova-act?style=social" /></li>
+<li><a href="https://github.com/browseros-ai/BrowserOS">BrowserOS</a> - AI 에이전트를 네이티브로 실행하는 오픈소스 Chromium 포크. 31개 도구를 갖춘 MCP 서버. Claude, OpenAI, Gemini, Ollama 지원. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/browseros-ai/BrowserOS?style=social" /></li>
+<li><a href="https://github.com/HKUDS/AutoAgent">AutoAgent</a> - 연구 및 정보 검색을 위한 멀티 에이전트 시스템이 포함된 완전 자동화 제로코드 LLM 에이전트 프레임워크. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/HKUDS/AutoAgent?style=social" /></li>
+<li><a href="https://github.com/nottelabs/notte">Notte</a> - 웹 에이전트를 구축하고 안정적인 브라우저 인프라에서 서버리스 웹 자동화 함수를 배포하는 프레임워크. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/nottelabs/notte?style=social" /></li>
+<li><a href="https://github.com/TheAgenticAI/TheAgenticBrowser">TheAgenticBrowser</a> - PydanticAI 기반의 멀티 에이전트 아키텍처를 사용한 자연어 브라우저 자동화. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/TheAgenticAI/TheAgenticBrowser?style=social" /></li>
+<li><a href="https://www.genspark.ai/">Genspark</a> - 여러 소스를 교차 검증하고 출처가 포함된 리포트를 생성하는 최고 등급의 AI 연구 에이전트.</li>
+<li><a href="https://www.kortix.ai/">Kortix</a> - 자율 웹 작업을 위한 범용 AI 에이전트 플랫폼.</li>
+</ul>
+<h3 id="ai">AI 브라우저</h3>
+<p>AI가 기본 내장된 에이전트 기능을 갖춘 브라우저입니다.</p>
+<ul>
+<li><a href="https://openai.com/index/introducing-operator/">ChatGPT Atlas</a> - 모든 탭에서 자율 다단계 작업을 위한 에이전트 모드가 탑재된 OpenAI의 에이전트 브라우저.</li>
+<li><a href="https://www.perplexity.ai/comet">Perplexity Comet</a> - Perplexity AI가 내장된 Chromium 기반 브라우저. 자율 탐색, 양식 작성, 이메일/캘린더 관리 가능.</li>
+<li><a href="https://www.opera.com">Opera Neon</a> - 4개의 특화 에이전트를 갖춘 에이전트 브라우저: Neon Do (웹 자동화), Neon Make (코드/크리에이티브), ODRA (심층 리서치), 채팅.</li>
+<li><a href="https://google.com">Google Chrome Auto Browse</a> - Premium 구독자를 위한 Gemini AI 사이드 패널을 통한 자율 작업 완료. 2026년 1월 출시.</li>
+<li><a href="https://fellou.ai/">Fellou</a> - 로그인된 계정에서 시각적 작업 계획으로 심층 연구를 자동화하는 최초의 공간 에이전트 AI 브라우저.</li>
+<li><a href="https://www.diabrowser.com/">Dia Browser</a> - The Browser Company(Arc)가 만든 AI 네이티브 브라우저. 2025년 9월 Atlassian에 인수됨.</li>
+</ul>
+<h3 id="_2">컴퓨터 사용 에이전트</h3>
+<ul>
+<li><a href="https://www.anthropic.com/news/3-5-models-and-computer-use">Anthropic Computer Use</a> - 브라우저를 제어할 수 있는 컴퓨터 사용 에이전트.</li>
+<li><a href="https://github.com/OthersideAI/self-operating-computer">Self-Operating Computer Framework</a> - 멀티모달 모델이 컴퓨터를 조작할 수 있게 하는 프레임워크. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/OthersideAI/self-operating-computer?style=social" /></li>
+<li><a href="https://highlightai.com/">Highlight</a> - AI 모델이 데스크톱 활동을 이해할 수 있게 해주는 도구. 더 빠른 작업 처리 가능.</li>
+<li><a href="https://github.com/openinterpreter/open-interpreter">OpenInterpreter</a> - 코드 작성 및 실행, 브라우저 제어가 가능한 오픈소스 CLI 기반 에이전트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/openinterpreter/open-interpreter?style=social" /></li>
+<li><a href="https://github.com/bytedance/UI-TARS?tab=readme-ov-file">UI-TARS</a> - 인간과 같은 인지, 추론, 행동 능력으로 GUI와 원활하게 상호작용하는 GUI 에이전트 모델. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/bytedance/UI-TARS?style=social" /></li>
+<li><a href="https://openai.com/index/computer-using-agent/">OpenAI Computer-Using Agent (CUA)</a> - GPT-4o 비전과 강화학습을 결합. WebVoyager 87%, OSWorld 38.1%. 현재 ChatGPT 에이전트 모드에 통합됨.</li>
+<li><a href="https://www.microsoft.com/en-us/copilot/copilot-studio">Microsoft Computer Use for Copilot Studio</a> - Copilot Studio 에이전트가 Microsoft 호스팅 인프라에서 GUI를 통해 모든 애플리케이션과 상호작용할 수 있게 함.</li>
+</ul>
+<h2 id="_3">모바일 에이전트</h2>
+<p>AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스에서 작업을 자동화하는 에이전트 및 프레임워크입니다.</p>
+<ul>
+<li><a href="https://github.com/droidrun/droidrun">DroidRun</a> - 자연어 명령으로 Android/iOS 디바이스를 제어하는 LLM 기반 모바일 에이전트 프레임워크. AndroidWorld 벤치마크 1위. €2.1M 프리시드 투자 유치. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/droidrun/droidrun?style=social" /></li>
+<li><a href="https://github.com/minitap-ai/mobile-use">Mobile-Use (Minitap)</a> - 실제 Android/iOS 앱을 사람처럼 사용하는 AI 에이전트 프레임워크. AndroidWorld 벤치마크 100% 달성 최초 프레임워크. $4.1M 시드 투자 유치. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/minitap-ai/mobile-use?style=social" /></li>
+<li><a href="https://github.com/X-PLUG/MobileAgent">MobileAgent (X-PLUG)</a> - 알리바바 X-PLUG의 강력한 GUI 에이전트 패밀리. 멀티 에이전트 협업으로 복잡한 다중 앱 작업 수행. GUI-Owl 1.5 모델 포함. ICLR 2024 워크숍 채택. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/X-PLUG/MobileAgent?style=social" /></li>
+<li><a href="https://github.com/TencentQQGYLab/AppAgent">AppAgent (Tencent)</a> - 텐센트의 스마트폰 조작용 멀티모달 LLM 에이전트. 자율 탐색 또는 사용자 시연으로 학습하여 50개 작업, 10개 앱에서 검증. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/TencentQQGYLab/AppAgent?style=social" /></li>
+<li><a href="https://github.com/MobileLLM/AutoDroid">AutoDroid</a> - LLM 상식 지식과 앱별 도메인 지식을 결합한 Android 작업 자동화 시스템. 정확도 90.9%, 성공률 71.3%. ACM MobiCom '24 논문. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/MobileLLM/AutoDroid?style=social" /></li>
+<li><a href="https://github.com/callstackincubator/agent-device">Agent Device (Callstack)</a> - AI 에이전트용 iOS/Android 디바이스 제어 CLI. 접근성 트리 기반 스냅샷, 스크린샷, 녹화, 리플레이 기능. MIT 라이선스. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/callstackincubator/agent-device?style=social" /></li>
+<li><a href="https://github.com/bytedance/UI-TARS">UI-TARS (ByteDance)</a> - 인간과 같은 인지, 추론, 행동 능력으로 모바일/데스크톱 GUI와 상호작용하는 바이트댄스의 에이전트 모델. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/bytedance/UI-TARS?style=social" /></li>
+<li><a href="https://github.com/simular-ai/Agent-S">Agent-S (Simular AI)</a> - 컴퓨터와 모바일 디바이스를 사람처럼 사용하는 오픈 에이전트 프레임워크. OSWorld 인간 수준 성능(72.60%) 돌파. ICLR 2025 최우수 논문상. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/simular-ai/Agent-S?style=social" /></li>
+<li><a href="https://github.com/zai-org/Open-AutoGLM">Open-AutoGLM (Zhipu)</a> - 멀티모달 AI로 스마트폰 화면을 인식하여 자연어 명령으로 폰을 자율 조작하는 오픈소스 에이전트. Android 50개+, HarmonyOS 60개+ 앱 지원. Apache-2.0. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zai-org/Open-AutoGLM?style=social" /></li>
+<li><a href="https://github.com/DigiRL-agent/digirl">DigiRL</a> - 자율 강화학습으로 실제 환경에서 모바일 디바이스를 제어하는 에이전트 훈련 프레임워크. Android-in-the-Wild 성공률 67.2%. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/DigiRL-agent/digirl?style=social" /></li>
+<li><a href="https://github.com/HKUDS/OpenPhone">OpenPhone (HKUDS)</a> - 최초의 오픈소스 3B 파라미터 온디바이스 모바일 에이전트 파운데이션 모델. 클라우드 의존 없이 프라이버시를 지키며 스마트폰에서 직접 실행. Qwen2.5-VL-3B 기반, GRPO 강화학습으로 9B 모델 대비 동등 성능. MIT 라이선스. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/HKUDS/OpenPhone?style=social" /></li>
+<li><a href="https://github.com/zai-org/CogAgent">CogAgent (Zhipu AI)</a> - 칭화대·Zhipu AI의 엔드투엔드 VLM 기반 GUI 에이전트. CogAgent-9B로 PC·모바일(Android 13-15) GUI 작업에서 SOTA 달성. CVPR 2024 Highlight (상위 3%). <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zai-org/CogAgent?style=social" /></li>
+<li><a href="https://github.com/Euphoria16/UI-Genie">UI-Genie</a> - 자가 개선(Self-Improving) 방식으로 모바일 GUI 에이전트 성능을 반복적으로 향상시키는 프레임워크. NeurIPS 2025 채택. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Euphoria16/UI-Genie?style=social" /></li>
+<li><a href="https://github.com/THUDM/MobileRL">MobileRL (THUDM)</a> - 난이도 적응형 온라인 강화학습으로 범용 VLM을 강력한 모바일 에이전트로 변환. 7B 모델이 72B UI-TARS-1.5를 +16% 능가. AndroidWorld 80.2% SOTA. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/THUDM/MobileRL?style=social" /></li>
+<li><a href="https://github.com/OS-Copilot/OS-Atlas">OS-Atlas (OS-Copilot)</a> - 1,300만+ GUI 요소로 훈련된 범용 GUI 그라운딩 파운데이션 모델. 모바일/데스크톱/웹 전 플랫폼 ScreenSpot SOTA. ICLR 2025 Spotlight. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/OS-Copilot/OS-Atlas?style=social" /></li>
+<li><a href="https://github.com/V-Droid-Agent/V-Droid">V-Droid (Microsoft Research)</a> - 생성적 검증기(Verifier) 기반 모바일 GUI 에이전트. 0.7초/스텝 실시간 의사결정. AndroidWorld 59.5%, MobileAgentBench 49%. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/V-Droid-Agent/V-Droid?style=social" /></li>
+<li><a href="https://github.com/Westlake-AGI-Lab/AppAgentX">AppAgentX (Westlake AGI Lab)</a> - AppAgent의 차세대 버전. 반복 작업을 고수준 숏컷으로 진화시키는 메모리 기반 GUI 에이전트. LangChain/Neo4j/Pinecone 기반. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Westlake-AGI-Lab/AppAgentX?style=social" /></li>
+<li><a href="https://github.com/web-infra-dev/midscene">Midscene.js (ByteDance)</a> - 비전 모델 기반 자연어 UI 자동화 프레임워크. Web/Android(adb)/iOS(WDA) 지원. UI-TARS, GPT-4o, Gemini 호환. MCP 서비스 제공. MIT 라이선스. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/web-infra-dev/midscene?style=social" /></li>
+<li><a href="https://github.com/OpenGVLab/GUI-Odyssey">GUI Odyssey (OpenGVLab)</a> - 212개 앱, 1,400개 조합의 크로스앱 모바일 내비게이션 대규모 데이터셋. 8,834 에피소드. ICCV 2025. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/OpenGVLab/GUI-Odyssey?style=social" /></li>
+</ul>
+<h3 id="_4">모바일 개발 및 테스트 도구</h3>
+<ul>
+<li><a href="https://github.com/mobile-dev-inc/Maestro">Maestro</a> - YAML 기반의 Android/iOS/웹 E2E 테스트 프레임워크. MaestroGPT AI 어시스턴트 및 MCP 통합 지원. Appium 대안. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mobile-dev-inc/Maestro?style=social" /></li>
+<li><a href="https://github.com/takahirom/arbigent">Arbigent</a> - 5분 만에 시작하는 Android/iOS/웹 앱 AI 테스트 에이전트. 직관적 UI와 시나리오 분해 기능으로 복잡한 작업도 확장 가능. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/takahirom/arbigent?style=social" /></li>
+<li><a href="https://firebase.google.com/docs/app-distribution/android/app-testing-agent">Firebase App Testing Agent</a> - 자연어로 테스트 목표를 정의하면 Gemini AI가 Android 앱을 자동 탐색하고 테스트하는 Google Firebase 기반 도구. CI/CD 통합 지원.</li>
+<li><a href="https://github.com/testinging6/GPTDroid">GPTDroid</a> - LLM과 모바일 앱의 대화형 상호작용으로 GUI 기반 자동 테스트 스크립트를 생성. 93개 Google Play 앱에서 검증, 53개 신규 버그 발견. ICSE 2024. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/testinging6/GPTDroid?style=social" /></li>
+<li><a href="https://github.com/coinse/droidagent">DroidAgent (KAIST)</a> - 다중 LLM 인스턴스 기반의 의도 중심 Android GUI 자동 탐색 테스트 프레임워크. 15개 앱에서 평균 61% 활동 커버리지. ICST 2024. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/coinse/droidagent?style=social" /></li>
+<li><a href="https://github.com/sidongfeng/AdbGPT">AdbGPT</a> - 퓨샷 학습과 CoT 추론으로 버그 리포트에서 Android 버그를 자동 재현. 81.3% 재현 성공률. ICSE 2024. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/sidongfeng/AdbGPT?style=social" /></li>
+</ul>
+<h3 id="mcp">모바일 MCP 서버</h3>
+<ul>
+<li><a href="https://github.com/appium/appium-mcp">Appium MCP (공식)</a> - Appium의 공식 MCP 서버. Claude 등 AI 에이전트가 자연어로 Android/iOS 디바이스를 자동화할 수 있게 연결. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/appium/appium-mcp?style=social" /></li>
+<li><a href="https://github.com/AlexGladkov/claude-in-mobile">Claude-in-Mobile</a> - Claude를 통해 자연어로 Android/iOS/Desktop/Aurora OS 디바이스를 제어하는 MCP 서버. 단일 2MB Rust 바이너리. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/AlexGladkov/claude-in-mobile?style=social" /></li>
+<li><a href="https://github.com/mobile-next/mobile-mcp">Mobile MCP (Mobile Next)</a> - iOS/Android 실기기·에뮬레이터·시뮬레이터를 플랫폼 무관하게 자동화하는 MCP 서버. 접근성 스냅샷 + 스크린샷 기반 좌표 탭 지원. Claude, Cursor, Copilot 등 MCP 클라이언트와 호환. Apache-2.0. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mobile-next/mobile-mcp?style=social" /></li>
+</ul>
+<h3 id="_5">모바일 벤치마크</h3>
+<ul>
+<li><a href="https://github.com/google-research/android_world">AndroidWorld (Google Research)</a> - 20개 앱, 116개 작업의 동적 모바일 에이전트 벤치마크 환경. 수백만 개의 고유 작업 변형 생성 가능. ICLR 2025. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/google-research/android_world?style=social" /></li>
+<li><a href="https://github.com/Tongyi-MAI/MobileWorld">MobileWorld (Tongyi-MAI)</a> - AndroidWorld의 후속 벤치마크. 201개 작업, 62.2% 다중 앱 태스크, 에이전트-사용자 상호작용 및 MCP 도구 통합 평가. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Tongyi-MAI/MobileWorld?style=social" /></li>
+<li><a href="https://openreview.net/forum?id=zE2tVigoub">Android Agent Arena (A3)</a> - Google Play 20개 카테고리, 20개 실제 온라인 앱에서 100개 작업을 평가하는 모바일 GUI 에이전트 벤치마크. 기존 정적 벤치마크의 한계를 극복한 실시간 앱 평가 시스템. ICLR 2026.</li>
+<li><a href="https://github.com/THUDM/Android-Lab">AndroidLab (THUDM)</a> - Android 자율 에이전트의 체계적 훈련 및 벤치마킹 프레임워크. 138개 태스크, 9개 앱 환경, 726개 trace. ACL 2025. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/THUDM/Android-Lab?style=social" /></li>
+<li><a href="https://github.com/ai-agents-2030/SPA-Bench">SPA-Bench</a> - 11개 에이전트를 통합 평가하는 340개 태스크 기반 종합 스마트폰 에이전트 벤치마크. 300 단일앱 + 40 크로스앱 태스크. ICLR 2025 Spotlight. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ai-agents-2030/SPA-Bench?style=social" /></li>
+<li><a href="https://github.com/MobileAgentBench/mobile-agent-bench">MobileAgentBench</a> - 10개 오픈소스 앱의 100개 태스크로 모바일 LLM 에이전트를 효율적으로 벤치마킹하는 자동화 평가 도구. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/MobileAgentBench/mobile-agent-bench?style=social" /></li>
+<li><a href="https://github.com/jylee425/b-moca">B-MoCA (KAIST)</a> - 다양한 디바이스 설정(UI 레이아웃, 언어)에서 모바일 에이전트 일반화 성능을 평가하는 인터랙티브 벤치마크. 131개 일상 태스크. CoLLAs 2025. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/jylee425/b-moca?style=social" /></li>
+</ul>
+<h2 id="ai_1">AI 웹 자동화 도구</h2>
+<p>자연어 지시를 웹 상호작용으로 변환하는 도구, 프레임워크 및 라이브러리입니다.</p>
+<ul>
+<li><a href="https://asteroid.ai/">Asteroid.ai</a> - 중소기업의 복잡한 워크플로우를 자동화하는 호스팅 브라우저 에이전트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ishan0102/vimGPT?style=social" /></li>
+<li><a href="https://github.com/platonai/pulsarRPA">PulsarRPA</a> - AI 기반 데이터 추출 브라우저 자동화. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/platonai/pulsarRPA?style=social" /></li>
+<li><a href="https://github.com/ishan0102/vimGPT">VimGPT</a> - Vimium 확장 프로그램을 통해 GPT-4 Vision으로 웹을 탐색하는 실험 프로젝트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ishan0102/vimGPT?style=social" /></li>
+<li><a href="https://www.cekura.io/">Cekura.io</a> - 기업이 문서를 최신 상태로 유지하도록 도와주는 AI 브라우저 에이전트.</li>
+<li><a href="https://getdexterity.com/">Dex by Dexterity</a> - 브라우저에 내장되어 브라우저를 제어하는 AI 동료.</li>
+<li><a href="https://autobrowser.ai/">Autobrowser</a> - Claude Computer Use를 활용하여 브라우저 작업을 자동화하는 무료 실험적 크롬 확장 프로그램.</li>
+<li><a href="https://bytebot.ai">Bytebot</a> - 대상 사이트에 맞춰 진화하는 AI 기반 스크래핑 자동화 도구.</li>
+<li><a href="https://www.runcopycat.com/">Runcopycat</a> - 화면 녹화를 재사용 가능한 자동화 워크플로우로 변환하는 노코드 브라우저 자동화 플랫폼.</li>
+<li><a href="https://bardeen.ai">Bardeen.ai</a> - 브라우저 내에서 직접 작업과 워크플로우를 자동화할 수 있는 AI 기반 크롬 확장 프로그램.</li>
+<li><a href="https://starizon.ai/">Starizon.ai</a> - 웹 작업 자동화를 위한 브라우저 어시스턴트.</li>
+<li><a href="https://browsegpt.ai/">BrowserGPT</a> - 페이지 요약 및 Q&amp;A를 위한 브라우저 확장 프로그램.</li>
+<li><a href="https://www.browse.ai/">Browse.ai</a> - AI를 활용한 구조화된 데이터 추출이 가능한 크롬 확장 프로그램 웹스크래퍼.</li>
+<li><a href="https://www.strawberrybrowser.com/">Strawberry Browser</a> - 브라우저에 상주하며 반복적인 웹 작업을 자동화하고 워크플로우를 학습하는 개인 어시스턴트.</li>
+<li><a href="https://deta.surf/">Deta.surf</a> - 브라우저, 파일 관리자, AI 어시스턴트를 브라우저 수준의 컨텍스트와 함께 결합한 통합 플랫폼.</li>
+<li><a href="https://reworkd.ai">Reworkd</a> - 에이전트 AI를 사용한 노코드 웹 데이터 추출 솔루션.</li>
+<li><a href="https://ottogrid.ai/">Ottogrid</a> - 수동 리서치를 자동화하는 스프레드시트 기반 웹 에이전트.</li>
+</ul>
+<h3 id="_6">개발 도구</h3>
+<ul>
+<li><a href="https://steel.dev">Steel.dev</a> - AI 에이전트 및 앱을 위해 특별히 제작된 오픈소스 헤드리스 브라우저 API. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/steel-dev/steel-browser?style=social" /></li>
+<li><a href="https://microsoft.github.io/OmniParser/">Omniparser</a> - 비전 기반 에이전트를 위한 GUI 파싱 도구. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/microsoft/OmniParser?style=social" /></li>
+<li><a href="https://www.lavague.ai/">LaVague</a> - 자연어 웹 자동화 프레임워크. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/lavague-ai/LaVague?style=social" /></li>
+<li><a href="https://python.langchain.com/docs/integrations/tools/playwright/#use-within-an-agent">Langchain Playwright toolkit</a> - AI 에이전트와의 툴킷 통합.</li>
+<li><a href="https://browserbase.com">Browserbase</a> - AI 에이전트를 위한 서버리스 브라우저 인프라. 시리즈 B 4천만 달러 (2025년 6월), 5천만+ 세션, 1000+ 고객.</li>
+<li><a href="https://www.stagehand.dev/">Stagehand</a> - AI 웹 브라우징 프레임워크. v3에서 Playwright 의존성 제거, 네이티브 CDP 추가, 44% 빨라짐. 다중 언어 SDK (Python, Go, Kotlin, C#, Ruby). <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/browserbase/stagehand?style=social" /></li>
+<li><a href="https://github.com/reworkd/tarsier">Tarsier</a> - 웹 상호작용 에이전트를 위한 비전 유틸리티 라이브러리. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/reworkd/tarsier?style=social" /></li>
+<li><a href="https://github.com/Significant-Gravitas/AutoGPT">AutoGPT</a> - 작업 완료 및 웹 브라우징을 위한 실험적 에이전트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Significant-Gravitas/AutoGPT?style=social" /></li>
+<li><a href="https://github.com/bytebot-ai/bytebot">Bytebot</a> - 가상 데스크톱 환경이 포함된 컨테이너화된 컴퓨터 사용 에이전트 프레임워크. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/bytebot-ai/bytebot?style=social" /></li>
+<li><a href="https://github.com/microsoft/playwright-mcp">Playwright MCP Server</a> - Playwright를 통한 브라우저 자동화를 위한 Microsoft의 MCP 서버. 접근성 스냅샷 사용. GitHub Copilot Coding Agent에 내장. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/microsoft/playwright-mcp?style=social" /></li>
+<li><a href="https://github.com/vercel-labs/agent-browser">Vercel Agent Browser</a> - Vercel Labs의 AI 에이전트 전용 헤드리스 브라우저 자동화 CLI. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/vercel-labs/agent-browser?style=social" /></li>
+<li><a href="https://github.com/browser-use/web-ui">Browser-Use Web UI</a> - DeepSeek-r1의 심층 사고 지원으로 브라우저에서 AI 에이전트 실행. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/browser-use/web-ui?style=social" /></li>
+</ul>
+<h2 id="ai_2">AI 웹 스크레이퍼/크롤러</h2>
+<p>AI를 활용하여 웹사이트를 탐색하고 콘텐츠를 추출하는 웹 크롤러 및 스크레이퍼입니다.</p>
+<ul>
+<li><a href="https://www.firecrawl.dev/">FireCrawl</a> - 웹사이트를 LLM 친화적인 마크다운으로 변환하는 API. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mendableai/firecrawl?style=social" /></li>
+<li><a href="https://crawl4ai.com">Crawl4AI</a> - 오픈소스 LLM 친화적 웹 크롤러 및 스크레이퍼. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/unclecode/crawl4ai?style=social" /></li>
+<li><a href="https://scrapegraphai.com/">ScrapeGraphAI</a> - AI 기반 Python 스크레이퍼. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ScrapeGraphAI/Scrapegraph-ai?style=social" /></li>
+<li><a href="https://github.com/xlang-ai/OpenAgents">WebAgent (OpenAgents)</a> - OpenAgents 플랫폼(홍콩대)의 웹 브라우징 에이전트 모듈. 대규모 멀티모달 에이전트 프레임워크의 일부로 자연어를 통한 자율 웹사이트 탐색 지원. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/xlang-ai/OpenAgents?style=social" /></li>
+<li><a href="https://www.expand.ai/">Expand.ai</a> - 모든 웹사이트를 신뢰할 수 있는 타입 안전 API로 변환.</li>
+<li><a href="https://github.com/mishushakov/llm-scraper">LLM Scraper</a> - LLM을 활용한 지능형 스크래핑 및 콘텐츠 이해 도구. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mishushakov/llm-scraper?style=social" /></li>
+<li><a href="https://github.com/carlosplanchon/spidercreator">SpiderCreator</a> - 자연어 프롬프트로 복잡한 Playwright 스파이더 생성. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/carlosplanchon/spidercreator?style=social" /></li>
+<li><a href="https://github.com/D4Vinci/Scrapling">Scrapling</a> - 인터랙티브 셸이 포함된 적응형 웹 스크래핑 프레임워크. 92% 테스트 커버리지, BeautifulSoup과 유사한 API. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/D4Vinci/Scrapling?style=social" /></li>
+<li><a href="https://github.com/sadiuysal/crawl4ai-mcp-server">Crawl4AI MCP Server</a> - Crawl4AI를 AI 에이전트용 도구로 노출하는 MCP 서버. 셀프호스팅 Firecrawl 대안. OpenAI Agents SDK, Cursor, Claude Code와 호환. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/sadiuysal/crawl4ai-mcp-server?style=social" /></li>
+</ul>
+<h2 id="_7">웹 검색 및 쿼리 도구</h2>
+<p>에이전트가 자연어로 웹을 검색하거나 웹 데이터를 쿼리하는 데 도움이 되는 유틸리티입니다.</p>
+<ul>
+<li><a href="https://www.agentql.com/">AgentQL</a> - 웹을 AI 친화적으로 만드는 쿼리 언어 및 툴킷. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/tinyfish-io/agentql?style=social" /></li>
+<li><a href="https://serpapi.com/">SerpAPI</a> - 에이전트에 구글 검색 결과를 제공하는 검색 API.</li>
+<li><a href="https://serper.dev/">Serper.dev</a> - 에이전트에 구글 검색 결과를 제공하는 고성능 저비용 검색 API.</li>
+<li><a href="https://jina.ai/">Jina.ai</a> - 웹 데이터를 위한 뉴럴 검색 플랫폼.</li>
+<li><a href="https://exa.ai">Exa.ai</a> - AI를 위한 시맨틱 검색 엔진.</li>
+</ul>
+<h2 id="_8">벤치마크 및 연구</h2>
+<p>웹 기능을 갖춘 AI 에이전트를 평가하고 발전시키기 위한 데이터셋, 벤치마크, 주요 연구입니다.</p>
+<ul>
+<li><a href="https://leaderboard.steel.dev">Web Agent Leaderboard</a> - 널리 사용되는 WebVoyager 벤치마크에서 다양한 AI 에이전트 제품의 성능을 비교하는 웹 에이전트 리더보드. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/steel-dev/leaderboard?style=social" /></li>
+<li><a href="https://webgames.convergence.ai/">Web Games by Convergence</a> - 범용 웹 브라우징 AI 에이전트를 테스트하기 위해 설계된 챌린지 모음. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/convergence-ai/webgames?style=social" /></li>
+<li><a href="https://github.com/reworkd/bananalyzer">Bananalyzer</a> - 웹 기반 AI 에이전트를 위한 오픈소스 평가 프레임워크. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/reworkd/bananalyzer?style=social" /></li>
+<li><a href="https://osu-nlp-group.github.io/Mind2Web">Mind2Web</a> - 범용 웹 에이전트를 위한 대규모 데이터셋. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/OSU-NLP-Group/Mind2Web?style=social" /></li>
+<li><a href="https://proceedings.mlr.press/v70/shi17a/shi17a.pdf">World of Bits</a> - OpenAI의 연구 논문. 에이전트가 키보드와 마우스 조작으로 인터넷에서 작업을 완료하는 플랫폼 소개.</li>
+<li><a href="https://miniwob.farama.org">MiniWoB++</a> - 합성 환경에서 104개의 미니 웹 브라우저 작업을 포함하는 고전적인 테스트 스위트. OpenAI MiniWoB 벤치마크의 확장판. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Farama-Foundation/miniwob-plusplus?style=social" /></li>
+<li><a href="https://webarena.dev">WebArena</a> - 자율 에이전트를 위한 현실적이고 셀프호스팅 가능한 웹 환경. 에이전트 성능을 추적하는 공식 리더보드 포함. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/web-arena-x/webarena?style=social" /></li>
+<li><a href="https://github.com/iMeanAI/WebCanvas">WebCanvas</a> - 동적 웹 환경을 위한 온라인 평가 프레임워크. 실제 웹사이트에서 에이전트를 테스트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/iMeanAI/WebCanvas?style=social" /></li>
+<li><a href="https://openai.com/research/webgpt">WebGPT</a> - OpenAI의 브라우저 보조 질문 응답 연구 프로젝트.</li>
+<li><a href="https://webshop-pnlp.github.io">WebShop</a> - 118만 개의 실제 Amazon 제품이 포함된 시뮬레이션 전자상거래 쇼핑 환경. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/princeton-nlp/WebShop?style=social" /></li>
+<li><a href="https://github.com/MinorJerry/WebVoyager">WebVoyager (벤치마크)</a> - 실제 웹사이트 상호작용을 위해 GPT-4V를 사용하는 비전 지원 웹 에이전트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/MinorJerry/WebVoyager?style=social" /></li>
+<li><a href="https://github.com/ServiceNow/WorkArena">WorkArena</a> - 기업 "지식 근로자" 시나리오를 위한 33개의 브라우저 기반 작업 스위트. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ServiceNow/WorkArena?style=social" /></li>
+<li><a href="https://github.com/ServiceNow/BrowserGym">BrowserGym by ServiceNow</a> - 웹 작업 자동화를 위한 Gym 환경. <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/ServiceNow/BrowserGym?style=social" /></li>
+<li><a href="https://openreview.net/forum?id=CSIo4D7xBG">WebArena Verified</a> - 강화된 측정을 통한 WebArena의 재현 가능한 재평가. 위음성률 11.3% 감소. ICLR 2026.</li>
+<li><a href="https://openreview.net/forum?id=zIT4MLbjlO">MM-BrowseComp</a> - 웹페이지의 이미지/동영상을 활용한 멀티모달 검색 및 추론을 테스트하는 224개 수작업 질문. ICLR 2026.</li>
+<li><a href="https://openreview.net/forum?id=d0xqdsR41U">WebChoreArena</a> - 대규모 메모리, 계산, 장기 기억 챌린지에 걸친 노동 집약적 웹 작업을 테스트하는 532개 큐레이션된 과제. ICLR 2026.</li>
+<li><a href="https://openreview.net/forum?id=IIzehISTBe">ST-WebAgentBench</a> - 6개 차원에 걸친 웹 에이전트의 안전성과 신뢰성을 위한 벤치마크. ICLR 2025.</li>
+<li><a href="https://futuresearch.ai/deep-research-bench/">Deep Research Bench</a> - 레트로 및 라이브 평가를 통해 LLM 에이전트의 웹 리서치 수행 능력을 벤치마킹.</li>
+</ul>
+<h2 id="_9">튜토리얼 및 가이드</h2>
+<p>AI 웹 에이전트를 구축, 배포 또는 활용하는 방법을 배우기 위한 리소스입니다.</p>
+<ul>
+<li><a href="https://langchain-ai.github.io/langgraph/tutorials/web-navigation/web_voyager/">LangGraph WebVoyager 튜토리얼</a> - LangGraph Agents, Vision Models, Web Voyager를 사용하여 웹 탐색 에이전트를 구축하는 방법을 보여주는 튜토리얼.</li>
+<li><a href="https://dzone.com/articles/build-ai-browser-agent-llms-playwright-browser-use">AI 브라우저 에이전트 만들기</a> - Playwright와 Browser-Use 라이브러리를 사용하여 웹을 탐색하는 AI를 만드는 단계별 가이드.</li>
+<li><a href="https://aleksandarhaber.com/install-and-run-browser-use-ai-agents-locally-using-ollama/">Browser-Use 로컬 설치 및 실행</a> - 로컬 LLM으로 오픈소스 Browser-Use 에이전트를 설치하는 방법.</li>
+<li><a href="https://nodeshift.com/blog/build-a-browser-use-agent-with-deepseek-a-step-by-step-guide">DeepSeek으로 브라우저 에이전트 만들기</a> - 클라우드 VM에서 DeepSeek 모델로 구동되는 Browser-Use 웹 UI 에이전트 배포 과정 안내.</li>
+<li><a href="https://www.deeplearning.ai/short-courses/building-ai-browser-agents/">DeepLearning.AI - AI 브라우저 에이전트 만들기</a> - 웹사이트를 안정적으로 탐색하고 상호작용하는 에이전트 구축에 대한 단기 강좌.</li>
+<li><a href="https://medium.com/@bluudit/playwright-mcp-comprehensive-guide-to-ai-powered-browser-automation-in-2025-712c9fd6cffa">Playwright MCP 종합 가이드</a> - Playwright MCP를 활용한 AI 기반 브라우저 자동화 가이드.</li>
+<li><a href="https://www.skyvern.com/blog/ai-web-agents-complete-guide-to-intelligent-browser-automation-november-2025/">AI 웹 에이전트 완벽 가이드 (Skyvern)</a> - 지능형 브라우저 자동화에 대한 종합 가이드.</li>
+<li><a href="https://www.nohackspod.com/blog/agentic-browser-landscape-2026">2026년 에이전트 브라우저 현황</a> - 주요 플레이어, 아키텍처, 트렌드를 다루는 완벽한 현황 가이드.</li>
+</ul>
+<h2 id="ncs">금융공기업 NCS 기출문제 모음</h2>
+<p>금융공기업 NCS 기출문제 및 학습 자료를 과목별, 기관별, 년도별로 분류한 큐레이션 목록입니다.</p>
+<p><strong><a href="../ncs/financial-exams.md">금융공기업 NCS 기출문제 모음 바로가기 →</a></strong></p>
+<!-- END CONTENT -->
+
+<h2 id="steel">Steel 도입에 관심이 있으신가요?</h2>
+<p><a href="mailto:team@steel.dev?subject=Hello%20from%20github!">team@steel.dev</a>로 연락하시거나 <a href="https://discord.gg/steel-dev">Discord</a>에서 문의하세요.</p>
+<p>Steel은 AI 에이전트를 위해 특별히 제작된 <a href="https://github.com/steel-dev/steel-browser">오픈소스</a> 브라우저 API입니다. <a href="https://app.steel.dev">여기서</a> 무료로 시작하세요.</p>
+<h2 id="_10">커뮤니티 참여</h2>
+<ul>
+<li>X에서 <a href="https://x.com/steeldotdev">@steeldotdev</a> 팔로우하기</li>
+<li><a href="https://discord.gg/steel-dev">Discord 커뮤니티</a> 참여하기</li>
+<li><a href="mailto:team@steel.dev?subject=Hello%20from%20github!">team@steel.dev</a>로 연락하기</li>
+</ul>
+<h2 id="_11">기여하기</h2>
+<p><a href="contributing.md">어떤 형태의 기여든 환영합니다. 가이드라인을 따라주세요</a>!</p>
+<h3 id="_12">기여자</h3>
+<p><a href="https://github.com/steel-dev/awesome-web-agents/graphs/contributors">이 기여자들에게 감사드립니다</a>!</p></div>
+
+<button class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0});
+}
+window.addEventListener('scroll', function() {
+  document.querySelector('.top-btn').style.display = window.scrollY > 400 ? 'block' : 'none';
+});
+</script>
+</body>
+</html>
