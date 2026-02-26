@@ -42,6 +42,7 @@ Steel은 AI 에이전트를 위해 만들어진 [오픈소스](https://github.co
     - [컴퓨터 사용 에이전트](#컴퓨터-사용-에이전트)
   - [모바일 에이전트](#모바일-에이전트)
     - [모바일 개발 및 테스트 도구](#모바일-개발-및-테스트-도구)
+    - [모바일 MCP 서버](#모바일-mcp-서버)
     - [모바일 벤치마크](#모바일-벤치마크)
   - [AI 웹 자동화 도구](#ai-웹-자동화-도구)
     - [개발 도구](#개발-도구)
@@ -121,11 +122,19 @@ AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스�
 - [Agent Device (Callstack)](https://github.com/callstackincubator/agent-device) - AI 에이전트용 iOS/Android 디바이스 제어 CLI. 접근성 트리 기반 스냅샷, 스크린샷, 녹화, 리플레이 기능. MIT 라이선스. ![GitHub Repo stars](https://img.shields.io/github/stars/callstackincubator/agent-device?style=social)
 - [UI-TARS (ByteDance)](https://github.com/bytedance/UI-TARS) - 인간과 같은 인지, 추론, 행동 능력으로 모바일/데스크톱 GUI와 상호작용하는 바이트댄스의 에이전트 모델. ![GitHub Repo stars](https://img.shields.io/github/stars/bytedance/UI-TARS?style=social)
 - [Agent-S (Simular AI)](https://github.com/simular-ai/Agent-S) - 컴퓨터와 모바일 디바이스를 사람처럼 사용하는 오픈 에이전트 프레임워크. OSWorld 인간 수준 성능(72.60%) 돌파. ICLR 2025 최우수 논문상. ![GitHub Repo stars](https://img.shields.io/github/stars/simular-ai/Agent-S?style=social)
+- [Open-AutoGLM (Zhipu)](https://github.com/zai-org/Open-AutoGLM) - 멀티모달 AI로 스마트폰 화면을 인식하여 자연어 명령으로 폰을 자율 조작하는 오픈소스 에이전트. Android 50개+, HarmonyOS 60개+ 앱 지원. Apache-2.0. ![GitHub Repo stars](https://img.shields.io/github/stars/zai-org/Open-AutoGLM?style=social)
+- [DigiRL](https://github.com/DigiRL-agent/digirl) - 자율 강화학습으로 실제 환경에서 모바일 디바이스를 제어하는 에이전트 훈련 프레임워크. Android-in-the-Wild 성공률 67.2%. ![GitHub Repo stars](https://img.shields.io/github/stars/DigiRL-agent/digirl?style=social)
 
 ### 모바일 개발 및 테스트 도구
 
 - [Maestro](https://github.com/mobile-dev-inc/Maestro) - YAML 기반의 Android/iOS/웹 E2E 테스트 프레임워크. MaestroGPT AI 어시스턴트 및 MCP 통합 지원. Appium 대안. ![GitHub Repo stars](https://img.shields.io/github/stars/mobile-dev-inc/Maestro?style=social)
 - [Arbigent](https://github.com/takahirom/arbigent) - 5분 만에 시작하는 Android/iOS/웹 앱 AI 테스트 에이전트. 직관적 UI와 시나리오 분해 기능으로 복잡한 작업도 확장 가능. ![GitHub Repo stars](https://img.shields.io/github/stars/takahirom/arbigent?style=social)
+- [Firebase App Testing Agent](https://firebase.google.com/docs/app-distribution/android/app-testing-agent) - 자연어로 테스트 목표를 정의하면 Gemini AI가 Android 앱을 자동 탐색하고 테스트하는 Google Firebase 기반 도구. CI/CD 통합 지원.
+
+### 모바일 MCP 서버
+
+- [Appium MCP (공식)](https://github.com/appium/appium-mcp) - Appium의 공식 MCP 서버. Claude 등 AI 에이전트가 자연어로 Android/iOS 디바이스를 자동화할 수 있게 연결. ![GitHub Repo stars](https://img.shields.io/github/stars/appium/appium-mcp?style=social)
+- [Claude-in-Mobile](https://github.com/AlexGladkov/claude-in-mobile) - Claude를 통해 자연어로 Android/iOS/Desktop/Aurora OS 디바이스를 제어하는 MCP 서버. 단일 2MB Rust 바이너리. ![GitHub Repo stars](https://img.shields.io/github/stars/AlexGladkov/claude-in-mobile?style=social)
 
 ### 모바일 벤치마크
 
