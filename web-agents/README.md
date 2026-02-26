@@ -40,6 +40,9 @@ Steel은 AI 에이전트를 위해 만들어진 [오픈소스](https://github.co
   - [자율 웹 에이전트](#자율-웹-에이전트)
     - [AI 브라우저](#ai-브라우저)
     - [컴퓨터 사용 에이전트](#컴퓨터-사용-에이전트)
+  - [모바일 에이전트](#모바일-에이전트)
+    - [모바일 개발 및 테스트 도구](#모바일-개발-및-테스트-도구)
+    - [모바일 벤치마크](#모바일-벤치마크)
   - [AI 웹 자동화 도구](#ai-웹-자동화-도구)
     - [개발 도구](#개발-도구)
   - [AI 웹 스크레이퍼/크롤러](#ai-웹-스크레이퍼크롤러)
@@ -105,6 +108,29 @@ AI가 기본 내장된 에이전트 기능을 갖춘 브라우저입니다.
 - [UI-TARS](https://github.com/bytedance/UI-TARS?tab=readme-ov-file) - 인간과 같은 인지, 추론, 행동 능력으로 GUI와 원활하게 상호작용하는 GUI 에이전트 모델. ![GitHub Repo stars](https://img.shields.io/github/stars/bytedance/UI-TARS?style=social)
 - [OpenAI Computer-Using Agent (CUA)](https://openai.com/index/computer-using-agent/) - GPT-4o 비전과 강화학습을 결합. WebVoyager 87%, OSWorld 38.1%. 현재 ChatGPT 에이전트 모드에 통합됨.
 - [Microsoft Computer Use for Copilot Studio](https://www.microsoft.com/en-us/copilot/copilot-studio) - Copilot Studio 에이전트가 Microsoft 호스팅 인프라에서 GUI를 통해 모든 애플리케이션과 상호작용할 수 있게 함.
+
+## 모바일 에이전트
+
+AI가 스마트폰 앱을 자율적으로 조작하고, 모바일 디바이스에서 작업을 자동화하는 에이전트 및 프레임워크입니다.
+
+- [DroidRun](https://github.com/droidrun/droidrun) - 자연어 명령으로 Android/iOS 디바이스를 제어하는 LLM 기반 모바일 에이전트 프레임워크. AndroidWorld 벤치마크 1위. €2.1M 프리시드 투자 유치. ![GitHub Repo stars](https://img.shields.io/github/stars/droidrun/droidrun?style=social)
+- [Mobile-Use (Minitap)](https://github.com/minitap-ai/mobile-use) - 실제 Android/iOS 앱을 사람처럼 사용하는 AI 에이전트 프레임워크. AndroidWorld 벤치마크 100% 달성 최초 프레임워크. $4.1M 시드 투자 유치. ![GitHub Repo stars](https://img.shields.io/github/stars/minitap-ai/mobile-use?style=social)
+- [MobileAgent (X-PLUG)](https://github.com/X-PLUG/MobileAgent) - 알리바바 X-PLUG의 강력한 GUI 에이전트 패밀리. 멀티 에이전트 협업으로 복잡한 다중 앱 작업 수행. GUI-Owl 1.5 모델 포함. ICLR 2024 워크숍 채택. ![GitHub Repo stars](https://img.shields.io/github/stars/X-PLUG/MobileAgent?style=social)
+- [AppAgent (Tencent)](https://github.com/TencentQQGYLab/AppAgent) - 텐센트의 스마트폰 조작용 멀티모달 LLM 에이전트. 자율 탐색 또는 사용자 시연으로 학습하여 50개 작업, 10개 앱에서 검증. ![GitHub Repo stars](https://img.shields.io/github/stars/TencentQQGYLab/AppAgent?style=social)
+- [AutoDroid](https://github.com/MobileLLM/AutoDroid) - LLM 상식 지식과 앱별 도메인 지식을 결합한 Android 작업 자동화 시스템. 정확도 90.9%, 성공률 71.3%. ACM MobiCom '24 논문. ![GitHub Repo stars](https://img.shields.io/github/stars/MobileLLM/AutoDroid?style=social)
+- [Agent Device (Callstack)](https://github.com/callstackincubator/agent-device) - AI 에이전트용 iOS/Android 디바이스 제어 CLI. 접근성 트리 기반 스냅샷, 스크린샷, 녹화, 리플레이 기능. MIT 라이선스. ![GitHub Repo stars](https://img.shields.io/github/stars/callstackincubator/agent-device?style=social)
+- [UI-TARS (ByteDance)](https://github.com/bytedance/UI-TARS) - 인간과 같은 인지, 추론, 행동 능력으로 모바일/데스크톱 GUI와 상호작용하는 바이트댄스의 에이전트 모델. ![GitHub Repo stars](https://img.shields.io/github/stars/bytedance/UI-TARS?style=social)
+- [Agent-S (Simular AI)](https://github.com/simular-ai/Agent-S) - 컴퓨터와 모바일 디바이스를 사람처럼 사용하는 오픈 에이전트 프레임워크. OSWorld 인간 수준 성능(72.60%) 돌파. ICLR 2025 최우수 논문상. ![GitHub Repo stars](https://img.shields.io/github/stars/simular-ai/Agent-S?style=social)
+
+### 모바일 개발 및 테스트 도구
+
+- [Maestro](https://github.com/mobile-dev-inc/Maestro) - YAML 기반의 Android/iOS/웹 E2E 테스트 프레임워크. MaestroGPT AI 어시스턴트 및 MCP 통합 지원. Appium 대안. ![GitHub Repo stars](https://img.shields.io/github/stars/mobile-dev-inc/Maestro?style=social)
+- [Arbigent](https://github.com/takahirom/arbigent) - 5분 만에 시작하는 Android/iOS/웹 앱 AI 테스트 에이전트. 직관적 UI와 시나리오 분해 기능으로 복잡한 작업도 확장 가능. ![GitHub Repo stars](https://img.shields.io/github/stars/takahirom/arbigent?style=social)
+
+### 모바일 벤치마크
+
+- [AndroidWorld (Google Research)](https://github.com/google-research/android_world) - 20개 앱, 116개 작업의 동적 모바일 에이전트 벤치마크 환경. 수백만 개의 고유 작업 변형 생성 가능. ICLR 2025. ![GitHub Repo stars](https://img.shields.io/github/stars/google-research/android_world?style=social)
+- [MobileWorld (Tongyi-MAI)](https://github.com/Tongyi-MAI/MobileWorld) - AndroidWorld의 후속 벤치마크. 201개 작업, 62.2% 다중 앱 태스크, 에이전트-사용자 상호작용 및 MCP 도구 통합 평가. ![GitHub Repo stars](https://img.shields.io/github/stars/Tongyi-MAI/MobileWorld?style=social)
 
 ## AI 웹 자동화 도구
 
