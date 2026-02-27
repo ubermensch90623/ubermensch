@@ -44,9 +44,7 @@ class SecurityReviewerAgent(BaseAgent):
         code = message.context.get("code", "")
         file_paths = message.context.get("file_paths", [])
 
-        review_prompt = (
-            f"Security review task: {message.task}\n\n"
-        )
+        review_prompt = f"Security review task: {message.task}\n\n"
 
         if code:
             review_prompt += f"Code to review:\n```\n{code}\n```\n\n"
@@ -111,9 +109,7 @@ class PerformanceReviewerAgent(BaseAgent):
         code = message.context.get("code", "")
         metrics = message.context.get("metrics", {})
 
-        review_prompt = (
-            f"Performance review task: {message.task}\n\n"
-        )
+        review_prompt = f"Performance review task: {message.task}\n\n"
 
         if code:
             review_prompt += f"Code to review:\n```\n{code}\n```\n\n"

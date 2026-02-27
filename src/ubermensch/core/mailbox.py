@@ -96,7 +96,7 @@ class Mailbox:
             if timeout is not None:
                 return await asyncio.wait_for(box.get(), timeout=timeout)
             return await box.get()
-        except asyncio.TimeoutError:
+        except TimeoutError:
             return None
 
     def receive_nowait(self, agent_name: str) -> TeamMessage | None:

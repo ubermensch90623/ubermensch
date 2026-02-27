@@ -26,7 +26,7 @@ from typing import Any
 import anthropic
 
 from ubermensch.core.base_agent import BaseAgent
-from ubermensch.core.message import AgentMessage, TaskResult, TaskStatus
+from ubermensch.core.message import AgentMessage, TaskResult
 
 logger = logging.getLogger(__name__)
 
@@ -104,9 +104,7 @@ class Discussion:
 
         # Round 1: 초기 분석
         logger.info(f"[Discussion] Round 1: {self.presenter.name} analyzes")
-        analysis = await self.presenter.run(
-            AgentMessage(task=topic, context=ctx)
-        )
+        analysis = await self.presenter.run(AgentMessage(task=topic, context=ctx))
         analysis_text = self._extract_text(analysis)
 
         result.turns.append(
@@ -180,8 +178,7 @@ class Discussion:
     async def _build_consensus(self, discussion: DiscussionResult) -> str:
         """토론 결과를 종합하여 합의를 도출합니다."""
         turns_text = "\n\n".join(
-            f"[Round {t.round}] {t.speaker} ({t.role}):\n{t.content}"
-            for t in discussion.turns
+            f"[Round {t.round}] {t.speaker} ({t.role}):\n{t.content}" for t in discussion.turns
         )
 
         prompt = (
@@ -205,9 +202,7 @@ class Discussion:
             messages=[{"role": "user", "content": prompt}],
         )
 
-        return "\n".join(
-            block.text for block in response.content if block.type == "text"
-        )
+        return "\n".join(block.text for block in response.content if block.type == "text")
 
     @staticmethod
     def _extract_text(result: TaskResult) -> str:
@@ -268,34 +263,23 @@ class MultiDiscussion:
         # 각 에이전트가 동시에 초기 분석
         import asyncio
 
-        initial_tasks = [
-            agent.run(AgentMessage(task=topic, context=ctx))
-            for agent in self.agents
-        ]
+        initial_tasks = [agent.run(AgentMessage(task=topic, context=ctx)) for agent in self.agents]
         initial_results = await asyncio.gather(*initial_tasks)
 
         analyses: dict[str, str] = {}
-        for agent, res in zip(self.agents, initial_results):
+        for agent, res in zip(self.agents, initial_results, strict=True):
             text = Discussion._extract_text(res)
             analyses[agent.name] = text
             result.turns.append(
-                DiscussionTurn(
-                    round=1, speaker=agent.name, role="analysis", content=text
-                )
+                DiscussionTurn(round=1, speaker=agent.name, role="analysis", content=text)
             )
 
         # 교차 비평 라운드
         for round_num in range(1, self.rounds + 1):
-            for i, agent in enumerate(self.agents):
+            for _i, agent in enumerate(self.agents):
                 # 다른 에이전트들의 분석을 비평
-                others = {
-                    name: text
-                    for name, text in analyses.items()
-                    if name != agent.name
-                }
-                others_text = "\n\n".join(
-                    f"{name}:\n{text}" for name, text in others.items()
-                )
+                others = {name: text for name, text in analyses.items() if name != agent.name}
+                others_text = "\n\n".join(f"{name}:\n{text}" for name, text in others.items())
 
                 challenge = await agent.run(
                     AgentMessage(

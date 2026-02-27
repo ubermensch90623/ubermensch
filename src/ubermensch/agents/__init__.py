@@ -11,12 +11,12 @@ from ubermensch.agents.reviewers import (
 )
 
 __all__ = [
-    "ResearcherAgent",
-    "SummarizerAgent",
-    "SecurityReviewerAgent",
-    "PerformanceReviewerAgent",
-    "CodeReviewerAgent",
     "ArchitectAgent",
-    "DevilsAdvocateAgent",
+    "CodeReviewerAgent",
     "DebuggerAgent",
+    "DevilsAdvocateAgent",
+    "PerformanceReviewerAgent",
+    "ResearcherAgent",
+    "SecurityReviewerAgent",
+    "SummarizerAgent",
 ]

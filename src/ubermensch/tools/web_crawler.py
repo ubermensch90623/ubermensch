@@ -42,39 +42,39 @@ class WebCrawler:
 
     async def fetch(self, url: str) -> CrawlResult:
         """URL에서 페이지를 가져와 텍스트와 링크를 추출합니다."""
-        async with aiohttp.ClientSession(
-            timeout=self.timeout, headers=self.headers
-        ) as session:
-            async with session.get(url) as response:
-                html = await response.text()
-                soup = BeautifulSoup(html, "html.parser")
+        async with (
+            aiohttp.ClientSession(timeout=self.timeout, headers=self.headers) as session,
+            session.get(url) as response,
+        ):
+            html = await response.text()
+            soup = BeautifulSoup(html, "html.parser")
 
-                # 불필요한 태그 제거
-                for tag in soup(["script", "style", "nav", "footer", "header"]):
-                    tag.decompose()
+            # 불필요한 태그 제거
+            for tag in soup(["script", "style", "nav", "footer", "header"]):
+                tag.decompose()
 
-                title = soup.title.string.strip() if soup.title and soup.title.string else ""
-                text = soup.get_text(separator="\n", strip=True)
+            title = soup.title.string.strip() if soup.title and soup.title.string else ""
+            text = soup.get_text(separator="\n", strip=True)
 
-                # 텍스트 길이 제한
-                if len(text) > self.max_content_length:
-                    text = text[: self.max_content_length] + "\n... (truncated)"
+            # 텍스트 길이 제한
+            if len(text) > self.max_content_length:
+                text = text[: self.max_content_length] + "\n... (truncated)"
 
-                # 링크 추출
-                links = []
-                for a_tag in soup.find_all("a", href=True):
-                    href = a_tag["href"]
-                    full_url = urljoin(url, href)
-                    if urlparse(full_url).scheme in ("http", "https"):
-                        links.append(full_url)
+            # 링크 추출
+            links = []
+            for a_tag in soup.find_all("a", href=True):
+                href = a_tag["href"]
+                full_url = urljoin(url, href)
+                if urlparse(full_url).scheme in ("http", "https"):
+                    links.append(full_url)
 
-                return CrawlResult(
-                    url=url,
-                    title=title,
-                    text=text,
-                    links=list(dict.fromkeys(links)),  # 중복 제거, 순서 유지
-                    status_code=response.status,
-                )
+            return CrawlResult(
+                url=url,
+                title=title,
+                text=text,
+                links=list(dict.fromkeys(links)),  # 중복 제거, 순서 유지
+                status_code=response.status,
+            )
 
     async def fetch_multiple(self, urls: list[str]) -> list[CrawlResult]:
         """여러 URL을 동시에 크롤링합니다."""
@@ -83,7 +83,7 @@ class WebCrawler:
 
         crawl_results: list[CrawlResult] = []
         for i, r in enumerate(results):
-            if isinstance(r, Exception):
+            if isinstance(r, BaseException):
                 logger.error(f"Failed to crawl {urls[i]}: {r}")
                 crawl_results.append(
                     CrawlResult(
@@ -105,11 +105,11 @@ class WebCrawler:
         max_results: int = 5,
     ) -> list[CrawlResult]:
         """DuckDuckGo로 검색한 뒤 결과 페이지들을 크롤링합니다."""
-        async with aiohttp.ClientSession(
-            timeout=self.timeout, headers=self.headers
-        ) as session:
-            async with session.post(search_url, data={"q": query}) as response:
-                html = await response.text()
+        async with (
+            aiohttp.ClientSession(timeout=self.timeout, headers=self.headers) as session,
+            session.post(search_url, data={"q": query}) as response,
+        ):
+            html = await response.text()
 
         soup = BeautifulSoup(html, "html.parser")
         result_links: list[str] = []

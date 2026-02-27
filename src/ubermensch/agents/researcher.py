@@ -103,9 +103,7 @@ class SummarizerAgent(BaseAgent):
         text = message.context.get("text", message.task)
         max_length = message.context.get("max_length", "500 words")
 
-        summary_prompt = (
-            f"Summarize the following content in {max_length} or less:\n\n{text}"
-        )
+        summary_prompt = f"Summarize the following content in {max_length} or less:\n\n{text}"
 
         summary = await self.ask_llm(summary_prompt)
 

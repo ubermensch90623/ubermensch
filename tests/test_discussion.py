@@ -1,8 +1,6 @@
 """Discussion pipeline 유닛 테스트."""
 
-from unittest.mock import AsyncMock, MagicMock, patch
-
-import pytest
+from unittest.mock import AsyncMock, MagicMock
 
 from ubermensch.core.base_agent import BaseAgent
 from ubermensch.core.discussion import Discussion, MultiDiscussion

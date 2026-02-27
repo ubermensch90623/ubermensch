@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import logging
-from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
@@ -140,7 +139,7 @@ class TeamPersistence:
             logger.warning(f"Team config not found: {config_path}")
             return None
 
-        config = json.loads(config_path.read_text())
+        config: dict[str, Any] = json.loads(config_path.read_text())
         logger.info(f"Team config loaded: {config_path}")
         return config
 
@@ -178,9 +177,7 @@ class TeamPersistence:
         if not self.base_dir.exists():
             return []
         return [
-            d.name
-            for d in self.base_dir.iterdir()
-            if d.is_dir() and (d / "config.json").exists()
+            d.name for d in self.base_dir.iterdir() if d.is_dir() and (d / "config.json").exists()
         ]
 
     def delete_team(self, team_name: str) -> bool:

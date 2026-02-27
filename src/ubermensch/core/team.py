@@ -9,7 +9,7 @@ from typing import Any
 import anthropic
 
 from ubermensch.core.base_agent import BaseAgent
-from ubermensch.core.hooks import HookContext, HookEvent, HookRegistry, HookResult
+from ubermensch.core.hooks import HookContext, HookEvent, HookRegistry
 from ubermensch.core.mailbox import Mailbox
 from ubermensch.core.message import (
     AgentMessage,
@@ -127,9 +127,7 @@ class AgentTeam:
 
         count = self._respawn_counts.get(name, 0)
         if count >= self.max_respawns:
-            logger.warning(
-                f"[{self.name}] Max respawns ({self.max_respawns}) reached for '{name}'"
-            )
+            logger.warning(f"[{self.name}] Max respawns ({self.max_respawns}) reached for '{name}'")
             return None
 
         # 기존 에이전트 제거 (있으면)
@@ -140,7 +138,7 @@ class AgentTeam:
         # 새 에이전트 생성
         factory = self._agent_factories[name]
         kwargs = self._agent_kwargs[name]
-        new_agent = factory(**kwargs)
+        new_agent: BaseAgent = factory(**kwargs)
 
         # 재등록
         self._teammates[name] = new_agent
@@ -149,9 +147,7 @@ class AgentTeam:
         new_agent._team_task_list = self.task_list
         self._respawn_counts[name] = count + 1
 
-        logger.info(
-            f"[{self.name}] Respawned '{name}' ({count + 1}/{self.max_respawns})"
-        )
+        logger.info(f"[{self.name}] Respawned '{name}' ({count + 1}/{self.max_respawns})")
         return new_agent
 
     @property
@@ -210,9 +206,7 @@ class AgentTeam:
         results: list[TaskResult] = []
         workers: dict[str, asyncio.Task[Any]] = {}
         for name, agent in self._teammates.items():
-            worker = asyncio.create_task(
-                self._agent_worker_safe(agent), name=f"worker-{name}"
-            )
+            worker = asyncio.create_task(self._agent_worker_safe(agent), name=f"worker-{name}")
             self._running_tasks[name] = worker
             workers[name] = worker
 
@@ -341,9 +335,7 @@ class AgentTeam:
 
                 if hook_result.block:
                     # 훅이 완료를 거부 → 태스크를 PENDING으로 되돌림
-                    logger.info(
-                        f"[{task.id}] Completion blocked by hook: {hook_result.feedback}"
-                    )
+                    logger.info(f"[{task.id}] Completion blocked by hook: {hook_result.feedback}")
                     await self.task_list.fail_task(
                         task.id, f"Blocked by hook: {hook_result.feedback}"
                     )
@@ -394,8 +386,7 @@ class AgentTeam:
     async def _plan_tasks(self, user_request: str) -> None:
         """LLM을 사용하여 사용자 요청을 태스크로 분해합니다."""
         agent_descriptions = "\n".join(
-            f"- {name}: {agent.system_prompt}"
-            for name, agent in self._teammates.items()
+            f"- {name}: {agent.system_prompt}" for name, agent in self._teammates.items()
         )
 
         plan_prompt = (
@@ -420,9 +411,7 @@ class AgentTeam:
             messages=[{"role": "user", "content": plan_prompt}],
         )
 
-        plan_text = "\n".join(
-            block.text for block in response.content if block.type == "text"
-        )
+        plan_text = "\n".join(block.text for block in response.content if block.type == "text")
 
         # 태스크 파싱
         task_defs: list[dict[str, Any]] = []
@@ -443,11 +432,11 @@ class AgentTeam:
             if "TASK" not in parts:
                 continue
 
+            import contextlib
+
             priority = 0
-            try:
+            with contextlib.suppress(ValueError):
                 priority = int(parts.get("PRIORITY", "0"))
-            except ValueError:
-                pass
 
             task_def: dict[str, Any] = {
                 "title": parts["TASK"],
@@ -493,8 +482,7 @@ class AgentTeam:
         msg_text = ""
         if messages:
             msg_text = "\n\nTeam communications:\n" + "\n".join(
-                f"  {m.sender} -> {m.recipient}: {m.subject}"
-                for m in messages
+                f"  {m.sender} -> {m.recipient}: {m.subject}" for m in messages
             )
 
         prompt = (
@@ -516,9 +504,7 @@ class AgentTeam:
             messages=[{"role": "user", "content": prompt}],
         )
 
-        return "\n".join(
-            block.text for block in response.content if block.type == "text"
-        )
+        return "\n".join(block.text for block in response.content if block.type == "text")
 
     # --- Plan Approval ---
 
@@ -547,9 +533,7 @@ class AgentTeam:
             messages=[{"role": "user", "content": prompt}],
         )
 
-        response_text = "\n".join(
-            block.text for block in response.content if block.type == "text"
-        )
+        response_text = "\n".join(block.text for block in response.content if block.type == "text")
 
         approved = "APPROVED" in response_text.upper().split("\n")[0]
         feedback = response_text.split(":", 1)[1].strip() if ":" in response_text else response_text
@@ -566,7 +550,7 @@ class AgentTeam:
     async def cleanup(self) -> None:
         """팀 리소스를 정리합니다."""
         # 남은 워커 취소
-        for name, task in self._running_tasks.items():
+        for _name, task in self._running_tasks.items():
             if not task.done():
                 task.cancel()
         self._running_tasks.clear()

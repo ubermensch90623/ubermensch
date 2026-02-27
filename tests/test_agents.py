@@ -5,8 +5,6 @@
 
 from unittest.mock import AsyncMock, patch
 
-import pytest
-
 from ubermensch.agents.architect import ArchitectAgent
 from ubermensch.agents.debugger import DebuggerAgent
 from ubermensch.agents.devils_advocate import DevilsAdvocateAgent
@@ -19,15 +17,12 @@ from ubermensch.agents.reviewers import (
 from ubermensch.core.base_agent import BaseAgent
 from ubermensch.core.message import AgentMessage, TaskStatus
 
-
 # --- 공통 헬퍼 ---
 
 
 def mock_ask_llm(return_value: str = "mocked response"):
     """ask_llm을 mock하는 데코레이터 팩토리."""
-    return patch.object(
-        BaseAgent, "ask_llm", new_callable=AsyncMock, return_value=return_value
-    )
+    return patch.object(BaseAgent, "ask_llm", new_callable=AsyncMock, return_value=return_value)
 
 
 # --- BaseAgent 테스트 ---
@@ -263,8 +258,9 @@ class TestDevilsAdvocate:
 class TestDebugger:
     async def test_full_investigation(self):
         agent = DebuggerAgent()
-        with mock_ask_llm("Hypothesis 1: Connection timeout (70%)\n"
-                          "Hypothesis 2: Race condition (20%)"):
+        with mock_ask_llm(
+            "Hypothesis 1: Connection timeout (70%)\nHypothesis 2: Race condition (20%)"
+        ):
             result = await agent.run(
                 AgentMessage(
                     task="Investigate connection drops",
@@ -337,20 +333,26 @@ class TestResearcher:
     async def test_research_with_urls(self):
         agent = ResearcherAgent()
         mock_crawl_result = type(
-            "CrawlResult", (), {
+            "CrawlResult",
+            (),
+            {
                 "url": "https://example.com",
                 "title": "Example",
                 "text": "Example content",
                 "links": [],
                 "status_code": 200,
-            }
+            },
         )()
 
-        with patch.object(
-            agent.crawler, "fetch_multiple",
-            new_callable=AsyncMock,
-            return_value=[mock_crawl_result],
-        ), mock_ask_llm("Analysis of example.com content"):
+        with (
+            patch.object(
+                agent.crawler,
+                "fetch_multiple",
+                new_callable=AsyncMock,
+                return_value=[mock_crawl_result],
+            ),
+            mock_ask_llm("Analysis of example.com content"),
+        ):
             result = await agent.run(
                 AgentMessage(
                     task="Analyze example.com",
@@ -363,7 +365,8 @@ class TestResearcher:
     async def test_research_no_results(self):
         agent = ResearcherAgent()
         with patch.object(
-            agent.crawler, "search_and_fetch",
+            agent.crawler,
+            "search_and_fetch",
             new_callable=AsyncMock,
             return_value=[],
         ):

@@ -101,7 +101,7 @@ class SubagentOrchestrator:
         # 예외를 TaskResult로 변환
         final: list[TaskResult] = []
         for i, r in enumerate(results):
-            if isinstance(r, Exception):
+            if isinstance(r, BaseException):
                 final.append(
                     TaskResult(
                         agent_name=assignments[i]["agent"],
@@ -122,8 +122,7 @@ class SubagentOrchestrator:
         """
         # Step 1: 요청 분석 및 작업 분배 계획
         agent_list = "\n".join(
-            f"- {name}: {agent.system_prompt}"
-            for name, agent in self._agents.items()
+            f"- {name}: {agent.system_prompt}" for name, agent in self._agents.items()
         )
 
         plan_prompt = (
@@ -142,9 +141,7 @@ class SubagentOrchestrator:
             messages=[{"role": "user", "content": plan_prompt}],
         )
 
-        plan_text = "\n".join(
-            block.text for block in plan_response.content if block.type == "text"
-        )
+        plan_text = "\n".join(block.text for block in plan_response.content if block.type == "text")
 
         # Step 2: 계획 파싱 및 병렬 실행
         assignments = self._parse_plan(plan_text)
@@ -175,11 +172,7 @@ class SubagentOrchestrator:
             messages=[{"role": "user", "content": synthesis_prompt}],
         )
 
-        return "\n".join(
-            block.text
-            for block in synthesis_response.content
-            if block.type == "text"
-        )
+        return "\n".join(block.text for block in synthesis_response.content if block.type == "text")
 
     @staticmethod
     def _parse_plan(plan_text: str) -> list[dict[str, Any]]:

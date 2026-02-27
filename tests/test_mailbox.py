@@ -108,7 +108,7 @@ class TestReceive:
             await asyncio.sleep(0.05)
             await mailbox.send("bob", "alice", "delayed")
 
-        asyncio.create_task(send_later())
+        _task = asyncio.create_task(send_later())
         msg = await mailbox.receive("alice", timeout=2.0)
         assert msg is not None
         assert msg.subject == "delayed"

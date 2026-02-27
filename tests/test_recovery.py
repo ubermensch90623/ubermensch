@@ -1,6 +1,5 @@
 """에러 복구 및 자동 재스폰 테스트."""
 
-import asyncio
 from unittest.mock import AsyncMock, patch
 
 import pytest
@@ -112,7 +111,7 @@ class TestWorkerSafe:
 
         with patch.object(team, "_synthesize", new_callable=AsyncMock) as mock:
             mock.return_value = "Recovered"
-            result = await team.run_team("Recover", auto_plan=False)
+            await team.run_team("Recover", auto_plan=False)
 
         # 재스폰이 발생했는지 확인
         assert team._respawn_counts.get("crasher", 0) >= 1

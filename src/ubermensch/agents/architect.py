@@ -60,9 +60,7 @@ class ArchitectAgent(BaseAgent):
 
         if approved_plan:
             # 승인된 계획의 상세 구현 가이드 작성
-            return await self._create_implementation_guide(
-                message.task, approved_plan
-            )
+            return await self._create_implementation_guide(message.task, approved_plan)
 
         # 계획 수립
         plan_prompt = f"Architecture task: {message.task}\n\n"

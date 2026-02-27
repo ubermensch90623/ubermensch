@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import asyncio
 import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Any
@@ -82,9 +81,7 @@ class BaseAgent(ABC):
         response = await self.client.messages.create(**kwargs)
 
         # 텍스트 블록만 추출
-        text_parts = [
-            block.text for block in response.content if block.type == "text"
-        ]
+        text_parts = [block.text for block in response.content if block.type == "text"]
         return "\n".join(text_parts)
 
     # --- Agent Teams 메시징 ---
@@ -98,9 +95,7 @@ class BaseAgent(ABC):
             return None
         return await self._team_mailbox.send(self.name, recipient, subject, body)
 
-    async def broadcast_message(
-        self, subject: str, body: Any = None
-    ) -> TeamMessage | None:
+    async def broadcast_message(self, subject: str, body: Any = None) -> TeamMessage | None:
         """팀 전체에 브로드캐스트 메시지를 보냅니다."""
         if self._team_mailbox is None:
             return None

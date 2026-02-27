@@ -56,16 +56,12 @@ class TestDependencies:
 
     async def test_unresolved_dep_blocks(self, task_list: SharedTaskList):
         t1 = await task_list.add_task(title="First")
-        t2 = await task_list.add_task(
-            title="Second", depends_on=[t1.id]
-        )
+        t2 = await task_list.add_task(title="Second", depends_on=[t1.id])
         assert task_list.is_blocked(t2.id)
 
     async def test_completed_dep_unblocks(self, task_list: SharedTaskList):
         t1 = await task_list.add_task(title="First")
-        t2 = await task_list.add_task(
-            title="Second", depends_on=[t1.id]
-        )
+        t2 = await task_list.add_task(title="Second", depends_on=[t1.id])
         assert task_list.is_blocked(t2.id)
 
         await task_list.complete_task(t1.id)
@@ -74,9 +70,7 @@ class TestDependencies:
     async def test_multiple_deps_all_must_complete(self, task_list: SharedTaskList):
         t1 = await task_list.add_task(title="Dep 1")
         t2 = await task_list.add_task(title="Dep 2")
-        t3 = await task_list.add_task(
-            title="Blocked", depends_on=[t1.id, t2.id]
-        )
+        t3 = await task_list.add_task(title="Blocked", depends_on=[t1.id, t2.id])
 
         assert task_list.is_blocked(t3.id)
         await task_list.complete_task(t1.id)
@@ -85,9 +79,7 @@ class TestDependencies:
         assert not task_list.is_blocked(t3.id)
 
     async def test_missing_dep_blocks(self, task_list: SharedTaskList):
-        task = await task_list.add_task(
-            title="Bad dep", depends_on=["nonexistent"]
-        )
+        task = await task_list.add_task(title="Bad dep", depends_on=["nonexistent"])
         assert task_list.is_blocked(task.id)
 
 
@@ -128,9 +120,7 @@ class TestClaiming:
 
     async def test_claim_next_skips_blocked(self, task_list: SharedTaskList):
         t1 = await task_list.add_task(title="Dep", priority=1)
-        await task_list.add_task(
-            title="Blocked high", priority=10, depends_on=[t1.id]
-        )
+        await task_list.add_task(title="Blocked high", priority=10, depends_on=[t1.id])
         await task_list.add_task(title="Available", priority=5)
 
         task = await task_list.claim_next("agent_1")
@@ -180,8 +170,8 @@ class TestCompletion:
 class TestStatusQueries:
     async def test_counts(self, task_list: SharedTaskList):
         t1 = await task_list.add_task(title="A")
-        t2 = await task_list.add_task(title="B")
-        t3 = await task_list.add_task(title="C")
+        await task_list.add_task(title="B")
+        await task_list.add_task(title="C")
 
         assert task_list.pending_count == 3
         assert task_list.in_progress_count == 0
@@ -252,6 +242,6 @@ class TestWaitAllDone:
             await asyncio.sleep(0.05)
             await task_list.complete_task(t1.id)
 
-        asyncio.create_task(complete_later())
+        _task = asyncio.create_task(complete_later())
         result = await task_list.wait_all_done(timeout=2.0)
         assert result is True

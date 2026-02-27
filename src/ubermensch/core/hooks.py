@@ -17,9 +17,10 @@ Claude Code Agent Teams의 TeammateIdle, TaskCompleted 훅을 구현합니다.
 from __future__ import annotations
 
 import logging
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Awaitable, Callable
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -74,9 +75,7 @@ class HookRegistry:
     """
 
     def __init__(self) -> None:
-        self._hooks: dict[HookEvent, list[HookCallback]] = {
-            event: [] for event in HookEvent
-        }
+        self._hooks: dict[HookEvent, list[HookCallback]] = {event: [] for event in HookEvent}
 
     def register(self, event: HookEvent, callback: HookCallback) -> None:
         """콜백을 이벤트에 등록합니다."""
@@ -99,10 +98,10 @@ class HookRegistry:
 
     def unregister(self, event: HookEvent, callback: HookCallback) -> None:
         """콜백을 제거합니다."""
-        try:
+        import contextlib
+
+        with contextlib.suppress(ValueError):
             self._hooks[event].remove(callback)
-        except ValueError:
-            pass
 
     def clear(self, event: HookEvent | None = None) -> None:
         """특정 이벤트 또는 전체 훅을 제거합니다."""
@@ -139,10 +138,7 @@ class HookRegistry:
                 if result.feedback:
                     feedbacks.append(result.feedback)
             except Exception as e:
-                logger.error(
-                    f"Hook {callback.__name__} for {context.event.value} "
-                    f"raised: {e}"
-                )
+                logger.error(f"Hook {callback.__name__} for {context.event.value} raised: {e}")
                 feedbacks.append(f"Hook error ({callback.__name__}): {e}")
 
         return HookResult(

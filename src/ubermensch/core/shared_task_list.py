@@ -116,24 +116,15 @@ class SharedTaskList:
     async def claim_next(self, agent_name: str) -> SharedTask | None:
         """다음 사용 가능한 태스크를 자동으로 claim합니다."""
         async with self._lock:
-            for task in sorted(
-                self._tasks.values(), key=lambda t: t.priority, reverse=True
-            ):
-                if (
-                    task.status == TaskStatus.PENDING
-                    and not self.is_blocked(task.id)
-                ):
+            for task in sorted(self._tasks.values(), key=lambda t: t.priority, reverse=True):
+                if task.status == TaskStatus.PENDING and not self.is_blocked(task.id):
                     task.status = TaskStatus.IN_PROGRESS
                     task.assigned_to = agent_name
-                    logger.info(
-                        f"[{agent_name}] auto-claimed task [{task.id}] {task.title}"
-                    )
+                    logger.info(f"[{agent_name}] auto-claimed task [{task.id}] {task.title}")
                     return task
         return None
 
-    async def complete_task(
-        self, task_id: str, result: Any = None
-    ) -> bool:
+    async def complete_task(self, task_id: str, result: Any = None) -> bool:
         """태스크를 완료 처리합니다."""
         async with self._lock:
             task = self._tasks.get(task_id)
@@ -165,22 +156,17 @@ class SharedTaskList:
 
     @property
     def in_progress_count(self) -> int:
-        return sum(
-            1 for t in self._tasks.values() if t.status == TaskStatus.IN_PROGRESS
-        )
+        return sum(1 for t in self._tasks.values() if t.status == TaskStatus.IN_PROGRESS)
 
     @property
     def completed_count(self) -> int:
-        return sum(
-            1 for t in self._tasks.values() if t.status == TaskStatus.COMPLETED
-        )
+        return sum(1 for t in self._tasks.values() if t.status == TaskStatus.COMPLETED)
 
     @property
     def all_done(self) -> bool:
         """모든 태스크가 완료(COMPLETED 또는 FAILED)되었는지."""
         return all(
-            t.status in (TaskStatus.COMPLETED, TaskStatus.FAILED)
-            for t in self._tasks.values()
+            t.status in (TaskStatus.COMPLETED, TaskStatus.FAILED) for t in self._tasks.values()
         )
 
     def _check_all_done(self) -> None:
@@ -195,7 +181,7 @@ class SharedTaskList:
         try:
             await asyncio.wait_for(self._completion_event.wait(), timeout=timeout)
             return True
-        except asyncio.TimeoutError:
+        except TimeoutError:
             return False
 
     def get_tasks_by_agent(self, agent_name: str) -> list[SharedTask]:
@@ -212,7 +198,5 @@ class SharedTaskList:
         for task in self._tasks.values():
             assigned = f" -> {task.assigned_to}" if task.assigned_to else ""
             deps = f" (deps: {task.depends_on})" if task.depends_on else ""
-            lines.append(
-                f"  [{task.id}] {task.status.value:12s} {task.title}{assigned}{deps}"
-            )
+            lines.append(f"  [{task.id}] {task.status.value:12s} {task.title}{assigned}{deps}")
         return "\n".join(lines)

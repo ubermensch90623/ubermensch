@@ -52,9 +52,7 @@ class DevilsAdvocateAgent(BaseAgent):
         challenge_prompt = f"Devil's advocate review task: {message.task}\n\n"
 
         if findings:
-            challenge_prompt += (
-                f"Findings from agent '{agent_source}':\n{findings}\n\n"
-            )
+            challenge_prompt += f"Findings from agent '{agent_source}':\n{findings}\n\n"
 
         if hypothesis:
             challenge_prompt += f"Hypothesis being tested:\n{hypothesis}\n\n"

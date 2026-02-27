@@ -88,10 +88,12 @@ class TestTeamManagement:
 
 class TestTaskCreation:
     async def test_create_tasks(self, team: AgentTeam):
-        tasks = await team.create_tasks([
-            {"title": "Task A", "description": "Do A"},
-            {"title": "Task B", "description": "Do B", "priority": 5},
-        ])
+        tasks = await team.create_tasks(
+            [
+                {"title": "Task A", "description": "Do A"},
+                {"title": "Task B", "description": "Do B", "priority": 5},
+            ]
+        )
         assert len(tasks) == 2
         assert tasks[0].title == "Task A"
         assert tasks[1].priority == 5
@@ -113,10 +115,12 @@ class TestTeamExecution:
         await team.spawn_teammate(agent1)
         await team.spawn_teammate(agent2)
 
-        await team.create_tasks([
-            {"title": "Task 1", "description": "First task", "priority": 5},
-            {"title": "Task 2", "description": "Second task", "priority": 3},
-        ])
+        await team.create_tasks(
+            [
+                {"title": "Task 1", "description": "First task", "priority": 5},
+                {"title": "Task 2", "description": "Second task", "priority": 3},
+            ]
+        )
 
         # LLM 종합 호출 mock
         with patch.object(team, "_synthesize", new_callable=AsyncMock) as mock_synth:
@@ -134,15 +138,17 @@ class TestTeamExecution:
         agent = FakeAgent("w1")
         await team.spawn_teammate(agent)
 
-        tasks = await team.create_tasks([
-            {"title": "Step 1", "description": "First"},
-            {"title": "Step 2", "description": "Second"},
-        ])
+        tasks = await team.create_tasks(
+            [
+                {"title": "Step 1", "description": "First"},
+                {"title": "Step 2", "description": "Second"},
+            ]
+        )
         tasks[1].depends_on = [tasks[0].id]
 
         with patch.object(team, "_synthesize", new_callable=AsyncMock) as mock_synth:
             mock_synth.return_value = "Done"
-            result = await team.run_team("Sequential", auto_plan=False)
+            await team.run_team("Sequential", auto_plan=False)
 
         assert len(agent.executed_tasks) == 2
         assert agent.executed_tasks[0] == "First"
@@ -255,9 +261,7 @@ class TestPlanApproval:
 
     async def test_plan_approval_approved(self, team: AgentTeam):
         """계획 승인 테스트."""
-        team._client = self._make_mock_client(
-            "APPROVED: Plan looks good and complete."
-        )
+        team._client = self._make_mock_client("APPROVED: Plan looks good and complete.")
 
         approval = await team.request_plan_approval(
             agent_name="architect",
@@ -271,9 +275,7 @@ class TestPlanApproval:
 
     async def test_plan_approval_rejected(self, team: AgentTeam):
         """계획 거부 테스트."""
-        team._client = self._make_mock_client(
-            "REJECTED: Missing test strategy."
-        )
+        team._client = self._make_mock_client("REJECTED: Missing test strategy.")
 
         approval = await team.request_plan_approval(
             agent_name="architect",
