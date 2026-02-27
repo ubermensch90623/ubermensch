@@ -4,6 +4,7 @@ from ubermensch.data.note import Note, NoteCategory, NoteType
 from ubermensch.data.keep_parser import KeepParser
 from ubermensch.data.classifier import NoteClassifier
 from ubermensch.data.pipeline import DataPipeline
+from ubermensch.data.quiz import QuizGenerator, Quiz, QuizItem
 
 __all__ = [
     "Note",
@@ -12,4 +13,7 @@ __all__ = [
     "KeepParser",
     "NoteClassifier",
     "DataPipeline",
+    "QuizGenerator",
+    "Quiz",
+    "QuizItem",
 ]

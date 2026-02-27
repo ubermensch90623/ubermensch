@@ -612,6 +612,41 @@ class LocalBrain:
         self.state_path = Path(state_path)
         self.state = StudyState.load(self.state_path)
 
+    def sync_pipeline(self, notes_path: str | Path = "notes.json") -> None:
+        """실제 DataPipeline 결과를 StudyState에 반영합니다.
+
+        notes.json이 존재하면 파싱/분류/검수 수치를 실제 데이터로 덮어씁니다.
+        """
+        p = Path(notes_path)
+        if not p.exists():
+            return
+
+        try:
+            import json
+            from ubermensch.data.note import NoteCategory
+            data = json.loads(p.read_text())
+            total = len(data)
+            if total == 0:
+                return
+
+            classified = sum(1 for n in data if n.get("category") != "기타")
+            verified = sum(1 for n in data if n.get("verified", False))
+
+            self.state.total_notes = max(self.state.total_notes, total)
+            self.state.parsed_notes = total
+            self.state.classified_notes = classified
+            self.state.verified_notes = verified
+            self.state.migrated_notes = verified  # 검수 완료 = 이관 가능
+            if verified > 0:
+                self.state.pipeline_status = "가동중"
+
+            logger.info(
+                f"Pipeline synced: {total} parsed, {classified} classified, "
+                f"{verified} verified"
+            )
+        except Exception as e:
+            logger.warning(f"Pipeline sync failed: {e}")
+
     def advance(self) -> None:
         """사이클 진행."""
         self.state.advance_cycle()

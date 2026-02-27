@@ -234,6 +234,9 @@ def main() -> None:
 
     subparsers = parser.add_subparsers(dest="command")
 
+    # today
+    subparsers.add_parser("today", help="오늘의 학습 플랜")
+
     # status
     subparsers.add_parser("status", help="조직 현황 출력")
 
@@ -272,6 +275,13 @@ def main() -> None:
 
     pipe_sub.add_parser("stats", help="저장된 노트 통계")
 
+    # quiz
+    quiz_parser = subparsers.add_parser("quiz", help="퀴즈 생성")
+    quiz_parser.add_argument("-n", "--count", type=int, default=5, help="문항 수")
+    quiz_parser.add_argument("--focus", default="", help="집중 영역 (수리, 미시 등)")
+    quiz_parser.add_argument("--answers", action="store_true", help="정답 표시")
+    quiz_parser.add_argument("--notes", default="notes.json", help="노트 파일")
+
     args = parser.parse_args()
 
     commands = {
@@ -286,10 +296,23 @@ def main() -> None:
     if args.command is None:
         # 기본: 대화형 모드
         cmd_interactive(args)
+    elif args.command == "today":
+        from ubermensch.daily_plan import generate_daily_plan
+        print(generate_daily_plan())
     elif args.command == "auto":
         from ubermensch.autopilot import Autopilot
         pilot = Autopilot(state_path=args.state)
         asyncio.run(pilot.run(cycles=args.cycles))
+    elif args.command == "quiz":
+        from ubermensch.data.quiz import QuizGenerator
+        gen = QuizGenerator()
+        count = gen.load_notes(args.notes)
+        if count == 0:
+            print("퀴즈 소스 노트가 없습니다.")
+            print("먼저 파이프라인을 실행하세요: python -m ubermensch pipeline from-keep <경로>")
+            sys.exit(1)
+        quiz = gen.generate(count=args.count, focus_area=args.focus)
+        print(quiz.render(show_answers=args.answers))
     elif args.command == "pipeline":
         from ubermensch.data.pipeline import DataPipeline
         from ubermensch.data.note import load_notes

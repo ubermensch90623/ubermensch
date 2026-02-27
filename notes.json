@@ -1,0 +1,137 @@
+[
+  {
+    "id": "c63dd8b72f9e",
+    "title": "IS-LM 기출 문제",
+    "content": "거시경제학 IS-LM 모형\n\n문제: IS곡선이 우측으로 이동하는 요인으로 올바른 것은?\n1. 정부지출 증가\n2. 조세 감소\n3. 투자 증가\n4. 위의 모두\n\n정답: 4\n\n풀이:\nIS곡선: Y = C + I + G\n- G 증가 → 총수요 증가 → IS 우측\n- T 감소 → 가처분소득 증가 → C 증가 → IS 우측\n- I 증가 → IS 우측\n\n따라서 모두 IS곡선을 우측으로 이동시킨다.",
+    "raw_content": "거시경제학 IS-LM 모형\n\n문제: IS곡선이 우측으로 이동하는 요인으로 올바른 것은?\n1. 정부지출 증가\n2. 조세 감소\n3. 투자 증가\n4. 위의 모두\n\n정답: 4\n\n풀이:\nIS곡선: Y = C + I + G\n- G 증가 → 총수요 증가 → IS 우측\n- T 감소 → 가처분소득 증가 → C 증가 → IS 우측\n- I 증가 → IS 우측\n\n따라서 모두 IS곡선을 우측으로 이동시킨다.",
+    "category": "경제학",
+    "note_type": "풀이",
+    "subject": "거시",
+    "difficulty": "중",
+    "tags": [
+      "경제학",
+      "거시",
+      "풀이"
+    ],
+    "labels": [
+      "경제학",
+      "거시"
+    ],
+    "created_at": "2023-12-19T15:33:20",
+    "updated_at": "2023-12-19T15:33:20",
+    "source": "google_keep:econ_macro_01.json",
+    "verified": true,
+    "verification_notes": ""
+  },
+  {
+    "id": "4e480f92d927",
+    "title": "경제학 - 수요 탄력성",
+    "content": "미시경제학 수요-공급 정리\n\n개념: 수요의 가격탄력성\n정의: 가격 변화율에 대한 수요량 변화율의 비\n공식: Ed = (ΔQ/Q) / (ΔP/P)\n\n탄력적 (Ed > 1): 사치품\n비탄력적 (Ed < 1): 필수품\n단위탄력적 (Ed = 1)\n\n핵심 암기:\n- 대체재가 많을수록 탄력적\n- 지출 비중이 클수록 탄력적\n- 장기일수록 탄력적",
+    "raw_content": "미시경제학 수요-공급 정리\n\n개념: 수요의 가격탄력성\n정의: 가격 변화율에 대한 수요량 변화율의 비\n공식: Ed = (ΔQ/Q) / (ΔP/P)\n\n탄력적 (Ed > 1): 사치품\n비탄력적 (Ed < 1): 필수품\n단위탄력적 (Ed = 1)\n\n핵심 암기:\n- 대체재가 많을수록 탄력적\n- 지출 비중이 클수록 탄력적\n- 장기일수록 탄력적",
+    "category": "경제학",
+    "note_type": "개념정리",
+    "subject": "미시",
+    "difficulty": "하",
+    "tags": [
+      "경제학",
+      "미시",
+      "개념정리"
+    ],
+    "labels": [
+      "경제학"
+    ],
+    "created_at": "2023-12-08T01:46:40",
+    "updated_at": "2023-12-08T01:46:40",
+    "source": "google_keep:econ_micro_01.json",
+    "verified": true,
+    "verification_notes": ""
+  },
+  {
+    "id": "403c81d5dfc7",
+    "title": "이번 주 공부 계획",
+    "content": "NCS 수리 기출 3회분 풀기\n경제학 미시 Chapter 6 정리\n오답노트 작성",
+    "raw_content": "NCS 수리 기출 3회분 풀기\n경제학 미시 Chapter 6 정리\n오답노트 작성",
+    "category": "혼합",
+    "note_type": "일정",
+    "subject": "",
+    "difficulty": "중",
+    "tags": [
+      "혼합",
+      "일정"
+    ],
+    "labels": [
+      "계획"
+    ],
+    "created_at": "2024-01-11T19:06:40",
+    "updated_at": "2024-01-11T19:06:40",
+    "source": "google_keep:list_note.json",
+    "verified": true,
+    "verification_notes": ""
+  },
+  {
+    "id": "16b479564135",
+    "title": "일정 메모",
+    "content": "내일 도서관 9시 가기\n점심 약속 12시\n교재 Chapter 5까지 읽기",
+    "raw_content": "내일 도서관 9시 가기\n점심 약속 12시\n교재 Chapter 5까지 읽기",
+    "category": "기타",
+    "note_type": "일정",
+    "subject": "",
+    "difficulty": "중",
+    "tags": [
+      "일정"
+    ],
+    "labels": [],
+    "created_at": "2023-12-31T05:20:00",
+    "updated_at": "2023-12-31T05:20:00",
+    "source": "google_keep:memo_general.json",
+    "verified": true,
+    "verification_notes": ""
+  },
+  {
+    "id": "ddccedb646c8",
+    "title": "언어 독해 오답",
+    "content": "언어 독해 문제\n\n다음 글을 읽고 주제로 가장 적절한 것을 고르시오.\n\n현대 사회에서 디지털 리터러시는 단순한 기술 활용 능력을 넘어...\n\n정답: ③ 디지털 리터러시의 확장된 개념과 중요성\n\n틀린 이유: ①번 선택 — 지문 전체가 아닌 첫 문단만 보고 판단함\n다시 풀기: 지문 전체를 읽고 주제문을 찾는 습관 필요",
+    "raw_content": "언어 독해 문제\n\n다음 글을 읽고 주제로 가장 적절한 것을 고르시오.\n\n현대 사회에서 디지털 리터러시는 단순한 기술 활용 능력을 넘어...\n\n정답: ③ 디지털 리터러시의 확장된 개념과 중요성\n\n틀린 이유: ①번 선택 — 지문 전체가 아닌 첫 문단만 보고 판단함\n다시 풀기: 지문 전체를 읽고 주제문을 찾는 습관 필요",
+    "category": "NCS",
+    "note_type": "오답분석",
+    "subject": "언어",
+    "difficulty": "중",
+    "tags": [
+      "NCS",
+      "언어",
+      "오답분석"
+    ],
+    "labels": [
+      "NCS"
+    ],
+    "created_at": "2023-11-26T12:00:00",
+    "updated_at": "2023-11-26T12:00:00",
+    "source": "google_keep:ncs_language_01.json",
+    "verified": true,
+    "verification_notes": ""
+  },
+  {
+    "id": "9388cdf57bf1",
+    "title": "수리 오답정리 #3",
+    "content": "NCS 수리영역 오답정리\n\n문제 1. 전년 대비 매출 증가율이 20%이고, 올해 매출이 1200만원일 때 전년 매출은?\n\n풀이: 전년 매출을 x라 하면\nx × 1.2 = 1200\nx = 1000만원\n\n오답 이유: 1200 × 0.8 = 960으로 계산함 (감소율과 혼동)\n주의: 증가율 문제에서 기준이 전년임을 기억할 것",
+    "raw_content": "NCS 수리영역 오답정리\n\n문제 1. 전년 대비 매출 증가율이 20%이고, 올해 매출이 1200만원일 때 전년 매출은?\n\n풀이: 전년 매출을 x라 하면\nx × 1.2 = 1200\nx = 1000만원\n\n오답 이유: 1200 × 0.8 = 960으로 계산함 (감소율과 혼동)\n주의: 증가율 문제에서 기준이 전년임을 기억할 것",
+    "category": "NCS",
+    "note_type": "문제",
+    "subject": "수리",
+    "difficulty": "중",
+    "tags": [
+      "NCS",
+      "수리",
+      "문제"
+    ],
+    "labels": [
+      "NCS",
+      "수리"
+    ],
+    "created_at": "2023-07-22T04:26:40",
+    "updated_at": "2023-11-14T22:13:20",
+    "source": "google_keep:ncs_math_01.json",
+    "verified": true,
+    "verification_notes": ""
+  }
+]

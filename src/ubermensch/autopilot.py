@@ -208,6 +208,9 @@ class Autopilot:
         """1사이클 = 분석 → C-Suite → 팀 → 레드팀 → 종합."""
         self.cycle_count += 1
 
+        # 실제 파이프라인 데이터 동기화 (notes.json 있으면)
+        self.brain.sync_pipeline()
+
         # 사이클 진행 — 학습 상태 시뮬레이션
         self.brain.advance()
         s = self.brain.state
