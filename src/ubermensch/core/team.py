@@ -49,6 +49,11 @@ class AgentTeam:
         self._teammates: dict[str, BaseAgent] = {}
         self._client: anthropic.AsyncAnthropic | None = None
         self._running_tasks: dict[str, asyncio.Task[Any]] = {}
+        # 에러 복구 설정
+        self._agent_factories: dict[str, type] = {}  # name -> agent class
+        self._agent_kwargs: dict[str, dict[str, Any]] = {}  # name -> init kwargs
+        self.max_respawns: int = 3
+        self._respawn_counts: dict[str, int] = {}
 
         # Lead 를 메일박스에 등록
         self.mailbox.register("lead")
@@ -61,13 +66,26 @@ class AgentTeam:
 
     # --- 팀원 관리 ---
 
-    async def spawn_teammate(self, agent: BaseAgent) -> None:
-        """에이전트를 팀에 추가합니다."""
+    async def spawn_teammate(
+        self,
+        agent: BaseAgent,
+        **factory_kwargs: Any,
+    ) -> None:
+        """에이전트를 팀에 추가합니다.
+
+        Args:
+            agent: 등록할 에이전트
+            **factory_kwargs: 재스폰 시 사용할 추가 kwargs
+        """
         self._teammates[agent.name] = agent
         self.mailbox.register(agent.name)
         # 에이전트에게 팀 인프라 참조 전달
         agent._team_mailbox = self.mailbox
         agent._team_task_list = self.task_list
+        # 재스폰을 위한 팩토리 정보 저장
+        self._agent_factories[agent.name] = type(agent)
+        self._agent_kwargs[agent.name] = {"name": agent.name, **factory_kwargs}
+        self._respawn_counts.setdefault(agent.name, 0)
         logger.info(f"[{self.name}] Spawned teammate: {agent.name}")
 
         # TEAMMATE_SPAWNED 훅
@@ -96,6 +114,45 @@ class AgentTeam:
                     agent_name=name,
                 )
             )
+
+    async def respawn_teammate(self, name: str) -> BaseAgent | None:
+        """실패한 에이전트를 같은 타입으로 재스폰합니다.
+
+        Returns:
+            새 에이전트, 또는 max_respawns 초과 시 None
+        """
+        if name not in self._agent_factories:
+            logger.warning(f"[{self.name}] No factory for '{name}', cannot respawn")
+            return None
+
+        count = self._respawn_counts.get(name, 0)
+        if count >= self.max_respawns:
+            logger.warning(
+                f"[{self.name}] Max respawns ({self.max_respawns}) reached for '{name}'"
+            )
+            return None
+
+        # 기존 에이전트 제거 (있으면)
+        if name in self._teammates:
+            self._teammates.pop(name)
+            self.mailbox.unregister(name)
+
+        # 새 에이전트 생성
+        factory = self._agent_factories[name]
+        kwargs = self._agent_kwargs[name]
+        new_agent = factory(**kwargs)
+
+        # 재등록
+        self._teammates[name] = new_agent
+        self.mailbox.register(name)
+        new_agent._team_mailbox = self.mailbox
+        new_agent._team_task_list = self.task_list
+        self._respawn_counts[name] = count + 1
+
+        logger.info(
+            f"[{self.name}] Respawned '{name}' ({count + 1}/{self.max_respawns})"
+        )
+        return new_agent
 
     @property
     def teammate_names(self) -> list[str]:
@@ -151,24 +208,24 @@ class AgentTeam:
 
         # Step 2: 팀원별 워커 실행
         results: list[TaskResult] = []
-        workers = []
+        workers: dict[str, asyncio.Task[Any]] = {}
         for name, agent in self._teammates.items():
             worker = asyncio.create_task(
-                self._agent_worker(agent), name=f"worker-{name}"
+                self._agent_worker_safe(agent), name=f"worker-{name}"
             )
             self._running_tasks[name] = worker
-            workers.append(worker)
+            workers[name] = worker
 
-        # Step 3: 모든 태스크 완료 대기
-        done = await self.task_list.wait_all_done(timeout=300)
+        # Step 3: 모든 태스크 완료 대기 (크래시 복구 포함)
+        done = await self._wait_with_recovery(workers, timeout=300)
         if not done:
             logger.warning(f"[{self.name}] Timed out waiting for tasks")
 
         # 워커들 정리
-        for w in workers:
+        for w in workers.values():
             if not w.done():
                 w.cancel()
-        await asyncio.gather(*workers, return_exceptions=True)
+        await asyncio.gather(*workers.values(), return_exceptions=True)
 
         # 결과 수집
         for task in self.task_list.all_tasks:
@@ -192,6 +249,44 @@ class AgentTeam:
             "results": results,
             "messages": lead_messages,
         }
+
+    async def _agent_worker_safe(self, agent: BaseAgent) -> None:
+        """크래시 안전 워커 래퍼. 예외 발생 시 에이전트를 재스폰합니다."""
+        try:
+            await self._agent_worker(agent)
+        except asyncio.CancelledError:
+            raise
+        except Exception as e:
+            logger.error(f"[{agent.name}] Worker crashed: {e}")
+
+            # 크래시한 에이전트의 IN_PROGRESS 태스크를 PENDING으로 되돌림
+            for task in self.task_list.get_tasks_by_agent(agent.name):
+                if task.status == TaskStatus.IN_PROGRESS:
+                    task.status = TaskStatus.PENDING
+                    task.assigned_to = None
+                    logger.info(f"[{task.id}] Reset to PENDING after crash")
+
+            # 재스폰 시도
+            new_agent = await self.respawn_teammate(agent.name)
+            if new_agent is not None:
+                logger.info(f"[{agent.name}] Respawned, restarting worker")
+                await self._agent_worker_safe(new_agent)
+            else:
+                # 재스폰 불가 → 남은 태스크를 FAILED로
+                for task in self.task_list.get_tasks_by_agent(agent.name):
+                    if task.status == TaskStatus.IN_PROGRESS:
+                        await self.task_list.fail_task(
+                            task.id, f"Agent '{agent.name}' crashed and max respawns reached"
+                        )
+                logger.error(f"[{agent.name}] Cannot respawn, worker stopped")
+
+    async def _wait_with_recovery(
+        self,
+        workers: dict[str, asyncio.Task[Any]],
+        timeout: float = 300,
+    ) -> bool:
+        """태스크 완료를 대기하면서 크래시된 워커를 감시합니다."""
+        return await self.task_list.wait_all_done(timeout=timeout)
 
     async def _agent_worker(self, agent: BaseAgent) -> None:
         """개별 에이전트 워커: 태스크를 자동 claim하고 실행합니다."""
