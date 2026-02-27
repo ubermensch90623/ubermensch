@@ -254,6 +254,11 @@ def main() -> None:
     run_parser = subparsers.add_parser("run", help="단일 요청 실행")
     run_parser.add_argument("request", nargs="+", help="CEO에게 전달할 요청")
 
+    # autopilot
+    auto_parser = subparsers.add_parser("auto", help="자율 운영 모드 (오토파일럿)")
+    auto_parser.add_argument("--cycles", type=int, default=1, help="실행 사이클 수")
+    auto_parser.add_argument("--demo", action="store_true", help="데모 모드")
+
     args = parser.parse_args()
 
     commands = {
@@ -268,6 +273,10 @@ def main() -> None:
     if args.command is None:
         # 기본: 대화형 모드
         cmd_interactive(args)
+    elif args.command == "auto":
+        from ubermensch.autopilot import Autopilot
+        pilot = Autopilot(state_path=args.state, demo=args.demo)
+        asyncio.run(pilot.run(cycles=args.cycles))
     elif args.command in commands:
         commands[args.command](args)
     else:
