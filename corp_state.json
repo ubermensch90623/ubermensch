@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "model": "claude-sonnet-4-20250514",
+  "deployed_agents": [
+    {
+      "name": "ceo",
+      "model": "claude-sonnet-4-20250514",
+      "class": "CEOAgent"
+    },
+    {
+      "name": "cto",
+      "model": "claude-sonnet-4-20250514",
+      "class": "CTOAgent"
+    },
+    {
+      "name": "coo",
+      "model": "claude-sonnet-4-20250514",
+      "class": "COOAgent"
+    },
+    {
+      "name": "cfo",
+      "model": "claude-sonnet-4-20250514",
+      "class": "CFOAgent"
+    },
+    {
+      "name": "cmo",
+      "model": "claude-sonnet-4-20250514",
+      "class": "CMOAgent"
+    },
+    {
+      "name": "plumber",
+      "model": "claude-sonnet-4-20250514",
+      "class": "PlumberAgent"
+    },
+    {
+      "name": "classifier",
+      "model": "claude-sonnet-4-20250514",
+      "class": "ClassifierAgent"
+    },
+    {
+      "name": "inspector",
+      "model": "claude-sonnet-4-20250514",
+      "class": "InspectorAgent"
+    },
+    {
+      "name": "data_redteam",
+      "model": "claude-sonnet-4-20250514",
+      "class": "DataRedTeamAgent"
+    },
+    {
+      "name": "review_scheduler",
+      "model": "claude-sonnet-4-20250514",
+      "class": "ReviewSchedulerAgent"
+    },
+    {
+      "name": "quiz_master",
+      "model": "claude-sonnet-4-20250514",
+      "class": "QuizMasterAgent"
+    },
+    {
+      "name": "explainer",
+      "model": "claude-sonnet-4-20250514",
+      "class": "ExplainerAgent"
+    },
+    {
+      "name": "commute_scheduler",
+      "model": "claude-sonnet-4-20250514",
+      "class": "CommuteSchedulerAgent"
+    },
+    {
+      "name": "learning_redteam",
+      "model": "claude-sonnet-4-20250514",
+      "class": "LearningRedTeamAgent"
+    },
+    {
+      "name": "tracker",
+      "model": "claude-sonnet-4-20250514",
+      "class": "TrackerAgent"
+    },
+    {
+      "name": "diagnostician",
+      "model": "claude-sonnet-4-20250514",
+      "class": "DiagnosticianAgent"
+    },
+    {
+      "name": "validator",
+      "model": "claude-sonnet-4-20250514",
+      "class": "ValidatorAgent"
+    },
+    {
+      "name": "predictor",
+      "model": "claude-sonnet-4-20250514",
+      "class": "PredictorAgent"
+    },
+    {
+      "name": "analytics_redteam",
+      "model": "claude-sonnet-4-20250514",
+      "class": "AnalyticsRedTeamAgent"
+    },
+    {
+      "name": "burnout_watcher",
+      "model": "claude-sonnet-4-20250514",
+      "class": "BurnoutWatcherAgent"
+    },
+    {
+      "name": "habit_designer",
+      "model": "claude-sonnet-4-20250514",
+      "class": "HabitDesignerAgent"
+    },
+    {
+      "name": "system_improver",
+      "model": "claude-sonnet-4-20250514",
+      "class": "SystemImproverAgent"
+    },
+    {
+      "name": "debate_moderator",
+      "model": "claude-sonnet-4-20250514",
+      "class": "DebateModeratorAgent"
+    },
+    {
+      "name": "feedback_redteam",
+      "model": "claude-sonnet-4-20250514",
+      "class": "FeedbackRedTeamAgent"
+    },
+    {
+      "name": "strategist",
+      "model": "claude-sonnet-4-20250514",
+      "class": "StrategistAgent"
+    },
+    {
+      "name": "passer_profiler",
+      "model": "claude-sonnet-4-20250514",
+      "class": "PasserProfilerAgent"
+    },
+    {
+      "name": "trend_analyst",
+      "model": "claude-sonnet-4-20250514",
+      "class": "TrendAnalystAgent"
+    },
+    {
+      "name": "ai_researcher",
+      "model": "claude-sonnet-4-20250514",
+      "class": "AIResearcherAgent"
+    },
+    {
+      "name": "research_redteam",
+      "model": "claude-sonnet-4-20250514",
+      "class": "ResearchRedTeamAgent"
+    },
+    {
+      "name": "strategy_updater",
+      "model": "claude-sonnet-4-20250514",
+      "class": "StrategyUpdaterAgent"
+    },
+    {
+      "name": "system_patcher",
+      "model": "claude-sonnet-4-20250514",
+      "class": "SystemPatcherAgent"
+    },
+    {
+      "name": "content_updater",
+      "model": "claude-sonnet-4-20250514",
+      "class": "ContentUpdaterAgent"
+    },
+    {
+      "name": "update_redteam",
+      "model": "claude-sonnet-4-20250514",
+      "class": "UpdateRedTeamAgent"
+    },
+    {
+      "name": "gemini_diplomat",
+      "model": "claude-sonnet-4-20250514",
+      "class": "GeminiDiplomatAgent"
+    },
+    {
+      "name": "notion_diplomat",
+      "model": "claude-sonnet-4-20250514",
+      "class": "NotionDiplomatAgent"
+    },
+    {
+      "name": "response_integrator",
+      "model": "claude-sonnet-4-20250514",
+      "class": "ResponseIntegratorAgent"
+    },
+    {
+      "name": "cross_checker",
+      "model": "claude-sonnet-4-20250514",
+      "class": "CrossCheckerAgent"
+    },
+    {
+      "name": "recruiter",
+      "model": "claude-sonnet-4-20250514",
+      "class": "RecruiterAgent"
+    },
+    {
+      "name": "capability_evaluator",
+      "model": "claude-sonnet-4-20250514",
+      "class": "CapabilityEvaluatorAgent"
+    },
+    {
+      "name": "recruitment_redteam",
+      "model": "claude-sonnet-4-20250514",
+      "class": "RecruitmentRedTeamAgent"
+    }
+  ],
+  "task_force_history": []
+}

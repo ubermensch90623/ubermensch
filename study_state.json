@@ -1,0 +1,258 @@
+{
+  "cycle": 10,
+  "day": 10,
+  "streak": 10,
+  "parsed_notes": 400,
+  "classified_notes": 338,
+  "verified_notes": 278,
+  "migrated_notes": 240,
+  "pipeline_status": "가동중",
+  "studied_topics_count": 29,
+  "review_queue_size": 5,
+  "accuracy_by_type": {
+    "NCS_수리": 0.71,
+    "NCS_언어": 0.74,
+    "NCS_추론": 0.76,
+    "NCS_자료해석": 0.76,
+    "NCS_상황판단": 0.78,
+    "경제학_미시": 0.7,
+    "경제학_거시": 0.68,
+    "경제학_국제경제": 0.7,
+    "경제학_재정학": 0.74
+  },
+  "total_study_hours": 49.0,
+  "burnout_level": "SAFE",
+  "gemini_connected": true,
+  "cross_checks": 14,
+  "studied_topics": [
+    {
+      "subject": "경제학",
+      "type": "국제경제",
+      "day_studied": 1,
+      "reviews_done": 2,
+      "next_review": 12
+    },
+    {
+      "subject": "NCS",
+      "type": "추론",
+      "day_studied": 1,
+      "reviews_done": 2,
+      "next_review": 12
+    },
+    {
+      "subject": "NCS",
+      "type": "상황판단",
+      "day_studied": 1,
+      "reviews_done": 2,
+      "next_review": 12
+    },
+    {
+      "subject": "NCS",
+      "type": "추론",
+      "day_studied": 2,
+      "reviews_done": 2,
+      "next_review": 13
+    },
+    {
+      "subject": "경제학",
+      "type": "재정학",
+      "day_studied": 2,
+      "reviews_done": 2,
+      "next_review": 13
+    },
+    {
+      "subject": "NCS",
+      "type": "추론",
+      "day_studied": 3,
+      "reviews_done": 2,
+      "next_review": 14
+    },
+    {
+      "subject": "NCS",
+      "type": "수리",
+      "day_studied": 3,
+      "reviews_done": 2,
+      "next_review": 14
+    },
+    {
+      "subject": "경제학",
+      "type": "재정학",
+      "day_studied": 3,
+      "reviews_done": 2,
+      "next_review": 14
+    },
+    {
+      "subject": "경제학",
+      "type": "미시",
+      "day_studied": 4,
+      "reviews_done": 2,
+      "next_review": 15
+    },
+    {
+      "subject": "경제학",
+      "type": "국제경제",
+      "day_studied": 4,
+      "reviews_done": 2,
+      "next_review": 15
+    },
+    {
+      "subject": "경제학",
+      "type": "거시",
+      "day_studied": 5,
+      "reviews_done": 2,
+      "next_review": 16
+    },
+    {
+      "subject": "경제학",
+      "type": "거시",
+      "day_studied": 5,
+      "reviews_done": 2,
+      "next_review": 16
+    },
+    {
+      "subject": "NCS",
+      "type": "추론",
+      "day_studied": 5,
+      "reviews_done": 2,
+      "next_review": 16
+    },
+    {
+      "subject": "경제학",
+      "type": "미시",
+      "day_studied": 5,
+      "reviews_done": 2,
+      "next_review": 16
+    },
+    {
+      "subject": "경제학",
+      "type": "미시",
+      "day_studied": 6,
+      "reviews_done": 2,
+      "next_review": 17
+    },
+    {
+      "subject": "NCS",
+      "type": "자료해석",
+      "day_studied": 6,
+      "reviews_done": 2,
+      "next_review": 17
+    },
+    {
+      "subject": "경제학",
+      "type": "국제경제",
+      "day_studied": 6,
+      "reviews_done": 2,
+      "next_review": 17
+    },
+    {
+      "subject": "경제학",
+      "type": "재정학",
+      "day_studied": 7,
+      "reviews_done": 1,
+      "next_review": 11
+    },
+    {
+      "subject": "NCS",
+      "type": "추론",
+      "day_studied": 7,
+      "reviews_done": 1,
+      "next_review": 11
+    },
+    {
+      "subject": "경제학",
+      "type": "재정학",
+      "day_studied": 7,
+      "reviews_done": 1,
+      "next_review": 11
+    },
+    {
+      "subject": "경제학",
+      "type": "거시",
+      "day_studied": 8,
+      "reviews_done": 1,
+      "next_review": 12
+    },
+    {
+      "subject": "경제학",
+      "type": "거시",
+      "day_studied": 8,
+      "reviews_done": 1,
+      "next_review": 12
+    },
+    {
+      "subject": "경제학",
+      "type": "국제경제",
+      "day_studied": 8,
+      "reviews_done": 1,
+      "next_review": 12
+    },
+    {
+      "subject": "경제학",
+      "type": "미시",
+      "day_studied": 8,
+      "reviews_done": 1,
+      "next_review": 12
+    },
+    {
+      "subject": "경제학",
+      "type": "미시",
+      "day_studied": 9,
+      "reviews_done": 1,
+      "next_review": 13
+    },
+    {
+      "subject": "경제학",
+      "type": "미시",
+      "day_studied": 9,
+      "reviews_done": 1,
+      "next_review": 13
+    },
+    {
+      "subject": "경제학",
+      "type": "거시",
+      "day_studied": 10,
+      "reviews_done": 0,
+      "next_review": 11
+    },
+    {
+      "subject": "경제학",
+      "type": "국제경제",
+      "day_studied": 10,
+      "reviews_done": 0,
+      "next_review": 11
+    },
+    {
+      "subject": "NCS",
+      "type": "수리",
+      "day_studied": 10,
+      "reviews_done": 0,
+      "next_review": 11
+    }
+  ],
+  "study_hours": [
+    4.7,
+    5.8,
+    3.7,
+    5.2,
+    5.0,
+    5.2,
+    4.9,
+    4.1,
+    4.8,
+    5.6
+  ],
+  "daily_hours": [
+    4.7,
+    5.8,
+    3.7,
+    5.2,
+    5.0,
+    5.2,
+    4.9,
+    4.1,
+    4.8,
+    5.6
+  ],
+  "strategies": [],
+  "trends": []
+}
