@@ -9,6 +9,7 @@ from typing import Any
 import anthropic
 
 from ubermensch.core.base_agent import BaseAgent
+from ubermensch.core.hooks import HookEvent, HookRegistry, HookType
 from ubermensch.core.mailbox import Mailbox
 from ubermensch.core.message import (
     AgentMessage,
@@ -44,6 +45,7 @@ class AgentTeam:
         self.model = model
         self.task_list = SharedTaskList()
         self.mailbox = Mailbox()
+        self.hooks = HookRegistry()
         self._teammates: dict[str, BaseAgent] = {}
         self._client: anthropic.AsyncAnthropic | None = None
         self._running_tasks: dict[str, asyncio.Task[Any]] = {}
@@ -58,6 +60,11 @@ class AgentTeam:
         return self._client
 
     # --- 팀원 관리 ---
+
+    async def _emit(self, event: HookEvent) -> None:
+        """훅 이벤트를 발생시킵니다 (에러 무시)."""
+        event.team_name = self.name
+        await self.hooks.emit(event)
 
     def spawn_teammate(self, agent: BaseAgent) -> None:
         """에이전트를 팀에 추가합니다."""
@@ -186,6 +193,11 @@ class AgentTeam:
             if task is None:
                 # 남은 태스크가 있으면 잠시 대기 후 재시도
                 if not self.task_list.all_done:
+                    # TeammateIdle 훅 발생
+                    await self._emit(HookEvent(
+                        type=HookType.TEAMMATE_IDLE,
+                        agent_name=agent.name,
+                    ))
                     await asyncio.sleep(0.5)
                     continue
                 break
@@ -201,6 +213,14 @@ class AgentTeam:
 
             if result.success:
                 await self.task_list.complete_task(task.id, result.data)
+                # TaskCompleted 훅 발생
+                await self._emit(HookEvent(
+                    type=HookType.TASK_COMPLETED,
+                    agent_name=agent.name,
+                    task_id=task.id,
+                    task_title=task.title,
+                    data=result.data,
+                ))
                 # Lead에게 완료 보고
                 await self.mailbox.send(
                     sender=agent.name,
@@ -210,12 +230,26 @@ class AgentTeam:
                 )
             else:
                 await self.task_list.fail_task(task.id, result.error or "Unknown error")
+                # TaskFailed 훅 발생
+                await self._emit(HookEvent(
+                    type=HookType.TASK_FAILED,
+                    agent_name=agent.name,
+                    task_id=task.id,
+                    task_title=task.title,
+                    data=result.error,
+                ))
                 await self.mailbox.send(
                     sender=agent.name,
                     recipient="lead",
                     subject=f"task_failed:{task.id}",
                     body={"task_title": task.title, "error": result.error},
                 )
+
+            # AllTasksDone 체크
+            if self.task_list.all_done:
+                await self._emit(HookEvent(
+                    type=HookType.ALL_TASKS_DONE,
+                ))
 
     async def _process_agent_mail(self, agent: BaseAgent) -> None:
         """에이전트의 대기 메시지를 처리합니다."""

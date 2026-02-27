@@ -24,11 +24,17 @@
 - Subagents 패턴 멀티에이전트 프레임워크 구현 (2026-02-24)
 - 프로젝트 기본 설정 구성 (2026-02-24)
 
+## 최근 완료 (계속)
+- Backlog 4개 항목 전체 구현 (2026-02-27)
+  - 1차 채용 실행 예제 (examples/corp_first_hire.py)
+  - 테스트 코드 200개 작성 (test_agents, test_organization, test_task_force, test_hooks, test_persistence)
+  - Hook 시스템 (TeammateIdle, TaskCompleted, TaskFailed, AgentJoined, AgentLeft, AllTasksDone)
+  - 팀 설정 영속화 (save_corp_state / load_corp_state / restore_corp)
+
 ## 대기 중 (Backlog)
-- 1차 채용 실행: 배관공 + 데이터 검증관 배치
-- 테스트 코드 작성
-- Hook 시스템 (TeammateIdle, TaskCompleted)
-- 팀 설정 영속화 (JSON 파일)
+- Keep 노트 실제 데이터 연동
+- Notion API 파이프라인 구현
+- MCP 프로토콜 Gemini 연동
 
 ---
 *마지막 업데이트: 2026-02-27*
