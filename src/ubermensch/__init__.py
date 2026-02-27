@@ -14,6 +14,7 @@ from ubermensch.core.message import (
     TeamMessage,
 )
 from ubermensch.core.orchestrator import SubagentOrchestrator
+from ubermensch.core.persistence import TeamPersistence
 from ubermensch.core.shared_task_list import SharedTaskList
 from ubermensch.core.team import AgentTeam
 
@@ -40,6 +41,7 @@ __all__ = [
     "HookEvent",
     "HookContext",
     "HookResult",
+    "TeamPersistence",
     # Messages
     "AgentMessage",
     "TaskResult",
