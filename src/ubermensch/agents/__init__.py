@@ -9,6 +9,7 @@ from ubermensch.agents.reviewers import (
     PerformanceReviewerAgent,
     SecurityReviewerAgent,
 )
+from ubermensch.agents.corp import LearningAgentCorp, TaskForceManager
 
 __all__ = [
     "ResearcherAgent",
@@ -19,4 +20,6 @@ __all__ = [
     "ArchitectAgent",
     "DevilsAdvocateAgent",
     "DebuggerAgent",
+    "LearningAgentCorp",
+    "TaskForceManager",
 ]
