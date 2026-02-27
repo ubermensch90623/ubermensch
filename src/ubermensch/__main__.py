@@ -257,7 +257,6 @@ def main() -> None:
     # autopilot
     auto_parser = subparsers.add_parser("auto", help="자율 운영 모드 (오토파일럿)")
     auto_parser.add_argument("--cycles", type=int, default=1, help="실행 사이클 수")
-    auto_parser.add_argument("--demo", action="store_true", help="데모 모드")
 
     args = parser.parse_args()
 
@@ -275,7 +274,7 @@ def main() -> None:
         cmd_interactive(args)
     elif args.command == "auto":
         from ubermensch.autopilot import Autopilot
-        pilot = Autopilot(state_path=args.state, demo=args.demo)
+        pilot = Autopilot(state_path=args.state)
         asyncio.run(pilot.run(cycles=args.cycles))
     elif args.command in commands:
         commands[args.command](args)
