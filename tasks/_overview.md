@@ -4,18 +4,24 @@
 - 없음
 
 ## 최근 완료
-- Agent Teams 패턴 구현 (2026-02-25)
+- 에러 복구 및 자동 재스폰 (2026-02-27)
+- 풀 파이프라인 예제 (리서치→리뷰→토론→설계) (2026-02-27)
+- 에이전트 간 토론 파이프라인 (Discussion, MultiDiscussion) (2026-02-27)
+- 팀 설정 영속화 - JSON 저장/복원 (2026-02-27)
+- Hook 시스템 - 7개 이벤트, 품질 게이트 (2026-02-27)
+- 테스트 150개 작성 (모든 모듈 커버) (2026-02-27)
+- Agent Teams 패턴 구현 (2026-02-27)
   - SharedTaskList (의존성, claiming, 잠금)
   - Mailbox (에이전트 간 메시징)
   - AgentTeam (팀 생성/관리/정리)
-  - 신규 에이전트 6종 (Security/Performance/Code Reviewer, Architect, DevilsAdvocate, Debugger)
+  - 신규 에이전트 6종
 - Subagents 패턴 멀티에이전트 프레임워크 구현 (2026-02-24)
 - 프로젝트 기본 설정 구성 (2026-02-24)
 
 ## 대기 중 (Backlog)
-- 테스트 코드 작성
-- Hook 시스템 (TeammateIdle, TaskCompleted)
-- 팀 설정 영속화 (JSON 파일)
+- MCP 서버 통합
+- 웹 대시보드
+- 에이전트 성능 메트릭 수집
 
 ---
-*마지막 업데이트: 2026-02-25*
+*마지막 업데이트: 2026-02-27*
