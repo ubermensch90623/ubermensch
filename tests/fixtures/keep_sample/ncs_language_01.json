@@ -1,0 +1,11 @@
+{
+    "color": "DEFAULT",
+    "isTrashed": false,
+    "isPinned": false,
+    "isArchived": false,
+    "textContent": "언어 독해 문제\n\n다음 글을 읽고 주제로 가장 적절한 것을 고르시오.\n\n현대 사회에서 디지털 리터러시는 단순한 기술 활용 능력을 넘어...\n\n정답: ③ 디지털 리터러시의 확장된 개념과 중요성\n\n틀린 이유: ①번 선택 — 지문 전체가 아닌 첫 문단만 보고 판단함\n다시 풀기: 지문 전체를 읽고 주제문을 찾는 습관 필요",
+    "title": "언어 독해 오답",
+    "userEditedTimestampUsec": 1701000000000000,
+    "createdTimestampUsec": 1701000000000000,
+    "labels": [{"name": "NCS"}]
+}

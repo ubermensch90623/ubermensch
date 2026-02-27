@@ -1,0 +1,11 @@
+{
+    "color": "YELLOW",
+    "isTrashed": false,
+    "isPinned": true,
+    "isArchived": false,
+    "textContent": "NCS 수리영역 오답정리\n\n문제 1. 전년 대비 매출 증가율이 20%이고, 올해 매출이 1200만원일 때 전년 매출은?\n\n풀이: 전년 매출을 x라 하면\nx × 1.2 = 1200\nx = 1000만원\n\n오답 이유: 1200 × 0.8 = 960으로 계산함 (감소율과 혼동)\n주의: 증가율 문제에서 기준이 전년임을 기억할 것",
+    "title": "수리 오답정리 #3",
+    "userEditedTimestampUsec": 1700000000000000,
+    "createdTimestampUsec": 1690000000000000,
+    "labels": [{"name": "NCS"}, {"name": "수리"}]
+}

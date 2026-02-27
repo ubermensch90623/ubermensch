@@ -1,0 +1,11 @@
+{
+    "color": "GREEN",
+    "isTrashed": false,
+    "isPinned": false,
+    "isArchived": false,
+    "textContent": "거시경제학 IS-LM 모형\n\n문제: IS곡선이 우측으로 이동하는 요인으로 올바른 것은?\n1. 정부지출 증가\n2. 조세 감소\n3. 투자 증가\n4. 위의 모두\n\n정답: 4\n\n풀이:\nIS곡선: Y = C + I + G\n- G 증가 → 총수요 증가 → IS 우측\n- T 감소 → 가처분소득 증가 → C 증가 → IS 우측\n- I 증가 → IS 우측\n\n따라서 모두 IS곡선을 우측으로 이동시킨다.",
+    "title": "IS-LM 기출 문제",
+    "userEditedTimestampUsec": 1703000000000000,
+    "createdTimestampUsec": 1703000000000000,
+    "labels": [{"name": "경제학"}, {"name": "거시"}]
+}

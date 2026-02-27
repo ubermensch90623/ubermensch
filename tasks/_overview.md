@@ -1,9 +1,18 @@
 # 프로젝트 상태 요약
 
 ## 현재 진행 중
-- 없음
+- Keep 노트 실제 데이터 연동 (Google Takeout → 파싱 → Notion 구조)
 
 ## 최근 완료
+- LocalBrain 엔진 + 자율 운영 오토파일럿 (2026-02-27)
+  - LocalBrain: API 키 없이 동작하는 로컬 두뇌 (12개 에이전트 핸들러)
+  - StudyState: 사이클간 누적 상태 추적 (에빙하우스, 정답률, 번아웃, 파이프라인)
+  - Autopilot: CEO 중심 5-Phase 자율 루프 (분석→C-Suite→팀→레드팀→종합)
+  - `python -m ubermensch auto --cycles N` 한 줄로 실행
+- CLI 진입점 추가 (2026-02-27)
+  - `python -m ubermensch` 대화형 모드
+  - `python -m ubermensch auto/status/hire/hire-all/run/save/restore`
+  - pyproject.toml script 엔트리 (`ubermensch` 명령어)
 - Learning Agent Corp. 40명 에이전트 조직 구현 (2026-02-27)
   - C-Suite 5명 (CEO, CTO, COO, CFO, CMO)
   - 데이터팀 4명 (배관공, 분류사, 검수관, 데이터검증관)
@@ -32,7 +41,6 @@
   - 팀 설정 영속화 (save_corp_state / load_corp_state / restore_corp)
 
 ## 대기 중 (Backlog)
-- Keep 노트 실제 데이터 연동
 - Notion API 파이프라인 구현
 - MCP 프로토콜 Gemini 연동
 

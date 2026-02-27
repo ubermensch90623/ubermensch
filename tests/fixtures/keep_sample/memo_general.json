@@ -1,0 +1,11 @@
+{
+    "color": "DEFAULT",
+    "isTrashed": false,
+    "isPinned": false,
+    "isArchived": false,
+    "textContent": "내일 도서관 9시 가기\n점심 약속 12시\n교재 Chapter 5까지 읽기",
+    "title": "일정 메모",
+    "userEditedTimestampUsec": 1704000000000000,
+    "createdTimestampUsec": 1704000000000000,
+    "labels": []
+}

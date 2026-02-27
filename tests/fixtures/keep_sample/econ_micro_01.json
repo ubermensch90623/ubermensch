@@ -1,0 +1,11 @@
+{
+    "color": "BLUE",
+    "isTrashed": false,
+    "isPinned": false,
+    "isArchived": false,
+    "textContent": "미시경제학 수요-공급 정리\n\n개념: 수요의 가격탄력성\n정의: 가격 변화율에 대한 수요량 변화율의 비\n공식: Ed = (ΔQ/Q) / (ΔP/P)\n\n탄력적 (Ed > 1): 사치품\n비탄력적 (Ed < 1): 필수품\n단위탄력적 (Ed = 1)\n\n핵심 암기:\n- 대체재가 많을수록 탄력적\n- 지출 비중이 클수록 탄력적\n- 장기일수록 탄력적",
+    "title": "경제학 - 수요 탄력성",
+    "userEditedTimestampUsec": 1702000000000000,
+    "createdTimestampUsec": 1702000000000000,
+    "labels": [{"name": "경제학"}]
+}

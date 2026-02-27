@@ -258,6 +258,20 @@ def main() -> None:
     auto_parser = subparsers.add_parser("auto", help="자율 운영 모드 (오토파일럿)")
     auto_parser.add_argument("--cycles", type=int, default=1, help="실행 사이클 수")
 
+    # pipeline
+    pipe_parser = subparsers.add_parser("pipeline", help="Keep 노트 데이터 파이프라인")
+    pipe_sub = pipe_parser.add_subparsers(dest="pipe_command")
+
+    pipe_dir = pipe_sub.add_parser("from-keep", help="Keep Takeout 디렉토리에서 파싱")
+    pipe_dir.add_argument("path", help="Keep Takeout 디렉토리 경로")
+    pipe_dir.add_argument("-o", "--output", default="notes.json", help="출력 파일")
+
+    pipe_text = pipe_sub.add_parser("from-text", help="텍스트 파일에서 파싱")
+    pipe_text.add_argument("path", help="텍스트 파일 경로")
+    pipe_text.add_argument("-o", "--output", default="notes.json", help="출력 파일")
+
+    pipe_sub.add_parser("stats", help="저장된 노트 통계")
+
     args = parser.parse_args()
 
     commands = {
@@ -276,6 +290,36 @@ def main() -> None:
         from ubermensch.autopilot import Autopilot
         pilot = Autopilot(state_path=args.state)
         asyncio.run(pilot.run(cycles=args.cycles))
+    elif args.command == "pipeline":
+        from ubermensch.data.pipeline import DataPipeline
+        from ubermensch.data.note import load_notes
+        pipeline = DataPipeline()
+        if args.pipe_command == "from-keep":
+            results = pipeline.run_from_directory(args.path)
+            pipeline.save_results(args.output)
+            print(pipeline.stats.summary())
+            print(f"\n저장 완료: {args.output} ({len(results)}개 노트)")
+        elif args.pipe_command == "from-text":
+            text = Path(args.path).read_text(encoding="utf-8")
+            results = pipeline.run_from_text(text)
+            pipeline.save_results(args.output)
+            print(pipeline.stats.summary())
+            print(f"\n저장 완료: {args.output} ({len(results)}개 노트)")
+        elif args.pipe_command == "stats":
+            if not Path("notes.json").exists():
+                print("notes.json 파일이 없습니다. 먼저 pipeline from-keep 을 실행하세요.")
+            else:
+                notes = load_notes("notes.json")
+                from collections import Counter
+                cats = Counter(n.category.value for n in notes)
+                types = Counter(n.note_type.value for n in notes)
+                print(f"총 노트: {len(notes)}개")
+                print(f"\n카테고리: {dict(cats)}")
+                print(f"유형: {dict(types)}")
+                verified = sum(1 for n in notes if n.verified)
+                print(f"검수 완료: {verified}/{len(notes)}")
+        else:
+            pipe_parser.print_help()
     elif args.command in commands:
         commands[args.command](args)
     else:

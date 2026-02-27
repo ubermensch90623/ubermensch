@@ -1,0 +1,15 @@
+{
+    "color": "DEFAULT",
+    "isTrashed": false,
+    "isPinned": false,
+    "isArchived": false,
+    "listContent": [
+        {"text": "NCS 수리 기출 3회분 풀기", "isChecked": false},
+        {"text": "경제학 미시 Chapter 6 정리", "isChecked": true},
+        {"text": "오답노트 작성", "isChecked": false}
+    ],
+    "title": "이번 주 공부 계획",
+    "userEditedTimestampUsec": 1705000000000000,
+    "createdTimestampUsec": 1705000000000000,
+    "labels": [{"name": "계획"}]
+}

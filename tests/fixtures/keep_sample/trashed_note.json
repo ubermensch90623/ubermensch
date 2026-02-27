@@ -1,0 +1,11 @@
+{
+    "color": "DEFAULT",
+    "isTrashed": true,
+    "isPinned": false,
+    "isArchived": false,
+    "textContent": "이 노트는 삭제됨",
+    "title": "삭제된 노트",
+    "userEditedTimestampUsec": 1700000000000000,
+    "createdTimestampUsec": 1700000000000000,
+    "labels": []
+}
