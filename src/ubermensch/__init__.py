@@ -4,6 +4,7 @@ __version__ = "0.2.0"
 
 # Core
 from ubermensch.core.base_agent import BaseAgent
+from ubermensch.core.hooks import HookContext, HookEvent, HookRegistry, HookResult
 from ubermensch.core.mailbox import Mailbox
 from ubermensch.core.message import (
     AgentMessage,
@@ -34,6 +35,11 @@ __all__ = [
     "AgentTeam",
     "SharedTaskList",
     "Mailbox",
+    # Hooks
+    "HookRegistry",
+    "HookEvent",
+    "HookContext",
+    "HookResult",
     # Messages
     "AgentMessage",
     "TaskResult",

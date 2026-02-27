@@ -9,6 +9,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 
 from ubermensch.core.base_agent import BaseAgent
+from ubermensch.core.hooks import HookContext, HookEvent, HookResult
 from ubermensch.core.message import AgentMessage, TaskResult, TaskStatus
 from ubermensch.core.team import AgentTeam
 
@@ -56,31 +57,31 @@ class TestTeamManagement:
         assert team.name == "test-team"
         assert team.teammate_names == []
 
-    def test_spawn_teammate(self, team: AgentTeam):
+    async def test_spawn_teammate(self, team: AgentTeam):
         agent = FakeAgent("worker1")
-        team.spawn_teammate(agent)
+        await team.spawn_teammate(agent)
         assert "worker1" in team.teammate_names
         assert agent._team_mailbox is team.mailbox
         assert agent._team_task_list is team.task_list
         assert agent.in_team
 
-    def test_spawn_multiple(self, team: AgentTeam):
-        team.spawn_teammate(FakeAgent("a"))
-        team.spawn_teammate(FakeAgent("b"))
-        team.spawn_teammate(FakeAgent("c"))
+    async def test_spawn_multiple(self, team: AgentTeam):
+        await team.spawn_teammate(FakeAgent("a"))
+        await team.spawn_teammate(FakeAgent("b"))
+        await team.spawn_teammate(FakeAgent("c"))
         assert len(team.teammate_names) == 3
 
-    def test_shutdown_teammate(self, team: AgentTeam):
-        team.spawn_teammate(FakeAgent("worker"))
-        team.shutdown_teammate("worker")
+    async def test_shutdown_teammate(self, team: AgentTeam):
+        await team.spawn_teammate(FakeAgent("worker"))
+        await team.shutdown_teammate("worker")
         assert "worker" not in team.teammate_names
 
-    def test_shutdown_nonexistent_is_safe(self, team: AgentTeam):
-        team.shutdown_teammate("nobody")  # no error
+    async def test_shutdown_nonexistent_is_safe(self, team: AgentTeam):
+        await team.shutdown_teammate("nobody")  # no error
 
-    def test_get_teammate(self, team: AgentTeam):
+    async def test_get_teammate(self, team: AgentTeam):
         agent = FakeAgent("worker")
-        team.spawn_teammate(agent)
+        await team.spawn_teammate(agent)
         assert team.get_teammate("worker") is agent
         assert team.get_teammate("nobody") is None
 
@@ -97,7 +98,7 @@ class TestTaskCreation:
 
     async def test_assign_task(self, team: AgentTeam):
         agent = FakeAgent("worker")
-        team.spawn_teammate(agent)
+        await team.spawn_teammate(agent)
         tasks = await team.create_tasks([{"title": "Assign me"}])
         result = await team.assign_task(tasks[0].id, "worker")
         assert result is True
@@ -109,8 +110,8 @@ class TestTeamExecution:
         """auto_plan=False로 수동 태스크 실행."""
         agent1 = FakeAgent("w1")
         agent2 = FakeAgent("w2")
-        team.spawn_teammate(agent1)
-        team.spawn_teammate(agent2)
+        await team.spawn_teammate(agent1)
+        await team.spawn_teammate(agent2)
 
         await team.create_tasks([
             {"title": "Task 1", "description": "First task", "priority": 5},
@@ -131,7 +132,7 @@ class TestTeamExecution:
     async def test_run_team_with_dependencies(self, team: AgentTeam):
         """의존성 있는 태스크가 올바른 순서로 실행되는지 확인."""
         agent = FakeAgent("w1")
-        team.spawn_teammate(agent)
+        await team.spawn_teammate(agent)
 
         tasks = await team.create_tasks([
             {"title": "Step 1", "description": "First"},
@@ -149,13 +150,13 @@ class TestTeamExecution:
 
     async def test_run_team_empty_tasks(self, team: AgentTeam):
         """태스크 없이 실행하면 즉시 반환."""
-        team.spawn_teammate(FakeAgent("w1"))
+        await team.spawn_teammate(FakeAgent("w1"))
         result = await team.run_team("Nothing", auto_plan=False)
         assert result["synthesis"] == "No tasks were created for the request."
 
     async def test_run_team_with_failing_agent(self, team: AgentTeam):
         """에이전트 실패 시 태스크가 FAILED로 마킹되는지 확인."""
-        team.spawn_teammate(FailingAgent("failer"))
+        await team.spawn_teammate(FailingAgent("failer"))
 
         await team.create_tasks([{"title": "Will fail", "description": "Doomed"}])
 
@@ -167,7 +168,7 @@ class TestTeamExecution:
 
     async def test_messages_sent_to_lead(self, team: AgentTeam):
         """에이전트가 태스크 완료 시 lead에게 메시지를 보내는지 확인."""
-        team.spawn_teammate(FakeAgent("w1"))
+        await team.spawn_teammate(FakeAgent("w1"))
         await team.create_tasks([{"title": "Report", "description": "Report task"}])
 
         with patch.object(team, "_synthesize", new_callable=AsyncMock) as mock_synth:
@@ -177,6 +178,66 @@ class TestTeamExecution:
         assert len(result["messages"]) > 0
         assert result["messages"][0].sender == "w1"
         assert "task_completed" in result["messages"][0].subject
+
+
+class TestHooks:
+    async def test_task_completed_hook_allows(self, team: AgentTeam):
+        """TASK_COMPLETED 훅이 통과하면 정상 완료."""
+
+        @team.hooks.on(HookEvent.TASK_COMPLETED)
+        async def allow_all(ctx: HookContext) -> HookResult:
+            return HookResult(block=False)
+
+        await team.spawn_teammate(FakeAgent("w1"))
+        await team.create_tasks([{"title": "Pass", "description": "Will pass"}])
+
+        with patch.object(team, "_synthesize", new_callable=AsyncMock) as mock_synth:
+            mock_synth.return_value = "OK"
+            result = await team.run_team("Go", auto_plan=False)
+
+        assert any(r.status == TaskStatus.COMPLETED for r in result["results"])
+
+    async def test_task_completed_hook_blocks(self, team: AgentTeam):
+        """TASK_COMPLETED 훅이 차단하면 태스크가 FAILED."""
+
+        @team.hooks.on(HookEvent.TASK_COMPLETED)
+        async def block_all(ctx: HookContext) -> HookResult:
+            return HookResult(block=True, feedback="Tests missing")
+
+        await team.spawn_teammate(FakeAgent("w1"))
+        await team.create_tasks([{"title": "Blocked", "description": "Will be blocked"}])
+
+        with patch.object(team, "_synthesize", new_callable=AsyncMock) as mock_synth:
+            mock_synth.return_value = "Blocked"
+            result = await team.run_team("Go", auto_plan=False)
+
+        assert any(r.status == TaskStatus.FAILED for r in result["results"])
+
+    async def test_teammate_spawned_hook(self, team: AgentTeam):
+        """TEAMMATE_SPAWNED 훅이 실행되는지 확인."""
+        spawned_names: list[str] = []
+
+        @team.hooks.on(HookEvent.TEAMMATE_SPAWNED)
+        async def track_spawn(ctx: HookContext) -> HookResult:
+            spawned_names.append(ctx.agent_name)
+            return HookResult()
+
+        await team.spawn_teammate(FakeAgent("w1"))
+        await team.spawn_teammate(FakeAgent("w2"))
+        assert spawned_names == ["w1", "w2"]
+
+    async def test_teammate_shutdown_hook(self, team: AgentTeam):
+        """TEAMMATE_SHUTDOWN 훅이 실행되는지 확인."""
+        shutdown_names: list[str] = []
+
+        @team.hooks.on(HookEvent.TEAMMATE_SHUTDOWN)
+        async def track_shutdown(ctx: HookContext) -> HookResult:
+            shutdown_names.append(ctx.agent_name)
+            return HookResult()
+
+        await team.spawn_teammate(FakeAgent("w1"))
+        await team.shutdown_teammate("w1")
+        assert shutdown_names == ["w1"]
 
 
 class TestPlanApproval:
@@ -224,13 +285,13 @@ class TestPlanApproval:
 
 class TestCleanup:
     async def test_cleanup(self, team: AgentTeam):
-        team.spawn_teammate(FakeAgent("w1"))
-        team.spawn_teammate(FakeAgent("w2"))
+        await team.spawn_teammate(FakeAgent("w1"))
+        await team.spawn_teammate(FakeAgent("w2"))
         await team.cleanup()
         assert team.teammate_names == []
 
     async def test_status(self, team: AgentTeam):
-        team.spawn_teammate(FakeAgent("w1"))
+        await team.spawn_teammate(FakeAgent("w1"))
         await team.create_tasks([{"title": "T1"}])
         status = team.status()
         assert "test-team" in status

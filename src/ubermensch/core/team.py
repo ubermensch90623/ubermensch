@@ -9,6 +9,7 @@ from typing import Any
 import anthropic
 
 from ubermensch.core.base_agent import BaseAgent
+from ubermensch.core.hooks import HookContext, HookEvent, HookRegistry, HookResult
 from ubermensch.core.mailbox import Mailbox
 from ubermensch.core.message import (
     AgentMessage,
@@ -44,6 +45,7 @@ class AgentTeam:
         self.model = model
         self.task_list = SharedTaskList()
         self.mailbox = Mailbox()
+        self.hooks = HookRegistry()
         self._teammates: dict[str, BaseAgent] = {}
         self._client: anthropic.AsyncAnthropic | None = None
         self._running_tasks: dict[str, asyncio.Task[Any]] = {}
@@ -59,7 +61,7 @@ class AgentTeam:
 
     # --- 팀원 관리 ---
 
-    def spawn_teammate(self, agent: BaseAgent) -> None:
+    async def spawn_teammate(self, agent: BaseAgent) -> None:
         """에이전트를 팀에 추가합니다."""
         self._teammates[agent.name] = agent
         self.mailbox.register(agent.name)
@@ -68,7 +70,15 @@ class AgentTeam:
         agent._team_task_list = self.task_list
         logger.info(f"[{self.name}] Spawned teammate: {agent.name}")
 
-    def shutdown_teammate(self, name: str) -> None:
+        # TEAMMATE_SPAWNED 훅
+        await self.hooks.trigger(
+            HookContext(
+                event=HookEvent.TEAMMATE_SPAWNED,
+                agent_name=agent.name,
+            )
+        )
+
+    async def shutdown_teammate(self, name: str) -> None:
         """에이전트를 팀에서 제거합니다."""
         agent = self._teammates.pop(name, None)
         if agent:
@@ -78,6 +88,14 @@ class AgentTeam:
             if running and not running.done():
                 running.cancel()
             logger.info(f"[{self.name}] Shutdown teammate: {name}")
+
+            # TEAMMATE_SHUTDOWN 훅
+            await self.hooks.trigger(
+                HookContext(
+                    event=HookEvent.TEAMMATE_SHUTDOWN,
+                    agent_name=name,
+                )
+            )
 
     @property
     def teammate_names(self) -> list[str]:
@@ -186,6 +204,21 @@ class AgentTeam:
             if task is None:
                 # 남은 태스크가 있으면 잠시 대기 후 재시도
                 if not self.task_list.all_done:
+                    # TEAMMATE_IDLE 훅: block이면 계속 작업 유지
+                    idle_result = await self.hooks.trigger(
+                        HookContext(
+                            event=HookEvent.TEAMMATE_IDLE,
+                            agent_name=agent.name,
+                        )
+                    )
+                    if idle_result.block and idle_result.feedback:
+                        # 훅이 피드백과 함께 차단 → 에이전트에게 피드백 전달
+                        await self.mailbox.send(
+                            sender="lead",
+                            recipient=agent.name,
+                            subject="hook_feedback",
+                            body=idle_result.feedback,
+                        )
                     await asyncio.sleep(0.5)
                     continue
                 break
@@ -200,15 +233,51 @@ class AgentTeam:
             result = await agent.run(message)
 
             if result.success:
-                await self.task_list.complete_task(task.id, result.data)
-                # Lead에게 완료 보고
-                await self.mailbox.send(
-                    sender=agent.name,
-                    recipient="lead",
-                    subject=f"task_completed:{task.id}",
-                    body={"task_title": task.title, "result": result.data},
+                # TASK_COMPLETED 훅: block이면 완료를 거부하고 피드백 전달
+                hook_result = await self.hooks.trigger(
+                    HookContext(
+                        event=HookEvent.TASK_COMPLETED,
+                        agent_name=agent.name,
+                        task_id=task.id,
+                        task_title=task.title,
+                        data={"result": result.data},
+                    )
                 )
+
+                if hook_result.block:
+                    # 훅이 완료를 거부 → 태스크를 PENDING으로 되돌림
+                    logger.info(
+                        f"[{task.id}] Completion blocked by hook: {hook_result.feedback}"
+                    )
+                    await self.task_list.fail_task(
+                        task.id, f"Blocked by hook: {hook_result.feedback}"
+                    )
+                    await self.mailbox.send(
+                        sender="lead",
+                        recipient=agent.name,
+                        subject=f"task_blocked:{task.id}",
+                        body=hook_result.feedback,
+                    )
+                else:
+                    await self.task_list.complete_task(task.id, result.data)
+                    await self.mailbox.send(
+                        sender=agent.name,
+                        recipient="lead",
+                        subject=f"task_completed:{task.id}",
+                        body={"task_title": task.title, "result": result.data},
+                    )
             else:
+                # TASK_FAILED 훅
+                await self.hooks.trigger(
+                    HookContext(
+                        event=HookEvent.TASK_FAILED,
+                        agent_name=agent.name,
+                        task_id=task.id,
+                        task_title=task.title,
+                        data={"error": result.error},
+                    )
+                )
+
                 await self.task_list.fail_task(task.id, result.error or "Unknown error")
                 await self.mailbox.send(
                     sender=agent.name,
