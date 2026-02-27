@@ -15,6 +15,9 @@ dev = [
     "pytest-asyncio>=0.24",
 ]
 
+[project.scripts]
+ubermensch = "ubermensch.__main__:main"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
