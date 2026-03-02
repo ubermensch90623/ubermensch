@@ -1,0 +1,88 @@
+[project]
+name = "ubermensch"
+version = "0.3.0"
+description = "Multi-Agent Orchestration Framework"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",
+    "aiohttp>=3.9.0",
+    "beautifulsoup4>=4.12.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+ubermensch = "ubermensch.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ubermensch"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+# --- Ruff ---
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "F",     # pyflakes
+    "I",     # isort
+    "UP",    # pyupgrade
+    "B",     # flake8-bugbear
+    "SIM",   # flake8-simplify
+    "TCH",   # flake8-type-checking
+    "RUF",   # ruff-specific
+    "ASYNC", # flake8-async
+    "S",     # flake8-bandit (보안)
+    "N",     # pep8-naming
+]
+ignore = [
+    "S101",    # assert 사용 (테스트에서 필요)
+    "S603",    # subprocess 호출 (직접 안 씀)
+    "S607",    # partial path (직접 안 씀)
+    "E501",    # line-length (formatter가 처리)
+    "ASYNC109", # timeout 파라미터 패턴 (우리 패턴에서는 정상)
+    "TC001",   # type-checking block (런타임에도 필요한 import)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "B011", "RUF006"]  # 테스트에선 보안 + create_task 룰 완화
+"examples/**" = ["S"]
+"*.bat" = ["ALL"]
+"*.command" = ["ALL"]
+"run.py" = ["S"]
+"start.command" = ["S"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ubermensch"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# --- Mypy ---
+[tool.mypy]
+python_version = "3.11"
+strict = false
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+check_untyped_defs = true
+ignore_missing_imports = true
+exclude = ["examples/"]
