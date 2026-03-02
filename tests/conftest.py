@@ -6,12 +6,13 @@
 from __future__ import annotations
 
 import asyncio
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 
 import pytest
 
 from ubermensch.core.base_agent import BaseAgent
 from ubermensch.core.message import AgentMessage, TaskResult, TaskStatus
+from ubermensch.core.provider import MockProvider
 
 # --- 공용 Fake 에이전트 ---
 
@@ -70,17 +71,9 @@ class StubAgent(BaseAgent):
 # --- Mock 팩토리 ---
 
 
-def make_mock_llm_client(response_text: str = "mocked response") -> MagicMock:
-    """LLM API 클라이언트 mock을 생성합니다."""
-    mock_response = MagicMock()
-    mock_block = MagicMock()
-    mock_block.type = "text"
-    mock_block.text = response_text
-    mock_response.content = [mock_block]
-
-    mock_client = MagicMock()
-    mock_client.messages.create = AsyncMock(return_value=mock_response)
-    return mock_client
+def make_mock_provider(response_text: str = "mocked response") -> MockProvider:
+    """테스트용 MockProvider를 생성합니다."""
+    return MockProvider(default_response=response_text)
 
 
 def mock_ask_llm(return_value: str = "mocked response"):

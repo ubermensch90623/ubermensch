@@ -1,12 +1,12 @@
 """Übermensch 셀프 리뷰 - 이 프로젝트 코드를 에이전트들이 직접 리뷰합니다.
 
 사용법:
-    # 1. Mock 모드 (API 키 불필요, 흐름 확인용)
-    python examples/self_review.py --mock
+    # 1. Mock 모드 (API 키 불필요, 흐름 확인용) — 기본값
+    python examples/self_review.py
 
     # 2. 실제 모드 (API 키 필요)
     export ANTHROPIC_API_KEY="sk-..."
-    python examples/self_review.py
+    python examples/self_review.py --real
 
     # 3. 특정 파일만
     python examples/self_review.py src/ubermensch/core/team.py
@@ -18,7 +18,6 @@ import argparse
 import asyncio
 import sys
 from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock
 
 from ubermensch import (
     AgentTeam,
@@ -28,8 +27,10 @@ from ubermensch import (
     HookContext,
     HookEvent,
     HookResult,
+    MockProvider,
     PerformanceReviewerAgent,
     SecurityReviewerAgent,
+    configure,
 )
 
 
@@ -53,93 +54,76 @@ def read_source_files(paths: list[str] | None = None) -> dict[str, str]:
         root / "core" / "hooks.py",
         root / "core" / "discussion.py",
         root / "core" / "base_agent.py",
+        root / "core" / "provider.py",
     ]
     return {str(f.relative_to(root.parent.parent)): f.read_text() for f in targets if f.exists()}
 
 
-_original_ask_llm = None
-
-
-def apply_mock(team: AgentTeam) -> None:
-    """LLM 호출을 mock으로 대체합니다."""
-    global _original_ask_llm
-    from ubermensch.core.base_agent import BaseAgent
-
-    # 팀 리드의 synthesize용 mock client
-    mock_response = MagicMock()
-    mock_block = MagicMock()
-    mock_block.type = "text"
-    mock_block.text = (
-        "## 종합 리뷰 (Mock)\n\n"
-        "보안: asyncio.Lock 기반 동시성 제어 양호. 외부 입력 검증 강화 필요.\n"
-        "성능: asyncio.gather 병렬 처리 양호. 대규모 태스크 시 O(n) 순회 주의.\n"
-        "품질: 추상 클래스 패턴 일관성 양호. 타입 힌트 잘 적용됨.\n\n"
-        "→ export ANTHROPIC_API_KEY='sk-...' 로 실제 분석을 실행하세요."
+def build_mock_provider() -> MockProvider:
+    """셀프 리뷰 전용 MockProvider를 생성합니다."""
+    return MockProvider(
+        default_response="[Mock] 분석이 완료되었습니다.",
+        responses={
+            # 에이전트별 응답 (ask_llm에서 시스템 프롬프트 매칭)
+            "security": (
+                "## 보안 분석\n"
+                "1. asyncio.Lock 사용으로 SharedTaskList 동시성 제어 양호\n"
+                "2. AgentMessage.context에 사용자 입력이 그대로 전달됨 → sanitization 고려\n"
+                "3. LLM 응답 파싱(TASK:/APPROVED: 등) 시 prompt injection 방어 필요\n"
+                "4. WebCrawler에서 SSRF 방지를 위한 URL 화이트리스트 권장"
+            ),
+            "performance": (
+                "## 성능 분석\n"
+                "1. asyncio.gather로 병렬 실행 - 양호\n"
+                "2. SharedTaskList.get_available_tasks()가 매번 전체 리스트 정렬 → 힙 구조 고려\n"
+                "3. _agent_worker의 0.5초 sleep 폴링 → asyncio.Event 기반으로 개선 가능\n"
+                "4. Mailbox의 asyncio.Queue는 메모리 제한 없음 → maxsize 설정 권장"
+            ),
+            "code quality|code review": (
+                "## 코드 품질 분석\n"
+                "1. BaseAgent 추상 클래스 패턴 일관성 양호\n"
+                "2. HookRegistry 데코레이터 API가 직관적\n"
+                "3. Discussion._extract_text에서 dict key fallback 체인이 brittle\n"
+                "4. TeamPersistence.save_team이 Any 타입에 의존 → Protocol 정의 권장"
+            ),
+            "devil|advocate|반론|challenge": (
+                "## 반론\n"
+                "1. SSRF 위험은 과장됨: WebCrawler는 선택적 도구이고 기본 사용 안 함\n"
+                "2. prompt injection은 LLM 자체 문제이지 프레임워크 책임이 아님\n"
+                "3. 다만 _plan_tasks 파싱의 robustness는 동의 → JSON 구조화 응답 권장"
+            ),
+            "synthesiz|종합|team lead": (
+                "## 종합 리뷰 (Mock)\n\n"
+                "보안: asyncio.Lock 기반 동시성 제어 양호. 외부 입력 검증 강화 필요.\n"
+                "성능: asyncio.gather 병렬 처리 양호. 대규모 태스크 시 O(n) 순회 주의.\n"
+                "품질: 추상 클래스 패턴 일관성 양호. 타입 힌트 잘 적용됨.\n\n"
+                "→ export ANTHROPIC_API_KEY='sk-...' 로 실제 분석을 실행하세요."
+            ),
+            "consensus|합의|moderator": (
+                "## 합의\n"
+                "1. 동시성 제어와 에러 핸들링은 양쪽 모두 양호하다고 평가\n"
+                "2. LLM 응답 파싱의 robustness는 개선 필요 (JSON 구조화 권장)\n"
+                "3. SSRF 위험은 현재 수준에서 수용 가능하나 향후 모니터링 필요\n"
+                "4. Provider 추상화로 API 키 의존성 해결 → 프레임워크 접근성 향상"
+            ),
+        },
     )
-    mock_response.content = [mock_block]
-    mock_client = MagicMock()
-    mock_client.messages.create = AsyncMock(return_value=mock_response)
-    team._client = mock_client
-
-    # 에이전트 개별 ask_llm mock (에이전트 이름별 다른 응답)
-    mock_responses = {
-        "security_reviewer": (
-            "## 보안 분석\n"
-            "1. asyncio.Lock 사용으로 SharedTaskList 동시성 제어 양호\n"
-            "2. AgentMessage.context에 사용자 입력이 그대로 전달됨 → sanitization 고려\n"
-            "3. LLM 응답 파싱(TASK:/APPROVED: 등) 시 prompt injection 방어 필요\n"
-            "4. WebCrawler에서 SSRF 방지를 위한 URL 화이트리스트 권장"
-        ),
-        "performance_reviewer": (
-            "## 성능 분석\n"
-            "1. asyncio.gather로 병렬 실행 - 양호\n"
-            "2. SharedTaskList.get_available_tasks()가 매번 전체 리스트 정렬 → 힙 구조 고려\n"
-            "3. _agent_worker의 0.5초 sleep 폴링 → asyncio.Event 기반으로 개선 가능\n"
-            "4. Mailbox의 asyncio.Queue는 메모리 제한 없음 → maxsize 설정 권장"
-        ),
-        "code_reviewer": (
-            "## 코드 품질 분석\n"
-            "1. BaseAgent 추상 클래스 패턴 일관성 양호\n"
-            "2. HookRegistry 데코레이터 API가 직관적\n"
-            "3. Discussion._extract_text에서 dict key fallback 체인이 brittle\n"
-            "4. TeamPersistence.save_team이 Any 타입에 의존 → Protocol 정의 권장"
-        ),
-        "security_expert": (
-            "## 보안 심층 분석\n"
-            "1. 에이전트 간 메시지가 메모리에만 존재 → 현재로서는 안전\n"
-            "2. _plan_tasks의 LLM 응답 파싱이 정규식 없이 문자열 split → 주입 벡터\n"
-            "3. respawn_teammate에서 팩토리 kwargs를 그대로 전달 → 검증 필요"
-        ),
-        "challenger": (
-            "## 반론\n"
-            "1. SSRF 위험은 과장됨: WebCrawler는 선택적 도구이고 기본 사용 안 함\n"
-            "2. prompt injection은 LLM 자체 문제이지 프레임워크 책임이 아님\n"
-            "3. 다만 _plan_tasks 파싱의 robustness는 동의 → JSON 구조화 응답 권장"
-        ),
-    }
-
-    _original_ask_llm = BaseAgent.ask_llm
-
-    async def patched_ask_llm(self, prompt, context=None, max_tokens=4096):
-        return mock_responses.get(self.name, f"[{self.name}] Mock 분석 완료.")
-
-    BaseAgent.ask_llm = patched_ask_llm  # type: ignore[assignment]
-
-
-def restore_mock() -> None:
-    """ask_llm을 원래대로 복원합니다."""
-    global _original_ask_llm
-    if _original_ask_llm is not None:
-        from ubermensch.core.base_agent import BaseAgent
-
-        BaseAgent.ask_llm = _original_ask_llm  # type: ignore[assignment]
 
 
 async def main():
     parser = argparse.ArgumentParser(description="Übermensch 셀프 리뷰")
     parser.add_argument("files", nargs="*", help="리뷰할 파일 경로")
-    parser.add_argument("--mock", action="store_true", help="Mock 모드 (API 키 불필요)")
+    parser.add_argument("--real", action="store_true", help="실제 LLM 사용 (API 키 필요)")
     args = parser.parse_args()
+
+    # Provider 설정: --real이면 Anthropic, 아니면 Mock
+    if not args.real:
+        mock_provider = build_mock_provider()
+        configure(provider=mock_provider)
+        print("🔧 Mock 모드 (--real 플래그로 실제 LLM 사용)")
+    else:
+        # configure()를 호출하지 않으면 자동으로 환경변수에서 API 키 감지
+        print("🔑 실제 LLM 모드")
 
     # 소스 코드 읽기
     sources = read_source_files(args.files or None)
@@ -153,11 +137,8 @@ async def main():
     for name in sources:
         print(f"  - {name}")
 
-    # 팀 구성
+    # 팀 구성 (provider는 글로벌 설정에서 자동 감지)
     team = AgentTeam(name="self-review")
-
-    if args.mock:
-        apply_mock(team)
 
     # 훅: 진행 상황 출력
     @team.hooks.on(HookEvent.TEAMMATE_SPAWNED)
@@ -244,8 +225,6 @@ async def main():
             critic=DevilsAdvocateAgent(name="challenger"),
             rounds=1,
         )
-        if args.mock:
-            disc._client = team._client
 
         debate = await disc.run(
             topic="Übermensch 프레임워크 보안 리뷰 검증",
@@ -262,8 +241,9 @@ async def main():
         print(f"\n합의:\n{debate.consensus[:500]}")
 
     await team.cleanup()
-    if args.mock:
-        restore_mock()
+
+    # 글로벌 provider 리셋
+    configure()
     print("\n완료!")
 
 

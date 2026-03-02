@@ -23,10 +23,9 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-import anthropic
-
 from ubermensch.core.base_agent import BaseAgent
 from ubermensch.core.message import AgentMessage, TaskResult
+from ubermensch.core.provider import LLMProvider, get_provider
 
 logger = logging.getLogger(__name__)
 
@@ -60,6 +59,7 @@ class Discussion:
         critic: 반론을 제기하는 에이전트 (보통 DevilsAdvocateAgent)
         rounds: 토론 라운드 수 (기본 2)
         model: 합의 도출에 사용할 모델
+        provider: LLM 프로바이더 (미지정 시 글로벌/자동 감지)
     """
 
     def __init__(
@@ -68,18 +68,19 @@ class Discussion:
         critic: BaseAgent,
         rounds: int = 2,
         model: str = "claude-sonnet-4-20250514",
+        provider: LLMProvider | None = None,
     ) -> None:
         self.presenter = presenter
         self.critic = critic
         self.rounds = max(1, rounds)
         self.model = model
-        self._client: anthropic.AsyncAnthropic | None = None
+        self._provider: LLMProvider | None = provider
 
     @property
-    def client(self) -> anthropic.AsyncAnthropic:
-        if self._client is None:
-            self._client = anthropic.AsyncAnthropic()
-        return self._client
+    def provider(self) -> LLMProvider:
+        if self._provider is None:
+            self._provider = get_provider()
+        return self._provider
 
     async def run(
         self,
@@ -192,7 +193,7 @@ class Discussion:
             "In Korean."
         )
 
-        response = await self.client.messages.create(
+        return await self.provider.complete(
             model=self.model,
             max_tokens=4096,
             system=(
@@ -201,8 +202,6 @@ class Discussion:
             ),
             messages=[{"role": "user", "content": prompt}],
         )
-
-        return "\n".join(block.text for block in response.content if block.type == "text")
 
     @staticmethod
     def _extract_text(result: TaskResult) -> str:
@@ -235,17 +234,18 @@ class MultiDiscussion:
         agents: list[BaseAgent],
         rounds: int = 1,
         model: str = "claude-sonnet-4-20250514",
+        provider: LLMProvider | None = None,
     ) -> None:
         self.agents = agents
         self.rounds = max(1, rounds)
         self.model = model
-        self._client: anthropic.AsyncAnthropic | None = None
+        self._provider: LLMProvider | None = provider
 
     @property
-    def client(self) -> anthropic.AsyncAnthropic:
-        if self._client is None:
-            self._client = anthropic.AsyncAnthropic()
-        return self._client
+    def provider(self) -> LLMProvider:
+        if self._provider is None:
+            self._provider = get_provider()
+        return self._provider
 
     async def run(
         self,
@@ -303,8 +303,9 @@ class MultiDiscussion:
                 )
 
         # 합의 도출
-        disc = Discussion(self.agents[0], self.agents[-1], model=self.model)
-        disc._client = self._client
+        disc = Discussion(
+            self.agents[0], self.agents[-1], model=self.model, provider=self._provider
+        )
         result.consensus = await disc._build_consensus(result)
 
         return result

@@ -1,6 +1,6 @@
 [project]
 name = "ubermensch"
-version = "0.2.0"
+version = "0.3.0"
 description = "Multi-Agent Orchestration Framework"
 requires-python = ">=3.11"
 dependencies = [

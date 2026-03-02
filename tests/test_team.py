@@ -4,13 +4,14 @@ LLM 호출이 필요한 부분은 mock하여 순수 로직만 테스트합니다
 """
 
 import asyncio
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, patch
 
 import pytest
 
 from ubermensch.core.base_agent import BaseAgent
 from ubermensch.core.hooks import HookContext, HookEvent, HookResult
 from ubermensch.core.message import AgentMessage, TaskResult, TaskStatus
+from ubermensch.core.provider import MockProvider
 from ubermensch.core.team import AgentTeam
 
 
@@ -247,21 +248,9 @@ class TestHooks:
 
 
 class TestPlanApproval:
-    @staticmethod
-    def _make_mock_client(text: str):
-        mock_response = MagicMock()
-        mock_block = MagicMock()
-        mock_block.type = "text"
-        mock_block.text = text
-        mock_response.content = [mock_block]
-
-        mock_client = MagicMock()
-        mock_client.messages.create = AsyncMock(return_value=mock_response)
-        return mock_client
-
     async def test_plan_approval_approved(self, team: AgentTeam):
         """계획 승인 테스트."""
-        team._client = self._make_mock_client("APPROVED: Plan looks good and complete.")
+        team._provider = MockProvider(default_response="APPROVED: Plan looks good and complete.")
 
         approval = await team.request_plan_approval(
             agent_name="architect",
@@ -275,7 +264,7 @@ class TestPlanApproval:
 
     async def test_plan_approval_rejected(self, team: AgentTeam):
         """계획 거부 테스트."""
-        team._client = self._make_mock_client("REJECTED: Missing test strategy.")
+        team._provider = MockProvider(default_response="REJECTED: Missing test strategy.")
 
         approval = await team.request_plan_approval(
             agent_name="architect",

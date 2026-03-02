@@ -6,10 +6,9 @@ import asyncio
 import logging
 from typing import Any
 
-import anthropic
-
 from ubermensch.core.base_agent import BaseAgent
 from ubermensch.core.message import AgentMessage, TaskResult, TaskStatus
+from ubermensch.core.provider import LLMProvider, get_provider
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +27,7 @@ class SubagentOrchestrator:
         self,
         model: str = "claude-sonnet-4-20250514",
         system_prompt: str | None = None,
+        provider: LLMProvider | None = None,
     ):
         self.model = model
         self.system_prompt = system_prompt or (
@@ -36,13 +36,13 @@ class SubagentOrchestrator:
             "and synthesize results from subagents."
         )
         self._agents: dict[str, BaseAgent] = {}
-        self._client: anthropic.AsyncAnthropic | None = None
+        self._provider: LLMProvider | None = provider
 
     @property
-    def client(self) -> anthropic.AsyncAnthropic:
-        if self._client is None:
-            self._client = anthropic.AsyncAnthropic()
-        return self._client
+    def provider(self) -> LLMProvider:
+        if self._provider is None:
+            self._provider = get_provider()
+        return self._provider
 
     def register_agent(self, agent: BaseAgent) -> None:
         """서브에이전트를 등록합니다."""
@@ -134,14 +134,12 @@ class SubagentOrchestrator:
             "Repeat for each subtask. Only use agents from the available list."
         )
 
-        plan_response = await self.client.messages.create(
+        plan_text = await self.provider.complete(
             model=self.model,
             max_tokens=2048,
             system=self.system_prompt,
             messages=[{"role": "user", "content": plan_prompt}],
         )
-
-        plan_text = "\n".join(block.text for block in plan_response.content if block.type == "text")
 
         # Step 2: 계획 파싱 및 병렬 실행
         assignments = self._parse_plan(plan_text)
@@ -165,14 +163,12 @@ class SubagentOrchestrator:
             "for the user. In Korean."
         )
 
-        synthesis_response = await self.client.messages.create(
+        return await self.provider.complete(
             model=self.model,
             max_tokens=4096,
             system=self.system_prompt,
             messages=[{"role": "user", "content": synthesis_prompt}],
         )
-
-        return "\n".join(block.text for block in synthesis_response.content if block.type == "text")
 
     @staticmethod
     def _parse_plan(plan_text: str) -> list[dict[str, Any]]:

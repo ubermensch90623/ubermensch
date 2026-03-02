@@ -6,8 +6,6 @@ import asyncio
 import logging
 from typing import Any
 
-import anthropic
-
 from ubermensch.core.base_agent import BaseAgent
 from ubermensch.core.hooks import HookContext, HookEvent, HookRegistry
 from ubermensch.core.mailbox import Mailbox
@@ -19,6 +17,7 @@ from ubermensch.core.message import (
     TaskStatus,
     TeamMessage,
 )
+from ubermensch.core.provider import LLMProvider, get_provider
 from ubermensch.core.shared_task_list import SharedTaskList
 
 logger = logging.getLogger(__name__)
@@ -33,21 +32,25 @@ class AgentTeam:
         - SharedTaskList: 공유 태스크 리스트
         - Mailbox: 에이전트 간 메시징
 
-    Claude Code의 Agent Teams 패턴을 프로그래밍 방식으로 구현합니다.
+    Provider:
+        provider 인자로 LLM 프로바이더를 지정할 수 있습니다.
+        미지정 시 글로벌 설정 또는 자동 감지를 사용합니다.
+        팀에 spawn된 에이전트에도 동일한 provider가 공유됩니다.
     """
 
     def __init__(
         self,
         name: str,
         model: str = "claude-sonnet-4-20250514",
+        provider: LLMProvider | None = None,
     ) -> None:
         self.name = name
         self.model = model
+        self._provider: LLMProvider | None = provider
         self.task_list = SharedTaskList()
         self.mailbox = Mailbox()
         self.hooks = HookRegistry()
         self._teammates: dict[str, BaseAgent] = {}
-        self._client: anthropic.AsyncAnthropic | None = None
         self._running_tasks: dict[str, asyncio.Task[Any]] = {}
         # 에러 복구 설정
         self._agent_factories: dict[str, type] = {}  # name -> agent class
@@ -59,10 +62,11 @@ class AgentTeam:
         self.mailbox.register("lead")
 
     @property
-    def client(self) -> anthropic.AsyncAnthropic:
-        if self._client is None:
-            self._client = anthropic.AsyncAnthropic()
-        return self._client
+    def provider(self) -> LLMProvider:
+        """이 팀이 사용하는 LLM 프로바이더."""
+        if self._provider is None:
+            self._provider = get_provider()
+        return self._provider
 
     # --- 팀원 관리 ---
 
@@ -73,10 +77,16 @@ class AgentTeam:
     ) -> None:
         """에이전트를 팀에 추가합니다.
 
+        에이전트에 provider가 설정되지 않은 경우, 팀의 provider를 공유합니다.
+
         Args:
             agent: 등록할 에이전트
             **factory_kwargs: 재스폰 시 사용할 추가 kwargs
         """
+        # 에이전트에 provider가 없으면 팀의 provider를 공유
+        if agent._provider is None:
+            agent._provider = self._provider
+
         self._teammates[agent.name] = agent
         self.mailbox.register(agent.name)
         # 에이전트에게 팀 인프라 참조 전달
@@ -139,6 +149,10 @@ class AgentTeam:
         factory = self._agent_factories[name]
         kwargs = self._agent_kwargs[name]
         new_agent: BaseAgent = factory(**kwargs)
+
+        # provider 공유
+        if new_agent._provider is None:
+            new_agent._provider = self._provider
 
         # 재등록
         self._teammates[name] = new_agent
@@ -401,7 +415,7 @@ class AgentTeam:
             "Task numbers start at 1."
         )
 
-        response = await self.client.messages.create(
+        plan_text = await self.provider.complete(
             model=self.model,
             max_tokens=2048,
             system=(
@@ -410,8 +424,6 @@ class AgentTeam:
             ),
             messages=[{"role": "user", "content": plan_prompt}],
         )
-
-        plan_text = "\n".join(block.text for block in response.content if block.type == "text")
 
         # 태스크 파싱
         task_defs: list[dict[str, Any]] = []
@@ -494,7 +506,7 @@ class AgentTeam:
             "In Korean."
         )
 
-        response = await self.client.messages.create(
+        return await self.provider.complete(
             model=self.model,
             max_tokens=4096,
             system=(
@@ -503,8 +515,6 @@ class AgentTeam:
             ),
             messages=[{"role": "user", "content": prompt}],
         )
-
-        return "\n".join(block.text for block in response.content if block.type == "text")
 
     # --- Plan Approval ---
 
@@ -526,14 +536,12 @@ class AgentTeam:
             "REJECTED: <feedback for the agent>"
         )
 
-        response = await self.client.messages.create(
+        response_text = await self.provider.complete(
             model=self.model,
             max_tokens=1024,
             system="You are a team lead reviewing an agent's plan.",
             messages=[{"role": "user", "content": prompt}],
         )
-
-        response_text = "\n".join(block.text for block in response.content if block.type == "text")
 
         approved = "APPROVED" in response_text.upper().split("\n")[0]
         feedback = response_text.split(":", 1)[1].strip() if ":" in response_text else response_text

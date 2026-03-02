@@ -6,9 +6,8 @@ import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Any
 
-import anthropic
-
 from ubermensch.core.message import AgentMessage, TaskResult, TaskStatus, TeamMessage
+from ubermensch.core.provider import LLMProvider, get_provider
 
 if TYPE_CHECKING:
     from ubermensch.core.mailbox import Mailbox
@@ -26,6 +25,10 @@ class BaseAgent(ABC):
     Agent Teams 지원:
         AgentTeam.spawn_teammate()로 등록하면 _team_mailbox와 _team_task_list가
         자동으로 설정되어 팀 내 메시징과 태스크 관리가 가능합니다.
+
+    Provider:
+        provider 인자로 LLM 프로바이더를 지정할 수 있습니다.
+        미지정 시 글로벌 설정 또는 자동 감지를 사용합니다.
     """
 
     def __init__(
@@ -33,11 +36,12 @@ class BaseAgent(ABC):
         name: str,
         model: str = "claude-sonnet-4-20250514",
         system_prompt: str | None = None,
+        provider: LLMProvider | None = None,
     ):
         self.name = name
         self.model = model
         self.system_prompt = system_prompt or f"You are {name}, a helpful AI agent."
-        self._client: anthropic.AsyncAnthropic | None = None
+        self._provider: LLMProvider | None = provider
         self._tools: list[dict[str, Any]] = []
         # Agent Teams 인프라 (AgentTeam이 주입)
         self._team_mailbox: Mailbox | None = None
@@ -45,10 +49,11 @@ class BaseAgent(ABC):
         self._received_messages: list[TeamMessage] = []
 
     @property
-    def client(self) -> anthropic.AsyncAnthropic:
-        if self._client is None:
-            self._client = anthropic.AsyncAnthropic()
-        return self._client
+    def provider(self) -> LLMProvider:
+        """이 에이전트가 사용하는 LLM 프로바이더."""
+        if self._provider is None:
+            self._provider = get_provider()
+        return self._provider
 
     @property
     def in_team(self) -> bool:
@@ -65,24 +70,17 @@ class BaseAgent(ABC):
         context: list[dict[str, Any]] | None = None,
         max_tokens: int = 4096,
     ) -> str:
-        """Claude API를 호출하여 응답을 받습니다."""
+        """LLM을 호출하여 응답을 받습니다."""
         messages = context or []
         messages.append({"role": "user", "content": prompt})
 
-        kwargs: dict[str, Any] = {
-            "model": self.model,
-            "max_tokens": max_tokens,
-            "system": self.system_prompt,
-            "messages": messages,
-        }
-        if self._tools:
-            kwargs["tools"] = self._tools
-
-        response = await self.client.messages.create(**kwargs)
-
-        # 텍스트 블록만 추출
-        text_parts = [block.text for block in response.content if block.type == "text"]
-        return "\n".join(text_parts)
+        return await self.provider.complete(
+            messages=messages,
+            model=self.model,
+            system=self.system_prompt,
+            max_tokens=max_tokens,
+            tools=self._tools or None,
+        )
 
     # --- Agent Teams 메시징 ---
 

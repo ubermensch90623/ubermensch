@@ -7,6 +7,10 @@
 5단계: ArchitectAgent가 최종 설계 계획 수립
 
 사용법:
+    # Mock 모드 (API 키 불필요, 기본)
+    python examples/full_pipeline.py
+
+    # 실제 모드
     export ANTHROPIC_API_KEY="your-api-key"
     python examples/full_pipeline.py
 """

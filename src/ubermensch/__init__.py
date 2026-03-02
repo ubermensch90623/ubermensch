@@ -1,6 +1,21 @@
-"""Übermensch - Multi-Agent Orchestration Framework"""
+"""Übermensch - Multi-Agent Orchestration Framework
 
-__version__ = "0.2.0"
+API 키 없이도 바로 사용 가능합니다:
+
+    from ubermensch import AgentTeam, MockProvider
+
+    # Mock 모드 (API 키 불필요)
+    team = AgentTeam(name="my-team", provider=MockProvider())
+
+    # API 키가 환경변수에 있으면 자동 감지
+    team = AgentTeam(name="my-team")
+
+    # 코드에서 한 번만 설정
+    from ubermensch import configure
+    configure(api_key="sk-ant-...")
+"""
+
+__version__ = "0.3.0"
 
 from ubermensch.agents.architect import ArchitectAgent
 from ubermensch.agents.debugger import DebuggerAgent
@@ -24,12 +39,20 @@ from ubermensch.core.message import (
 )
 from ubermensch.core.orchestrator import SubagentOrchestrator
 from ubermensch.core.persistence import TeamPersistence
+from ubermensch.core.provider import (
+    AnthropicProvider,
+    LLMProvider,
+    MockProvider,
+    configure,
+    get_provider,
+)
 from ubermensch.core.shared_task_list import SharedTaskList
 from ubermensch.core.team import AgentTeam
 
 __all__ = [
     "AgentMessage",
     "AgentTeam",
+    "AnthropicProvider",
     "ArchitectAgent",
     "BaseAgent",
     "CodeReviewerAgent",
@@ -41,7 +64,9 @@ __all__ = [
     "HookEvent",
     "HookRegistry",
     "HookResult",
+    "LLMProvider",
     "Mailbox",
+    "MockProvider",
     "MultiDiscussion",
     "PerformanceReviewerAgent",
     "PlanApproval",
@@ -54,4 +79,6 @@ __all__ = [
     "TaskResult",
     "TeamMessage",
     "TeamPersistence",
+    "configure",
+    "get_provider",
 ]

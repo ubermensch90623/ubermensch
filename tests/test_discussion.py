@@ -1,10 +1,9 @@
 """Discussion pipeline 유닛 테스트."""
 
-from unittest.mock import AsyncMock, MagicMock
-
 from ubermensch.core.base_agent import BaseAgent
 from ubermensch.core.discussion import Discussion, MultiDiscussion
 from ubermensch.core.message import AgentMessage, TaskResult, TaskStatus
+from ubermensch.core.provider import MockProvider
 
 
 class StubAgent(BaseAgent):
@@ -39,25 +38,17 @@ class FailStubAgent(BaseAgent):
         )
 
 
-def _mock_consensus_client(consensus_text: str = "합의 결과"):
-    mock_response = MagicMock()
-    mock_block = MagicMock()
-    mock_block.type = "text"
-    mock_block.text = consensus_text
-    mock_response.content = [mock_block]
-
-    mock_client = MagicMock()
-    mock_client.messages.create = AsyncMock(return_value=mock_response)
-    return mock_client
-
-
 class TestDiscussion:
     async def test_basic_discussion(self):
         presenter = StubAgent("reviewer", ["Initial analysis", "Addressed criticism"])
         critic = StubAgent("advocate", ["I challenge your analysis"])
 
-        disc = Discussion(presenter=presenter, critic=critic, rounds=1)
-        disc._client = _mock_consensus_client("Final consensus")
+        disc = Discussion(
+            presenter=presenter,
+            critic=critic,
+            rounds=1,
+            provider=MockProvider(default_response="Final consensus"),
+        )
 
         result = await disc.run("Review security")
 
@@ -74,8 +65,10 @@ class TestDiscussion:
         presenter = StubAgent("p", ["Analysis", "Response 1", "Response 2"])
         critic = StubAgent("c", ["Challenge 1", "Challenge 2"])
 
-        disc = Discussion(presenter=presenter, critic=critic, rounds=2)
-        disc._client = _mock_consensus_client()
+        disc = Discussion(
+            presenter=presenter, critic=critic, rounds=2,
+            provider=MockProvider(),
+        )
 
         result = await disc.run("Topic")
 
@@ -91,8 +84,10 @@ class TestDiscussion:
         presenter = StubAgent("p", ["Found SQL injection"])
         critic = StubAgent("c", ["False positive"])
 
-        disc = Discussion(presenter=presenter, critic=critic, rounds=1)
-        disc._client = _mock_consensus_client()
+        disc = Discussion(
+            presenter=presenter, critic=critic, rounds=1,
+            provider=MockProvider(),
+        )
 
         result = await disc.run(
             "Security review",
@@ -104,8 +99,10 @@ class TestDiscussion:
         presenter = FailStubAgent("fail_presenter")
         critic = StubAgent("c", ["Challenge"])
 
-        disc = Discussion(presenter=presenter, critic=critic, rounds=1)
-        disc._client = _mock_consensus_client()
+        disc = Discussion(
+            presenter=presenter, critic=critic, rounds=1,
+            provider=MockProvider(),
+        )
 
         result = await disc.run("Topic")
         assert "[FAILED]" in result.turns[0].content
@@ -115,8 +112,10 @@ class TestDiscussion:
         presenter = StubAgent("p", ["A", "R"])
         critic = StubAgent("c", ["C"])
 
-        disc = Discussion(presenter=presenter, critic=critic, rounds=0)
-        disc._client = _mock_consensus_client()
+        disc = Discussion(
+            presenter=presenter, critic=critic, rounds=0,
+            provider=MockProvider(),
+        )
 
         result = await disc.run("Topic")
         assert len(result.turns) == 3  # 최소 1라운드
@@ -152,8 +151,10 @@ class TestMultiDiscussion:
             StubAgent("quality", ["Quality analysis", "Quality cross-review"]),
         ]
 
-        multi = MultiDiscussion(agents=agents, rounds=1)
-        multi._client = _mock_consensus_client("Multi consensus")
+        multi = MultiDiscussion(
+            agents=agents, rounds=1,
+            provider=MockProvider(default_response="Multi consensus"),
+        )
 
         result = await multi.run("Review the code")
 
@@ -172,8 +173,10 @@ class TestMultiDiscussion:
             StubAgent("b", ["B analysis", "B review"]),
         ]
 
-        multi = MultiDiscussion(agents=agents, rounds=1)
-        multi._client = _mock_consensus_client()
+        multi = MultiDiscussion(
+            agents=agents, rounds=1,
+            provider=MockProvider(),
+        )
 
         result = await multi.run("Topic", context={"code": "x = 1"})
         assert len(result.turns) == 4  # 2 analyses + 2 cross-reviews
