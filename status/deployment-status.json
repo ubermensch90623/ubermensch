@@ -1,0 +1,47 @@
+{
+  "last_updated": "2026-03-03",
+  "current_wave": 0,
+  "deployed_agents": [],
+  "active_tf": [],
+  "pending_deployments": [
+    {
+      "wave": 1,
+      "agents": ["data-plumber", "data-redteam"],
+      "status": "ready_to_deploy",
+      "prerequisites": "Keep 메모 데이터 접근 경로 확보"
+    }
+  ],
+  "weekly_metrics": {
+    "study_hours": 0,
+    "accuracy_rate": null,
+    "review_completion_rate": null,
+    "consecutive_study_days": 0,
+    "burnout_risk": "unknown"
+  },
+  "subject_status": {
+    "economics": {
+      "current_round": 3,
+      "weak_topics": ["시장구조", "독점", "과점"],
+      "mock_exam_score": null,
+      "confidence": "medium"
+    },
+    "ncs_communication": {
+      "level": "relative_strength",
+      "score": null
+    },
+    "ncs_math": {
+      "basic_calc": 1.5,
+      "applied_math": 1.2,
+      "statistics": 2.0,
+      "table_reading": 1.8,
+      "graph": 2.5,
+      "overall": "critical"
+    },
+    "ncs_problem_solving": {
+      "problem_recognition": 1.4,
+      "logical_thinking": 2.0,
+      "overall": "weak"
+    },
+    "exam_readiness": 1.3
+  }
+}

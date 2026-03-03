@@ -1,0 +1,528 @@
+{
+  "organization": "Learning Agent Corp.",
+  "mission": "우버멘쉬의 NCS+경제학 합격을 위한 자율적 학습 시스템 운영",
+  "total_agents": 40,
+  "deployed_agents": 0,
+  "last_updated": "2026-03-03",
+
+  "c_suite": [
+    {
+      "id": "ceo-architect",
+      "title": "CEO",
+      "name": "아키텍트",
+      "emoji": "🧠",
+      "role": "전체 전략 수립, 부서간 우선순위 조율",
+      "kpi": "주간 목표 달성률",
+      "status": "not_deployed",
+      "prompt_file": "agents/c-suite/ceo-architect.md"
+    },
+    {
+      "id": "cto-engineer",
+      "title": "CTO",
+      "name": "시스템 엔지니어",
+      "emoji": "⚙️",
+      "role": "Keep↔Notion 파이프라인, 자동화 인프라",
+      "kpi": "데이터 동기화율",
+      "status": "not_deployed",
+      "prompt_file": "agents/c-suite/cto-engineer.md"
+    },
+    {
+      "id": "coo-operations",
+      "title": "COO",
+      "name": "운영총괄",
+      "emoji": "📋",
+      "role": "일일 학습 스케줄 실행, 병목 제거",
+      "kpi": "일일 실행률",
+      "status": "not_deployed",
+      "prompt_file": "agents/c-suite/coo-operations.md"
+    },
+    {
+      "id": "cfo-performance",
+      "title": "CFO",
+      "name": "성과분석관",
+      "emoji": "📈",
+      "role": "점수 추적, ROI 분석",
+      "kpi": "주간 점수 변화량",
+      "status": "not_deployed",
+      "prompt_file": "agents/c-suite/cfo-performance.md"
+    },
+    {
+      "id": "cmo-motivation",
+      "title": "CMO",
+      "name": "동기부여관",
+      "emoji": "💪",
+      "role": "번아웃 방지, 무력감 감지, 성공 경험 설계",
+      "kpi": "연속 학습일수",
+      "status": "not_deployed",
+      "prompt_file": "agents/c-suite/cmo-motivation.md"
+    }
+  ],
+
+  "teams": {
+    "data_team": {
+      "id": "team-data",
+      "name": "데이터팀",
+      "report_to": "cto-engineer",
+      "mission": "원재료 가공",
+      "members": [
+        {
+          "id": "data-plumber",
+          "title": "팀장",
+          "name": "배관공",
+          "emoji": "🔧",
+          "role": "Keep→Notion 파이프라인 구축/유지",
+          "io": "Keep 400개 → Notion DB",
+          "status": "not_deployed",
+          "deploy_priority": 1,
+          "prompt_file": "agents/data-team/plumber.md"
+        },
+        {
+          "id": "data-classifier",
+          "title": "파서",
+          "name": "분류사",
+          "emoji": "📝",
+          "role": "문제/풀이/오답분석 자동 파싱 및 태깅",
+          "io": "원본 텍스트 → 구조화 데이터",
+          "status": "not_deployed",
+          "prompt_file": "agents/data-team/classifier.md"
+        },
+        {
+          "id": "data-qa",
+          "title": "QA",
+          "name": "검수관",
+          "emoji": "🔍",
+          "role": "파싱 오류 검출, 중복 제거",
+          "io": "파싱 데이터 → 검증 데이터",
+          "status": "not_deployed",
+          "prompt_file": "agents/data-team/qa-inspector.md"
+        },
+        {
+          "id": "data-redteam",
+          "title": "레드팀",
+          "name": "데이터 검증관",
+          "emoji": "🔴",
+          "role": "오류 사전 체크, 데이터 깨짐 방지",
+          "io": "모든 데이터 → 오류 리포트",
+          "status": "not_deployed",
+          "deploy_priority": 1,
+          "prompt_file": "agents/data-team/redteam-validator.md"
+        }
+      ]
+    },
+    "learning_team": {
+      "id": "team-learning",
+      "name": "학습팀",
+      "report_to": "coo-operations",
+      "mission": "실제 학습 실행",
+      "members": [
+        {
+          "id": "learn-reviewer",
+          "title": "팀장",
+          "name": "복습관",
+          "emoji": "📅",
+          "role": "에빙하우스 망각곡선 기반 복습 스케줄",
+          "io": "데이터+이력 → 오늘 복습 리스트",
+          "status": "not_deployed",
+          "deploy_priority": 3,
+          "prompt_file": "agents/learning-team/reviewer.md"
+        },
+        {
+          "id": "learn-examiner",
+          "title": "코치",
+          "name": "출제관",
+          "emoji": "🎯",
+          "role": "취약점 기반 맞춤 문제 출제, 난이도 조절",
+          "io": "취약점+리스트 → 맞춤 퀴즈",
+          "status": "not_deployed",
+          "prompt_file": "agents/learning-team/examiner.md"
+        },
+        {
+          "id": "learn-tutor",
+          "title": "튜터",
+          "name": "해설관",
+          "emoji": "💡",
+          "role": "소크라테스식 해설, 개념 연결",
+          "io": "오답 → 이해도 피드백",
+          "status": "not_deployed",
+          "prompt_file": "agents/learning-team/tutor.md"
+        },
+        {
+          "id": "learn-commuter",
+          "title": "스케줄러",
+          "name": "출퇴근관",
+          "emoji": "🚇",
+          "role": "출퇴근 2시간 최적화 마이크로 학습",
+          "io": "스케줄+컨디션 → 모바일 학습 큐",
+          "status": "not_deployed",
+          "prompt_file": "agents/learning-team/commuter.md"
+        },
+        {
+          "id": "learn-redteam",
+          "title": "레드팀",
+          "name": "현실성 검증관",
+          "emoji": "🔴",
+          "role": "실행 가능성 체크",
+          "io": "모든 학습 계획 → 조정 권고",
+          "status": "not_deployed",
+          "deploy_priority": 3,
+          "prompt_file": "agents/learning-team/redteam-reality.md"
+        }
+      ]
+    },
+    "analysis_team": {
+      "id": "team-analysis",
+      "name": "분석팀",
+      "report_to": "cfo-performance",
+      "mission": "성과 측정 및 검증",
+      "members": [
+        {
+          "id": "analysis-tracker",
+          "title": "팀장",
+          "name": "추적관",
+          "emoji": "📊",
+          "role": "공부량/정답률/시간 일일 추적",
+          "io": "활동 로그 → 일일/주간 리포트",
+          "status": "not_deployed",
+          "deploy_priority": 2,
+          "prompt_file": "agents/analysis-team/tracker.md"
+        },
+        {
+          "id": "analysis-diagnostician",
+          "title": "패턴분석",
+          "name": "진단관",
+          "emoji": "🔬",
+          "role": "오답 패턴 분석, 취약 유형 식별",
+          "io": "오답 이력 → 취약점 맵",
+          "status": "not_deployed",
+          "prompt_file": "agents/analysis-team/diagnostician.md"
+        },
+        {
+          "id": "analysis-verifier",
+          "title": "검증",
+          "name": "검증관",
+          "emoji": "✅",
+          "role": "학습 방법 효과 A/B 테스트",
+          "io": "성과+방법론 → 효과성 보고서",
+          "status": "not_deployed",
+          "prompt_file": "agents/analysis-team/verifier.md"
+        },
+        {
+          "id": "analysis-predictor",
+          "title": "예측",
+          "name": "예측관",
+          "emoji": "🔮",
+          "role": "합격 가능성 예측, 갭 분석",
+          "io": "성과 추이 → 합격 확률+필요 액션",
+          "status": "not_deployed",
+          "prompt_file": "agents/analysis-team/predictor.md"
+        },
+        {
+          "id": "analysis-redteam",
+          "title": "레드팀",
+          "name": "통계 검증관",
+          "emoji": "🔴",
+          "role": "분석 신뢰도 체크, 편향 방지",
+          "io": "분석 결과 → 신뢰도 판정",
+          "status": "not_deployed",
+          "prompt_file": "agents/analysis-team/redteam-stats.md"
+        }
+      ]
+    },
+    "feedback_team": {
+      "id": "team-feedback",
+      "name": "피드백팀",
+      "report_to": "cmo-motivation",
+      "mission": "지속가능성 확보",
+      "members": [
+        {
+          "id": "feedback-burnout",
+          "title": "팀장",
+          "name": "번아웃 감시관",
+          "emoji": "🛡️",
+          "role": "무력감/스트레스 감지, 학습량 조절",
+          "io": "패턴+컨디션 → 개입 알림",
+          "status": "not_deployed",
+          "deploy_priority": 6,
+          "prompt_file": "agents/feedback-team/burnout-guard.md"
+        },
+        {
+          "id": "feedback-habit",
+          "title": "UX",
+          "name": "습관설계사",
+          "emoji": "🎮",
+          "role": "게이미피케이션, 작은 성공 경험",
+          "io": "행동 데이터 → 보상 트리거",
+          "status": "not_deployed",
+          "prompt_file": "agents/feedback-team/habit-designer.md"
+        },
+        {
+          "id": "feedback-improver",
+          "title": "개선",
+          "name": "시스템개선관",
+          "emoji": "🔄",
+          "role": "안 쓰는 기능 제거, 워크플로우 단순화",
+          "io": "사용 로그 → 시스템 업데이트",
+          "status": "not_deployed",
+          "prompt_file": "agents/feedback-team/system-improver.md"
+        },
+        {
+          "id": "feedback-facilitator",
+          "title": "토론관",
+          "name": "회의 진행관",
+          "emoji": "💬",
+          "role": "에이전트 간 토론 주재, 합의 도출",
+          "io": "부서 보고서 → 의사결정 기록",
+          "status": "not_deployed",
+          "prompt_file": "agents/feedback-team/facilitator.md"
+        },
+        {
+          "id": "feedback-redteam",
+          "title": "레드팀",
+          "name": "부작용 검증관",
+          "emoji": "🔴",
+          "role": "개선이 악화시키는지 체크",
+          "io": "변경 사항 → 부작용 리포트",
+          "status": "not_deployed",
+          "prompt_file": "agents/feedback-team/redteam-sideeffect.md"
+        }
+      ]
+    },
+    "research_team": {
+      "id": "team-research",
+      "name": "연구팀",
+      "report_to": "ceo-architect",
+      "mission": "외부 정보 수집",
+      "members": [
+        {
+          "id": "research-scout",
+          "title": "팀장",
+          "name": "전략 스카우터",
+          "emoji": "🕵️",
+          "role": "고득점 전략, 시간 배분법 연구",
+          "io": "커뮤니티/수기 → 전략 보고서",
+          "status": "not_deployed",
+          "deploy_priority": 4,
+          "prompt_file": "agents/research-team/strategy-scout.md"
+        },
+        {
+          "id": "research-profiler",
+          "title": "합격자분석",
+          "name": "합격자 프로파일러",
+          "emoji": "🏆",
+          "role": "단기 합격자 공부법 분석",
+          "io": "합격 후기 → 패턴 분석",
+          "status": "not_deployed",
+          "prompt_file": "agents/research-team/success-profiler.md"
+        },
+        {
+          "id": "research-trend",
+          "title": "트렌드",
+          "name": "출제 트렌드 분석관",
+          "emoji": "📰",
+          "role": "기출 패턴 변화, 신유형 감지",
+          "io": "기출문제 → 트렌드 리포트",
+          "status": "not_deployed",
+          "prompt_file": "agents/research-team/trend-analyst.md"
+        },
+        {
+          "id": "research-ai",
+          "title": "기술연구",
+          "name": "AI 기술 연구원",
+          "emoji": "🤖",
+          "role": "최신 AI 도구, MCP 발전 추적",
+          "io": "GitHub/블로그 → 기술 제안서",
+          "status": "not_deployed",
+          "prompt_file": "agents/research-team/ai-researcher.md"
+        },
+        {
+          "id": "research-redteam",
+          "title": "레드팀",
+          "name": "정보 신뢰도 검증관",
+          "emoji": "🔴",
+          "role": "생존자 편향 필터링",
+          "io": "연구 결과 → 신뢰도 판정",
+          "status": "not_deployed",
+          "deploy_priority": 4,
+          "prompt_file": "agents/research-team/redteam-reliability.md"
+        }
+      ]
+    },
+    "update_team": {
+      "id": "team-update",
+      "name": "업데이트팀",
+      "report_to": "cto-engineer",
+      "mission": "연구 결과를 시스템에 반영",
+      "members": [
+        {
+          "id": "update-strategist",
+          "title": "팀장",
+          "name": "전략 업데이터",
+          "emoji": "🔄",
+          "role": "전략 보고서를 학습 계획에 반영",
+          "io": "전략 보고서 → 업데이트된 전략",
+          "status": "not_deployed",
+          "prompt_file": "agents/update-team/strategy-updater.md"
+        },
+        {
+          "id": "update-patcher",
+          "title": "시스템반영",
+          "name": "시스템 패치관",
+          "emoji": "⚡",
+          "role": "새 AI 도구를 기존 파이프라인에 통합",
+          "io": "기술 제안서 → 시스템 패치",
+          "status": "not_deployed",
+          "prompt_file": "agents/update-team/system-patcher.md"
+        },
+        {
+          "id": "update-content",
+          "title": "콘텐츠",
+          "name": "교재 갱신관",
+          "emoji": "📚",
+          "role": "트렌드에 맞춰 학습 자료 업데이트",
+          "io": "트렌드+DB → 갱신된 자료",
+          "status": "not_deployed",
+          "prompt_file": "agents/update-team/content-updater.md"
+        },
+        {
+          "id": "update-redteam",
+          "title": "레드팀",
+          "name": "호환성 검증관",
+          "emoji": "🔴",
+          "role": "기존 시스템 충돌 체크",
+          "io": "업데이트 → 호환성 판정",
+          "status": "not_deployed",
+          "prompt_file": "agents/update-team/redteam-compat.md"
+        }
+      ]
+    },
+    "diplomacy_team": {
+      "id": "team-diplomacy",
+      "name": "외교팀",
+      "report_to": "cto-engineer",
+      "mission": "AI간 협업",
+      "members": [
+        {
+          "id": "diplo-gemini",
+          "title": "팀장",
+          "name": "Gemini 외교관",
+          "emoji": "🤝",
+          "role": "Gemini에게 문제 풀이 검증 요청",
+          "io": "검증 필요 문제 → Gemini 결과",
+          "status": "not_deployed",
+          "deploy_priority": 5,
+          "prompt_file": "agents/diplomacy-team/gemini-diplomat.md"
+        },
+        {
+          "id": "diplo-notion",
+          "title": "Notion연락관",
+          "name": "Notion AI 외교관",
+          "emoji": "📋",
+          "role": "Notion AI에게 DB 분석 요청",
+          "io": "분석 요청 → Notion AI 결과",
+          "status": "not_deployed",
+          "prompt_file": "agents/diplomacy-team/notion-diplomat.md"
+        },
+        {
+          "id": "diplo-integrator",
+          "title": "통합관",
+          "name": "응답 통합관",
+          "emoji": "🔀",
+          "role": "여러 AI 응답 비교/종합",
+          "io": "복수 AI 응답 → 통합 결론",
+          "status": "not_deployed",
+          "prompt_file": "agents/diplomacy-team/response-integrator.md"
+        },
+        {
+          "id": "diplo-redteam",
+          "title": "레드팀",
+          "name": "크로스체크관",
+          "emoji": "🔴",
+          "role": "AI 할루시네이션 최종 검증",
+          "io": "통합 결론 → 최종 신뢰도",
+          "status": "not_deployed",
+          "deploy_priority": 5,
+          "prompt_file": "agents/diplomacy-team/redteam-crosscheck.md"
+        }
+      ]
+    },
+    "hiring_team": {
+      "id": "team-hiring",
+      "name": "채용팀",
+      "report_to": "ceo-architect",
+      "mission": "조직 자체 진화",
+      "members": [
+        {
+          "id": "hire-manager",
+          "title": "팀장",
+          "name": "채용관",
+          "emoji": "🧑‍💼",
+          "role": "능력 갭 분석 → 새 에이전트 설계 → 시범 운영",
+          "status": "not_deployed",
+          "deploy_priority": 7,
+          "prompt_file": "agents/hiring-team/hiring-manager.md"
+        },
+        {
+          "id": "hire-evaluator",
+          "title": "평가관",
+          "name": "역량 평가관",
+          "emoji": "📋",
+          "role": "기존 에이전트 성과 평가, 역할 중복/공백 식별",
+          "status": "not_deployed",
+          "prompt_file": "agents/hiring-team/evaluator.md"
+        },
+        {
+          "id": "hire-redteam",
+          "title": "레드팀",
+          "name": "조직 비대화 검증관",
+          "emoji": "🔴",
+          "role": "불필요한 채용 방지, 기존 재활용 우선",
+          "status": "not_deployed",
+          "deploy_priority": 7,
+          "prompt_file": "agents/hiring-team/redteam-bloat.md"
+        }
+      ]
+    }
+  },
+
+  "tf_scenarios": [
+    {
+      "id": "tf-exam-urgent",
+      "name": "시험 2주 전 긴급",
+      "members": ["learn-reviewer", "learn-examiner", "research-scout", "feedback-burnout"],
+      "goal": "최소투입 최대점수",
+      "max_duration_days": 7
+    },
+    {
+      "id": "tf-new-type",
+      "name": "새 유형 대량 출현",
+      "members": ["research-trend", "diplo-gemini", "learn-examiner", "update-content"],
+      "goal": "신유형 긴급 대응",
+      "max_duration_days": 7
+    },
+    {
+      "id": "tf-math-crisis",
+      "name": "수리 점수 급락",
+      "members": ["analysis-diagnostician", "learn-tutor", "diplo-gemini", "analysis-redteam"],
+      "goal": "원인 진단+처방",
+      "max_duration_days": 7
+    },
+    {
+      "id": "tf-motivation-crisis",
+      "name": "동기부여 위기",
+      "members": ["feedback-burnout", "feedback-habit", "cmo-motivation", "learn-commuter"],
+      "goal": "최소부담 복귀",
+      "max_duration_days": 7
+    }
+  ],
+
+  "deployment_priority": [
+    { "wave": 1, "agents": ["data-plumber", "data-redteam"], "reason": "데이터 없으면 전사 마비" },
+    { "wave": 2, "agents": ["analysis-tracker"], "reason": "성과 측정" },
+    { "wave": 3, "agents": ["learn-reviewer", "learn-redteam"], "reason": "실제 학습 시작" },
+    { "wave": 4, "agents": ["research-scout", "research-redteam"], "reason": "전략 수집" },
+    { "wave": 5, "agents": ["diplo-gemini", "diplo-redteam"], "reason": "AI 협업" },
+    { "wave": 6, "agents": ["feedback-burnout"], "reason": "번아웃 방지" },
+    { "wave": 7, "agents": ["hire-manager", "hire-redteam"], "reason": "조직 진화" },
+    { "wave": 8, "agents": ["remaining"], "reason": "순차 배치" }
+  ]
+}

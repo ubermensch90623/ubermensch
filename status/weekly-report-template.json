@@ -1,0 +1,46 @@
+{
+  "report_type": "weekly",
+  "week_of": "",
+  "generated_by": "analysis-tracker",
+  "reviewed_by": "ceo-architect",
+  "sections": {
+    "study_summary": {
+      "total_hours": 0,
+      "commute_hours": 0,
+      "weekend_hours": 0,
+      "target_hours": 10,
+      "breakdown_by_subject": {
+        "economics": 0,
+        "ncs_math": 0,
+        "ncs_communication": 0,
+        "ncs_problem_solving": 0
+      }
+    },
+    "accuracy": {
+      "economics": null,
+      "ncs_math": null,
+      "ncs_communication": null,
+      "ncs_problem_solving": null,
+      "trend": "unknown"
+    },
+    "review_cycle": {
+      "items_due": 0,
+      "items_completed": 0,
+      "completion_rate": null
+    },
+    "weak_points_update": [],
+    "energy_pattern": {
+      "morning_commute": "high",
+      "evening_commute": "low",
+      "weekend": "variable",
+      "after_work": "very_low"
+    },
+    "burnout_assessment": {
+      "risk_level": "unknown",
+      "consecutive_study_days": 0,
+      "skip_days_this_week": 0
+    },
+    "next_week_priorities": [],
+    "agent_recommendations": []
+  }
+}
