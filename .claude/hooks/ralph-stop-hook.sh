@@ -33,11 +33,23 @@ CURRENT_ITERATION=$(jq -r '.current_iteration // 0' "$STATE_FILE")
 COMPLETION_PROMISE=$(jq -r '.completion_promise // ""' "$STATE_FILE")
 
 # Check completion promise in last assistant message
+# Supports both plain text match and <promise>TEXT</promise> tag format
 LAST_MESSAGE=$(echo "$INPUT" | jq -r '.last_assistant_message // ""')
-if [ -n "$COMPLETION_PROMISE" ] && echo "$LAST_MESSAGE" | grep -qF "$COMPLETION_PROMISE"; then
-  # Task completed - deactivate loop
-  jq '.active = false | .completed = true | .completed_at = (now | todate)' "$STATE_FILE" > "${STATE_FILE}.tmp" && mv "${STATE_FILE}.tmp" "$STATE_FILE"
-  exit 0
+if [ -n "$COMPLETION_PROMISE" ]; then
+  FOUND=false
+  # Check plain text match
+  if echo "$LAST_MESSAGE" | grep -qF "$COMPLETION_PROMISE"; then
+    FOUND=true
+  fi
+  # Check <promise> tag format
+  if echo "$LAST_MESSAGE" | grep -qP "<promise>\s*${COMPLETION_PROMISE}\s*</promise>"; then
+    FOUND=true
+  fi
+  if [ "$FOUND" = "true" ]; then
+    # Task completed - deactivate loop
+    jq '.active = false | .completed = true | .completed_at = (now | todate)' "$STATE_FILE" > "${STATE_FILE}.tmp" && mv "${STATE_FILE}.tmp" "$STATE_FILE"
+    exit 0
+  fi
 fi
 
 # Check max iterations
