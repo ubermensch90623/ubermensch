@@ -20,3 +20,11 @@
 - 각 에이전트가 격리된 git worktree에서 독립적으로 작업
 - 작업 완료 후 자동으로 테스트 실행 및 PR 생성
 - 사용법: `/batch migrate src/ from Solid to React`
+
+### /ralph-loop - 자동 반복 개발 루프
+- "될 때까지 해" — 완료될 때까지 자동으로 프롬프트를 반복 실행
+- Stop hook이 Claude 종료를 가로채고 같은 작업을 다시 실행
+- 매 반복마다 이전 작업 결과를 보고 개선 (자기참조 루프)
+- 기본 max iterations: 20회
+- 사용법: `/ralph-loop "Build REST API with tests" --completion-promise "DONE"`
+- 취소: `/cancel-ralph`
