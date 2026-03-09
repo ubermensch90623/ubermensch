@@ -2,12 +2,20 @@
 """
 백그라운드 데몬 - 사람이 직접 켜지 않아도 자동으로 동작한다.
 
+크론 없이 자체적으로 매시간 반복한다.
+nohup으로 띄우면 터미널을 꺼도 계속 돌아간다.
+
 동작 방식:
-1. 크론(cron)이 매시간 이 스크립트를 실행
-2. 이미 실행 중이면 중복 실행 방지 (lock file)
+1. setup_cron.sh 로 한 번 띄우면 끝
+2. 매시간(3600초) 자동으로 깨어남
 3. 태스크 큐 확인 → 있으면 처리
 4. 예약된 정기 작업 실행
-5. 처리 완료 후 자동 종료 (크론이 다시 깨워줌)
+5. 다시 잠들기 → 반복
+
+사용법:
+    ./setup_cron.sh          # 백그라운드 시작
+    ./setup_cron.sh stop     # 중지
+    ./setup_cron.sh status   # 상태 확인
 """
 
 from __future__ import annotations
@@ -15,8 +23,10 @@ from __future__ import annotations
 import json
 import logging
 import os
+import signal
 import sys
 import fcntl
+import time
 import atexit
 from datetime import datetime
 from pathlib import Path
@@ -32,8 +42,10 @@ from tasks.watcher import TaskQueue, Task, TaskStatus, TaskPriority
 
 # === 설정 ===
 LOCK_FILE = PROJECT_ROOT / ".daemon.lock"
+PID_FILE = PROJECT_ROOT / ".daemon.pid"
 LOG_DIR = PROJECT_ROOT / "logs"
 SCHEDULES_FILE = PROJECT_ROOT / "schedules.json"
+INTERVAL_SECONDS = 3600  # 매시간
 
 LOG_DIR.mkdir(exist_ok=True)
 
@@ -51,7 +63,7 @@ logger = logging.getLogger("daemon")
 # === 중복 실행 방지 ===
 
 class SingleInstance:
-    """Lock file로 중복 실행 방지"""
+    """Lock file + PID file로 중복 실행 방지"""
 
     def __init__(self):
         self.lockfile = open(LOCK_FILE, "w")
@@ -63,6 +75,9 @@ class SingleInstance:
             self.lockfile.write(str(os.getpid()))
             self.lockfile.flush()
             self.locked = True
+            # PID 파일도 별도 기록 (상태 확인용)
+            with open(PID_FILE, "w") as f:
+                f.write(str(os.getpid()))
             return True
         except BlockingIOError:
             return False
@@ -71,10 +86,11 @@ class SingleInstance:
         if self.locked:
             fcntl.flock(self.lockfile, fcntl.LOCK_UN)
             self.lockfile.close()
-            try:
-                LOCK_FILE.unlink()
-            except FileNotFoundError:
-                pass
+            for f in (LOCK_FILE, PID_FILE):
+                try:
+                    f.unlink()
+                except FileNotFoundError:
+                    pass
 
 
 # === 예약 작업 관리 ===
@@ -82,7 +98,6 @@ class SingleInstance:
 def load_schedules() -> list[dict]:
     """예약된 정기 작업 로드"""
     if not SCHEDULES_FILE.exists():
-        # 기본 예약 작업 생성
         default_schedules = [
             {
                 "id": "health_check",
@@ -102,13 +117,11 @@ def load_schedules() -> list[dict]:
 
 
 def save_schedules(schedules: list[dict]):
-    """예약 작업 저장"""
     with open(SCHEDULES_FILE, "w", encoding="utf-8") as f:
         json.dump(schedules, f, ensure_ascii=False, indent=2)
 
 
 def is_schedule_due(schedule: dict) -> bool:
-    """예약 작업 실행 시간이 되었는지 확인"""
     if not schedule.get("enabled", True):
         return False
 
@@ -133,7 +146,6 @@ def create_config() -> SystemConfig:
 
 
 def process_task(config: SystemConfig, task: Task) -> str:
-    """단일 태스크 처리"""
     team = get_default_team()
 
     if task.team:
@@ -146,25 +158,8 @@ def process_task(config: SystemConfig, task: Task) -> str:
     return result.final_output
 
 
-def run_daemon():
-    """데몬 메인 루프 (크론에 의해 매시간 호출)"""
-    lock = SingleInstance()
-
-    if not lock.acquire():
-        logger.info("이미 실행 중인 인스턴스가 있음. 종료.")
-        return
-
-    atexit.register(lock.release)
-
-    logger.info("=" * 50)
-    logger.info("데몬 시작")
-    logger.info("=" * 50)
-
-    config = create_config()
-    if not config.api_key:
-        logger.error("ANTHROPIC_API_KEY 환경변수 미설정. 종료.")
-        return
-
+def run_cycle(config: SystemConfig) -> int:
+    """한 사이클 실행. 처리된 태스크 수 반환."""
     queue = TaskQueue()
     processed = 0
 
@@ -225,10 +220,79 @@ def run_daemon():
                 logger.error(f"예약 작업 실패: {schedule['name']} - {e}")
 
     save_schedules(schedules)
+    return processed
 
-    logger.info(f"데몬 종료. 처리된 작업: {processed}개")
+
+def run_daemon():
+    """데몬 메인 루프 - 매시간 자동 반복"""
+    lock = SingleInstance()
+
+    if not lock.acquire():
+        print("이미 실행 중인 데몬이 있습니다.")
+        print(f"상태 확인: ./setup_cron.sh status")
+        print(f"중지 후 재시작: ./setup_cron.sh stop && ./setup_cron.sh")
+        return
+
+    atexit.register(lock.release)
+
+    # SIGTERM 시 깔끔하게 종료
+    running = True
+
+    def handle_signal(signum, frame):
+        nonlocal running
+        logger.info(f"시그널 {signum} 수신. 종료 중...")
+        running = False
+
+    signal.signal(signal.SIGTERM, handle_signal)
+    signal.signal(signal.SIGINT, handle_signal)
+
     logger.info("=" * 50)
+    logger.info(f"데몬 시작 (PID: {os.getpid()})")
+    logger.info(f"반복 간격: {INTERVAL_SECONDS}초 ({INTERVAL_SECONDS // 3600}시간)")
+    logger.info("=" * 50)
+
+    config = create_config()
+    if not config.api_key:
+        logger.error("ANTHROPIC_API_KEY 환경변수 미설정. 종료.")
+        return
+
+    cycle = 0
+    while running:
+        cycle += 1
+        logger.info(f"--- 사이클 #{cycle} 시작 ({datetime.now().strftime('%Y-%m-%d %H:%M:%S')}) ---")
+
+        try:
+            processed = run_cycle(config)
+            logger.info(f"사이클 #{cycle} 완료. 처리: {processed}건")
+        except Exception as e:
+            logger.error(f"사이클 #{cycle} 오류: {e}", exc_info=True)
+
+        if not running:
+            break
+
+        logger.info(f"다음 사이클까지 {INTERVAL_SECONDS}초 대기...")
+
+        # sleep을 작은 단위로 나눠서 시그널 반응성 확보
+        for _ in range(INTERVAL_SECONDS):
+            if not running:
+                break
+            time.sleep(1)
+
+    logger.info("데몬 종료.")
+
+
+def run_once():
+    """한 번만 실행하고 종료 (테스트/수동 실행용)"""
+    config = create_config()
+    if not config.api_key:
+        logger.error("ANTHROPIC_API_KEY 환경변수 미설정.")
+        return
+    processed = run_cycle(config)
+    print(f"처리 완료: {processed}건")
 
 
 if __name__ == "__main__":
-    run_daemon()
+    if len(sys.argv) > 1 and sys.argv[1] == "--once":
+        run_once()
+    else:
+        run_daemon()
