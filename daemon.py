@@ -138,8 +138,7 @@ def is_schedule_due(schedule: dict) -> bool:
 # === 파일 읽기 ===
 
 def read_source_files(file_paths: list[str]) -> str:
-    """소스 파일들을 읽어서 하나의 텍스트로 합친다.
-    에이전트들이 실제 코드를 보고 리뷰할 수 있게 해준다."""
+    """현재 브랜치의 소스 파일들을 읽어서 하나의 텍스트로 합친다."""
     parts = []
     for rel_path in file_paths:
         full_path = PROJECT_ROOT / rel_path
@@ -154,13 +153,86 @@ def read_source_files(file_paths: list[str]) -> str:
     return "\n".join(parts)
 
 
-def build_review_prompt(description: str, file_paths: list[str] | None) -> str:
-    """예약 작업의 설명 + 실제 코드를 합쳐서 전체 프롬프트를 만든다."""
-    if not file_paths:
-        return description
+def read_branch_files(branch: str, file_paths: list[str]) -> str:
+    """다른 git 브랜치에 있는 파일들을 읽어온다.
+    이전 작업 브랜치의 코드를 에이전트가 볼 수 있게 해준다."""
+    import subprocess
+    parts = []
+    for rel_path in file_paths:
+        try:
+            result = subprocess.run(
+                ["git", "show", f"{branch}:{rel_path}"],
+                capture_output=True, text=True, cwd=str(PROJECT_ROOT),
+            )
+            if result.returncode == 0:
+                content = result.stdout
+                ext = Path(rel_path).suffix
+                lang = {"py": "python", ".md": "markdown", ".json": "json",
+                         ".sh": "bash", ".bat": "batch"}.get(ext, "")
+                parts.append(f"\n--- [{branch}] {rel_path} ---\n```{lang}\n{content}\n```\n")
+            else:
+                parts.append(f"\n--- [{branch}] {rel_path} (없음) ---\n")
+        except Exception as e:
+            parts.append(f"\n--- [{branch}] {rel_path} (읽기 실패: {e}) ---\n")
+    return "\n".join(parts)
 
-    code_text = read_source_files(file_paths)
-    return f"{description}\n\n=== 검토 대상 코드 ===\n{code_text}"
+
+def list_branch_files(branch: str) -> list[str]:
+    """브랜치의 전체 파일 목록을 가져온다."""
+    import subprocess
+    result = subprocess.run(
+        ["git", "ls-tree", "-r", "--name-only", branch],
+        capture_output=True, text=True, cwd=str(PROJECT_ROOT),
+    )
+    if result.returncode == 0:
+        return result.stdout.strip().split("\n")
+    return []
+
+
+def read_branch_key_files(branch: str, max_files: int = 15) -> str:
+    """브랜치의 주요 파일들을 자동으로 읽어온다.
+    .py, .md, .json 파일 위주로 최대 max_files개."""
+    all_files = list_branch_files(branch)
+    if not all_files:
+        return f"\n(브랜치 {branch}에서 파일을 찾을 수 없음)\n"
+
+    # 중요한 파일 우선 선택
+    priority_files = []
+    other_files = []
+    for f in all_files:
+        name = Path(f).name.lower()
+        if name in ("claude.md", "readme.md", "pyproject.toml", "package.json"):
+            priority_files.append(f)
+        elif f.endswith((".py", ".md", ".json")) and not f.endswith(".gitkeep"):
+            other_files.append(f)
+
+    selected = priority_files + other_files[:max_files - len(priority_files)]
+
+    parts = [f"\n=== 브랜치: {branch} (전체 {len(all_files)}개 파일, 주요 {len(selected)}개 표시) ===\n"]
+    parts.append("전체 파일 목록: " + ", ".join(all_files[:30]))
+    if len(all_files) > 30:
+        parts.append(f"  ... 외 {len(all_files) - 30}개")
+    parts.append("")
+    parts.append(read_branch_files(branch, selected))
+    return "\n".join(parts)
+
+
+def build_review_prompt(description: str, file_paths: list[str] | None,
+                        branches: list[str] | None = None) -> str:
+    """예약 작업의 설명 + 실제 코드를 합쳐서 전체 프롬프트를 만든다.
+    branches가 있으면 다른 브랜치의 코드도 읽어서 포함한다."""
+    prompt_parts = [description]
+
+    if file_paths:
+        code_text = read_source_files(file_paths)
+        prompt_parts.append(f"\n\n=== 현재 브랜치 검토 대상 코드 ===\n{code_text}")
+
+    if branches:
+        for branch in branches:
+            branch_text = read_branch_key_files(branch)
+            prompt_parts.append(branch_text)
+
+    return "\n".join(prompt_parts)
 
 
 # === 메인 데몬 로직 ===
@@ -225,10 +297,11 @@ def run_cycle(config: SystemConfig) -> int:
     for schedule in schedules:
         if is_schedule_due(schedule):
             logger.info(f"예약 작업 실행: {schedule['name']}")
-            # 파일이 지정되어 있으면 실제 코드를 읽어서 붙인다
+            # 파일/브랜치가 지정되어 있으면 실제 코드를 읽어서 붙인다
             full_description = build_review_prompt(
                 schedule["description"],
                 schedule.get("files"),
+                schedule.get("branches"),
             )
             task = Task(
                 id=f"sched_{schedule['id']}_{datetime.now().strftime('%Y%m%d%H')}",
