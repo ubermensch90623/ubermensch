@@ -155,6 +155,20 @@ def watch_mode():
     watcher.start()
 
 
+def show_report():
+    """최신 리포트 출력"""
+    from pathlib import Path
+    report_path = Path("./reports/latest.md")
+    if not report_path.exists():
+        print("아직 리포트가 없습니다. 데몬이 작업을 완료하면 자동으로 생성됩니다.")
+        print("")
+        print("  데몬 상태 확인: ./setup_cron.sh status")
+        return
+
+    content = report_path.read_text(encoding="utf-8")
+    print(content)
+
+
 def interactive_mode():
     """대화형 모드"""
     config = create_config()
@@ -233,6 +247,9 @@ def main():
     # interactive 명령
     subparsers.add_parser("interactive", help="대화형 모드")
 
+    # report 명령
+    subparsers.add_parser("report", help="최신 리뷰 결과 보기")
+
     args = parser.parse_args()
 
     if args.command == "run":
@@ -247,6 +264,8 @@ def main():
         watch_mode()
     elif args.command == "interactive":
         interactive_mode()
+    elif args.command == "report":
+        show_report()
     else:
         parser.print_help()
 

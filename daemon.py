@@ -326,7 +326,85 @@ def run_cycle(config: SystemConfig) -> int:
                 logger.error(f"예약 작업 실패: {schedule['name']} - {e}")
 
     save_schedules(schedules)
+
+    # 3. 사이클 결과를 읽기 쉬운 리포트로 저장
+    if processed > 0:
+        generate_report(queue)
+
     return processed
+
+
+# === 리포트 생성 ===
+
+REPORT_DIR = PROJECT_ROOT / "reports"
+
+def generate_report(queue: TaskQueue):
+    """모든 결과를 모아서 사람이 읽기 쉬운 리포트 하나로 만든다."""
+    REPORT_DIR.mkdir(exist_ok=True)
+    now = datetime.now()
+
+    # 결과 파일 전부 읽기
+    results = []
+    for result_file in sorted(queue.results_dir.glob("*.json")):
+        try:
+            with open(result_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                results.append(data)
+        except Exception:
+            continue
+
+    if not results:
+        return
+
+    # 최신 리포트 생성
+    lines = []
+    lines.append(f"# 에이전트 리뷰 리포트")
+    lines.append(f"")
+    lines.append(f"생성 시각: {now.strftime('%Y년 %m월 %d일 %H시 %M분')}")
+    lines.append(f"총 완료 작업: {len(results)}건")
+    lines.append(f"")
+
+    # 요약 테이블
+    lines.append("## 작업 목록")
+    lines.append("")
+    lines.append("| # | 작업 | 상태 |")
+    lines.append("|---|------|------|")
+    for i, r in enumerate(results, 1):
+        title = r.get("task_title", r.get("task_id", "?"))
+        status = "성공" if r.get("success") else "실패"
+        lines.append(f"| {i} | {title} | {status} |")
+    lines.append("")
+
+    # 각 작업의 상세 결과
+    lines.append("## 상세 결과")
+    lines.append("")
+    for i, r in enumerate(results, 1):
+        title = r.get("task_title", r.get("task_id", "?"))
+        lines.append(f"### {i}. {title}")
+        lines.append("")
+        if r.get("success"):
+            output = r.get("output", "(결과 없음)")
+            lines.append(output)
+        else:
+            error = r.get("error", "(오류 내용 없음)")
+            lines.append(f"**실패 원인:** {error}")
+        lines.append("")
+        lines.append("---")
+        lines.append("")
+
+    report_text = "\n".join(lines)
+
+    # 최신 리포트 (항상 같은 파일에 덮어쓰기 - 가장 최근 결과)
+    latest_path = REPORT_DIR / "latest.md"
+    with open(latest_path, "w", encoding="utf-8") as f:
+        f.write(report_text)
+
+    # 날짜별 리포트 (이력 보관)
+    dated_path = REPORT_DIR / f"{now.strftime('%Y-%m-%d_%H')}.md"
+    with open(dated_path, "w", encoding="utf-8") as f:
+        f.write(report_text)
+
+    logger.info(f"리포트 생성: {latest_path}")
 
 
 def run_daemon():
