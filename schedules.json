@@ -1,0 +1,29 @@
+[
+  {
+    "id": "health_check",
+    "name": "시스템 상태 점검",
+    "description": "현재 시스템의 상태를 점검하고 개선점을 찾아라.",
+    "interval_hours": 24,
+    "last_run": null,
+    "enabled": true,
+    "team": ["architect", "critic"]
+  },
+  {
+    "id": "code_review",
+    "name": "코드 품질 리뷰",
+    "description": "프로젝트의 코드 품질을 검토하고 리팩토링이 필요한 부분을 찾아라.",
+    "interval_hours": 48,
+    "last_run": null,
+    "enabled": false,
+    "team": ["critic", "implementer", "reviewer"]
+  },
+  {
+    "id": "idea_brainstorm",
+    "name": "아이디어 브레인스토밍",
+    "description": "프로젝트의 발전 방향에 대해 새로운 아이디어를 제시하라.",
+    "interval_hours": 168,
+    "last_run": null,
+    "enabled": false,
+    "team": ["creative", "architect", "user_advocate"]
+  }
+]
