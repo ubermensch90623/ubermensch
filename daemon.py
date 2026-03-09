@@ -135,6 +135,34 @@ def is_schedule_due(schedule: dict) -> bool:
     return elapsed >= interval
 
 
+# === 파일 읽기 ===
+
+def read_source_files(file_paths: list[str]) -> str:
+    """소스 파일들을 읽어서 하나의 텍스트로 합친다.
+    에이전트들이 실제 코드를 보고 리뷰할 수 있게 해준다."""
+    parts = []
+    for rel_path in file_paths:
+        full_path = PROJECT_ROOT / rel_path
+        if not full_path.exists():
+            parts.append(f"\n--- {rel_path} (파일 없음) ---\n")
+            continue
+        try:
+            content = full_path.read_text(encoding="utf-8")
+            parts.append(f"\n--- {rel_path} ---\n```python\n{content}\n```\n")
+        except Exception as e:
+            parts.append(f"\n--- {rel_path} (읽기 실패: {e}) ---\n")
+    return "\n".join(parts)
+
+
+def build_review_prompt(description: str, file_paths: list[str] | None) -> str:
+    """예약 작업의 설명 + 실제 코드를 합쳐서 전체 프롬프트를 만든다."""
+    if not file_paths:
+        return description
+
+    code_text = read_source_files(file_paths)
+    return f"{description}\n\n=== 검토 대상 코드 ===\n{code_text}"
+
+
 # === 메인 데몬 로직 ===
 
 def create_config() -> SystemConfig:
@@ -197,10 +225,15 @@ def run_cycle(config: SystemConfig) -> int:
     for schedule in schedules:
         if is_schedule_due(schedule):
             logger.info(f"예약 작업 실행: {schedule['name']}")
+            # 파일이 지정되어 있으면 실제 코드를 읽어서 붙인다
+            full_description = build_review_prompt(
+                schedule["description"],
+                schedule.get("files"),
+            )
             task = Task(
                 id=f"sched_{schedule['id']}_{datetime.now().strftime('%Y%m%d%H')}",
                 title=schedule["name"],
-                description=schedule["description"],
+                description=full_description,
                 priority=TaskPriority.MEDIUM,
                 team=schedule.get("team"),
             )
