@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "notebooklm": {
+      "command": "npx",
+      "args": ["-y", "notebooklm-mcp@latest"],
+      "env": {},
+      "description": "NotebookLM MCP Server (PleasePrompto) - Chat with Gemini 2.5 through NotebookLM"
+    },
+    "notebooklm-cli": {
+      "command": "notebooklm-mcp",
+      "args": [],
+      "env": {},
+      "description": "NotebookLM MCP CLI Server (jacob-bd) - Full CLI + MCP with 29 tools"
+    }
+  }
+}

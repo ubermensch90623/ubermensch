@@ -1,0 +1,17 @@
+{
+  "autoMemoryEnabled": true,
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/ralph-stop-hook.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
