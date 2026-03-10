@@ -73,6 +73,7 @@
 - `study/questions/05-comwel-specialty.json` - 근로복지공단 통합전공 20문제
 - `study/questions/06-nhis-law.json` - 건강보험공단 국민건강보험법 20문제
 - `study/questions/07-kinfa-law.json` - 서민금융진흥원 서민금융법 20문제
+- `study/questions/08-kinfa-specialty.json` - 서민금융진흥원 전공(경영·재무·회계) 20문제
 - `study/progress/tracker.json` - 공부 기록
 
 ## 프로젝트 구조
