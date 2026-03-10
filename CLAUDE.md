@@ -70,9 +70,19 @@
 - `study/questions/02-math.json` - 수리능력 20문제
 - `study/questions/03-problem-solving.json` - 문제해결능력 20문제
 - `study/questions/04-economics.json` - 경제학 20문제
+- `study/questions/05-comwel-specialty.json` - 근로복지공단 통합전공 20문제
+- `study/questions/06-nhis-law.json` - 건강보험공단 국민건강보험법 20문제
+- `study/questions/07-kinfa-law.json` - 서민금융진흥원 서민금융법 20문제
 - `study/progress/tracker.json` - 공부 기록
 
 ## 프로젝트 구조
+
+### 크롤러 시스템 (crawlers/)
+- `crawlers/engine.py` - 병렬 웹 크롤링 엔진 (여러 사이트 동시 수집)
+- `crawlers/sources.py` - 크롤링 대상 사이트 정의 (4개 목표 기관 + NCS 공통)
+- `crawlers/collector.py` - 수집 자료 분석/정리
+- `crawlers/exam_predictor.py` - AI 예상문제 생성기
+- `crawlers/data/institution_analysis.json` - 기관별 시험 분석 결과
 
 ### 현재 사용 가능한 자료 (docs/)
 - `docs/strategy/ncs-exam-strategy.md` - NCS 시험 전략
