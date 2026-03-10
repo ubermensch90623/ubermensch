@@ -44,6 +44,33 @@
 - 리포트 파일을 직접 열어보라고 하지 마세요. Claude가 읽어서 쉽게 설명해주세요.
 - "리포트 보여줘"라고 하면 reports/latest.md를 읽어서 핵심만 요약해주세요.
 
+## NCS 공부 도우미 (사용자가 이렇게 말하면 이렇게 해라)
+
+사용자가 공부 관련 말을 하면 Claude가 직접 실행합니다:
+
+| 사용자가 말하는 것 | Claude가 하는 것 |
+|---|---|
+| "문제 내줘", "공부하자" | `python study/ncs-study-tool.py quiz` 실행 → 5문제를 하나씩 보여주고 답 받기 |
+| "수리 문제", "수학 문제" | `python study/ncs-study-tool.py quiz --subject 수리` |
+| "쉬운 거", "기초부터" | `python study/ncs-study-tool.py quiz --difficulty 하` |
+| "10문제", "많이 내줘" | `python study/ncs-study-tool.py quiz 10` |
+| "내 성적", "현황", "어때?" | `python study/ncs-study-tool.py stats` 실행 → 쉽게 요약 |
+| "뭐가 약해?", "취약 과목" | `python study/ncs-study-tool.py weak` 실행 → 분석 결과 설명 |
+| "틀린 거 다시" | 이전에 틀린 유형 위주로 문제 출제 |
+
+### 퀴즈 진행 방식
+1. 문제를 하나씩 보여줌 (번호 + 과목 + 난이도 표시)
+2. 사용자가 번호로 답함 (예: "2", "②")
+3. 맞으면 O, 틀리면 X + 해설 보여줌
+4. 다 풀면 결과를 `study/ncs-study-tool.py record`로 자동 저장
+5. 간단한 성적 요약 보여줌
+
+### 문제 파일 위치
+- `study/questions/01-communication.json` - 의사소통능력 20문제
+- `study/questions/02-math.json` - 수리능력 20문제
+- `study/questions/03-problem-solving.json` - 문제해결능력 20문제
+- `study/progress/tracker.json` - 공부 기록
+
 ## 프로젝트 구조
 
 ### 현재 사용 가능한 자료 (docs/)

@@ -1,0 +1,41 @@
+{
+  "user": "ubermensch",
+  "start_date": "2026-03-10",
+  "target_exam": "금융공기업 NCS",
+  "target_score": 70,
+  "sessions": [],
+  "subject_stats": {
+    "의사소통능력": {
+      "total_attempted": 0,
+      "total_correct": 0,
+      "by_difficulty": {
+        "하": {"attempted": 0, "correct": 0},
+        "중": {"attempted": 0, "correct": 0},
+        "상": {"attempted": 0, "correct": 0}
+      },
+      "weak_types": []
+    },
+    "수리능력": {
+      "total_attempted": 0,
+      "total_correct": 0,
+      "by_difficulty": {
+        "하": {"attempted": 0, "correct": 0},
+        "중": {"attempted": 0, "correct": 0},
+        "상": {"attempted": 0, "correct": 0}
+      },
+      "weak_types": []
+    },
+    "문제해결능력": {
+      "total_attempted": 0,
+      "total_correct": 0,
+      "by_difficulty": {
+        "하": {"attempted": 0, "correct": 0},
+        "중": {"attempted": 0, "correct": 0},
+        "상": {"attempted": 0, "correct": 0}
+      },
+      "weak_types": []
+    }
+  },
+  "overall_accuracy": 0,
+  "estimated_score": 0
+}
