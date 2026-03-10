@@ -69,6 +69,7 @@
 - `study/questions/01-communication.json` - 의사소통능력 20문제
 - `study/questions/02-math.json` - 수리능력 20문제
 - `study/questions/03-problem-solving.json` - 문제해결능력 20문제
+- `study/questions/04-economics.json` - 경제학 20문제
 - `study/progress/tracker.json` - 공부 기록
 
 ## 프로젝트 구조
