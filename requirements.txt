@@ -1,0 +1,4 @@
+# CatchMe Bridge 의존성
+# bridge 모듈은 Python 표준 라이브러리만 사용합니다 (subprocess, json, pathlib)
+# CatchMe 자체는 별도 conda 환경(catchme)에 설치됩니다
+# 설치: bash scripts/setup-catchme.sh
