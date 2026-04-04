@@ -1,0 +1,80 @@
+version: 1.0.0
+title: CatchMe 메모리 기반 학습 리뷰
+description: >-
+  CatchMe 활동 기록과 NCS 학습 데이터를 교차 분석하여
+  맞춤형 학습 리뷰와 추천을 제공합니다.
+author:
+  contact: ubermensch-catchme
+
+activities:
+  - CatchMe에서 최근 학습 활동 조회
+  - 학습 진도 데이터와 교차 분석
+  - 오래 안 한 과목 파악
+  - 학습 패턴 분석 (시간대, 집중도)
+  - 맞춤 학습 추천 생성
+
+parameters:
+  - key: period
+    input_type: string
+    requirement: optional
+    default: "today"
+    description: "분석 기간: today(오늘), week(이번주), month(이번달)"
+
+  - key: focus
+    input_type: string
+    requirement: optional
+    default: "recommend"
+    description: "초점: recommend(추천), pattern(패턴분석), summary(요약)"
+
+extensions:
+  - type: builtin
+    name: developer
+    display_name: Developer
+    timeout: 600
+    bundled: true
+    description: 파일 읽기/쓰기, 셸 명령, CatchMe CLI 호출
+
+prompt: |
+  당신은 학습 데이터 분석 에이전트입니다.
+
+  ## 규칙
+  - 모든 대화는 한국어로
+  - 기술 용어 사용 금지
+  - 결과는 간결하게 요약
+
+  ## 분석 기간: {{ period }}
+  ## 분석 초점: {{ focus }}
+
+  ## 실행 절차
+
+  1. CatchMe 활동 조회:
+     ```
+     conda run -n catchme catchme ask -- "{{ period }} 동안의 NCS 공부 활동을 요약해줘"
+     ```
+
+  2. 학습 진도 데이터 로드:
+     - study/progress/tracker.json 읽기
+
+  3. 교차 분석:
+     - CatchMe 기록에서 실제 학습 시간/과목 파악
+     - tracker.json에서 정답률/취약 유형 파악
+     - 오래 안 한 과목 식별
+
+  4. 결과 출력:
+
+     ### recommend 모드
+     - 가장 시급한 과목 3개 추천
+     - 각 과목별 추천 이유
+     - 오늘의 학습 계획 제안
+
+     ### pattern 모드
+     - 주로 공부하는 시간대
+     - 과목별 학습 빈도
+     - 집중도가 높은 시간 분석
+     - 학습 습관 개선 제안
+
+     ### summary 모드
+     - 기간 동안 학습 시간 총합
+     - 과목별 학습 분포
+     - 정답률 변화 추이
+     - 잘한 점 / 보완할 점

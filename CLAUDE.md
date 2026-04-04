@@ -1,4 +1,4 @@
-# 프로젝트 규칙 — CatchMe AI 메모리 연동
+# 프로젝트 규칙 — CatchMe AI 메모리 + Goose AI 에이전트 연동
 
 ## 사용자 이해도 (최우선 규칙)
 
@@ -63,6 +63,44 @@
    - 어떤 문제를 틀렸는지 (tracker.json)
    - 두 데이터를 합쳐서 최적 학습 추천
 
+## Goose AI 에이전트
+
+### Goose란?
+
+Block(구 Square)이 개발한 오픈소스 AI 에이전트.
+코드 작성, 실행, 디버깅, 워크플로우 자동화를 독립적으로 수행.
+레시피(YAML)로 반복 작업을 패키징하여 재사용 가능.
+MCP 서버 3,000개 이상과 통합 가능.
+
+- GitHub: https://github.com/block/goose
+- 라이선스: Apache 2.0
+
+### Goose 사용 규칙
+
+| 사용자가 말하는 것 | Claude가 하는 것 |
+|---|---|
+| "Goose 설치해줘" | `bash scripts/setup-goose.sh` 실행 |
+| "Goose로 공부 도와줘", "문제 내줘" | `goose run --recipe recipes/ncs-study-assistant.yaml` 실행 |
+| "오답 복습해줘" | NCS 레시피를 `mode=review`로 실행 |
+| "학습 계획 짜줘" | NCS 레시피를 `mode=plan`로 실행 |
+| "취약 과목 분석해줘" | NCS 레시피를 `mode=weak`로 실행 |
+| "CatchMe 기록으로 분석해줘" | `goose run --recipe recipes/catchme-memory-review.yaml` 실행 |
+| "Goose 상태", "Goose 확인" | `python -m goose_bridge.status` 실행 |
+| "레시피 뭐 있어?" | `python -m goose_bridge.runner list` 실행 |
+
+### Goose 레시피
+
+1. **ncs-study-assistant** — NCS 학습 보조
+   - `mode=quiz`: 맞춤 문제 출제
+   - `mode=review`: 오답 복습
+   - `mode=plan`: 학습 계획 수립
+   - `mode=weak`: 취약 과목 분석
+
+2. **catchme-memory-review** — CatchMe 기록 기반 리뷰
+   - `focus=recommend`: 맞춤 학습 추천
+   - `focus=pattern`: 학습 패턴 분석
+   - `focus=summary`: 학습 요약
+
 ## 파일 구조
 
 ```
@@ -71,16 +109,26 @@ ubermensch/
 ├── README.MD                          # 프로젝트 설명
 ├── requirements.txt                   # 의존성
 ├── scripts/
-│   └── setup-catchme.sh               # CatchMe 자동 설치
+│   ├── setup-catchme.sh               # CatchMe 자동 설치
+│   └── setup-goose.sh                 # Goose 자동 설치
 ├── catchme_bridge/                    # CatchMe 연동 모듈
 │   ├── __init__.py
 │   ├── config.py                      # 설정 관리
 │   ├── ask.py                         # 질의 래퍼
 │   ├── status.py                      # 상태 집계
 │   └── study.py                       # NCS 학습 추천
+├── goose_bridge/                      # Goose 연동 모듈
+│   ├── __init__.py
+│   ├── runner.py                      # 레시피 실행 / 세션 관리
+│   └── status.py                      # 상태 확인
+├── recipes/                           # Goose 레시피 (YAML)
+│   ├── ncs-study-assistant.yaml       # NCS 학습 보조
+│   └── catchme-memory-review.yaml     # CatchMe 기록 리뷰
 └── .claude/
     ├── settings.json                  # Claude Code 설정
     └── skills/
-        └── catchme/
-            └── SKILL.md               # /catchme 스킬
+        ├── catchme/
+        │   └── SKILL.md               # /catchme 스킬
+        └── goose/
+            └── SKILL.md               # /goose 스킬
 ```
