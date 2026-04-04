@@ -8,6 +8,7 @@ Goose CLI를 사용하여 레시피를 실행하거나 대화 세션을 관리�
 """
 
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -17,19 +18,15 @@ RECIPES_DIR = Path(__file__).parent.parent / "recipes"
 
 def find_goose() -> str | None:
     """Goose 실행 파일 경로를 찾습니다."""
-    try:
-        result = subprocess.run(
-            ["which", "goose"], capture_output=True, text=True, timeout=5,
-        )
-        if result.returncode == 0:
-            return result.stdout.strip()
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        pass
+    # shutil.which로 PATH 탐색
+    path = shutil.which("goose")
+    if path:
+        return path
 
     # 일반적인 설치 위치 확인
     candidates = [
-        Path.home() / ".goose" / "bin" / "goose",
         Path.home() / ".local" / "bin" / "goose",
+        Path.home() / ".goose" / "bin" / "goose",
         Path("/usr/local/bin/goose"),
     ]
     for path in candidates:

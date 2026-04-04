@@ -1,39 +1,44 @@
 """CatchMe 설정 관리 모듈."""
 
 import json
+import shutil
 import subprocess
 from pathlib import Path
 
-CONDA_ENV = "catchme"
 DEFAULT_CONFIG_DIR = Path.home() / ".catchme"
 DEFAULT_CONFIG_PATH = DEFAULT_CONFIG_DIR / "config.json"
 
 
-def get_catchme_env() -> str | None:
-    """CatchMe가 설치된 conda 환경 이름을 반환합니다.
+def _find_catchme_bin() -> str | None:
+    """catchme 실행 파일 경로를 찾습니다."""
+    # 1. 시스템 PATH에서 직접 찾기
+    path = shutil.which("catchme")
+    if path:
+        return path
 
-    Returns:
-        conda env 이름 (문자열) 또는 None (미설치 시)
-    """
+    # 2. conda 환경에서 찾기
     try:
         result = subprocess.run(
-            ["conda", "run", "-n", CONDA_ENV, "catchme", "--help"],
-            capture_output=True, text=True, timeout=15,
+            ["conda", "run", "-n", "catchme", "which", "catchme"],
+            capture_output=True, text=True, timeout=10,
         )
-        if result.returncode == 0:
-            return CONDA_ENV
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
     except (FileNotFoundError, subprocess.TimeoutExpired):
         pass
+
     return None
 
 
 def is_catchme_installed() -> bool:
     """CatchMe가 설치되어 있는지 확인합니다."""
-    return get_catchme_env() is not None
+    return _find_catchme_bin() is not None
 
 
 def run_catchme_cmd(args: list[str], timeout: int = 120) -> subprocess.CompletedProcess:
-    """CatchMe CLI 명령을 conda 환경에서 실행합니다.
+    """CatchMe CLI 명령을 실행합니다.
+
+    직접 실행을 시도하고, 실패하면 conda 환경에서 실행합니다.
 
     Args:
         args: catchme 뒤에 붙는 인자 목록 (예: ["ask", "--", "질문"])
@@ -45,15 +50,26 @@ def run_catchme_cmd(args: list[str], timeout: int = 120) -> subprocess.Completed
     Raises:
         RuntimeError: CatchMe가 설치되지 않은 경우
     """
-    env_name = get_catchme_env()
-    if env_name is None:
-        raise RuntimeError(
-            "CatchMe가 설치되어 있지 않습니다. "
-            "'bash scripts/setup-catchme.sh'를 실행하세요."
-        )
+    # 1. 직접 실행 시도
+    catchme_bin = _find_catchme_bin()
+    if catchme_bin:
+        try:
+            cmd = [catchme_bin] + args
+            return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        except (FileNotFoundError, subprocess.TimeoutExpired):
+            pass
 
-    cmd = ["conda", "run", "-n", env_name, "catchme"] + args
-    return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+    # 2. conda 환경에서 시도
+    try:
+        cmd = ["conda", "run", "-n", "catchme", "catchme"] + args
+        return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+    except FileNotFoundError:
+        pass
+
+    raise RuntimeError(
+        "CatchMe가 설치되어 있지 않습니다. "
+        "'CatchMe 설치해줘'라고 말씀해 주세요."
+    )
 
 
 def get_catchme_config() -> dict:
@@ -65,11 +81,7 @@ def get_catchme_config() -> dict:
 
 
 def update_catchme_config(updates: dict) -> None:
-    """CatchMe 설정을 업데이트합니다.
-
-    Args:
-        updates: 업데이트할 키-값 쌍 (중첩 dict 지원)
-    """
+    """CatchMe 설정을 업데이트합니다."""
     config = get_catchme_config()
 
     for key, value in updates.items():

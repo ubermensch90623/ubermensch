@@ -43,13 +43,16 @@ def get_goose_status() -> dict:
     status["installed"] = True
     status["goose_path"] = goose_bin
 
-    # 버전 확인
+    # 버전 확인 (goose info에서 추출)
     try:
         result = subprocess.run(
-            [goose_bin, "version"], capture_output=True, text=True, timeout=10,
+            [goose_bin, "info"], capture_output=True, text=True, timeout=10,
         )
         if result.returncode == 0:
-            status["version"] = result.stdout.strip()
+            for line in result.stdout.split("\n"):
+                if "Version:" in line:
+                    status["version"] = line.split("Version:")[-1].strip()
+                    break
     except (subprocess.TimeoutExpired, FileNotFoundError):
         pass
 
