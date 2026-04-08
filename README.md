@@ -4,6 +4,48 @@
 
 # DeepTutor: Agent-Native Personalized Tutoring
 
+</div>
+
+---
+
+## Quick Start (Docker Compose)
+
+```bash
+# 1. .env 설정 — API 키를 입력하세요
+cp .env.example .env
+# .env 파일을 열고 LLM_API_KEY, EMBEDDING_API_KEY 등을 입력
+
+# 2. Docker Compose로 실행
+docker compose up -d
+
+# 3. 브라우저에서 접속
+#    Frontend: http://localhost:3782
+#    Backend API: http://localhost:8001
+```
+
+### 주요 환경변수 (.env)
+
+| 변수 | 설명 | 예시 |
+|------|------|------|
+| `LLM_BINDING` | LLM 프로바이더 | `anthropic`, `openai`, `deepseek` |
+| `LLM_MODEL` | 사용할 모델 | `claude-sonnet-4-6`, `gpt-4o-mini` |
+| `LLM_API_KEY` | API 키 (필수) | `sk-...` |
+| `EMBEDDING_BINDING` | 임베딩 프로바이더 | `openai` |
+| `EMBEDDING_API_KEY` | 임베딩 API 키 (필수) | `sk-...` |
+| `SEARCH_PROVIDER` | 웹 검색 (선택) | `brave`, `tavily`, `duckduckgo` |
+
+### 유용한 명령어
+
+```bash
+docker compose logs -f          # 로그 확인
+docker compose down             # 중지
+docker compose up -d --build    # 재빌드 후 실행
+```
+
+---
+
+<div align="center">
+
 <a href="https://trendshift.io/repositories/17099" target="_blank"><img src="https://trendshift.io/api/badge/repositories/17099" alt="HKUDS%2FDeepTutor | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/downloads/)
