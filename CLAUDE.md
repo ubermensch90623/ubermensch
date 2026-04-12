@@ -7,9 +7,15 @@ anything between sessions by default.
 
 **Every session, before doing substantive work:**
 
-1. Read `memory/README.md` — it's the index.
+1. `memory/README.md` is auto-injected at session start by a `SessionStart`
+   hook in `.claude/settings.json`. You will already see it. Use it as the
+   index.
 2. Read whichever memory files are relevant to the user's request (don't
    read them all blindly; the index tells you what's where).
+
+A `Stop` hook in `.claude/settings.json` will also force a one-time
+reminder when you try to end the session, so you don't have to rely on
+your own discipline for step 2 below.
 
 **During and after work, write back what's worth keeping:**
 

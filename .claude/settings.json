@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "content=$(cat /home/user/ubermensch/memory/README.md 2>/dev/null || echo '(memory/README.md not found)'); jq -n --arg c \"$content\" '{hookSpecificOutput:{hookEventName:\"SessionStart\",additionalContext:(\"[auto-injected from memory/README.md — read relevant memory/*.md files before substantive work. See CLAUDE.md for protocol.]\\n\\n\" + $c)}}'",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); echo \"$input\" | jq -e '.stop_hook_active == true' >/dev/null 2>&1 || jq -n '{decision:\"block\",reason:\"[memory protocol] Before stopping, review this session for durable facts/decisions/gotchas worth appending to memory/{project,user,decisions,gotchas}.md per /home/user/ubermensch/CLAUDE.md. If something qualifies (stated preference, non-obvious decision, gotcha, or user correction), append a dated note. If nothing qualifies, acknowledge briefly and stop again — this reminder fires only once per stop cycle.\"}'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
