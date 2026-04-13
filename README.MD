@@ -6,3 +6,4 @@
 - [NotebookLM 소스 번들 (단일 파일)](docs/hug-research-bundle.md) — Google NotebookLM에 통째로 업로드할 수 있도록 정리한 리서치 번들 + 공식 URL 목록
 - [PPTX 시각 자료](docs/assets/hug-deposit-guarantee-workflow.pptx) — 10장 슬라이드 덱 (생성 스크립트: `scripts/build_pptx.py`, 재생성 시 `python3 scripts/build_pptx.py`)
 - [HTML 단일 페이지 시각화](docs/hug-deposit-guarantee-workflow.html) — 브라우저에서 바로 열 수 있는 반응형 원페이지 (모바일·인쇄 대응)
+- [📚 **10챕터 학습 코스**](docs/hug-learn.html) — 챕터별 학습·퀴즈·진도저장 (localStorage) / 다크모드 / 사이드바 네비. 실제 담당자 대응을 위한 자기 훈련용

@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>HUG 전세보증금반환보증 학습 코스 · 10챕터</title>
+<script>
+ // 다크모드 FOUC 방지: 초기 렌더 전에 클래스 적용
+ try{var t=localStorage.getItem('hug-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
+</script>
+<style>
+:root{--navy:#0f2e5c;--blue:#1f6fb5;--light:#eaf2fb;--accent:#e86a33;
+ --gray:#333;--muted:#6b7280;--green:#2e7d32;--red:#c62828;
+ --bg:#f7f9fc;--card:#fff;--border:#d6dde8;--code:#f1f5f9}
+[data-theme=dark]{--navy:#9ec3ff;--blue:#5ea4e0;--light:#1a2744;--accent:#ff9155;
+ --gray:#e5e7eb;--muted:#9ca3af;--bg:#0b1220;--card:#141c2f;--border:#2a3550;--code:#1a2236}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--gray);
+ font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;
+ line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+button{font-family:inherit;cursor:pointer}
+code,kbd{background:var(--code);padding:2px 6px;border-radius:4px;font-size:.92em}
+pre{background:var(--code);padding:14px 16px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.55}
+.progbar{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:14px}
+.progbar .title{font-weight:800;color:var(--navy);font-size:14px;white-space:nowrap}
+.progbar .track{flex:1;height:8px;background:var(--light);border-radius:999px;overflow:hidden}
+.progbar .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--accent));width:0;transition:width .4s}
+.progbar .pct{font-weight:700;color:var(--navy);font-size:13px;white-space:nowrap;min-width:70px;text-align:right}
+.progbar .theme{background:none;border:1px solid var(--border);color:var(--navy);padding:4px 10px;border-radius:8px;font-size:12px}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:28px;max-width:1180px;margin:0 auto;padding:24px 20px 80px}
+aside.toc{position:sticky;top:60px;align-self:start;max-height:calc(100vh - 80px);overflow-y:auto;padding-right:8px}
+aside.toc h3{margin:0 0 10px;font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+aside.toc ol{list-style:none;padding:0;margin:0}
+aside.toc li{margin:2px 0}
+aside.toc a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;color:var(--gray);text-decoration:none;font-size:14px;border:1px solid transparent}
+aside.toc a:hover{background:var(--light);color:var(--navy)}
+aside.toc a.active{background:var(--light);color:var(--navy);border-color:var(--blue);font-weight:700}
+aside.toc .chk{width:18px;height:18px;border-radius:999px;border:2px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:11px;background:var(--card);color:transparent}
+aside.toc a.done .chk{background:var(--green);border-color:var(--green);color:#fff}
+main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:44px 32px;border-radius:20px;margin-bottom:24px}
+.hero .kicker{font-size:12px;letter-spacing:2.4px;opacity:.85}
+.hero h1{margin:8px 0 6px;font-size:26px;letter-spacing:-.3px}
+.hero p{margin:4px 0;opacity:.92;font-size:14.5px}
+.hero .meta{margin-top:14px;font-size:12.5px;opacity:.8}
+.chapter{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px 28px;margin-bottom:20px;scroll-margin-top:70px}
+.chapter header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.chapter h2{margin:0;color:var(--navy);font-size:22px;letter-spacing:-.2px}
+.chapter .badge{background:var(--accent);color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.goal{background:var(--light);border-left:4px solid var(--blue);padding:12px 16px;border-radius:10px;margin:10px 0 18px;font-size:14px;color:var(--navy)}
+.goal b{color:var(--navy)}
+.chapter h3{margin:22px 0 10px;color:var(--navy);font-size:16px}
+.chapter h4{margin:14px 0 6px;color:var(--navy);font-size:14.5px}
+.chapter p{margin:8px 0;font-size:15px}
+.chapter ul,.chapter ol{padding-left:22px;margin:8px 0}
+.chapter li{margin:5px 0;font-size:14.5px}
+.callout{border-radius:12px;padding:14px 18px;margin:14px 0;font-size:14px}
+.callout.warn{background:#fff6ec;color:#7a3e13;border-left:4px solid var(--accent)}
+[data-theme=dark] .callout.warn{background:#3a2517;color:#ffd2a8}
+.callout.danger{background:#fdecec;color:#7b1616;border-left:4px solid var(--red)}
+[data-theme=dark] .callout.danger{background:#3a1a1a;color:#ffb3b3}
+.callout.info{background:var(--light);color:var(--navy);border-left:4px solid var(--blue)}
+.callout.good{background:#eaf6ec;color:#1b5321;border-left:4px solid var(--green)}
+[data-theme=dark] .callout.good{background:#17331d;color:#b7e4bf}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{padding:10px 12px;border:1px solid var(--border);text-align:left;vertical-align:top}
+th{background:var(--navy);color:#fff;font-weight:700}
+[data-theme=dark] th{background:#1d2a4a}
+td:first-child{background:var(--light);color:var(--navy);font-weight:600}
+.quiz{margin-top:18px;padding:18px 20px;background:var(--code);border-radius:14px;border:1.5px dashed var(--border)}
+.quiz .qtitle{color:var(--navy);font-weight:800;margin-bottom:8px;font-size:14px}
+.quiz .q{margin:14px 0}
+.quiz .qq{font-weight:700;margin-bottom:6px;color:var(--navy);font-size:14.5px}
+.quiz .opts{display:grid;gap:6px}
+.quiz .opts label{display:flex;gap:8px;padding:8px 12px;background:var(--card);border:1.5px solid var(--border);border-radius:8px;font-size:14px;cursor:pointer}
+.quiz .opts label:hover{border-color:var(--blue)}
+.quiz .opts input{margin-top:3px}
+.quiz .reveal{margin-top:8px;font-size:13.5px;color:var(--green);display:none;padding:8px 12px;background:#eaf6ec;border-radius:8px}
+[data-theme=dark] .quiz .reveal{background:#17331d;color:#b7e4bf}
+.quiz .reveal.wrong{color:var(--red);background:#fdecec}
+[data-theme=dark] .quiz .reveal.wrong{background:#3a1a1a;color:#ffb3b3}
+.quiz .reveal.on{display:block}
+.quiz .qbtn{margin-top:10px;background:var(--blue);color:#fff;border:0;padding:8px 16px;border-radius:8px;font-weight:700;font-size:13px}
+.actions{display:flex;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap}
+.actions button{background:var(--navy);color:#fff;border:0;padding:10px 18px;border-radius:10px;font-weight:700;font-size:14px}
+.actions button.sec{background:var(--card);color:var(--navy);border:1.5px solid var(--border)}
+.actions button.done{background:var(--green)}
+.actions button:disabled{opacity:.4;cursor:not-allowed}
+.taglist{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.taglist .tag{background:var(--light);color:var(--navy);padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.tagdanger{background:#fdecec;color:var(--red)}
+.taggood{background:#eaf6ec;color:var(--green)}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;padding:14px}
+  aside.toc{position:fixed;bottom:14px;left:14px;right:14px;top:auto;max-height:50vh;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:30;transform:translateY(110%);transition:transform .3s}
+  aside.toc.open{transform:translateY(0)}
+  .toc-fab{position:fixed;bottom:18px;right:18px;z-index:40;background:var(--navy);color:#fff;border:0;border-radius:999px;width:56px;height:56px;font-size:22px;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+  .hero{padding:28px 22px} .hero h1{font-size:21px}
+}
+@media (min-width:901px){.toc-fab{display:none}}
+.footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:30px}
+.disclaimer{margin-top:18px;padding:14px 18px;border-radius:10px;background:var(--light);color:var(--navy);font-size:13px;border-left:4px solid var(--navy)}
+</style>
+</head>
+<body>
+<div class="progbar">
+  <span class="title">📚 HUG 학습 코스</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <span class="pct" id="pct">0 / 10</span>
+  <button class="theme" id="themeBtn">🌙 다크</button>
+</div>
+
+<div class="layout">
+<aside class="toc" id="toc" aria-label="목차">
+  <h3>목차 · 진도</h3>
+  <ol id="tocList"></ol>
+  <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
+    <button class="theme" id="resetBtn" style="border:1px solid var(--border);background:var(--card);color:var(--navy);padding:6px 10px;border-radius:8px;font-size:12px">진도 초기화</button>
+  </div>
+</aside>
+<button class="toc-fab" id="tocFab" aria-label="목차 열기">☰</button>
+
+<main id="main">
+  <header class="hero">
+    <div class="kicker">HUG · LEARNING COURSE</div>
+    <h1>전세보증금반환보증 이행청구 · 10챕터 학습</h1>
+    <p>전세자금대출 세입자 · 집주인 경매 상황 완전 대응 브리핑</p>
+    <div class="meta">한 챕터씩 읽고 · 퀴즈 풀고 · 완료 표시 → 다음 챕터로 이동<br/>작성일 2026-04-13 · 공개정보 기반 · 법률자문 아님</div>
+  </header>
+
+  <section class="chapter" id="ch1" data-ch="1">
+    <header><h2>① 사건의 법적 구조 이해</h2><span class="badge">CHAPTER 1 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — "나 · 임대인 · 은행 · HUG" 네 당사자의 돈·권리 관계를 한 문장으로 설명할 수 있다.</div>
+
+    <h3>지금 벌어진 일의 구조</h3>
+    <p>경매는 <b>집주인의 채무불이행</b>으로 부동산이 강제 매각되는 절차입니다. 내 보증금은 그 매각대금에서 배당 순위대로 회수되고, <b>모자란 부분</b>을 HUG가 임시로 채워주는 게 이번 게임의 본질입니다.</p>
+
+    <pre>
+[나(세입자)]  ──대출──▶  [은행]
+    │                      ▲
+    │ 보증금 반환청구       │ 대출 상환
+    ▼                      │
+[임대인] ──경매(미변제)──▶ [집] → 매각 → 배당
+                           │
+                           ▼
+                       [HUG] — 부족분 대위변제 → 임대인에 구상</pre>
+
+    <h3>HUG가 내 편처럼 보이지만 실은 '지급 리스크 관리자'</h3>
+    <p>HUG는 공기업이지만 KPI로 <b>지급률·구상회수율</b>을 관리합니다. 즉 "가능한 한 정확하게 · 까다롭게 · 최소 지급"이 조직 본능입니다. 친절하지 않은 건 성격 문제가 아니라 구조 문제예요.</p>
+
+    <div class="callout info">💡 <b>핵심 인식</b>: HUG는 "고객 지원 창구"가 아니라 "보험금 심사자"다. 내가 먼저 <b>법적 요건 충족 증거</b>를 제시해야 한다.</div>
+
+    <h3>내가 가진 3장의 카드</h3>
+    <table>
+      <tr><th>카드</th><th>근거</th><th>효력</th></tr>
+      <tr><td>대항력</td><td>주임법 §3</td><td>집 넘어가도 계약 유지 주장</td></tr>
+      <tr><td>우선변제권</td><td>주임법 §3의2</td><td>후순위 채권자보다 먼저 배당</td></tr>
+      <tr><td>HUG 보증</td><td>가입 약관</td><td>부족분 대위변제</td></tr>
+    </table>
+
+    <div class="quiz" data-ch="1">
+      <div class="qtitle">🧩 자가점검 (2문제)</div>
+      <div class="q" data-a="2">
+        <div class="qq">Q1. HUG는 나를 어떻게 보는가?</div>
+        <div class="opts">
+          <label><input type="radio" name="q1-1"/>① 도와줄 고객</label>
+          <label><input type="radio" name="q1-1"/>② 지급 리스크 관리 대상 (보험금 심사자 관점)</label>
+          <label><input type="radio" name="q1-1"/>③ 임대인의 대리인</label>
+        </div>
+        <div class="reveal">정답 ②. HUG는 약관·법령 기준으로 엄격하게 심사한다. 그래서 "내가 요건 충족 증거를 먼저" 내야 한다.</div>
+      </div>
+      <div class="q" data-a="3">
+        <div class="qq">Q2. 경매 배당에서 받지 못한 부족분은 누가 채워주나?</div>
+        <div class="opts">
+          <label><input type="radio" name="q1-2"/>① 임대인이 직접</label>
+          <label><input type="radio" name="q1-2"/>② 은행이</label>
+          <label><input type="radio" name="q1-2"/>③ HUG가 대위변제 후 임대인에 구상</label>
+        </div>
+        <div class="reveal">정답 ③. HUG가 먼저 주고 나중에 임대인에게 받아낸다 (민법 §481 변제자 대위).</div>
+      </div>
+      <button class="qbtn" onclick="checkQuiz(this,1)">정답 확인</button>
+    </div>
+
+    <div class="actions">
+      <button class="sec" disabled>◀ 이전</button>
+      <button onclick="markDone(1);go(2)">완료 · 다음 ▶</button>
+    </div>
+  </section>
+  <!-- CH01 -->
+
+  <section class="chapter" id="ch2" data-ch="2">
+    <header><h2>② 3대 권리 — 대항력 · 우선변제권 · 배당요구</h2><span class="badge">CHAPTER 2 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — 이 3개를 다 갖췄는지 <b>등기부등본 1장</b>만 보고 30초 안에 자가판정한다.</div>
+
+    <h3>① 대항력 (주임법 §3)</h3>
+    <div class="callout info">임차인이 <b>주택 인도 + 주민등록</b>을 마친 때에는 <b>그 다음 날부터</b> 제3자에 대하여 효력이 생긴다.</div>
+    <ul>
+      <li>핵심: "<b>다음 날 0시</b>" 발생. 전입 당일 아님.</li>
+      <li>근저당과 같은 날 설정됐으면 <b>근저당이 이긴다</b>.</li>
+    </ul>
+
+    <h3>② 우선변제권 (주임법 §3의2)</h3>
+    <div class="callout info">대항력 + <b>확정일자</b>를 갖춘 임차인은 경매·공매 시 후순위 채권자보다 <b>우선하여 보증금을 변제</b>받을 권리가 있다.</div>
+    <p>확정일자만 있고 전입 안 했으면 <b>쓸모없음</b>. 3종 세트가 한 몸.</p>
+
+    <h3>③ 배당요구 (민집법 §88)</h3>
+    <div class="callout warn">⚠ 배당요구 <b>종기일</b>까지 <b>권리신고·배당요구서</b>를 법원에 직접 제출해야 배당 자격 발생. 놓치면 <b>배당 아예 못 받음</b>.</div>
+
+    <h3>자가판정 3단계</h3>
+    <ol>
+      <li><b>등기부등본 발급</b> (iros.go.kr, 700원)</li>
+      <li><b>근저당 설정일</b> vs <b>내 전입일</b> 비교</li>
+      <li>내 전입이 빠르면 <span class="tag taggood">선순위</span>, 늦으면 <span class="tag tagdanger">후순위</span></li>
+    </ol>
+
+    <div class="callout good">💡 <b>소액임차인 특례(주임법 §8)</b>: 보증금이 지역별 기준 이하면 근저당보다 앞서 일정액 <b>최우선변제</b>. 국토부 고시 확인.</div>
+
+    <h3>이사 가야 할 때 — 임차권등기명령 (주임법 §3의3)</h3>
+    <p>계약 종료 후 보증금 미반환 상태에서 이사 가려면 <b>반드시 임차권등기부터</b>. 등기부 등재 <b>확인 후 이사</b>. 등재 전 전출하면 대항력·우선변제권 소멸.</p>
+
+    <div class="quiz" data-ch="2">
+      <div class="qtitle">🧩 자가점검 (3문제)</div>
+      <div class="q" data-a="2">
+        <div class="qq">Q1. 대항력은 언제 발생하는가?</div>
+        <div class="opts">
+          <label><input type="radio" name="q2-1"/>① 계약 체결 즉시</label>
+          <label><input type="radio" name="q2-1"/>② 주택 인도 + 전입신고 다음 날 0시</label>
+          <label><input type="radio" name="q2-1"/>③ 확정일자 받은 순간</label>
+        </div>
+        <div class="reveal">정답 ②. "다음 날 0시"가 포인트. 근저당과 같은 날이면 불리.</div>
+      </div>
+      <div class="q" data-a="3">
+        <div class="qq">Q2. 배당요구를 안 하면?</div>
+        <div class="opts">
+          <label><input type="radio" name="q2-2"/>① 확정일자 있으면 자동 배당</label>
+          <label><input type="radio" name="q2-2"/>② HUG가 대신 배당요구</label>
+          <label><input type="radio" name="q2-2"/>③ 배당 자격 없음. 수령액 0</label>
+        </div>
+        <div class="reveal">정답 ③. 민사집행법 §88 — 종기까지 본인이 직접 제출.</div>
+      </div>
+      <div class="q" data-a="1">
+        <div class="qq">Q3. 이사가 필요할 때 순서는?</div>
+        <div class="opts">
+          <label><input type="radio" name="q2-3"/>① 임차권등기 신청 → 등재 확인 → 이사</label>
+          <label><input type="radio" name="q2-3"/>② 이사 먼저 → 이후 등기 신청</label>
+          <label><input type="radio" name="q2-3"/>③ 그냥 전출해도 무관</label>
+        </div>
+        <div class="reveal">정답 ①. 등재 전 전출 시 대항력 상실.</div>
+      </div>
+      <button class="qbtn" onclick="checkQuiz(this,2)">정답 확인</button>
+    </div>
+    <div class="actions">
+      <button class="sec" onclick="go(1)">◀ 이전</button>
+      <button onclick="markDone(2);go(3)">완료 · 다음 ▶</button>
+    </div>
+  </section>
+  <!-- CH02 -->
+
+  <section class="chapter" id="ch3" data-ch="3">
+    <header><h2>③ 타임라인 — 오늘부터 6개월</h2><span class="badge">CHAPTER 3 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — 어느 단계에서 무슨 서류·행동이 필요한지 시점별로 예측한다.</div>
+
+    <h3>현실적 타임라인</h3>
+    <table>
+      <tr><th>시점</th><th>주체</th><th>할 일</th></tr>
+      <tr><td>D-day</td><td>나</td><td>경매개시결정 통지 수령</td></tr>
+      <tr><td>+1~3일</td><td>나</td><td>HUG·은행 서면 사고통지 (녹취·이메일 증거)</td></tr>
+      <tr><td>+1~2주</td><td>나</td><td>법원에 권리신고·배당요구서 제출, 필요 시 임차권등기명령 신청</td></tr>
+      <tr><td>+2~4개월</td><td>법원</td><td>매각 → 낙찰 → 매각결정 → 배당기일</td></tr>
+      <tr><td>배당기일</td><td>나</td><td>배당표 수령, 미수령액 확정</td></tr>
+      <tr><td>+1~2주</td><td>나</td><td>HUG 이행청구서 + 서류 일괄 제출 (계약 종료 후 3개월 이내)</td></tr>
+      <tr><td>+1개월</td><td>HUG</td><td>이행심사</td></tr>
+      <tr><td>+1개월</td><td>HUG</td><td>대위변제 (은행 우선 상환 → 세입자 잔액)</td></tr>
+      <tr><td>명도 후</td><td>나</td><td>이행금액 실수령</td></tr>
+      <tr><td>이후</td><td>HUG</td><td>임대인 상대 구상·추가 배당 정산</td></tr>
+    </table>
+
+    <div class="callout warn">⚠ 사고 인지 → 내 통장 입금까지 <b>최소 4~6개월, 길면 1년</b>. 이자·생활비 계획 필수.</div>
+
+    <h3>놓치면 치명적인 3개 D-day</h3>
+    <ul>
+      <li><span class="tag tagdanger">D1</span> <b>배당요구 종기일</b> — 법원 공고 기준 (경매 개시 후 보통 2~3개월). 놓치면 배당 0.</li>
+      <li><span class="tag tagdanger">D2</span> <b>계약 종료 후 3개월</b> — HUG 이행청구 기한. 경과 시 청구권 소멸 가능.</li>
+      <li><span class="tag tagdanger">D3</span> <b>임차권등기 등재 완료</b> — 이사 <u>전에</u> 반드시 확인.</li>
+    </ul>
+
+    <div class="callout info">💡 사건번호 조회: <a href="https://www.courtauction.go.kr" target="_blank">courtauction.go.kr</a> → 주소 검색 → 종기일·매각기일·배당기일 확인.</div>
+
+    <div class="quiz" data-ch="3">
+      <div class="qtitle">🧩 자가점검 (2문제)</div>
+      <div class="q" data-a="2">
+        <div class="qq">Q1. HUG 이행청구의 기한은?</div>
+        <div class="opts">
+          <label><input type="radio" name="q3-1"/>① 경매개시 후 1년</label>
+          <label><input type="radio" name="q3-1"/>② 전세계약 종료 후 3개월 이내</label>
+          <label><input type="radio" name="q3-1"/>③ 배당 후 아무 때나</label>
+        </div>
+        <div class="reveal">정답 ②.</div>
+      </div>
+      <div class="q" data-a="3">
+        <div class="qq">Q2. 실제 돈 받기까지 예상 기간?</div>
+        <div class="opts">
+          <label><input type="radio" name="q3-2"/>① 즉시</label>
+          <label><input type="radio" name="q3-2"/>② 1~2주</label>
+          <label><input type="radio" name="q3-2"/>③ 최소 4~6개월, 길면 1년</label>
+        </div>
+        <div class="reveal">정답 ③. 생활비·이자 계획 필수.</div>
+      </div>
+      <button class="qbtn" onclick="checkQuiz(this,3)">정답 확인</button>
+    </div>
+    <div class="actions">
+      <button class="sec" onclick="go(2)">◀ 이전</button>
+      <button onclick="markDone(3);go(4)">완료 · 다음 ▶</button>
+    </div>
+  </section>
+  <!-- CH03 -->
+
+  <section class="chapter" id="ch4" data-ch="4">
+    <header><h2>④ 전세자금대출 연계 — 돈이 은행에 먼저 간다</h2><span class="badge">CHAPTER 4 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — 대위변제금이 내 통장에 들어오지 않을 수도 있는 이유를 이해한다.</div>
+
+    <h3>대위변제금 흐름</h3>
+    <pre>
+HUG 대위변제금
+   │
+   ▼
+[대출은행]  ── 우선 상환 ──▶ 대출 소멸
+   │
+   ▼ (남은 금액이 있으면)
+[세입자 통장]</pre>
+
+    <div class="callout danger">⚠ <b>최악의 시나리오</b>: 대출 잔액 ≥ 대위변제금 → <b>세입자 실수령 0원</b>. 단, 빚은 전부 갚아진 상태가 됨.</div>
+
+    <h3>왜 은행이 먼저 받는가</h3>
+    <p>계약 당시 전세자금대출 구조상 은행이 보증금반환채권에 대한 <b>질권 설정</b> 또는 <b>채권양도</b>를 해놨기 때문. 즉 "내 보증금의 일부는 이미 은행 담보"인 상태.</p>
+
+    <h3>가입 상품 구분 (대출약정서 확인)</h3>
+    <table>
+      <tr><th>상품</th><th>보호대상</th><th>본 시나리오에서</th></tr>
+      <tr><td>반환보증 단독</td><td>세입자</td><td>★ 필수</td></tr>
+      <tr><td>전세금안심대출보증 (반환+상환 결합)</td><td>세입자 + 은행</td><td>결합 가입 시 병행</td></tr>
+      <tr><td>협약 대출(버팀목·신혼부부)</td><td>HF 주도</td><td>HUG와 별개 절차</td></tr>
+    </table>
+
+    <h3>사고 인지 후 48시간 내에 할 것</h3>
+    <ul>
+      <li><b>은행 사고 통지</b> — 서면/이메일로. "HUG 대위변제 예정" 명시.</li>
+      <li><b>기한이익상실·연체 처리 유예 요청</b> — 안 되면 지점장·본점 민원실까지 escalate.</li>
+      <li><b>대출 잔액증명서</b> 발급 요청 — HUG 제출용.</li>
+    </ul>
+
+    <div class="callout info">💡 담당자가 권한 없는 경우 많음. <b>여신관리팀·본점</b>이 진짜 결정권자.</div>
+
+    <div class="quiz" data-ch="4">
+      <div class="qtitle">🧩 자가점검 (2문제)</div>
+      <div class="q" data-a="2">
+        <div class="qq">Q1. 대위변제금은 누구에게 먼저 가는가?</div>
+        <div class="opts">
+          <label><input type="radio" name="q4-1"/>① 세입자 통장</label>
+          <label><input type="radio" name="q4-1"/>② 대출은행 (대출 상환)</label>
+          <label><input type="radio" name="q4-1"/>③ 임대인</label>
+        </div>
+        <div class="reveal">정답 ②. 은행 질권·채권양도 때문에 우선.</div>
+      </div>
+      <div class="q" data-a="1">
+        <div class="qq">Q2. 대출 잔액이 대위변제금보다 크면?</div>
+        <div class="opts">
+          <label><input type="radio" name="q4-2"/>① 세입자 실수령 0원, 대신 빚 사라짐</label>
+          <label><input type="radio" name="q4-2"/>② HUG가 추가 지급</label>
+          <label><input type="radio" name="q4-2"/>③ 임대인이 나머지 부담</label>
+        </div>
+        <div class="reveal">정답 ①. 손해는 아니지만 현금 유입은 없음. 이걸 모르면 낭패.</div>
+      </div>
+      <button class="qbtn" onclick="checkQuiz(this,4)">정답 확인</button>
+    </div>
+    <div class="actions">
+      <button class="sec" onclick="go(3)">◀ 이전</button>
+      <button onclick="markDone(4);go(5)">완료 · 다음 ▶</button>
+    </div>
+  </section>
+  <!-- CH04 -->
+
+  <section class="chapter" id="ch5" data-ch="5">
+    <header><h2>⑤ HUG 이행청구 서류 — 체크리스트</h2><span class="badge">CHAPTER 5 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — 제출 서류 11종을 모두 암기하고, 각 서류의 "흠결 가능성"을 안다.</div>
+
+    <h3>제출 서류 (경매 2호 사고 기준)</h3>
+    <table>
+      <tr><th>#</th><th>서류</th><th>발급처 · 흠결 주의점</th></tr>
+      <tr><td>1</td><td>보증채무이행청구서</td><td>HUG 양식 (콜센터·지사 안내)</td></tr>
+      <tr><td>2</td><td>신분증 사본</td><td>주민증·운전면허증</td></tr>
+      <tr><td>3</td><td>주민등록등본/초본</td><td>초본은 <b>말소자 포함</b>으로 발급 (주소이력 증명)</td></tr>
+      <tr><td>4</td><td>확정일자부 전세계약서 <b>원본</b></td><td>원본 필수. 분실 시 공증·재교부 절차 필요</td></tr>
+      <tr><td>5</td><td>인감증명서 + 인감도장</td><td>3개월 이내 발급분</td></tr>
+      <tr><td>6</td><td>임차권등기명령 결정문</td><td>법원 발급. 결정일 확인</td></tr>
+      <tr><td>7</td><td>등기부등본</td><td>임차권등기 <b>등재된 후</b> 발급</td></tr>
+      <tr><td>8</td><td>계약 해지·종료 증빙</td><td>내용증명·합의서. 합의서는 불리 조항 주의</td></tr>
+      <tr><td>9</td><td>배당표 사본</td><td>법원 발급. 미수령액 명시</td></tr>
+      <tr><td>10</td><td>채권양도계약서 + 양도통지</td><td>가입 시 안 했으면 <b>청구 전</b> 내용증명 통지 필수 (민법 §450)</td></tr>
+      <tr><td>11</td><td>대출 잔액증명서 등 대출서류</td><td>(전세대출 있을 시) 은행 발급</td></tr>
+    </table>
+
+    <div class="callout warn">⚠ <b>원본 보관 + 전량 스캔</b>이 원칙. 제출 전 사본을 반드시 손에 쥐고 있을 것.</div>
+
+    <h3>접수 방법 3가지</h3>
+    <ul>
+      <li><b>모바일HUG</b> (onestop.khug.or.kr) — 비대면</li>
+      <li><b>지사 방문</b> — 접수증 필수 수령</li>
+      <li><b>우편</b> — 등기우편 + 내용증명 권장</li>
+    </ul>
+
+    <div class="quiz" data-ch="5">
+      <div class="qtitle">🧩 자가점검 (2문제)</div>
+      <div class="q" data-a="3">
+        <div class="qq">Q1. 채권양도 통지를 가입 때 안 했다면?</div>
+        <div class="opts">
+          <label><input type="radio" name="q5-1"/>① HUG가 자동 처리</label>
+          <label><input type="radio" name="q5-1"/>② 필요 없음</label>
+          <label><input type="radio" name="q5-1"/>③ 청구 전 내용증명으로 임대인에 통지</label>
+        </div>
+        <div class="reveal">정답 ③. 민법 §450 — 통지 없으면 제3자 대항 불가.</div>
+      </div>
+      <div class="q" data-a="2">
+        <div class="qq">Q2. 전세계약서 원본 분실 시?</div>
+        <div class="opts">
+          <label><input type="radio" name="q5-2"/>① 사본으로 대체</label>
+          <label><input type="radio" name="q5-2"/>② 공증 또는 재교부 절차 필요</label>
+          <label><input type="radio" name="q5-2"/>③ 접수 불가</label>
+        </div>
+        <div class="reveal">정답 ②. 원본 제출이 원칙. 못 하면 공증·부동산 통해 재교부.</div>
+      </div>
+      <button class="qbtn" onclick="checkQuiz(this,5)">정답 확인</button>
+    </div>
+    <div class="actions">
+      <button class="sec" onclick="go(4)">◀ 이전</button>
+      <button onclick="markDone(5);go(6)">완료 · 다음 ▶</button>
+    </div>
+  </section>
+  <!-- CH05 -->
+
+  <section class="chapter" id="ch6" data-ch="6">
+    <header><h2>⑥ 돈 흐름 계산 — 내 손에 얼마?</h2><span class="badge">CHAPTER 6 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — 경매 결과에 따라 실수령액을 즉시 계산할 수 있다.</div>
+
+    <h3>변수 정의</h3>
+    <table>
+      <tr><td>B</td><td>내 전세보증금</td></tr>
+      <tr><td>L</td><td>전세자금대출 잔액(이자 포함)</td></tr>
+      <tr><td>S</td><td>경매 낙찰가</td></tr>
+      <tr><td>P</td><td>선순위 채권액(근저당·조세)</td></tr>
+      <tr><td>D</td><td>나에게 배당되는 금액</td></tr>
+      <tr><td>H</td><td>HUG 보증금액 (약관상 한도)</td></tr>
+    </table>
+
+    <h3>케이스 A. 선순위 임차인 (대항력·우선변제권이 근저당보다 앞섬)</h3>
+    <ul>
+      <li>배당 D ≈ B (전액 수준)</li>
+      <li>부족분만 HUG가 보전</li>
+      <li>내 실수령 ≈ <code>D + (H·부족분 보전) − L</code></li>
+    </ul>
+
+    <h3>케이스 B. 후순위 임차인 (근저당이 앞섬)</h3>
+    <ul>
+      <li>배당 D ≈ 0 (선순위 먹고 남아야 내 순서)</li>
+      <li>HUG가 B 전액(또는 약관 한도) 대위변제</li>
+      <li>내 실수령 ≈ <code>H − L</code></li>
+    </ul>
+
+    <div class="callout info">💡 <b>빠른 계산</b>: 전세자금대출로 보증금 거의 다 댔다면 → 실수령 ≈ 0. 단 빚이 사라짐. 이게 "손해는 아니다"의 의미.</div>
+
+    <h3>소액임차인 최우선변제(§8) 적용 시</h3>
+    <p>지역별 보증금 상한 이하면 근저당보다 앞서 일정액(예: 서울 5,500만원 한도 내 1,850만원 등, 시기별 변동) <b>최우선 배당</b>. 본인 해당 여부는 국토부 고시 확인.</p>
+
+    <div class="callout warn">⚠ 증액 계약한 경우: <b>증액분은 별도 확정일자·보증서 반영</b> 안 했으면 HUG 보전 제외될 수 있음.</div>
+
+    <div class="quiz" data-ch="6">
+      <div class="qtitle">🧩 자가점검 (1문제)</div>
+      <div class="q" data-a="2">
+        <div class="qq">Q. 보증금 3억, 대출 2.8억, 후순위 임차인, HUG 전액 보증. 내 실수령은?</div>
+        <div class="opts">
+          <label><input type="radio" name="q6-1"/>① 3억</label>
+          <label><input type="radio" name="q6-1"/>② 약 2천만원 (H − L)</label>
+          <label><input type="radio" name="q6-1"/>③ 0원이지만 빚 소멸</label>
+        </div>
+        <div class="reveal">정답 ②. H(3억) − L(2.8억) = 0.2억. 배당 0 가정.</div>
+      </div>
+      <button class="qbtn" onclick="checkQuiz(this,6)">정답 확인</button>
+    </div>
+    <div class="actions">
+      <button class="sec" onclick="go(5)">◀ 이전</button>
+      <button onclick="markDone(6);go(7)">완료 · 다음 ▶</button>
+    </div>
+  </section>
+  <!-- CH06 -->
+
+  <section class="chapter" id="ch7" data-ch="7">
+    <header><h2>⑦ HUG 함정 질문 & 대응 스크립트</h2><span class="badge">CHAPTER 7 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — 상담 직원이 거절·지연 유도 질문을 던져도 <b>근거 조항으로 되받아</b> 꺾이지 않는다.</div>
+
+    <h3>전형적인 밀어내기 레퍼토리 & 대응</h3>
+    <table>
+      <tr><th>그들의 말</th><th>속뜻</th><th>내 응답</th></tr>
+      <tr><td>"언제 이사 나가실 거예요?"</td><td>명도 전엔 대위변제 안 함 유도</td><td>"명도는 대위변제 확정 후 매수인과 협의합니다. 지금은 <b>이행청구 접수</b>가 먼저입니다."</td></tr>
+      <tr><td>"임대인과 더 얘기해보세요"</td><td>보증사고 인정 지연</td><td>"경매 진행 중이고 <b>약관상 2호 사고 요건 충족</b>되어 이행청구 드립니다."</td></tr>
+      <tr><td>"서류가 덜 오셨네요"</td><td>반려해서 기한 재산정</td><td>"제출 가능한 서류는 다 냈습니다. 추가 필요분은 <b>서면·이메일</b>로 주세요. 구두 안내는 제 귀책 아닙니다."</td></tr>
+      <tr><td>"은행부터 가보세요"</td><td>책임 전가</td><td>"보증사고 주채권자는 HUG입니다. 은행 건은 별건 진행 중."</td></tr>
+      <tr><td>"원칙상 안 됩니다"</td><td>재량 거절</td><td>"<b>약관 몇 조 근거</b>로 안 되는지 <b>서면</b>으로 주세요. 금감원·국토부 민원 접수 시 필요합니다."</td></tr>
+      <tr><td>"채권양도 하셨어요?"</td><td>안 했으면 거절</td><td>"가입서 확인한 바 <b>질권/양도</b> 되어 있습니다. 추가 통지 필요 시 절차 안내 부탁."</td></tr>
+    </table>
+
+    <h3>만능 응답 템플릿</h3>
+    <div class="callout good">
+    "감사합니다. 지금 말씀하신 내용은 <b>약관·법령 어느 근거</b>에 따른 건지 <b>서면으로</b> 확인 받고 싶습니다. <b>담당자 성함·직통번호</b>도 메모해두겠습니다."
+    </div>
+    <p>→ 이 말 꺼내는 순간 재량 거절은 대부분 사라짐. 녹음은 합법(통비법 §3①, 본인 당사자).</p>
+
+    <h3>상담 시작 30초 스크립트 (태도 전환용)</h3>
+    <div class="callout info">
+    "증권번호 ○○○○입니다. <b>대항력·확정일자 모두 있고 배당요구 제출 완료</b>입니다. 전세자금대출이 ○○은행에 있고 <b>대위변제 시 은행 직접 상환</b>으로 이해하고 있습니다."
+    </div>
+    <p>→ "이 사람 알고 있다"는 신호 = 태도 180도 바뀜.</p>
+
+    <div class="quiz" data-ch="7">
+      <div class="qtitle">🧩 자가점검 (1문제)</div>
+      <div class="q" data-a="3">
+        <div class="qq">Q. "원칙상 안 됩니다" 말 들으면?</div>
+        <div class="opts">
+          <label><input type="radio" name="q7-1"/>① 알겠다고 하고 끊기</label>
+          <label><input type="radio" name="q7-1"/>② 그냥 감정적으로 항의</label>
+          <label><input type="radio" name="q7-1"/>③ 약관·법령 근거와 서면 회신 요구</label>
+        </div>
+        <div class="reveal">정답 ③. 근거 없는 재량 거절은 법적으로 무효.</div>
+      </div>
+      <button class="qbtn" onclick="checkQuiz(this,7)">정답 확인</button>
+    </div>
+    <div class="actions">
+      <button class="sec" onclick="go(6)">◀ 이전</button>
+      <button onclick="markDone(7);go(8)">완료 · 다음 ▶</button>
+    </div>
+  </section>
+  <!-- CH07 -->
+
+  <section class="chapter" id="ch8" data-ch="8">
+    <header><h2>⑧ 거절·감액 사유 패턴</h2><span class="badge">CHAPTER 8 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — HUG가 실제로 거절·감액하는 6대 사유를 알고 <b>사전에 차단</b>한다.</div>
+
+    <table>
+      <tr><th>#</th><th>거절·감액 사유</th><th>선제 차단</th></tr>
+      <tr><td>1</td><td>사고 통지 지연</td><td>경매 인지 즉시 <b>서면 통지</b>, 통지일 기록</td></tr>
+      <tr><td>2</td><td>대항력·우선변제권 상실 (전출·점유해제)</td><td>임차권등기 <b>등재 전엔</b> 무조건 주소 유지</td></tr>
+      <tr><td>3</td><td>배당요구 누락·종기 경과</td><td>사건번호 확보 → 종기일 확인 → 즉시 제출</td></tr>
+      <tr><td>4</td><td>가장임차(지인·가족) 의심</td><td>이체내역·중개계약·영수증 원본 보관</td></tr>
+      <tr><td>5</td><td>증액분 보장 제외</td><td>증액 시 <b>새 확정일자·보증서 반영</b> 확인</td></tr>
+      <tr><td>6</td><td>채권양도 통지 미비</td><td>가입 시점 또는 청구 전 내용증명 발송</td></tr>
+      <tr><td>7</td><td>명도 미이행</td><td>매수인과 이사일 합의 → <b>명도확약서</b> 선제출</td></tr>
+      <tr><td>8</td><td>서류 흠결(원본·인감·등기)</td><td>체크리스트로 전수 검증</td></tr>
+    </table>
+
+    <h3>내가 쓸 수 있는 레버리지</h3>
+    <ul>
+      <li>HUG 약관 조항 서면 근거 요구</li>
+      <li><b>금융감독원 민원</b> 접수 (1332) — HUG도 민원 반응 민감</li>
+      <li><b>국토교통부 주거복지과</b> (HUG 감독기관)</li>
+      <li>이행청구 소송 (민사) — 승소 시 지연손해금 연 6%</li>
+      <li>대한법률구조공단 (132) — 전세사기 특별 접수</li>
+    </ul>
+
+    <div class="callout good">💡 <b>근거 조문</b>: 주임법 §3, §3의2, §3의3, §8 · 민집법 §84, §88 · 민법 §450, §481 · 가입 보증약관.</div>
+
+    <div class="quiz" data-ch="8">
+      <div class="qtitle">🧩 자가점검 (1문제)</div>
+      <div class="q" data-a="1">
+        <div class="qq">Q. 임차권등기 전에 이사하면?</div>
+        <div class="opts">
+          <label><input type="radio" name="q8-1"/>① 대항력·우선변제권 상실 → 거절·감액 사유</label>
+          <label><input type="radio" name="q8-1"/>② HUG가 자동 보전</label>
+          <label><input type="radio" name="q8-1"/>③ 아무 영향 없음</label>
+        </div>
+        <div class="reveal">정답 ①. 등기부 등재 확인 전엔 절대 전출 금지.</div>
+      </div>
+      <button class="qbtn" onclick="checkQuiz(this,8)">정답 확인</button>
+    </div>
+    <div class="actions">
+      <button class="sec" onclick="go(7)">◀ 이전</button>
+      <button onclick="markDone(8);go(9)">완료 · 다음 ▶</button>
+    </div>
+  </section>
+  <!-- CH08 -->
+
+  <section class="chapter" id="ch9" data-ch="9">
+    <header><h2>⑨ 증거 수집 · 서면화 · 문서 관리</h2><span class="badge">CHAPTER 9 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — 구두 약속을 신뢰하지 않고 <b>모든 것을 서면화</b>하는 운영 체계를 만든다.</div>
+
+    <h3>원칙: 구두는 0점, 서면이 100점</h3>
+    <ul>
+      <li>전화 — 본인 당사자 녹음 합법(통비법 §3①). <b>통화 종료 직후 요약 문자 발송</b> ("오늘 ○시 ○○님과 통화: A, B 확인. 다른 점 있으면 알려주세요")</li>
+      <li>방문 — 방문일·담당자·안내 내용 현장 메모. 귀가 후 <b>이메일로 확인 요청</b>.</li>
+      <li>우편 — 내용증명 또는 등기우편.</li>
+      <li>이메일 — 읽음확인 요청, 도달증명 보관.</li>
+    </ul>
+
+    <h3>폴더 구성 템플릿 (지금 만들 것)</h3>
+    <pre>
+전세사건/
+├── 01_계약/       계약서·확정일자부·중개영수증·이체내역
+├── 02_대출/       약정서·상환이력·잔액증명
+├── 03_주민등록/   등본·초본(말소자포함)
+├── 04_등기부/     경매 전후 등기부등본 이력
+├── 05_경매/       개시결정문·사건조회 출력·배당요구서 사본·배당표
+├── 06_HUG/        보증서·약관·제출서류 사본·접수증·통화녹음·이메일
+├── 07_은행/       담당자 연락·상환유예·잔액증명
+└── 08_기타/       임차권등기 결정문·내용증명·상담기록</pre>
+
+    <h3>서면화 체크리스트</h3>
+    <ul>
+      <li>모든 전화 녹음 + 요약 문자</li>
+      <li>모든 방문 접수증 수령</li>
+      <li>모든 이메일 송수신 백업</li>
+      <li>모든 내용증명 우편 3부(본인·상대·우체국) 보관</li>
+      <li>사본 스캔 → 클라우드 이중 백업(Google Drive + 외장하드 등)</li>
+    </ul>
+
+    <div class="callout warn">⚠ 담당자가 바뀌면 말이 바뀜. 서면이 없으면 <b>"그런 말 한 적 없다"</b>가 기본값.</div>
+
+    <div class="quiz" data-ch="9">
+      <div class="qtitle">🧩 자가점검 (1문제)</div>
+      <div class="q" data-a="2">
+        <div class="qq">Q. 본인이 대화 당사자인 전화 녹음은?</div>
+        <div class="opts">
+          <label><input type="radio" name="q9-1"/>① 무조건 불법</label>
+          <label><input type="radio" name="q9-1"/>② 합법 (통비법 §3①)</label>
+          <label><input type="radio" name="q9-1"/>③ 상대 동의 필요</label>
+        </div>
+        <div class="reveal">정답 ②. 당사자 녹음은 합법. 제3자 몰래 녹음이 불법.</div>
+      </div>
+      <button class="qbtn" onclick="checkQuiz(this,9)">정답 확인</button>
+    </div>
+    <div class="actions">
+      <button class="sec" onclick="go(8)">◀ 이전</button>
+      <button onclick="markDone(9);go(10)">완료 · 다음 ▶</button>
+    </div>
+  </section>
+  <!-- CH09 -->
+
+  <section class="chapter" id="ch10" data-ch="10">
+    <header><h2>⑩ 내일 실행 체크리스트</h2><span class="badge">FINAL · CHAPTER 10 / 10</span></header>
+    <div class="goal">🎯 <b>학습 목표</b> — 내일 아침 일어나서 바로 순서대로 움직인다. 지체 없이.</div>
+
+    <h3>아침 7~8시 — 집에서 자가조사</h3>
+    <ul>
+      <li>□ <b>등기부등본 1통 발급</b> (iros.go.kr, 700~1,000원)</li>
+      <li>□ <b>주민등록등본 + 초본(말소자 포함)</b> 발급 (정부24)</li>
+      <li>□ <b>대법원 경매정보</b>에서 사건 조회 → <b>사건번호·배당요구종기·매각기일</b> 확보 (courtauction.go.kr)</li>
+      <li>□ 등기부상 <b>근저당 설정일</b> vs <b>내 전입일</b> 비교 → 선순위/후순위 자가판정</li>
+      <li>□ <b>보증서(HUG)</b> 꺼내 증권번호·보증금액·보증기간·채권양도 조항 확인</li>
+      <li>□ <b>대출약정서</b> 확인 — 질권·양도 조항, 현재 잔액 스크린샷</li>
+    </ul>
+
+    <h3>오전 9~11시 — 전화 2통</h3>
+    <ol>
+      <li><b>HUG 1566-9009</b>
+        <ul>
+          <li>"증권번호 ○○○○. 임대인 주택 경매 진행. 대항력·확정일자 있고 배당요구 제출 예정."</li>
+          <li>확보 사항: 담당 지사·담당자·직통번호·필요 서류 목록·채권양도 자동여부·모바일HUG 접수 가이드</li>
+        </ul>
+      </li>
+      <li><b>전세자금대출 은행 담당자</b>
+        <ul>
+          <li>"임차 주택 경매 진행. HUG 이행청구 중. 대위변제 예정."</li>
+          <li>확보 사항: 대출 잔액·이자, <b>기한이익상실 유예</b>, 상환계좌, 잔액증명서 발급 시점</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>오후 — 법원·법률상담</h3>
+    <ul>
+      <li>□ 관할 집행법원 민원실 방문 또는 전화 → 사건 접수 확인, <b>배당요구서</b> 작성·제출</li>
+      <li>□ 필요 시 <b>임차권등기명령 신청서</b> 작성(지방법원 접수)</li>
+      <li>□ 대한법률구조공단 <b>132</b> 또는 주택임대차분쟁조정위 <b>1670-1132</b> 상담 예약</li>
+    </ul>
+
+    <h3>이번 주 내 — 서면 정리</h3>
+    <ul>
+      <li>□ <b>임대인에게 내용증명</b>: 계약 해지 통보 + 보증금 반환 촉구 + 채권양도 통지</li>
+      <li>□ HUG·은행 모든 통화 요약 이메일·문자 송부</li>
+      <li>□ 폴더 구조 만들고 문서 스캔 백업 시작</li>
+    </ul>
+
+    <div class="callout good">🏁 <b>완주 축하합니다</b>. 이 10챕터를 모두 이해했다면 당신은 <b>HUG 담당자가 "이 사람 함부로 못 하겠다" 느끼는 세입자</b>가 되었습니다. 구두·회유·재량 거절에 흔들리지 않을 수 있습니다.</div>
+
+    <div class="actions">
+      <button class="sec" onclick="go(9)">◀ 이전</button>
+      <button class="done" onclick="markDone(10);finish()">🏁 학습 완료</button>
+    </div>
+  </section>
+  <!-- CH10 -->
+
+
+  <div class="disclaimer">
+    ※ 본 자료는 공개 정보 기반 실무 참고용. <b>법률 자문 아님</b>. HUG 공식 안내(1566-9009)·변호사·대한법률구조공단(132) 상담 병행 권장. 서류·기한은 변경 가능 — 접수 전 최신 안내 재확인.
+  </div>
+  <div class="footer">HUG 전세보증금반환보증 학습 코스 · v1 · 2026-04-13</div>
+</main>
+</div>
+
+<script>
+const TOTAL=10;
+const store={
+  get:()=>{try{return JSON.parse(localStorage.getItem('hug-done')||'[]')}catch(e){try{return JSON.parse(sessionStorage.getItem('hug-done')||'[]')}catch(e){return []}}},
+  set:a=>{try{localStorage.setItem('hug-done',JSON.stringify(a))}catch(e){try{sessionStorage.setItem('hug-done',JSON.stringify(a))}catch(e){}}}
+};
+const TITLES=[
+ '사건의 법적 구조','3대 권리 (대항력·우선변제권·배당요구)','타임라인 (오늘~6개월)',
+ '전세자금대출 연계','HUG 이행청구 서류','돈 흐름 계산',
+ 'HUG 함정 질문 대응','거절·감액 사유','증거 수집·서면화','내일 실행 체크리스트'];
+function buildTOC(){
+  const done=store.get();
+  const ol=document.getElementById('tocList');ol.innerHTML='';
+  TITLES.forEach((t,i)=>{
+    const n=i+1;const li=document.createElement('li');
+    const a=document.createElement('a');a.href='#ch'+n;
+    a.innerHTML='<span class="chk">✓</span><span><b>'+n+'.</b> '+t+'</span>';
+    if(done.includes(n))a.classList.add('done');
+    a.onclick=()=>{document.getElementById('toc').classList.remove('open')};
+    li.appendChild(a);ol.appendChild(li);
+  });
+  updateProg();
+}
+function updateProg(){
+  const done=store.get().filter(n=>n>=1&&n<=TOTAL);
+  const pct=Math.round(done.length/TOTAL*100);
+  document.getElementById('fill').style.width=pct+'%';
+  document.getElementById('pct').textContent=done.length+' / '+TOTAL;
+}
+function markDone(n){
+  const done=store.get();
+  if(!done.includes(n)){done.push(n);store.set(done)}
+  buildTOC();
+}
+function go(n){
+  const el=document.getElementById('ch'+n);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function checkQuiz(btn,ch){
+  const box=btn.closest('.quiz');
+  const qs=box.querySelectorAll('.q');
+  let allRight=true;
+  qs.forEach((q,idx)=>{
+    const correct=parseInt(q.dataset.a,10);
+    const opts=q.querySelectorAll('input[type=radio]');
+    let picked=0;
+    opts.forEach((r,i)=>{if(r.checked)picked=i+1});
+    const rv=q.querySelector('.reveal');rv.classList.add('on');
+    if(picked===0){rv.classList.add('wrong');rv.textContent='선택이 필요합니다.';allRight=false}
+    else if(picked===correct){rv.classList.remove('wrong')}
+    else{rv.classList.add('wrong');allRight=false}
+  });
+  if(allRight){markDone(ch)}
+}
+function finish(){
+  alert('🏁 학습 완료! 내일 아침 체크리스트대로 움직이세요. 침착하게, 서면 근거로.');
+}
+/* 다크모드 */
+document.getElementById('themeBtn').onclick=()=>{
+  const cur=document.documentElement.getAttribute('data-theme')||'light';
+  const next=cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  try{localStorage.setItem('hug-theme',next)}catch(e){}
+  document.getElementById('themeBtn').textContent=next==='dark'?'☀️ 라이트':'🌙 다크';
+};
+(function(){const t=document.documentElement.getAttribute('data-theme');document.getElementById('themeBtn').textContent=t==='dark'?'☀️ 라이트':'🌙 다크'})();
+/* 초기화 */
+document.getElementById('resetBtn').onclick=()=>{
+  if(confirm('진도를 전부 초기화합니다. 계속?')){try{localStorage.removeItem('hug-done')}catch(e){}buildTOC()}
+};
+/* 모바일 TOC */
+document.getElementById('tocFab').onclick=()=>{document.getElementById('toc').classList.toggle('open')};
+/* 스크롤 시 활성 챕터 표시 */
+const sections=[...document.querySelectorAll('.chapter')];
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const n=e.target.dataset.ch;
+      document.querySelectorAll('#tocList a').forEach(a=>a.classList.remove('active'));
+      const cur=document.querySelector('#tocList a[href="#ch'+n+'"]');
+      if(cur)cur.classList.add('active');
+    }
+  });
+},{rootMargin:'-40% 0px -50% 0px'});
+sections.forEach(s=>io.observe(s));
+buildTOC();
+</script>
+</body>
+</html>
