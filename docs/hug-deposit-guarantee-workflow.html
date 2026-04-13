@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>HUG 전세보증금반환보증 이행청구 워크플로우</title>
+<style>
+  :root{
+    --navy:#0f2e5c; --blue:#1f6fb5; --light:#eaf2fb; --accent:#e86a33;
+    --gray:#4a4a4a; --muted:#6b7280; --green:#2e7d32; --red:#c62828;
+    --bg:#f7f9fc; --card:#ffffff; --border:#d6dde8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--gray);
+    font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 96px}
+  header.hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;
+    padding:56px 32px;border-radius:20px;margin-bottom:28px;box-shadow:0 12px 32px rgba(15,46,92,.18)}
+  header.hero h1{margin:0 0 12px;font-size:32px;letter-spacing:-.3px}
+  header.hero p{margin:6px 0;opacity:.92}
+  header.hero .meta{margin-top:18px;font-size:13px;opacity:.8}
+  nav.toc{position:sticky;top:0;background:rgba(247,249,252,.92);backdrop-filter:blur(8px);
+    padding:12px 0;margin:-16px -20px 20px;border-bottom:1px solid var(--border);z-index:5}
+  nav.toc ul{list-style:none;margin:0;padding:0 20px;display:flex;flex-wrap:wrap;gap:6px}
+  nav.toc a{font-size:13px;padding:6px 12px;border-radius:999px;background:#fff;border:1px solid var(--border);color:var(--navy)}
+  nav.toc a:hover{background:var(--light);text-decoration:none}
+  section{background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:28px 28px 24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(15,46,92,.04)}
+  section h2{margin:0 0 18px;color:var(--navy);font-size:22px;letter-spacing:-.2px;
+    padding-bottom:10px;border-bottom:2px solid var(--light)}
+  section h3{margin:22px 0 10px;color:var(--navy);font-size:17px}
+  .badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;
+    background:var(--accent);color:#fff;vertical-align:middle;margin-left:6px}
+  .scenario{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch}
+  .scenario .box{padding:20px;border-radius:14px;color:#fff;font-weight:700;text-align:center;display:flex;align-items:center;justify-content:center;min-height:96px}
+  .scenario .arrow{align-self:center;color:var(--muted);font-size:24px;font-weight:700}
+  .bg-blue{background:var(--blue)} .bg-accent{background:var(--accent)} .bg-red{background:var(--red)}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{border:1.5px solid var(--border);border-radius:14px;overflow:hidden;background:#fff}
+  .card.hl{border:2.5px solid var(--accent)}
+  .card .head{padding:14px 18px;color:#fff;font-weight:700}
+  .card.case1 .head{background:var(--blue)} .card.case2 .head{background:var(--accent)}
+  .card .body{padding:16px 18px;font-size:14.5px}
+  .card .star{color:var(--accent);font-weight:700;margin-top:10px}
+  table.diff{width:100%;border-collapse:collapse;margin-top:8px}
+  table.diff th,table.diff td{padding:12px 14px;text-align:left;border:1px solid var(--border);font-size:14px;vertical-align:top}
+  table.diff th{background:var(--navy);color:#fff}
+  table.diff td:first-child{background:var(--light);font-weight:700;color:var(--navy);width:22%}
+  .star{color:var(--accent);font-weight:700}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .step{position:relative;padding:14px 10px;border-radius:12px;color:#fff;text-align:center;font-size:13px;font-weight:700;min-height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .step span.num{display:inline-block;background:rgba(255,255,255,.25);border-radius:999px;padding:2px 9px;font-size:11px;margin-bottom:6px}
+  .step.s1,.step.s2,.step.s3,.step.s4,.step.s5{background:var(--blue)}
+  .step.s6,.step.s7,.step.s8{background:var(--accent)}
+  .step.s9,.step.s10{background:var(--green)}
+  .timeline-note{margin-top:14px;padding:12px 16px;border-radius:10px;background:#fff8f0;border-left:4px solid var(--accent);color:var(--navy);font-weight:600;font-size:14px}
+  ul.docs{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+  ul.docs li{padding:8px 10px;border-left:3px solid var(--blue);background:#fafbff;border-radius:6px;font-size:14px}
+  ul.docs li.req{border-left-color:var(--accent)}
+  .loan-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .loan-card{background:var(--light);border:1.5px solid var(--blue);border-radius:12px;padding:16px 18px}
+  .loan-card .t{color:var(--navy);font-weight:700;margin-bottom:6px}
+  .dodont{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .dodont .col{border:2.5px solid var(--border);border-radius:14px;padding:18px 20px;background:#fff}
+  .dodont .col.do{border-color:var(--green)} .dodont .col.dont{border-color:var(--red)}
+  .dodont h3{margin-top:0}
+  .dodont .col.do h3{color:var(--green)} .dodont .col.dont h3{color:var(--red)}
+  .dodont ul{padding-left:18px;margin:0}
+  .dodont li{margin:6px 0;font-size:14.5px}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;align-items:center}
+  .kv .lb{padding:8px 14px;border-radius:999px;color:#fff;font-weight:700;font-size:13.5px;white-space:nowrap;text-align:center}
+  .kv .v{font-weight:600;color:var(--navy);font-size:15px}
+  .lb.acc{background:var(--accent)} .lb.nv{background:var(--navy)} .lb.bl{background:var(--blue)}
+  .refs{display:grid;grid-template-columns:1fr;gap:6px}
+  .refs a{word-break:break-all;font-size:14px}
+  .disclaimer{margin-top:16px;padding:14px 18px;border-radius:10px;background:var(--light);color:var(--navy);font-size:13.5px;border-left:4px solid var(--navy)}
+  footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:24px}
+  @media (max-width:820px){
+    .scenario{grid-template-columns:1fr;gap:8px}
+    .scenario .arrow{transform:rotate(90deg);text-align:center}
+    .cards,.loan-grid,.dodont{grid-template-columns:1fr}
+    ul.docs{grid-template-columns:1fr}
+    .steps{grid-template-columns:repeat(2,1fr)}
+    header.hero{padding:36px 22px}
+    header.hero h1{font-size:25px}
+  }
+  @media print{
+    nav.toc{display:none} body{background:#fff}
+    section{break-inside:avoid;box-shadow:none;border-color:#ccc}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div style="font-size:13px;letter-spacing:2px;opacity:.8">HUG · KOREA HOUSING &amp; URBAN GUARANTEE CORP.</div>
+    <h1>전세보증금반환보증 이행청구 워크플로우</h1>
+    <p>전세자금대출 세입자 — 집주인 경매 상황 대응 매뉴얼</p>
+    <div class="meta">작성일 2026-04-13 · 공개 정보 기반 실무 참고용 · 법률 자문 아님</div>
+  </header>
+
+  <nav class="toc" aria-label="목차">
+    <ul>
+      <li><a href="#scenario">① 시나리오</a></li>
+      <li><a href="#types">② 사고유형</a></li>
+      <li><a href="#product">③ 상품비교</a></li>
+      <li><a href="#workflow">④ 워크플로우</a></li>
+      <li><a href="#docs">⑤ 제출서류</a></li>
+      <li><a href="#loan">⑥ 대출 연계</a></li>
+      <li><a href="#checklist">⑦ Do/Don't</a></li>
+      <li><a href="#deadlines">⑧ 기한·연락처</a></li>
+      <li><a href="#refs">⑨ 참고·면책</a></li>
+    </ul>
+  </nav>
+
+  <section id="scenario">
+    <h2>① 사용자 시나리오</h2>
+    <div class="scenario">
+      <div class="box bg-blue">전세자금대출로<br/>전세계약 체결</div>
+      <div class="arrow">→</div>
+      <div class="box bg-accent">집주인 주택이<br/>경매로 넘어감</div>
+      <div class="arrow">→</div>
+      <div class="box bg-red">전세보증금<br/>반환 불가</div>
+    </div>
+    <p style="margin-top:16px">
+      → <b>HUG 전세보증금반환보증 이행청구</b> 필요 (경매 <b>2호 사고</b>)<br/>
+      → 전세자금대출이 있어, 대위변제금은 <b>대출은행 우선 상환</b> 후 <b>잔액만</b> 세입자 수령
+    </p>
+  </section>
+
+  <section id="types">
+    <h2>② 보증사고 유형 <span class="badge">본 케이스: 2호</span></h2>
+    <div class="cards">
+      <div class="card case1">
+        <div class="head">1호 사고 — 계약 종료 후 미반환</div>
+        <div class="body">전세계약 해지·종료 후 <b>1개월 이내</b>에 정당한 사유 없이 보증금을 돌려받지 못한 경우</div>
+      </div>
+      <div class="card case2 hl">
+        <div class="head">2호 사고 — 경매·공매 후 미수령</div>
+        <div class="body">전세 기간 중 경매/공매가 실시되어, <b>배당 후에도</b> 전세보증금을 회수하지 못한 경우
+          <div class="star">★ 본 사용자 시나리오</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="product">
+    <h2>③ 반환보증 vs 대출상환보증 — 가입 상품 확인 필수</h2>
+    <table class="diff">
+      <thead><tr><th>구분</th><th>반환보증</th><th>대출상환보증 (전세금안심대출보증 등)</th></tr></thead>
+      <tbody>
+        <tr><td>보호 대상</td><td>세입자</td><td>대출 은행</td></tr>
+        <tr><td>작동 방식</td><td>집주인 대신 HUG가 세입자에게 보증금 지급</td><td>세입자 상환 불능 시 HUG가 은행에 대신 상환</td></tr>
+        <tr><td>본 시나리오와 관계</td><td><span class="star">★ 필수</span></td><td>결합 상품 가입 시 병행 처리</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="workflow">
+    <h2>④ 전체 단계별 워크플로우</h2>
+    <div class="steps">
+      <div class="step s1"><span class="num">STEP 1</span>경매개시<br/>통지 수령</div>
+      <div class="step s2"><span class="num">STEP 2</span>HUG·은행<br/>사고 통지</div>
+      <div class="step s3"><span class="num">STEP 3</span>배당요구<br/>제출</div>
+      <div class="step s4"><span class="num">STEP 4</span>(필요 시)<br/>임차권등기</div>
+      <div class="step s5"><span class="num">STEP 5</span>배당 참여<br/>배당표 수령</div>
+      <div class="step s6"><span class="num">STEP 6</span>HUG<br/>이행청구</div>
+      <div class="step s7"><span class="num">STEP 7</span>HUG<br/>이행심사</div>
+      <div class="step s8"><span class="num">STEP 8</span>대위변제<br/>(은행 우선)</div>
+      <div class="step s9"><span class="num">STEP 9</span>명도<br/>이행금 수령</div>
+      <div class="step s10"><span class="num">STEP 10</span>HUG 구상·정산</div>
+    </div>
+    <div class="timeline-note">
+      ⏰ 핵심 기한 — 배당요구 종기 / 이행청구는 <b>계약 종료 후 3개월 이내</b> / 심사·대위변제 각 약 1개월
+    </div>
+  </section>
+
+  <section id="docs">
+    <h2>⑤ HUG 제출 서류 (경매 2호 사고)</h2>
+    <ul class="docs">
+      <li class="req">보증채무이행청구서 (HUG 양식)</li>
+      <li>신분증 사본</li>
+      <li>주민등록등본 또는 초본 (말소자 포함)</li>
+      <li class="req">확정일자부 전세계약서 <b>원본</b></li>
+      <li>인감증명서 + 인감도장</li>
+      <li class="req">임차권등기명령 결정문</li>
+      <li class="req">임차권등기 등재된 등기부등본</li>
+      <li>전세계약 해지·종료 증빙 (내용증명 등)</li>
+      <li class="req">배당표 사본 등 미수령액 증빙</li>
+      <li class="req">채권양도계약서 + 양도통지 증빙</li>
+      <li>(대출 있을 시) 대출 잔액증명서, 은행 상환계좌 정보, 대출약정서 사본</li>
+    </ul>
+  </section>
+
+  <section id="loan">
+    <h2>⑥ 전세자금대출 연계 주의점</h2>
+    <div class="loan-grid">
+      <div class="loan-card"><div class="t">① 대출은행 우선 상환</div>대위변제금은 HUG → 대출은행 직접 입금. 세입자는 대출 잔액을 제외한 <b>차액만</b> 수령.</div>
+      <div class="loan-card"><div class="t">② 은행·HUG 동시 통지</div>이자는 대위변제일까지 계속 발생. 경매 인지 즉시 양쪽 모두에 통지.</div>
+      <div class="loan-card"><div class="t">③ 가입 상품 확인</div>반환보증 단독인지, 전세금안심대출보증(반환+상환 결합)인지 확인.</div>
+      <div class="loan-card"><div class="t">④ 임의 변경 금지</div>경매 개시 이후 대출 중도상환·갱신 등은 반드시 은행·HUG와 협의.</div>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <h2>⑦ 세입자 Do / Don't 체크리스트</h2>
+    <div class="dodont">
+      <div class="col do">
+        <h3>✅ 반드시 할 것</h3>
+        <ul>
+          <li>경매개시결정문 수령 즉시 <b>HUG·은행 동시 통지</b></li>
+          <li>배당요구 기한 내 제출</li>
+          <li>전입·점유·확정일자 유지</li>
+          <li>이사 필요 시 <b>임차권등기 먼저</b></li>
+          <li>계약서·내용증명·등기부등본 <b>원본 보관</b></li>
+          <li>계약 종료 후 <b>3개월 이내</b> HUG 이행청구</li>
+        </ul>
+      </div>
+      <div class="col dont">
+        <h3>❌ 절대 하지 말 것</h3>
+        <ul>
+          <li>임차권등기 없이 전출(이사)</li>
+          <li>경매 진행 중 점유 해제 / 주소지 변경</li>
+          <li>배당요구 종기 경과 후 신고 시도</li>
+          <li>임대인과 사적 합의로 권리 포기</li>
+          <li>중요 서류 원본 분실</li>
+          <li>청구 기한(3개월) 도과</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="deadlines">
+    <h2>⑧ 핵심 기한 · 연락처</h2>
+    <div class="kv">
+      <span class="lb acc">⏰ 배당요구 종기</span><span class="v">법원 공고일 기준 · 놓치면 배당 불가</span>
+      <span class="lb acc">⏰ 이행청구 기한</span><span class="v">전세계약 종료 후 <b>3개월 이내</b></span>
+      <span class="lb bl">⏰ 심사·대위변제</span><span class="v">각 약 1개월 (합산 약 2개월)</span>
+      <span class="lb nv">📞 HUG 콜센터</span><span class="v">1566-9009</span>
+      <span class="lb nv">🌐 모바일HUG</span><span class="v"><a href="https://onestop.khug.or.kr/webView/webBiz/excu/loahExcu001">onestop.khug.or.kr/webView/webBiz/excu/loahExcu001</a></span>
+      <span class="lb nv">🌐 보증이행 안내</span><span class="v"><a href="https://www.khug.or.kr/hug/web/ge/er/geer001200.jsp">khug.or.kr/hug/web/ge/er/geer001200.jsp</a></span>
+    </div>
+  </section>
+
+  <section id="refs">
+    <h2>⑨ 참고 링크 · 면책</h2>
+    <div class="refs">
+      <a href="https://www.khug.or.kr/hug/web/ge/er/geer001100.jsp">· HUG 전세보증금반환보증 사고란</a>
+      <a href="https://www.khug.or.kr/hug/web/ge/er/geer001200.jsp">· HUG 전세보증금반환보증 이행절차</a>
+      <a href="https://onestop.khug.or.kr/webView/webBiz/excu/loahExcu001">· 모바일HUG 전세보증 이행청구</a>
+      <a href="https://www.khug.or.kr/hug/web/ig/dr/igdr000002.jsp">· HUG 이용절차 및 제출서류</a>
+      <a href="https://www.khug.or.kr/hug/web/ig/dl/igdl000001.jsp">· HUG 전세금안심대출보증</a>
+      <a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=629&ccfNo=5&cciNo=2&cnpClsNo=1">· 찾기쉬운 생활법령정보 — 임차권등기명령</a>
+      <a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=629&ccfNo=5&cciNo=2&cnpClsNo=5">· 찾기쉬운 생활법령정보 — 배당요구</a>
+      <a href="https://www.hf.go.kr/ko/sub02/sub02_05_01.do">· 한국주택금융공사(HF) 일반전세지킴보증</a>
+    </div>
+    <div class="disclaimer">
+      ※ 본 자료는 공개 정보 기반 실무 참고용이며 <b>법률 자문이 아닙니다</b>. 실제 대응 시 HUG 공식 안내 및 변호사·대한법률구조공단 상담을 병행하십시오. 서류·기한·절차는 변경될 수 있으므로 접수 전 최신 안내를 재확인 바랍니다.
+    </div>
+  </section>
+
+  <footer>HUG 전세보증금반환보증 이행청구 워크플로우 · 2026-04-13</footer>
+</div>
+</body>
+</html>
