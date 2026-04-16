@@ -52,10 +52,14 @@ def start_session(
         rng.shuffle(pool)
     elif mode == "weakest_first":
         if weakest_ids:
-            wid_set = set(weakest_ids)
-            weak = [q for q in pool if q.id in wid_set]
-            rest = [q for q in pool if q.id not in wid_set]
-            pool = weak + rest
+            pool_by_id = {q.id: q for q in pool}
+            # weakest_ids 입력 순서 존중 (가장 취약한 것 먼저)
+            weak_ordered = [
+                pool_by_id[qid] for qid in weakest_ids if qid in pool_by_id
+            ]
+            weak_id_set = set(weakest_ids)
+            rest = [q for q in pool if q.id not in weak_id_set]
+            pool = weak_ordered + rest
 
     if limit is not None:
         pool = pool[:limit]
