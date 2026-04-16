@@ -166,6 +166,17 @@ python -m unittest discover tests -v
    - M3: 보유 알라딘 이북 목록 (제목/출판사/판본)
 5. 자료 수령 즉시 R3 재개. Agent P1 파견 → 공식 팩트 확정 → R4/R5/R6/R_RE/R8(적재)/R10(회독) 순차.
 
+## 데스크탑(로컬 PC)에서 이어가기
+
+`docs/desktop_setup.md` — 클론/풀 → 테스트 → Claude Code 재개 가이드.
+요약 3단계:
+```bash
+git clone https://github.com/ubermensch90623/ubermensch.git && cd ubermensch
+git checkout claude/fix-handwriting-recognition-J9xJq
+python -m unittest discover tests   # 67 전부 통과 확인
+```
+그 다음 Claude Code 앱/CLI 로 이 폴더 열고 `CLAUDE.md` 읽힘 확인 → 자료 공유 시작.
+
 ---
 
 ## 데이터 파일 위치
