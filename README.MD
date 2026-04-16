@@ -1,25 +1,116 @@
-# exam_analyzer
+# ubermensch — 서민금융진흥원 필기 복원·훈련·예측 프로젝트
 
-공공기관 필기전형 점수를 입력/분석/누적 관리하는 Python CLI 도구.
+> **사용자**: 윤종환 (서민금융진흥원 2026 상반기 종합직 일반 필기 응시 · 총점 58.09 / 커트라인 64.48 / 격차 -6.39)
+> **목표**: 다음 회차 필기 시험장에서 **90% 인식률** (본 적 있는·훈련한 문제) 달성 + **숙련도 95%** 달성 → 합격.
+> **원칙**: 팩트 없는 주장 절대 금지. 박사급+10년차 실무 이상만 기여. 에이전트 상호 의심·팩트체크 상시.
 
-- **의존성 없음** (Python 3.9+ 표준 라이브러리만 사용)
-- 합격 여부 판정 · 커트라인 격차 분석
-- 복수 시험 이력을 JSON 으로 저장 (기본: `~/.exam_history.json`)
-- 영역별 가중치 환산 (100점 만점 스케일)
-- 전 영역 한국어 UI · UTF-8 보존
+---
 
-## 빠른 시작
+## 헌법 (C-0 ~ C-11) 요약 — `CLAUDE.md` 전문 참조
 
-```bash
-git clone https://github.com/ubermensch90623/ubermensch.git
-cd ubermensch
+| 조항 | 요지 |
+|---|---|
+| ⭐ 북극성 | **시험 복원률 95%** 단 하나의 최종 목표 |
+| C-0 | **스노우볼 연쇄 독트린**: 팩트 아니면 프로젝트 개박살. 데이터 하드 기준 4종 (출처 URL+원문 인용+게시일+독립 소스≥2) |
+| C-1 | 모든 에이전트 실무 10년+ + 박사급 필수 |
+| C-2 | 사용자 제시 답변은 박사 or 상위 1% 실무 입증 수준 |
+| C-3 | 자연어 "조사해" → 박사급 다학제 팀 자동 편성 (7 페르소나) |
+| C-4 | 중대사 결정은 경연(經筵) 거버넌스 |
+| C-5 | 에이전트는 서로의 **생성 원리(reasoning mechanism)** 를 의심 |
+| C-6 | 성과 메리토크라시 + Exit Interview + Best-Practice Share + 인기영합 절대 금지 |
+| C-7 | 에이전트 진화 루프 (장점 계승, 단점 폐기, 신세대 생성) |
+| C-8 | EPL 승강 대결 (매 라운드 최하위 5 퇴출 + 신규 5 진입, 15명 풀) |
+| C-9 | 기록관 P10 — 모든 것이 기록됨 (GDrive 미연동, 로컬 운영 중) |
+| C-10 | 태상위원 P11 — 최정점 메타 감찰자 · 주기적 재탄생 |
+| C-11 | "한 번도 망하지 말자" 금지 · 현실 방해 상수 가정 · 작게 자주 망하라 |
 
-# 도움말
-python -m exam_analyzer --help
-python -m exam_analyzer analyze --help
+---
+
+## 에이전트 편제 (P1 ~ P11)
+
+| ID | 역할 | 템플릿 |
+|---|---|---|
+| P1 | 공공기관 채용공고 분석 전문가 | `docs/agent_templates/P1_announcement_analyst.md` |
+| P2 | 수의계약 채용대행업체 분석 | `P2_outsourcer_analyst.md` |
+| P3 | NCS 10대 영역 출제 전문가 | (실 파견 시 작성) |
+| P4 | 알라딘/교보 카탈로그 메타 수집 | `P4_aladin_catalog.md` |
+| P5 | 공개 후기 스크리너 | (실 파견 시 작성) |
+| P6 | 회의론자/교차 팩트체커 | (실 파견 시 작성) |
+| P7 | 합성가 (synthesist) | (실 파견 시 작성) |
+| P8 (SC1/SC2) | 수석위원 2중 심사 | `SC1_SC2_senior_chief.md` |
+| P9 | 리버스 엔지니어링 (예상 문항) | `P9_reverse_engineering.md` |
+| P10 | 기록관 (Archivist) | `P10_archivist.md` |
+| P11 | 태상위원 (최정점 메타) | (실 재탄생 시 작성) |
+
+---
+
+## 자동 루틴 R1 ~ R12 진행 상태
+
+| 단계 | 설명 | 상태 |
+|---|---|---|
+| R1 | audit 지적 코드 수정 (FABRICATION 제거) | ✅ `b8ef43e` |
+| R2 | reconstruction-plan v3 재작성 | ✅ `1c6f22d` |
+| R3 | 공식 공고 조사 | ⚠ 공개 웹 fetch 제약 (403) — 사용자 M1 대기 |
+| R4 | 수의계약 채용대행업체 식별 | ⏸ M1 수령 후 |
+| R5 | 알라딘 카탈로그 메타데이터 | ✅ 예비 교재 추천서 `20_book_purchase_recommendation.md` |
+| R6 | 2차 소스 + 회의론 필터 | ⏸ M1 수령 후 |
+| R_RE | 리버스 엔지니어링 P9 | ⏸ R3~R6 완료 후 |
+| R7 | 사용자 구매 승인 대기 | ⏸ 교재 추천서 검토 후 |
+| R8 | corpus 모듈 (models/storage/scoring/import/match/drill) | ✅ 6모듈 + CLI 통합 |
+| R9 | 합성 (재탕 추정 블루프린트) | ⏸ R_RE 후 |
+| R10 | drill 회독 시스템 + 숙련도 95% | ✅ 모듈 완성 / 회독 실행은 corpus 적재 후 |
+| R11 | diagnose ↔ corpus 연계 | ⏸ corpus 적재 후 |
+
+---
+
+## 코드·모듈 개요
+
+```
+exam_analyzer/
+├── __init__.py
+├── __main__.py
+├── cli.py               # argparse 전체 (analyze / diagnose / corpus …)
+├── models.py            # Section · ExamRecord (점수 분석용)
+├── analyzer.py          # 수학적 분석 (격차 분해 · 합격 시나리오)
+├── storage.py           # ~/.exam_history.json 원자적 쓰기
+├── i18n.py              # 한국어 UI 문자열
+└── corpus/              # 기출 DB · 회독 시스템 (R8)
+    ├── __init__.py
+    ├── models.py        # Question · Choice · Attempt · ReviewRound · Provenance
+    ├── storage.py       # ~/.exam_corpus.json (저작권 민감 — 저장소 커밋 금지)
+    ├── scoring.py       # 숙련도 계산 (북극성 측정)
+    ├── import_.py       # JSON / 간단 텍스트 반입 (provenance 필수 C-0)
+    ├── match.py         # 2차 후기 ↔ 1차 corpus 키워드 매핑
+    └── drill.py         # 회독 세션 (sequential / random / weakest_first)
+
+tests/                   # 67 unittest 전부 통과
+├── test_analyzer.py     # 39건 (analyze/diagnose + 수학 회귀 방지)
+├── test_corpus.py       # 11건 (corpus models/storage)
+└── test_corpus_import_match_drill.py  # 17건
+
+docs/
+├── PLAN.md              # exam_analyzer 원 설계 스냅샷
+├── reconstruction-plan.md  # 루틴 R1~R12 (v3)
+├── audit-v1.md          # R1 전 FABRICATION 전수조사
+├── audit-v2.md          # 환경 제약(403) 확인 후 재감사
+├── audit-v3.md          # 헌법 C-0~C-11 반영 후 정합성
+├── gyeongyeon/          # 경연(중대사 결정) 기록
+├── agent_templates/     # P1/P2/P4/P9/P10/SC1_SC2 프롬프트 템플릿
+├── honors/              # 에이전트 호칭 기록
+├── meta_overseer/       # P11 태상위원 rebirth diff
+├── agent_performance.md # C-6 성과 지표 축적
+└── exam_reconstruction/서민금융진흥원_2026_상반기_종합직_일반/
+    ├── 00_meta.md
+    ├── 10_snippets_low_confidence.md  # MID 신뢰 (격리)
+    ├── 20_book_purchase_recommendation.md
+    └── 99_required_materials.md       # 사용자 요청 자료 목록
 ```
 
-## 서민금융진흥원 예시 (Unix 쉘)
+---
+
+## CLI 사용법 (Python 3.9+ stdlib-only)
+
+### 점수 분석·진단
 
 ```bash
 python -m exam_analyzer analyze \
@@ -27,174 +118,71 @@ python -m exam_analyzer analyze \
   --section "직업기초능력평가:19.33:40:40" \
   --section "직무수행능력평가:38.76:60:60" \
   --cutoff 64.48 --save
+
+python -m exam_analyzer diagnose --from-id <기록ID>
 ```
 
-### Windows PowerShell/CMD
+### 기출 corpus 관리 (R8)
 
-```powershell
-python -m exam_analyzer analyze ^
-  --agency "서민금융진흥원" --date 2026-04-15 ^
-  --section "직업기초능력평가:19.33:40:40" ^
-  --section "직무수행능력평가:38.76:60:60" ^
-  --cutoff 64.48 --save
+```bash
+# 숙련도 통계
+python -m exam_analyzer corpus stats
+
+# 문항 목록
+python -m exam_analyzer corpus list --area NCS
+
+# JSON 파일 반입 (provenance 필수)
+python -m exam_analyzer corpus import --from-json ./my_book_excerpts.json --dry-run
+python -m exam_analyzer corpus import --from-json ./my_book_excerpts.json
+
+# 숙련도 리포트 (북극성 95% 측정)
+python -m exam_analyzer corpus mastery --min-consecutive 3 --required-accuracy 0.9
 ```
-
-Windows 콘솔에서 한글이 깨진다면 먼저 `chcp 65001` 실행.
-
-### 출력 예시
-
-```
-[서민금융진흥원] 필기전형 분석 결과 (2026-04-15)
-────────────────────────────────────────────────────────────
-  직업기초능력평가            19.33 / 40     (48.32%)  → 환산 19.33점
-  직무수행능력평가            38.76 / 60     (64.60%)  → 환산 38.76점
-────────────────────────────────────────────────────────────
-  총점:     58.09 / 100
-  커트라인:  64.48
-  격차:     -6.39점
-  판정:    불합격
-
-  취약 영역: 직업기초능력평가 (48.32%) — 집중 보완 권장
-  기록 ID: f344b92e
-```
-
-종료 코드: `0` = 합격, `1` = 불합격, `2` = 사용법 오류, `3` = IO 오류.
-
-## 서브커맨드
-
-| 명령 | 용도 |
-|---|---|
-| `analyze` | 점수 입력 → 분석 출력, 선택적 `--save` |
-| `save` | 분석 출력 없이 저장만 (`--from-json` 도 가능) |
-| `list` | 이력 표 (`--sort date\|gap\|total`, `--passed-only`, `--failed-only`, `--agency`) |
-| `show <id>` | 기록 상세 (ID 접두사 가능) |
-| `delete <id>` | 기록 삭제 |
-| `convert --score --max --to` | 점수 환산 유틸 |
-| `stats [--agency]` | 누적 통계 (합격률 · 평균 격차 · 영역별 평균) |
-| `diagnose` | 정밀 원인 분석 (격차 기여도 분해 · 합격 시나리오 · 추천 전략 · 체크리스트) |
-
-### 전역 플래그
-
-- `--data-file PATH` — 이력 JSON 경로 지정 (기본: `~/.exam_history.json`)
-- `--no-color` — ANSI 색상 비활성
-- `--json` — 머신 판독 가능 JSON 출력
 
 ### 환경변수
 
-- `EXAM_HISTORY_FILE` — 기본 이력 경로 override (`--data-file` 보다 우선순위 낮음)
-- `NO_COLOR` — 색상 비활성 ([no-color.org](https://no-color.org) 표준)
+- `EXAM_HISTORY_FILE` · `EXAM_CORPUS_FILE` — 파일 경로 override
+- `NO_COLOR` — ANSI 색상 비활성 ([no-color.org](https://no-color.org))
 
-## 섹션 입력 포맷
-
-```
-NAME:SCORE:MAX:WEIGHT
-```
-
-- `WEIGHT` 는 100점 만점 기준 절대 기여도 (예: 40점 + 60점 = 100점)
-- 가중치 합이 100이 아니면 자동 비례 재조정 + 경고 표시
-
-## 대화형 모드
-
-```bash
-python -m exam_analyzer analyze --agency "한국OO공사" --date 2026-05-01 --cutoff 70 -i
-```
-
-## 정밀 원인 분석 (`diagnose`)
-
-단순한 합격/불합격 판정을 넘어, 왜 그 결과가 나왔는지 수학적으로 분해해주는 기능.
-
-```bash
-python -m exam_analyzer diagnose \
-  --agency "서민금융진흥원" --date 2026-04-15 \
-  --section "직업기초능력평가:19.33:40:40" \
-  --section "직무수행능력평가:38.76:60:60" \
-  --cutoff 64.48
-```
-
-또는 이미 저장된 기록에서:
-
-```bash
-python -m exam_analyzer diagnose --from-id f344b92e
-```
-
-### 분석 항목
-
-1. **결과 요약** — 총점 / 커트라인 / 격차
-2. **영역별 격차 기여도 분해**
-   - 커트라인을 가중치 비율로 안분 → 각 영역의 "기대 환산점수" 계산
-   - `기여 = 실제 환산점수 - 기대 환산점수`
-   - 기여의 합 = 격차 (수학적 항등성)
-3. **합격 시나리오 3종**
-   - A. 한 영역만 개선했을 때 필요한 원점수
-   - B. 다른 영역만 개선했을 때 필요한 원점수
-   - C. 모든 영역을 균등하게 백분율 상승시켰을 때의 목표
-   - 각 시나리오에 현실성 평가 (높음/보통/낮음)
-4. **추천 전략** — 약점 영역 집중 (학습 효과 가장 큰 구간)
-5. **다음 시험 준비 체크리스트** — 영역별 목표 원점수/백분율 포함
-
-JSON 출력도 지원 (`--json`).
+---
 
 ## 테스트
 
 ```bash
 python -m unittest discover tests -v
+# 67 tests, all pass
 ```
 
-39개 테스트 중 핵심은 서민금융진흥원 실제 점수를 골든 픽스처로 잡고 있어
-총점 58.09, 격차 -6.39, 불합격 판정이 회귀 없이 유지됩니다.
-수학적 항등성(기여도 합 = 격차) 도 테스트로 고정.
-조언성 레이블(예전의 "실현 가능성: 높음/보통/낮음" 휴리스틱) 은 audit-v1.md
-의 FABRICATION 지적에 따라 제거됨. 판단은 사용자에게 위임.
+---
 
-## 데이터 파일 구조
+## 사용자 재개 가이드 (수면 후 또는 새 세션)
 
-`~/.exam_history.json`:
+1. `CLAUDE.md` 상단 §0 순서대로 문서 읽기
+2. `docs/audit-v3.md` 로 현재 상태 파악
+3. `docs/reconstruction-plan.md` 에서 현 Phase 확인
+4. Phase 0 블로커 해소 — **사용자 자료 M1/M2/M3** 제공:
+   - M1: 2026 상반기 종합직(일반) **공고 PDF 본문** (스샷 or 복붙)
+   - M2: 수험번호 `1056` 직렬 매핑
+   - M3: 보유 알라딘 이북 목록 (제목/출판사/판본)
+5. 자료 수령 즉시 R3 재개. Agent P1 파견 → 공식 팩트 확정 → R4/R5/R6/R_RE/R8(적재)/R10(회독) 순차.
 
-```json
-{
-  "version": 1,
-  "records": [
-    {
-      "record_id": "f344b92e",
-      "agency": "서민금융진흥원",
-      "exam_name": "필기전형",
-      "date": "2026-04-15",
-      "sections": [
-        {"name": "직업기초능력평가", "score": 19.33, "max_score": 40, "weight": 40},
-        {"name": "직무수행능력평가", "score": 38.76, "max_score": 60, "weight": 60}
-      ],
-      "cutoff": 64.48,
-      "notes": ""
-    }
-  ]
-}
-```
+---
 
-쓰기는 `파일.tmp` 작성 후 `os.replace` 로 원자적 교체 → 인터럽트 시 손상 방지.
+## 데이터 파일 위치
 
-## 프로젝트 구조
+- `~/.exam_history.json` — 점수 이력 (분석용)
+- `~/.exam_corpus.json` — 기출 corpus (저작권 민감, **저장소 커밋 금지**, `.gitignore` 에 패턴)
 
-```
-exam_analyzer/
-├── __init__.py     # 버전 상수
-├── __main__.py     # python -m 진입점
-├── models.py       # Section / ExamRecord dataclass + (de)serialization
-├── analyzer.py     # 순수 계산 함수 (합격 판정, 격차, 가중치 환산)
-├── storage.py      # JSON 이력 저장소 (원자적 쓰기)
-├── cli.py          # argparse 서브커맨드 디스패치
-└── i18n.py         # 한국어 UI 문자열
-tests/
-└── test_analyzer.py
-docs/
-└── PLAN.md         # 설계 플랜 스냅샷 (로컬 PC 재개용)
-```
+---
 
-## 로컬 PC 로 작업 이어가기
+## 라이선스 / 저작권
 
-- 웹 세션에서 `claude/fix-handwriting-recognition-J9xJq` 브랜치로 푸시해두면
-  로컬에서 `git pull` 후 바로 실행 가능합니다.
-- 추가 고려사항은 `docs/PLAN.md` 의 "로컬 PC에서 작업 재개 시나리오" 섹션 참조.
+- 본 코드: 개인 용도
+- 기출 원본: 사용자 구매 이북 기반. 공개 저장소에 본문 커밋 금지.
+- 2차 소스 인용: 짧은 인용 + 출처 URL 필수.
 
-## 라이선스
+---
 
-Personal use.
+## 현실 방해 대비 (C-11)
+
+이 프로젝트는 **"한 번도 망하지 말자" 환상 배격**. 현실은 방해한다. 관료 지연·공고 변경·가족사·건강·멘탈. 작게 자주 망하고, 기록 남기고 (C-9), 재개하라. 데이터 무결성만 타협하지 않는다 (C-0).
