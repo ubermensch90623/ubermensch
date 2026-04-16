@@ -128,15 +128,21 @@ class SectionContribution:
 
 @dataclass
 class PassScenario:
-    """합격하기 위한 구체적 목표 점수 시나리오."""
+    """합격하기 위한 구체적 목표 점수 시나리오.
+
+    ※ audit-v1.md 반영: 이전의 `feasibility` 필드(높음/보통/낮음 휴리스틱) 는
+    임의 임계값이었기에 제거. 대신 `signal` 은 `범위초과 / 이미달성 / 수치요약`
+    3종 중 하나로 중립 분류하고, `description` 은 수치만 담은 중립 설명.
+    "이 시나리오가 현실적이다/아니다" 판단은 사용자에게 남긴다.
+    """
 
     name: str                     # 시나리오 설명 (예: "직업기초능력평가만 개선")
     required_raw_scores: Dict[str, float]       # 영역명 → 필요한 원점수
     required_percentages: Dict[str, float]      # 영역명 → 필요한 백분율
     delta_raw: Dict[str, float]                 # 영역명 → 원점수 증가량
     delta_percentage_points: Dict[str, float]   # 영역명 → 백분율 증가량 (pp)
-    feasibility: str              # "낮음" | "보통" | "높음"
-    feasibility_note: str
+    signal: str                   # "범위초과" | "이미달성" | "수치요약"
+    description: str              # 중립 수치 설명
 
 
 @dataclass
@@ -155,38 +161,39 @@ class Diagnosis:
     checklist: List[str]
 
 
-def _feasibility_of_raw_delta(section: Section, new_score: float) -> Tuple[str, str]:
-    """새 목표 점수의 현실성 평가 (간단한 휴리스틱)."""
+def _describe_raw_delta(section: Section, new_score: float) -> Tuple[str, str]:
+    """목표 점수의 **중립 수치 설명**. 실현 가능성은 판단하지 않음.
+
+    audit-v1.md §1.2 의 FABRICATION 지적에 따라, 이전의 '높음/보통/낮음'
+    휴리스틱 임계값(20pp/15pp/10pp/5pp) 은 근거 없는 임의값이어서 제거됨.
+    여기서는 수치만 담백하게 서술하고 판단은 사용자에게 남긴다.
+    """
     if new_score > section.max_score:
-        return "불가능", f"만점({section.max_score:g})을 초과합니다"
-    if new_score <= 0:
-        return "불필요", "이미 충분합니다"
+        return "범위초과", f"만점({section.max_score:g})을 초과하는 목표입니다"
     new_pct = new_score / section.max_score * 100
     delta_pp = new_pct - section.percentage()
     if delta_pp <= 0:
-        return "이미 달성", "현재 점수로 충분합니다"
-    # 보정: 현재 수준에서 상승 난이도가 달라짐
-    current_pct = section.percentage()
-    if current_pct < 50 and delta_pp <= 20:
-        return "높음", f"현재 {current_pct:.1f}% → 하위권이라 학습 효과 큼 (+{delta_pp:.1f}pp)"
-    if current_pct < 70 and delta_pp <= 15:
-        return "보통", f"현재 {current_pct:.1f}% → 집중 학습으로 달성 가능 (+{delta_pp:.1f}pp)"
-    if current_pct < 85 and delta_pp <= 10:
-        return "보통", f"현재 {current_pct:.1f}% → 상위권 진입 난이도 있음 (+{delta_pp:.1f}pp)"
-    if delta_pp <= 5:
-        return "보통", f"적은 상승폭 (+{delta_pp:.1f}pp)"
-    return "낮음", f"현재 {current_pct:.1f}% 에서 +{delta_pp:.1f}pp 는 상당한 학습 필요"
+        return "이미달성", f"현재 점수로 충분합니다 (현 {section.percentage():.2f}%)"
+    return (
+        "수치요약",
+        f"현재 {section.percentage():.2f}% → 목표 {new_pct:.2f}% (+{delta_pp:.2f}pp)",
+    )
 
 
 def decompose_contributions(
     sections: List[Section], cutoff: float
 ) -> List[SectionContribution]:
-    """각 영역이 격차에 얼마나 기여했는지 정확히 분해.
+    """각 영역이 격차에 얼마나 기여했는지 **한 가지 방법으로** 분해.
 
-    로직:
+    사용 로직: "가중치 비율로 안분"
       - 커트라인을 가중치 비율로 안분 → 각 영역의 '기대 환산점수' 산출
       - 실제 환산점수 - 기대 환산점수 = 그 영역의 격차 기여
       - 기여의 총합 = 총점 - 커트라인 = gap (수학적으로 항등)
+
+    ※ 이것은 여러 가능한 분해법 중 하나의 선택. 대안:
+      - 각 영역의 '최대 점수 대비 부족률' 기준 분해
+      - 각 영역의 '과거 합격자 평균점 대비 편차' 기준 분해 (과거 데이터 필요)
+    audit-v1.md §1.2 참조. 지금 출력은 '가중치 비율 안분 기준'임을 명시.
     """
     weight_sum = sum(s.weight for s in sections)
     if weight_sum == 0:
@@ -249,7 +256,7 @@ def compute_pass_scenarios(
         new_pct = new_raw / target.max_score * 100
         delta_raw = new_raw - target.score
         delta_pp = new_pct - target.percentage()
-        feas, note = _feasibility_of_raw_delta(target, new_raw)
+        signal, description = _describe_raw_delta(target, new_raw)
         scenarios.append(
             PassScenario(
                 name=f"{target.name}만 개선",
@@ -269,8 +276,8 @@ def compute_pass_scenarios(
                     s.name: (delta_pp if s.name == target.name else 0.0)
                     for s in sections
                 },
-                feasibility=feas,
-                feasibility_note=note,
+                signal=signal,
+                description=description,
             )
         )
 
@@ -284,13 +291,11 @@ def compute_pass_scenarios(
     req_raws = {s.name: req_pcts[s.name] / 100.0 * s.max_score for s in sections}
     delta_raws = {s.name: req_raws[s.name] - s.score for s in sections}
     delta_pps = {s.name: equal_pp for s in sections}
-    # 균등 시나리오의 실현 가능성은 "평균적 노력 필요" 로 표기
-    if all(req_raws[s.name] <= s.max_score for s in sections) and equal_pp <= 15:
-        equal_feas = "보통"
-    elif equal_pp > 20:
-        equal_feas = "낮음"
+    # 균등 시나리오 — 판단 없이 수치만
+    if all(req_raws[s.name] <= s.max_score for s in sections):
+        equal_signal = "수치요약"
     else:
-        equal_feas = "보통"
+        equal_signal = "범위초과"
     scenarios.append(
         PassScenario(
             name="모든 영역 균등 개선",
@@ -298,73 +303,67 @@ def compute_pass_scenarios(
             required_percentages=req_pcts,
             delta_raw=delta_raws,
             delta_percentage_points=delta_pps,
-            feasibility=equal_feas,
-            feasibility_note=f"양 영역 모두 +{equal_pp:.2f}pp 상승 필요",
+            signal=equal_signal,
+            description=f"양 영역 모두 +{equal_pp:.2f}pp 상승",
         )
     )
 
     return scenarios
 
 
-def _recommend_scenario(
+def _scenario_trade_offs(
     scenarios: List[PassScenario], sections: List[Section]
-) -> Tuple[Optional[PassScenario], str]:
-    """시나리오 중 가장 효율적인 하나를 추천."""
+) -> Tuple[List[Tuple[PassScenario, str]], str]:
+    """각 시나리오의 **trade-off 수치 요약** 반환. 추천 판단 없음.
+
+    ※ audit-v1.md 반영: 이전의 '약점 영역 집중이 학습 효과 크다' 가정은
+    사용자 상황을 모르는 일반 통념이었기에 제거. 대신 사용자가 스스로
+    판단할 수 있도록 각 시나리오의 수치 특성만 요약 제공.
+    """
     if not scenarios:
-        return None, "이미 합격 수준입니다"
-
-    # 단일 영역 시나리오 중 가장 약한 영역에 집중하는 것을 우선 고려
-    # (약점 영역이 학습 상승 여지가 크다는 가정)
-    weakest = min(sections, key=lambda s: s.percentage()) if sections else None
-    if weakest is None:
-        return None, "영역 정보 없음"
-
-    candidate = None
+        return [], "이미 합격 수준"
+    trade_offs: List[Tuple[PassScenario, str]] = []
     for sc in scenarios:
-        if sc.name == f"{weakest.name}만 개선":
-            candidate = sc
-            break
-
-    if candidate is None:
-        return scenarios[0], "기본 시나리오"
-
-    # 가능성 검증: 불가능(만점 초과)이면 균등 시나리오로 대체
-    if candidate.feasibility == "불가능":
-        equal = next((s for s in scenarios if s.name == "모든 영역 균등 개선"), None)
-        if equal is not None:
-            return equal, (
-                f"{weakest.name} 단독 개선으로는 만점을 초과하므로 "
-                "두 영역을 함께 개선하는 균등 시나리오 권장"
-            )
-
-    reason = (
-        f"가장 약한 영역인 '{weakest.name}' ({weakest.percentage():.2f}%) 은 "
-        "학습 효과가 크게 반영되는 구간입니다. 이 영역에 집중 투자 시 "
-        f"{candidate.feasibility} 확률로 합격권 진입 가능합니다."
-    )
-    return candidate, reason
+        # 증가시켜야 할 총 pp (여러 영역일 수 있음)
+        total_pp_to_raise = sum(v for v in sc.delta_percentage_points.values() if v > 0)
+        max_pp = max(sc.delta_percentage_points.values(), default=0.0)
+        affected = [n for n, v in sc.delta_percentage_points.items() if v > 0.01]
+        note = (
+            f"집중 영역 수: {len(affected)} | "
+            f"최대 단일 상승: +{max_pp:.2f}pp | "
+            f"총 pp 상승 합: +{total_pp_to_raise:.2f}pp | "
+            f"신호: {sc.signal}"
+        )
+        trade_offs.append((sc, note))
+    note = "판단은 사용자에게 위임. 학습 가용 시간·영역별 적성을 고려해 선택하세요."
+    return trade_offs, note
 
 
 def _build_checklist(
-    recommended: Optional[PassScenario], sections: List[Section], cutoff: float
+    scenarios: List[PassScenario], sections: List[Section], cutoff: float
 ) -> List[str]:
-    """추천 시나리오 기반 다음 시험 준비 체크리스트."""
-    if recommended is None:
+    """시나리오별 목표 점수만 담담히 나열한 체크리스트.
+
+    ※ audit-v1.md 반영: '모의고사 5회 이상' 같은 임의 수치 제거.
+    일반적 학습 행동 권고 (오답 분석, 반복 회독) 는 지침 없이 짧은 힌트만.
+    """
+    if not scenarios:
         return ["✓ 이미 합격 수준 — 현 상태 유지"]
     items: List[str] = []
-    for s in sections:
-        need_raw = recommended.required_raw_scores.get(s.name, s.score)
-        need_pct = recommended.required_percentages.get(s.name, s.percentage())
-        delta_pp = recommended.delta_percentage_points.get(s.name, 0.0)
-        if delta_pp < 0.01:
-            items.append(f"[유지] {s.name}: 현재 {s.percentage():.2f}% 수준 유지")
-        else:
-            items.append(
-                f"[집중] {s.name}: {s.score:.2f} → {need_raw:.2f} / {s.max_score:g} "
-                f"({s.percentage():.2f}% → {need_pct:.2f}%, +{delta_pp:.2f}pp)"
-            )
-    items.append("[복습] 이번 시험 오답 분석 및 취약 유형 노트 작성")
-    items.append(f"[모의] 영역별 모의고사 5회 이상, 목표 점수 {cutoff:.1f} 이상 안정 도달")
+    for sc in scenarios:
+        items.append(f"[시나리오] {sc.name}")
+        for s in sections:
+            need_raw = sc.required_raw_scores.get(s.name, s.score)
+            need_pct = sc.required_percentages.get(s.name, s.percentage())
+            delta_pp = sc.delta_percentage_points.get(s.name, 0.0)
+            if delta_pp < 0.01:
+                items.append(f"    - {s.name}: 현 {s.percentage():.2f}% 유지")
+            else:
+                items.append(
+                    f"    - {s.name}: {s.score:.2f} → {need_raw:.2f} / {s.max_score:g} "
+                    f"({s.percentage():.2f}% → {need_pct:.2f}%, +{delta_pp:.2f}pp)"
+                )
+    items.append("[힌트] 오답 분석·반복 회독은 사용자 학습 시간 여건에 맞춰 결정하세요.")
     return items
 
 
