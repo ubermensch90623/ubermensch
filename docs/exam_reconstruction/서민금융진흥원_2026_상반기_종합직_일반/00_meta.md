@@ -55,7 +55,29 @@
 3. 필기 시행일 확정 (사용자 수기 기록)
 
 ## 진행률 (Phase 0 → R3)
-- Phase 0 ✓
-- R1 ✓ b8ef43e
-- R2 ✓ 1c6f22d
+- Phase 0 ✓ (직렬: 종합직 일반, 필기일 2026-04 초·중순)
+- R1 ✓ b8ef43e (audit 수정)
+- R2 ✓ 1c6f22d (plan v3)
 - R3 ⚠ 공식 공고 확보 실패. 추가 자료 요청 발송 중.
+- R5 (예비) ✓ c44d415 (교재 구매 추천서 Tier S/A/B/X)
+- R8 ✓ corpus 모듈 + CLI 통합 + 67 unittest 통과 (2130a4f)
+
+## 2026-04-16 사용자 수면 중 완료 사항
+
+사용자가 6시간 수면 선언. 사전 작업 진행:
+- 헌법 C-0~C-11 + C-3 확장 (학술 논문 조사 의무) 제정 완료
+- 에이전트 프롬프트 템플릿 P1/P2/P4/P9/P10/SC1_SC2 완성 (P3/P5/P6/P7/P11 은 실 투입 시점에 맞춤 작성)
+- corpus 모듈 6종 구현 + CLI stats/list/import/mastery 통합
+- 교재 구매 추천서 (20_book_purchase_recommendation.md) — 사용자 깨어나 구매 가능
+- 학술 자료 인덱스 (30_academic_literature.md) — KRIVET L1/L2/L3, 조성준·박찬균 (2020) L4, KIF L5, 공정채용 L7 등 8건
+- audit-v3 전수 정합성 점검 (헌법 ↔ 코드 ↔ 문서 혈통 OK)
+- README.MD 전면 갱신 (사용자 재개 가이드 포함)
+- 총 ~38 커밋, 67 unittest 전부 통과
+
+## 사용자 깨어나서 즉시 확인 필요
+1. `README.MD` — 최신 구조 · 재개 가이드
+2. `docs/exam_reconstruction/.../99_required_materials.md` — M1/M2/M3 요청
+3. `docs/exam_reconstruction/.../20_book_purchase_recommendation.md` — 교재 구매 계획
+4. `docs/exam_reconstruction/.../30_academic_literature.md` — 학술 자료 8건
+
+**블로커**: M1 공고 PDF / M2 직렬코드 / M3 보유 이북 목록 — 이 3개만 주시면 R3~R6~R_RE 연쇄 재개.

@@ -33,21 +33,30 @@
 ## 자동 루틴 (Routine) — 사용자 명령 없어도 진행
 
 ```
-R1  ✓ audit 지적 코드 수정 (완료: b8ef43e)
-R2  ⬅ plan v3 재작성 (이 문서)
-R3  Agent P1: 2026 상반기 종합직(금융일반) 공식 공고 → 회차·과목·문항수·시간·배점 확정
-R4  Agent P2: 나라장터 수의계약 → 채용대행업체(휴노/ORP/KHBR/…) 식별
-R5  Agent P4: 알라딘 기출·공부법 카탈로그 메타데이터 수집 (추가 구매 후보 제안)
-R6  Agent P5+P6: 공개 후기 수집 + 회의론 필터 → 🟢/🟡/🔴 분류
-R7  사용자 구매 승인 대기 → 승인된 책 1차 소스로 반입
-R8  exam_analyzer.corpus 모듈 구현 + 적재
-R9  Agent P9: 리버스 엔지니어링 → 예상 문항 생성 (근거 체인 필수)
-R10 P7 합성 + P8 수석위원 검토 → 최종 예상 코퍼스 승인
-R11 drill 서브커맨드 + 회독 세션 운영 → 숙련도 95% 도달 모니터
-R12 diagnose 와 corpus 연계 → 취약 영역 자동 회독 우선순위 재조정
+R1  ✅ audit 지적 코드 수정 (b8ef43e)
+R2  ✅ plan v3 재작성 (1c6f22d)
+R3  ⚠ Agent P1: 공식 공고 → 확정 팩트. 공개 웹 fetch 403 다수 → 사용자 M1 대기
+R4  ⏸ Agent P2: 수의계약 채용대행업체 식별 (M1 수령 후)
+R5  🟡 Agent P4 예비: 알라딘 카탈로그 WebSearch 메타만 확보 → 교재 구매 추천서 작성 (c44d415)
+R6  ⏸ Agent P5+P6: 공개 후기 수집 + 회의론 (M1 수령 후 실 투입)
+R7  ⏸ 사용자 구매 승인 대기 (교재 추천서 검토 후)
+R8  ✅ exam_analyzer.corpus 모듈 구현 (models/storage/scoring/import_/match/drill) + CLI 통합 (2130a4f)
+R9  ⏸ Agent P9: 리버스 엔지니어링 (R3~R6 완료 후). 템플릿 작성 완료 (9d0c0b1).
+R10 ✅ drill 모듈 코드 완성 + 회독 세션 구조 (b52a6e2). 실제 회독은 corpus 적재 후.
+R11 ⏸ diagnose ↔ corpus 연계 (corpus 적재 후)
+R12 (신설) ⏸ 학술 자료(C-3 확장) 반영한 리버스 엔지니어링 추가 반복 (5c9d648 인덱스 기반)
 ```
 
 각 Phase 종료 시 반드시 commit + push (타임아웃·세션 끊김 대비).
+
+### 2026-04-16 사용자 수면 중 추가 완료 사항
+- 교재 구매 추천서 Tier S/A/B/X 분류 (c44d415)
+- 에이전트 프롬프트 템플릿 P1/P2/P4/P9/P10/SC1_SC2 총 6종 완성
+- corpus 모듈 CLI 통합 (stats/list/import/mastery)
+- 67 unittest 전부 통과 유지
+- 헌법 C-0~C-11 + C-3 확장 (학술 논문 조사 의무)
+- audit-v3 전수 정합성 점검
+- 학술 자료 인덱스 L1~L8 (5c9d648)
 
 ## 에이전트 편제
 전 페르소나 자격: **최소 실무 10년 + 박사급 + 출제위원 경험 1순위**.
