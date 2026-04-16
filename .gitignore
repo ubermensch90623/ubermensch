@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+build/
+dist/
+
+# Test & cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+
+# 로컬 이력 파일 (개인정보)
+.exam_history.json
+*.exam_history.json
+
+# 가상환경
+.venv/
+venv/
+env/
+ENV/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 환경변수
+.env
+.env.local
