@@ -1,4 +1,4 @@
-"""argparse 기반 CLI: analyze / save / list / show / delete / convert / stats."""
+"""argparse 기반 CLI: analyze / save / list / show / delete / convert / stats / diagnose."""
 from __future__ import annotations
 
 import argparse
@@ -9,7 +9,8 @@ from pathlib import Path
 from typing import List, Optional
 
 from . import __version__
-from .analyzer import AnalysisResult, analyze, convert_to_scale
+from .analyzer import AnalysisResult, analyze, convert_to_scale, diagnose
+from .analyzer import Diagnosis, PassScenario, SectionContribution  # noqa: F401
 from .i18n import t
 from .models import ExamRecord, Section, generate_record_id, record_to_dict
 from .storage import (
@@ -367,6 +368,171 @@ def cmd_stats(args: argparse.Namespace) -> int:
     return EXIT_PASS
 
 
+# ---------------------- diagnose (정밀 원인 분석) ----------------------
+
+
+def _format_diagnosis(d: "Diagnosis", use_color: bool) -> str:
+    r = d.record
+    lines: List[str] = []
+    title = f"[{r.agency}] {r.exam_name} {t('diagnosis_header')} ({r.date})"
+    lines.append(_c(title, _BOLD + _CYAN, use_color))
+    lines.append("═" * 60)
+
+    # 요약
+    lines.append(_c(f"▣ {t('summary')}", _BOLD, use_color))
+    passed = d.gap >= 0
+    verdict = _c(t("pass"), _GREEN + _BOLD, use_color) if passed else _c(t("fail"), _RED + _BOLD, use_color)
+    gap_color = _GREEN if passed else _RED
+    gap_sign = "+" if d.gap >= 0 else ""
+    lines.append(
+        f"  총점 {d.total:.2f} / {t('cutoff')} {d.cutoff:.2f} / "
+        f"{t('gap')} {_c(f'{gap_sign}{d.gap:.2f}점', gap_color, use_color)}  ({verdict})"
+    )
+    if passed:
+        lines.append(f"  {t('already_passed')}. 추가 개선 불필요.")
+        return "\n".join(lines)
+    lines.append(f"  합격까지 환산 점수 기준 {-d.gap:.2f}점 부족.")
+
+    # 기여도 분해
+    lines.append("")
+    lines.append(_c(f"▣ {t('contribution_header')}", _BOLD, use_color))
+    lines.append(
+        f"  (커트라인을 가중치 비율로 안분한 기대 환산점수 vs 실제 환산점수)"
+    )
+    lines.append(
+        f"  {'영역':<22}{'실제':>10}{'기대':>10}{'기여':>10}{'격차비':>9}"
+    )
+    lines.append("  " + "─" * 60)
+    for c in d.contributions:
+        color = _GREEN if c.deficit >= 0 else _RED
+        sign = "+" if c.deficit >= 0 else ""
+        lines.append(
+            f"  {c.section.name:<22}"
+            f"{c.weighted_actual:>10.2f}{c.weighted_expected:>10.2f}"
+            f"{_c(f'{sign}{c.deficit:>7.2f}', color, use_color):>10}"
+            f"{c.share_of_gap_percent:>8.1f}%"
+        )
+    if d.primary_cause is not None:
+        lines.append("")
+        lines.append(
+            f"  → {t('primary_cause')}: "
+            f"{_c(d.primary_cause.name, _RED + _BOLD, use_color)}"
+        )
+
+    # 시나리오
+    lines.append("")
+    lines.append(_c(f"▣ {t('scenarios_header')}", _BOLD, use_color))
+    for i, sc in enumerate(d.scenarios, 1):
+        feas_colored = {
+            "높음": _c(sc.feasibility, _GREEN, use_color),
+            "보통": _c(sc.feasibility, _YELLOW, use_color),
+            "낮음": _c(sc.feasibility, _RED, use_color),
+            "불가능": _c(sc.feasibility, _RED + _BOLD, use_color),
+            "이미 달성": _c(sc.feasibility, _GREEN, use_color),
+            "불필요": _c(sc.feasibility, _DIM, use_color),
+        }.get(sc.feasibility, sc.feasibility)
+        lines.append(f"  {i}. {sc.name}  [{t('feasibility')}: {feas_colored}]")
+        lines.append(f"     {sc.feasibility_note}")
+        for name in sc.required_raw_scores:
+            req = sc.required_raw_scores[name]
+            d_pp = sc.delta_percentage_points[name]
+            d_raw = sc.delta_raw[name]
+            if abs(d_pp) < 0.01:
+                lines.append(f"       - {name}: 현 상태 유지")
+            else:
+                lines.append(
+                    f"       - {name}: → {req:.2f} "
+                    f"(원점수 +{d_raw:.2f}, 백분율 +{d_pp:.2f}pp)"
+                )
+
+    # 추천
+    if d.recommended_scenario is not None:
+        lines.append("")
+        lines.append(_c(f"▣ {t('recommendation_header')}", _BOLD + _GREEN, use_color))
+        lines.append(f"  {d.recommended_scenario.name}")
+        lines.append(f"  {d.recommendation_reason}")
+
+    # 체크리스트
+    if d.checklist:
+        lines.append("")
+        lines.append(_c(f"▣ {t('checklist_header')}", _BOLD, use_color))
+        for item in d.checklist:
+            lines.append(f"  {item}")
+
+    return "\n".join(lines)
+
+
+def _diagnosis_to_json(d: "Diagnosis") -> str:
+    payload = {
+        "record": record_to_dict(d.record),
+        "total": round(d.total, 4),
+        "cutoff": round(d.cutoff, 4),
+        "gap": round(d.gap, 4),
+        "contributions": [
+            {
+                "section": c.section.name,
+                "weighted_actual": round(c.weighted_actual, 4),
+                "weighted_expected": round(c.weighted_expected, 4),
+                "deficit": round(c.deficit, 4),
+                "share_of_gap_percent": round(c.share_of_gap_percent, 4),
+            }
+            for c in d.contributions
+        ],
+        "primary_cause": d.primary_cause.name if d.primary_cause else None,
+        "scenarios": [
+            {
+                "name": sc.name,
+                "feasibility": sc.feasibility,
+                "feasibility_note": sc.feasibility_note,
+                "required_raw_scores": {k: round(v, 4) for k, v in sc.required_raw_scores.items()},
+                "required_percentages": {k: round(v, 4) for k, v in sc.required_percentages.items()},
+                "delta_raw": {k: round(v, 4) for k, v in sc.delta_raw.items()},
+                "delta_percentage_points": {k: round(v, 4) for k, v in sc.delta_percentage_points.items()},
+            }
+            for sc in d.scenarios
+        ],
+        "recommended_scenario": (
+            d.recommended_scenario.name if d.recommended_scenario else None
+        ),
+        "recommendation_reason": d.recommendation_reason,
+        "checklist": d.checklist,
+    }
+    return jsonlib.dumps(payload, ensure_ascii=False, indent=2)
+
+
+def cmd_diagnose(args: argparse.Namespace) -> int:
+    # 입력 소스: --from-id (이력에서) 또는 직접 플래그
+    if args.from_id:
+        path = Path(args.data_file) if args.data_file else default_history_path()
+        record = find_record(path, args.from_id)
+        if record is None:
+            print(t("not_found"), file=sys.stderr)
+            return EXIT_IO
+    else:
+        if not args.section or args.cutoff is None:
+            print(
+                "diagnose 는 --from-id 로 기록을 지정하거나, "
+                "--section 과 --cutoff 를 직접 입력해야 합니다.",
+                file=sys.stderr,
+            )
+            return EXIT_USAGE
+        record = ExamRecord(
+            agency=args.agency or "(미지정)",
+            date=args.date or "(미지정)",
+            sections=args.section,
+            exam_name=args.exam_name or "필기전형",
+            cutoff=args.cutoff,
+        )
+
+    d = diagnose(record)
+    if args.json:
+        print(_diagnosis_to_json(d))
+    else:
+        print(_format_diagnosis(d, use_color=_should_use_color(args.no_color)))
+    # 합격 여부와 관계없이 정보 출력이 목적 → 항상 0
+    return EXIT_PASS
+
+
 # ---------------------- 파서 ----------------------
 
 
@@ -432,6 +598,18 @@ def build_parser() -> argparse.ArgumentParser:
     p_stats = subs.add_parser("stats", help="이력 통계")
     p_stats.add_argument("--agency", help="기관명 부분일치 필터")
     p_stats.set_defaults(func=cmd_stats)
+
+    p_diag = subs.add_parser(
+        "diagnose",
+        help="정밀 원인 분석 (격차 기여도 분해 + 합격 시나리오 + 추천 전략)",
+    )
+    _add_common_input_flags(p_diag)
+    p_diag.add_argument(
+        "--from-id",
+        dest="from_id",
+        help="이력에 저장된 기록 ID (전체 또는 접두사) 로부터 진단",
+    )
+    p_diag.set_defaults(func=cmd_diagnose)
 
     return parser
 

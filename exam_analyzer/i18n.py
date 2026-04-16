@@ -32,6 +32,22 @@ STRINGS = {
     "pass_rate": "합격률",
     "avg_gap": "평균 격차",
     "total_records": "기록 수",
+    "diagnosis_header": "정밀 원인 분석",
+    "contribution_header": "영역별 격차 기여도 분해",
+    "scenarios_header": "합격 시나리오",
+    "recommendation_header": "추천 전략",
+    "checklist_header": "다음 시험 준비 체크리스트",
+    "primary_cause": "주 원인 영역",
+    "expected_at_cutoff": "커트라인 기대 환산",
+    "actual_weighted": "실제 환산 점수",
+    "deficit": "기여 (부족분)",
+    "share_of_gap": "격차 기여 비율",
+    "feasibility": "실현 가능성",
+    "summary": "결과 요약",
+    "already_passed": "이미 합격 수준입니다",
+    "required_score": "필요 원점수",
+    "delta_raw": "증가 원점수",
+    "delta_pp": "증가 백분율",
 }
 
 

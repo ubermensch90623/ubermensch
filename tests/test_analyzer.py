@@ -18,8 +18,11 @@ if str(ROOT) not in sys.path:
 from exam_analyzer.analyzer import (  # noqa: E402
     analyze,
     compute_gap,
+    compute_pass_scenarios,
     compute_total,
     convert_to_scale,
+    decompose_contributions,
+    diagnose,
     judge_pass,
     normalize_weights,
 )
@@ -369,6 +372,221 @@ class TestEnvironmentOverride(unittest.TestCase):
                 del os.environ["EXAM_HISTORY_FILE"]
             else:
                 os.environ["EXAM_HISTORY_FILE"] = original
+            p = Path(tmp.name)
+            if p.exists():
+                p.unlink()
+
+
+class TestDiagnose(unittest.TestCase):
+    """정밀 원인 분석 — 서민금융진흥원 골든 픽스처로 수학 검증."""
+
+    def test_contributions_sum_equals_gap(self) -> None:
+        """기여도 합 = 격차 (수학적 항등성)."""
+        rec = _golden_record()
+        contribs = decompose_contributions(rec.sections, rec.cutoff)
+        total_deficit = sum(c.deficit for c in contribs)
+        expected_gap = rec.total() - rec.cutoff
+        self.assertAlmostEqual(total_deficit, expected_gap, places=4)
+
+    def test_contribution_values_for_user_scores(self) -> None:
+        """서민금융진흥원 실제 점수로 계산한 기여도."""
+        rec = _golden_record()
+        contribs = decompose_contributions(rec.sections, rec.cutoff)
+        by_name = {c.section.name: c for c in contribs}
+        # 직업기초: 실제=19.33, 기대 = 40 * 64.48/100 = 25.792, 기여 = -6.462
+        self.assertAlmostEqual(by_name["직업기초능력평가"].weighted_actual, 19.33, places=4)
+        self.assertAlmostEqual(by_name["직업기초능력평가"].weighted_expected, 25.792, places=3)
+        self.assertAlmostEqual(by_name["직업기초능력평가"].deficit, -6.462, places=3)
+        # 직무수행: 실제=38.76, 기대 = 60 * 64.48/100 = 38.688, 기여 = +0.072
+        self.assertAlmostEqual(by_name["직무수행능력평가"].weighted_actual, 38.76, places=4)
+        self.assertAlmostEqual(by_name["직무수행능력평가"].weighted_expected, 38.688, places=3)
+        self.assertAlmostEqual(by_name["직무수행능력평가"].deficit, 0.072, places=3)
+
+    def test_pass_scenarios_single_section_math(self) -> None:
+        """한 영역만 개선하는 시나리오의 목표 점수 정확성."""
+        rec = _golden_record()
+        scenarios = compute_pass_scenarios(rec.sections, rec.cutoff)
+        by_name = {sc.name: sc for sc in scenarios}
+        # 직업기초만 개선: 필요 원점수 = 19.33 + 6.39 = 25.72
+        s_ncs = by_name["직업기초능력평가만 개선"]
+        self.assertAlmostEqual(
+            s_ncs.required_raw_scores["직업기초능력평가"], 25.72, places=2
+        )
+        # 직무수행만 개선: 필요 원점수 = 38.76 + 6.39 = 45.15
+        s_job = by_name["직무수행능력평가만 개선"]
+        self.assertAlmostEqual(
+            s_job.required_raw_scores["직무수행능력평가"], 45.15, places=2
+        )
+
+    def test_pass_scenario_validates_via_recomputation(self) -> None:
+        """시나리오의 목표 점수로 ExamRecord 재구성 시 합격 여부 확인."""
+        rec = _golden_record()
+        scenarios = compute_pass_scenarios(rec.sections, rec.cutoff)
+        for sc in scenarios:
+            new_sections = [
+                Section(
+                    name=s.name,
+                    score=sc.required_raw_scores[s.name],
+                    max_score=s.max_score,
+                    weight=s.weight,
+                )
+                for s in rec.sections
+            ]
+            new_total = sum(s.weighted() for s in new_sections)
+            # 시나리오대로 맞췄을 때 커트라인에 도달해야 함 (수치 오차 허용)
+            self.assertAlmostEqual(new_total, rec.cutoff, places=2, msg=f"시나리오: {sc.name}")
+
+    def test_equal_pp_scenario_equals_negative_gap(self) -> None:
+        """균등 개선 시나리오는 |gap| 만큼 백분율 상승 (weights=100 인 경우)."""
+        rec = _golden_record()
+        scenarios = compute_pass_scenarios(rec.sections, rec.cutoff)
+        equal = next(sc for sc in scenarios if sc.name == "모든 영역 균등 개선")
+        # 각 영역 delta_pp 는 같아야 함
+        pps = list(equal.delta_percentage_points.values())
+        self.assertAlmostEqual(pps[0], pps[1], places=4)
+        # 그리고 그 값은 -gap 과 같음 (weights sum to 100)
+        self.assertAlmostEqual(pps[0], 6.39, places=2)
+
+    def test_diagnose_primary_cause_is_NCS(self) -> None:
+        """주 원인은 직업기초능력평가 (더 큰 음의 기여)."""
+        d = diagnose(_golden_record())
+        self.assertIsNotNone(d.primary_cause)
+        self.assertEqual(d.primary_cause.name, "직업기초능력평가")
+
+    def test_diagnose_recommended_scenario_targets_weakest(self) -> None:
+        """추천 시나리오는 약점 영역 개선."""
+        d = diagnose(_golden_record())
+        self.assertIsNotNone(d.recommended_scenario)
+        self.assertEqual(d.recommended_scenario.name, "직업기초능력평가만 개선")
+
+    def test_diagnose_requires_cutoff(self) -> None:
+        rec = ExamRecord(
+            agency="x",
+            date="2026-01-01",
+            sections=[Section("a", 10, 40, 40), Section("b", 30, 60, 60)],
+            cutoff=None,
+        )
+        with self.assertRaises(ValueError):
+            diagnose(rec)
+
+    def test_diagnose_already_passed(self) -> None:
+        """이미 합격이면 시나리오는 비어있고 체크리스트는 '유지' 메시지."""
+        rec = ExamRecord(
+            agency="x",
+            date="2026-01-01",
+            sections=[Section("a", 40, 40, 40), Section("b", 60, 60, 60)],
+            cutoff=50.0,
+        )
+        d = diagnose(rec)
+        self.assertGreaterEqual(d.gap, 0)
+        self.assertEqual(d.scenarios, [])
+        self.assertTrue(any("합격" in item for item in d.checklist))
+
+    def test_diagnose_cli_output_contains_key_info(self) -> None:
+        """CLI diagnose 출력에 정확한 수치가 포함되어 있는지."""
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            code = cli_main([
+                "--no-color",
+                "diagnose",
+                "--agency",
+                "서민금융진흥원",
+                "--date",
+                "2026-04-15",
+                "--section",
+                "직업기초능력평가:19.33:40:40",
+                "--section",
+                "직무수행능력평가:38.76:60:60",
+                "--cutoff",
+                "64.48",
+            ])
+        self.assertEqual(code, 0)
+        out = buf.getvalue()
+        # 핵심 수치 확인
+        self.assertIn("58.09", out)
+        self.assertIn("64.48", out)
+        self.assertIn("-6.39", out)
+        self.assertIn("25.79", out)  # 직업기초 기대
+        self.assertIn("25.72", out)  # 직업기초 목표 원점수
+        self.assertIn("45.15", out)  # 직무수행 목표 원점수
+        self.assertIn("주 원인", out)
+        self.assertIn("추천", out)
+        self.assertIn("직업기초능력평가", out)
+
+    def test_diagnose_cli_json(self) -> None:
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            code = cli_main([
+                "--no-color",
+                "--json",
+                "diagnose",
+                "--agency",
+                "서민금융진흥원",
+                "--date",
+                "2026-04-15",
+                "--section",
+                "직업기초능력평가:19.33:40:40",
+                "--section",
+                "직무수행능력평가:38.76:60:60",
+                "--cutoff",
+                "64.48",
+            ])
+        self.assertEqual(code, 0)
+        payload = json.loads(buf.getvalue())
+        self.assertAlmostEqual(payload["total"], 58.09, places=2)
+        self.assertAlmostEqual(payload["gap"], -6.39, places=2)
+        self.assertEqual(payload["primary_cause"], "직업기초능력평가")
+        self.assertEqual(payload["recommended_scenario"], "직업기초능력평가만 개선")
+        self.assertEqual(len(payload["scenarios"]), 3)
+        # 기여도 합 = gap
+        total_deficit = sum(c["deficit"] for c in payload["contributions"])
+        self.assertAlmostEqual(total_deficit, payload["gap"], places=2)
+
+    def test_diagnose_from_saved_id(self) -> None:
+        """--from-id 로 이력에서 기록을 불러와 진단."""
+        tmp = tempfile.NamedTemporaryFile(
+            mode="w", suffix=".json", delete=False, encoding="utf-8"
+        )
+        tmp.close()
+        os.unlink(tmp.name)
+        try:
+            # 먼저 저장
+            buf_save = io.StringIO()
+            with redirect_stdout(buf_save):
+                cli_main([
+                    "--no-color",
+                    "--data-file",
+                    tmp.name,
+                    "analyze",
+                    "--agency",
+                    "서민금융진흥원",
+                    "--date",
+                    "2026-04-15",
+                    "--section",
+                    "직업기초능력평가:19.33:40:40",
+                    "--section",
+                    "직무수행능력평가:38.76:60:60",
+                    "--cutoff",
+                    "64.48",
+                    "--save",
+                ])
+            records = load_history(Path(tmp.name))
+            self.assertEqual(len(records), 1)
+            rid = records[0].record_id
+            # 진단
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                code = cli_main([
+                    "--no-color",
+                    "--data-file",
+                    tmp.name,
+                    "diagnose",
+                    "--from-id",
+                    rid,
+                ])
+            self.assertEqual(code, 0)
+            self.assertIn("58.09", buf.getvalue())
+        finally:
             p = Path(tmp.name)
             if p.exists():
                 p.unlink()
