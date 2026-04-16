@@ -1,4 +1,4 @@
-"""argparse 기반 CLI: analyze / save / list / show / delete / convert / stats / diagnose."""
+"""argparse 기반 CLI: analyze / save / list / show / delete / convert / stats / diagnose / corpus ..."""
 from __future__ import annotations
 
 import argparse
@@ -11,6 +11,14 @@ from typing import List, Optional
 from . import __version__
 from .analyzer import AnalysisResult, analyze, convert_to_scale, diagnose
 from .analyzer import Diagnosis, PassScenario, SectionContribution  # noqa: F401
+from .corpus.import_ import ImportError as CorpusImportError, import_from_json_file
+from .corpus.scoring import compute_mastery_report, mastery_report_to_dict
+from .corpus.storage import (
+    add_question,
+    default_corpus_path,
+    load_corpus,
+    save_corpus,
+)
 from .i18n import t
 from .models import ExamRecord, Section, generate_record_id, record_to_dict
 from .storage import (
@@ -530,6 +538,153 @@ def cmd_diagnose(args: argparse.Namespace) -> int:
     return EXIT_PASS
 
 
+# ---------------------- corpus 서브커맨드 ----------------------
+
+
+def _resolve_corpus_path(args: argparse.Namespace) -> Path:
+    if getattr(args, "corpus_file", None):
+        return Path(args.corpus_file).expanduser()
+    return default_corpus_path()
+
+
+def cmd_corpus_stats(args: argparse.Namespace) -> int:
+    path = _resolve_corpus_path(args)
+    snap = load_corpus(path)
+    by_kind: dict = {}
+    by_area: dict = {}
+    by_agency: dict = {}
+    for q in snap.questions:
+        by_kind[q.kind] = by_kind.get(q.kind, 0) + 1
+        by_area[q.area] = by_area.get(q.area, 0) + 1
+        by_agency[q.agency] = by_agency.get(q.agency, 0) + 1
+    payload = {
+        "corpus_path": str(path),
+        "total_questions": len(snap.questions),
+        "total_attempts": len(snap.attempts),
+        "total_rounds": len(snap.rounds),
+        "by_kind": by_kind,
+        "by_area": by_area,
+        "by_agency": by_agency,
+    }
+    if args.json:
+        print(jsonlib.dumps(payload, ensure_ascii=False, indent=2))
+        return EXIT_PASS
+    print(f"Corpus 파일: {path}")
+    print(f"총 문항: {len(snap.questions)}")
+    print(f"총 시도 기록: {len(snap.attempts)}")
+    print(f"총 회독 세션: {len(snap.rounds)}")
+    if by_kind:
+        print("\n종류별:")
+        for k, v in sorted(by_kind.items(), key=lambda kv: -kv[1]):
+            print(f"  {k:<22}{v:>5}")
+    if by_area:
+        print("\n영역별:")
+        for a, v in sorted(by_area.items(), key=lambda kv: -kv[1]):
+            print(f"  {a:<22}{v:>5}")
+    if by_agency:
+        print("\n기관별:")
+        for ag, v in sorted(by_agency.items(), key=lambda kv: -kv[1]):
+            print(f"  {ag:<22}{v:>5}")
+    return EXIT_PASS
+
+
+def cmd_corpus_list(args: argparse.Namespace) -> int:
+    path = _resolve_corpus_path(args)
+    snap = load_corpus(path)
+    items = snap.questions
+    if args.area:
+        items = [q for q in items if args.area in q.area]
+    if args.kind:
+        items = [q for q in items if q.kind == args.kind]
+    if args.agency:
+        items = [q for q in items if args.agency in q.agency]
+    if args.json:
+        from .corpus.models import question_to_dict
+
+        print(jsonlib.dumps(
+            [question_to_dict(q) for q in items],
+            ensure_ascii=False,
+            indent=2,
+        ))
+        return EXIT_PASS
+    if not items:
+        print("(해당 조건의 문항 없음)")
+        return EXIT_PASS
+    print(f"{'ID':<12}{'종류':<20}{'영역':<22}{'기관':<20}문제 앞 40자")
+    print("─" * 100)
+    for q in items:
+        preview = q.question_text[:40].replace("\n", " ")
+        print(
+            f"{q.id:<12}{q.kind:<20}{q.area:<22}{q.agency:<20}{preview}"
+        )
+    return EXIT_PASS
+
+
+def cmd_corpus_import(args: argparse.Namespace) -> int:
+    path = _resolve_corpus_path(args)
+    try:
+        new_questions = import_from_json_file(Path(args.from_json))
+    except CorpusImportError as e:
+        print(f"반입 실패: {e}", file=sys.stderr)
+        return EXIT_IO
+    except OSError as e:
+        print(f"파일 오류: {e}", file=sys.stderr)
+        return EXIT_IO
+
+    if args.dry_run:
+        print(f"[dry-run] 반입 가능한 문항: {len(new_questions)}")
+        for q in new_questions[:5]:
+            print(f"  {q.id}  {q.agency}  {q.area}  {q.question_text[:40]}")
+        if len(new_questions) > 5:
+            print(f"  ... 외 {len(new_questions) - 5}건")
+        return EXIT_PASS
+
+    snap = load_corpus(path)
+    added = 0
+    skipped = 0
+    for q in new_questions:
+        if add_question(snap, q):
+            added += 1
+        else:
+            skipped += 1
+    save_corpus(snap, path)
+    print(f"✓ 반입 완료: 신규 {added}건 / 중복 스킵 {skipped}건")
+    print(f"  corpus 파일: {path}")
+    return EXIT_PASS
+
+
+def cmd_corpus_mastery(args: argparse.Namespace) -> int:
+    path = _resolve_corpus_path(args)
+    snap = load_corpus(path)
+    report = compute_mastery_report(
+        snap,
+        min_consecutive=args.min_consecutive,
+        required_accuracy=args.required_accuracy,
+    )
+    payload = mastery_report_to_dict(report)
+    if args.json:
+        print(jsonlib.dumps(payload, ensure_ascii=False, indent=2))
+        return EXIT_PASS
+    print(f"총 문항: {report.total_questions}")
+    print(f"숙달: {report.mastered_count} ({payload['mastery_rate_percent']}%)")
+    print(f"회독 세션: {report.rounds_completed}회")
+    print(f"미시도: {len(report.never_attempted)}")
+    if payload["north_star_reached"]:
+        print("\n★ 북극성(95%) 도달")
+    else:
+        gap = 0.95 - report.mastery_rate
+        print(f"\n북극성까지 남은 숙련도: {gap * 100:.2f}pp")
+    if report.by_area:
+        print("\n영역별 숙련도:")
+        for a, r in sorted(report.by_area.items(), key=lambda kv: kv[1]):
+            print(f"  {a:<22}{r * 100:6.2f}%")
+    if report.weakest_questions:
+        print(f"\n취약 문항 ID (상위 {len(report.weakest_questions)}개):")
+        for qid in report.weakest_questions:
+            print(f"  {qid}")
+    return EXIT_PASS
+
+
 # ---------------------- 파서 ----------------------
 
 
@@ -607,6 +762,34 @@ def build_parser() -> argparse.ArgumentParser:
         help="이력에 저장된 기록 ID (전체 또는 접두사) 로부터 진단",
     )
     p_diag.set_defaults(func=cmd_diagnose)
+
+    # corpus 서브커맨드 (기출 문항 DB · 회독 시스템)
+    p_corpus = subs.add_parser("corpus", help="기출 corpus 관리 (사용자 소유 이북 기반)")
+    p_corpus.add_argument(
+        "--corpus-file",
+        dest="corpus_file",
+        help="corpus JSON 경로 (기본: ~/.exam_corpus.json, env EXAM_CORPUS_FILE 도 지원)",
+    )
+    corpus_subs = p_corpus.add_subparsers(dest="corpus_command", required=True)
+
+    cs_stats = corpus_subs.add_parser("stats", help="corpus 수록률·문항수 통계")
+    cs_stats.set_defaults(func=cmd_corpus_stats)
+
+    cs_list = corpus_subs.add_parser("list", help="수록 문항 요약 목록")
+    cs_list.add_argument("--area", help="영역 부분일치 필터 (예: NCS 또는 직무)")
+    cs_list.add_argument("--kind", choices=["primary", "reverse_engineered", "official_released"])
+    cs_list.add_argument("--agency", help="기관명 부분일치 필터")
+    cs_list.set_defaults(func=cmd_corpus_list)
+
+    cs_import = corpus_subs.add_parser("import", help="JSON 파일에서 문항 반입 (provenance 필수)")
+    cs_import.add_argument("--from-json", dest="from_json", required=True, help="JSON 파일 경로")
+    cs_import.add_argument("--dry-run", action="store_true", help="검증만 하고 저장 안 함")
+    cs_import.set_defaults(func=cmd_corpus_import)
+
+    cs_mastery = corpus_subs.add_parser("mastery", help="숙련도 리포트 (북극성 95% 측정)")
+    cs_mastery.add_argument("--min-consecutive", type=int, default=3)
+    cs_mastery.add_argument("--required-accuracy", type=float, default=0.9)
+    cs_mastery.set_defaults(func=cmd_corpus_mastery)
 
     return parser
 
