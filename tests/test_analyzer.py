@@ -453,11 +453,18 @@ class TestDiagnose(unittest.TestCase):
         self.assertIsNotNone(d.primary_cause)
         self.assertEqual(d.primary_cause.name, "직업기초능력평가")
 
-    def test_diagnose_recommended_scenario_targets_weakest(self) -> None:
-        """추천 시나리오는 약점 영역 개선."""
+    def test_diagnose_scenarios_contain_all_three(self) -> None:
+        """
+        ※ audit-v1.md 반영: 이전 test_diagnose_recommended_scenario_targets_weakest 는
+        약점 집중 = 옳다 라는 HEURISTIC 을 고정시키는 잘못된 테스트였음.
+        제거하고 대신 3개 시나리오 전부 존재하는지 (수학적 사실) 만 검증.
+        """
         d = diagnose(_golden_record())
-        self.assertIsNotNone(d.recommended_scenario)
-        self.assertEqual(d.recommended_scenario.name, "직업기초능력평가만 개선")
+        names = {sc.name for sc in d.scenarios}
+        self.assertIn("직업기초능력평가만 개선", names)
+        self.assertIn("직무수행능력평가만 개선", names)
+        self.assertIn("모든 영역 균등 개선", names)
+        self.assertEqual(len(d.scenario_trade_offs), 3)
 
     def test_diagnose_requires_cutoff(self) -> None:
         rec = ExamRecord(
@@ -509,8 +516,7 @@ class TestDiagnose(unittest.TestCase):
         self.assertIn("25.79", out)  # 직업기초 기대
         self.assertIn("25.72", out)  # 직업기초 목표 원점수
         self.assertIn("45.15", out)  # 직무수행 목표 원점수
-        self.assertIn("주 원인", out)
-        self.assertIn("추천", out)
+        self.assertIn("주 원인", out)  # 수학적 사실 (최대 음의 기여)
         self.assertIn("직업기초능력평가", out)
 
     def test_diagnose_cli_json(self) -> None:
@@ -536,8 +542,9 @@ class TestDiagnose(unittest.TestCase):
         self.assertAlmostEqual(payload["total"], 58.09, places=2)
         self.assertAlmostEqual(payload["gap"], -6.39, places=2)
         self.assertEqual(payload["primary_cause"], "직업기초능력평가")
-        self.assertEqual(payload["recommended_scenario"], "직업기초능력평가만 개선")
+        # audit-v1.md: recommended_scenario 제거. 모든 시나리오의 trade-off 만 제공
         self.assertEqual(len(payload["scenarios"]), 3)
+        self.assertEqual(len(payload["scenario_trade_offs"]), 3)
         # 기여도 합 = gap
         total_deficit = sum(c["deficit"] for c in payload["contributions"])
         self.assertAlmostEqual(total_deficit, payload["gap"], places=2)

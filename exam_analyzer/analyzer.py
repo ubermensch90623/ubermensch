@@ -147,17 +147,22 @@ class PassScenario:
 
 @dataclass
 class Diagnosis:
-    """diagnose() 의 종합 결과."""
+    """diagnose() 의 종합 결과.
+
+    ※ audit-v1.md 반영: 이전의 `recommended_scenario` / `recommendation_reason`
+    은 약점 영역 집중 = 옳다 가정에 의존한 HEURISTIC 이라 제거.
+    대신 모든 시나리오의 trade-off 수치만 제공하고 판단은 사용자가.
+    """
 
     record: ExamRecord
     total: float
     cutoff: float
     gap: float                    # 음수면 부족
     contributions: List[SectionContribution]
-    primary_cause: Optional[Section]  # 격차의 가장 큰 원인 영역
+    primary_cause: Optional[Section]  # 격차의 가장 큰 원인 영역 (수학적, 휴리스틱 아님)
     scenarios: List[PassScenario]
-    recommended_scenario: Optional[PassScenario]
-    recommendation_reason: str
+    scenario_trade_offs: List[Tuple[PassScenario, str]]  # 각 시나리오별 중립 수치 요약
+    trade_off_note: str           # 공통 고지 문구
     checklist: List[str]
 
 
@@ -387,8 +392,8 @@ def diagnose(record: ExamRecord) -> Diagnosis:
             primary_cause = worst.section
 
     scenarios = compute_pass_scenarios(sections, cutoff)
-    recommended, reason = _recommend_scenario(scenarios, sections)
-    checklist = _build_checklist(recommended, sections, cutoff)
+    trade_offs, note = _scenario_trade_offs(scenarios, sections)
+    checklist = _build_checklist(scenarios, sections, cutoff)
 
     return Diagnosis(
         record=record,
@@ -398,7 +403,7 @@ def diagnose(record: ExamRecord) -> Diagnosis:
         contributions=contributions,
         primary_cause=primary_cause,
         scenarios=scenarios,
-        recommended_scenario=recommended,
-        recommendation_reason=reason,
+        scenario_trade_offs=trade_offs,
+        trade_off_note=note,
         checklist=checklist,
     )

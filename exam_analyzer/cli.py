@@ -419,20 +419,18 @@ def _format_diagnosis(d: "Diagnosis", use_color: bool) -> str:
             f"{_c(d.primary_cause.name, _RED + _BOLD, use_color)}"
         )
 
-    # 시나리오
+    # 시나리오 (중립 수치)
     lines.append("")
     lines.append(_c(f"▣ {t('scenarios_header')}", _BOLD, use_color))
-    for i, sc in enumerate(d.scenarios, 1):
-        feas_colored = {
-            "높음": _c(sc.feasibility, _GREEN, use_color),
-            "보통": _c(sc.feasibility, _YELLOW, use_color),
-            "낮음": _c(sc.feasibility, _RED, use_color),
-            "불가능": _c(sc.feasibility, _RED + _BOLD, use_color),
-            "이미 달성": _c(sc.feasibility, _GREEN, use_color),
-            "불필요": _c(sc.feasibility, _DIM, use_color),
-        }.get(sc.feasibility, sc.feasibility)
-        lines.append(f"  {i}. {sc.name}  [{t('feasibility')}: {feas_colored}]")
-        lines.append(f"     {sc.feasibility_note}")
+    for i, (sc, note) in enumerate(d.scenario_trade_offs, 1):
+        sig_colored = {
+            "수치요약": _c(sc.signal, _CYAN, use_color),
+            "범위초과": _c(sc.signal, _RED + _BOLD, use_color),
+            "이미달성": _c(sc.signal, _GREEN, use_color),
+        }.get(sc.signal, sc.signal)
+        lines.append(f"  {i}. {sc.name}  [{sig_colored}]")
+        lines.append(f"     {sc.description}")
+        lines.append(f"     {note}")
         for name in sc.required_raw_scores:
             req = sc.required_raw_scores[name]
             d_pp = sc.delta_percentage_points[name]
@@ -445,12 +443,10 @@ def _format_diagnosis(d: "Diagnosis", use_color: bool) -> str:
                     f"(원점수 +{d_raw:.2f}, 백분율 +{d_pp:.2f}pp)"
                 )
 
-    # 추천
-    if d.recommended_scenario is not None:
+    # 고지 문구 (판단은 사용자에게)
+    if d.trade_off_note:
         lines.append("")
-        lines.append(_c(f"▣ {t('recommendation_header')}", _BOLD + _GREEN, use_color))
-        lines.append(f"  {d.recommended_scenario.name}")
-        lines.append(f"  {d.recommendation_reason}")
+        lines.append(_c(f"※ {d.trade_off_note}", _DIM, use_color))
 
     # 체크리스트
     if d.checklist:
@@ -482,8 +478,8 @@ def _diagnosis_to_json(d: "Diagnosis") -> str:
         "scenarios": [
             {
                 "name": sc.name,
-                "feasibility": sc.feasibility,
-                "feasibility_note": sc.feasibility_note,
+                "signal": sc.signal,
+                "description": sc.description,
                 "required_raw_scores": {k: round(v, 4) for k, v in sc.required_raw_scores.items()},
                 "required_percentages": {k: round(v, 4) for k, v in sc.required_percentages.items()},
                 "delta_raw": {k: round(v, 4) for k, v in sc.delta_raw.items()},
@@ -491,10 +487,11 @@ def _diagnosis_to_json(d: "Diagnosis") -> str:
             }
             for sc in d.scenarios
         ],
-        "recommended_scenario": (
-            d.recommended_scenario.name if d.recommended_scenario else None
-        ),
-        "recommendation_reason": d.recommendation_reason,
+        "scenario_trade_offs": [
+            {"name": sc.name, "summary": summary}
+            for (sc, summary) in d.scenario_trade_offs
+        ],
+        "trade_off_note": d.trade_off_note,
         "checklist": d.checklist,
     }
     return jsonlib.dumps(payload, ensure_ascii=False, indent=2)
