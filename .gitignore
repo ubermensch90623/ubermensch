@@ -21,6 +21,10 @@ htmlcov/
 .exam_history.json
 *.exam_history.json
 
+# corpus (저작권 민감 원본 포함 가능, 절대 커밋 금지)
+.exam_corpus.json
+*.exam_corpus.json
+
 # 가상환경
 .venv/
 venv/
