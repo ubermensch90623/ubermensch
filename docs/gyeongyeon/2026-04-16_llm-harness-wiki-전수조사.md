@@ -120,3 +120,22 @@
 ## 7. 산출물 (이 경연의 출력)
 - 본 안건서 (`docs/gyeongyeon/2026-04-16_llm-harness-wiki-전수조사.md`)
 - 사용자 판결 후 → 판결 내용 + 실행 결과 이 파일 말미에 추기
+
+## 8. 🏛 사용자 판결 (2026-04-16)
+
+> **판결: 옵션 A (보수, 최소 개입)** — 현재 인프라 유지 + Piebald-AI Claude Code system-prompts 읽기 전용 참고로 P9/P1 템플릿 품질 개선.
+
+### 실행 내역 (판결 후)
+- [ ] Piebald-AI system-prompts 저장소 주요 문서 탐독 → P9 템플릿 개선안 작성
+- [ ] 기존 P9 템플릿에 개선사항 반영 (필요 시 수석위원 2명 재심사)
+- [ ] 변경 diff 이 경연 안건서에 추기
+
+### 확정 결정 사항
+- 외부 의존성 도입 없음 (stdlib-only 유지)
+- MCP 서버 추가 없음
+- 현행 `~/.claude/settings.json` 구성 유지
+- Stop hook, session-start-hook skill 유지
+- 옵션 C 거부 (스노우볼 리스크 큼)
+
+### 불수용 의견 기록 (소수 의견 보존 원칙)
+- SC2 가 제안한 "everything-claude-code 의 memory/instincts 개념 영감 차용" 은 옵션 A 선정으로 **유보**. 추후 필요 시 별도 경연 재개최 가능.
