@@ -1,0 +1,4 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_comment": "프로젝트 레벨 Claude Code 설정. 사용자 전역 ~/.claude/settings.json 은 건드리지 않음. 헌법 C-0~C-11 과 agents/ 하위 12개 에이전트는 CLAUDE.md + .claude/agents/ 에 정의됨. 데스크탑에서 폴더를 열면 자동 로드됨."
+}

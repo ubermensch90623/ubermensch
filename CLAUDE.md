@@ -211,10 +211,47 @@
 새 세션에서 이 저장소를 열면 **이 순서대로** 읽고 현재 상태를 복원할 것:
 
 1. `CLAUDE.md` (이 파일) — 규칙
-2. `docs/audit-v1.md` — 지금까지 만든 자료의 전수조사. 어느 부분이 FABRICATION / HEURISTIC / STALE 인지 명시
-3. `docs/reconstruction-plan.md` — 복원 프로젝트 현재 계획 (최신 버전 = 파일 상단 버전 표기 기준)
-4. `docs/PLAN.md` — exam_analyzer 모듈 원 설계
-5. 최근 git log 3~5개 — 직전 작업 맥락
+2. `docs/audit-v3.md` — 최신 전수조사 (v1/v2 누적 반영)
+3. `docs/readiness_checklist.md` — 사용자 자료 수령 시 Step 0~8 자동 가동
+4. `docs/reconstruction-plan.md` — 루틴 R1~R12
+5. `docs/exam_reconstruction/서민금융진흥원_2026_상반기_종합직_일반/00_meta.md` — 진행 상태
+6. 최근 git log 5~10개 — 직전 작업 맥락
+
+## 0.1 프로젝트 자동 로드 구조 (`.claude/`)
+
+Claude Code (데스크탑/CLI) 가 저장소 폴더를 열면 아래가 **자동 로드**:
+
+```
+.claude/
+├── settings.json         # 프로젝트 레벨 설정 (사용자 전역 건드림 없음)
+├── agents/               # 정식 서브에이전트 12종 (P1~P11 + SC1/SC2)
+│   ├── p1-announcement-analyst.md
+│   ├── p2-outsourcer-analyst.md
+│   ├── p3-ncs-examiner.md
+│   ├── p4-aladin-catalog.md
+│   ├── p5-review-screener.md
+│   ├── p6-skeptic.md
+│   ├── p7-synthesist.md
+│   ├── p9-reverse-engineer.md
+│   ├── p10-archivist.md
+│   ├── p11-supreme-overseer.md
+│   ├── sc1-senior-chief.md
+│   ├── sc2-senior-chief.md
+│   └── README.md         # 편제·호출 파이프라인
+└── hooks/                # (예비 — 현재 비어있음)
+```
+
+Agent 도구 호출 시 `subagent_type: <agent-name>` 로 즉시 사용 가능.
+각 파일 frontmatter 의 `description` 이 Claude 의 semantic matching 에 사용됨.
+본문에는 CLAUDE.md 헌법 참조 + 상세 docs/agent_templates/ 연결.
+
+## 0.2 원클릭 로컬 검증
+
+- macOS/Linux: `bash setup.sh`
+- Windows PowerShell: `.\setup.ps1`
+- Windows CMD: `setup.bat`
+
+Python 3.9+ 확인 + 67 unittest 실행 + CLI 스모크. 설치 작업 없음 (stdlib only).
 
 ## 1. 스노우볼 방지 하드룰 (위반 시 전체 프로젝트 실패)
 
