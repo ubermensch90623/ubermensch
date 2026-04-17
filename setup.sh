@@ -37,11 +37,18 @@ else
   echo "[WARN] Git repo 아닙니다."
 fi
 
-# 3. 테스트 실행
+# 3. 테스트 실행 (ubermensch 67 + harness 17 = 84 PASS 목표)
 echo
-echo "=== unittest 실행 ==="
+echo "=== unittest 실행 (ubermensch) ==="
 "$PY" -m unittest discover tests
-echo "[OK] 테스트 통과"
+echo "[OK] ubermensch tests 통과"
+
+if [ -d "harness/tests" ]; then
+  echo
+  echo "=== unittest 실행 (harness) ==="
+  "$PY" -m unittest discover harness/tests
+  echo "[OK] harness tests 통과"
+fi
 
 # 4. CLI 스모크
 echo

@@ -51,6 +51,23 @@
 - 테스트 4개 추가: entry_id uniqueness·공공누리4 차단·fail-closed·permissive 통과 → **17 harness + 67 기존 = 84 PASS**
 - git commit: "harness: M1-M3 자율세션 v1 …" 1차 커밋 완료
 
+### 10:10 P12 3차 **PASS** + handoff_approved: true
+- verdict: PASS
+- 종환 final_note: "3차 PASS. 코드 레벨 6건 결함 전부 닫혔다. 남은 건 네 답 5개 (Phase 0) + UI 실제 뜨는지 15분 확인 2개. 바로 M4 가능."
+- 남은 minor: UI 빌드 screenshot 검증 / P12 RESET 자동화 대안 / c0_passed=0 UI 가드 확인
+- **M1 공식 종료 선언** → P11 rebirth 발동
+
+### 10:15 P11 태상위원 rebirth (M1 종료 기념)
+- `docs/meta_overseer/2026-04-18_M1_rebirth.md` 작성
+- 흡수 장점 6개 (P1 자기회의, P6 고품질 공격, P12 단계적 판정, P13 limit 명시, SC1 경계 넘는 심사, SC2 시스템 일관성)
+- 폐기 단점 6개 (P1 EUC-KR 환각, P2 2단 fallback, P3 표본 부족 일반화, P4 난이도 근거 0건, P7 자기만족, P14 대안 비제안)
+- 경보 2건 발령 (SC 합의 hook 부재, c0_passed=0 UI 가드 재검증)
+- 계보: G1.M1-pre → G1.M1-post (12명 → 15명)
+
+### 10:17 setup.sh / setup.ps1 에 harness tests discover 추가
+- 양쪽 스크립트가 ubermensch 67 + harness 17 = 84 PASS 검증
+- P12 3차 minor recommendation #1 이행
+
 ### 09:58 SESSION_HANDOFF.md 작성 (Phase 0 블로커 대문짝)
 
 ### 블로커 통합 관리

@@ -87,10 +87,12 @@
 
 ## 🤝 다음 세션에게 물려주는 열린 과제
 
-1. **P12 3차 심사** — 본 세션 2차 GATED 후 `promote.py`·license guard·멱등성·map §2.10 이동 완료. 3차 요청 대기.
-2. **P11 태상위원 rebirth** — M1 종료 시 발동하기로 함. `docs/meta_overseer/2026-04-18_M1_rebirth.md` 작성 필요.
-3. **G1.M1_2ndWave Post-Mortem** — `docs/agent_performance.md` 에 P3·P5·P13·P14·P6·P7·SC1·SC2 각각의 성공·실패 사유 추기.
-4. **Build 검증** — `python server.py` 8765 기동 후 preview_* MCP 도구로 종환 복귀 전에 3 viewport screenshot 저장.
+1. ✅ **P12 3차 심사 완료** — PASS + handoff_approved. 최종 "3차 PASS. 남은 건 네 답 5개 (Phase 0) + UI 15분 확인 2개" 메시지.
+2. ✅ **P11 태상위원 rebirth** — M1 종료 기점 `docs/meta_overseer/2026-04-18_M1_rebirth.md` 작성. 경보 2건 발령.
+3. ✅ **G1.M1_2ndWave + SeniorReview Post-Mortem** — `docs/agent_performance.md` 두 Round 추기 완료. 호칭 후보: P1 자기회의박사, P13 한계박사, SC1 월경심사위원, P12 단계박사.
+4. 🔲 **Build 검증** — UI skeleton 은 preview_eval 로 동작 확인 (`pill: "북극성 95% · 현재 0.0%"`, gridCols `320px 712px 360px` at 1440px). screenshot 은 timeout 으로 보류. 다음 세션이 종환 복귀 전 10-15분 내 screenshot 재시도 + 실 사용 simulation.
+5. 🔲 **P12 RESET 자동화 대안** — cron 회피하되 `promote.py` 내부에서 `stage=p12_approved` 전이 시 `m3_5_gate.check()` 자동 호출 구조로 개선 (P12 3차 recommendation).
+6. 🔲 **reconstruction-plan.md / audit-v3.md 동기화** — 캠코 "60+20" 수치 참조 여부 grep 하여 §2.11 격리 반영 (P12 3차 minor #2).
 
 ## 마지막 기록 시각
 

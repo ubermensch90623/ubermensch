@@ -46,15 +46,26 @@ if (Test-Path .git) {
     Write-Host "[WARN] Git repo 아님"
 }
 
-# 4. 테스트
+# 4. 테스트 (ubermensch 67 + harness 17 = 84 PASS 목표)
 Write-Host ""
-Write-Host "=== unittest ==="
+Write-Host "=== unittest (ubermensch) ==="
 & cmd.exe /c "$PY -m unittest discover tests"
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "[ERR] 테스트 실패" -ForegroundColor Red
+    Write-Host "[ERR] ubermensch 테스트 실패" -ForegroundColor Red
     exit 1
 }
-Write-Host "[OK] 테스트 통과"
+Write-Host "[OK] ubermensch 테스트 통과"
+
+if (Test-Path harness/tests) {
+    Write-Host ""
+    Write-Host "=== unittest (harness) ==="
+    & cmd.exe /c "$PY -m unittest discover harness/tests"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "[ERR] harness 테스트 실패" -ForegroundColor Red
+        exit 1
+    }
+    Write-Host "[OK] harness 테스트 통과"
+}
 
 # 5. CLI 스모크
 Write-Host ""
