@@ -104,7 +104,15 @@ def promote(
             verdict_detail=verdict_note or f"promoted from {source}",
         ),
     )
-    return {"ok": True, "promoted_to": to_stage}
+    # P12 3차 recommendation #2 (2026-04-18): p12_approved 전이 시 m3_5_gate 자동 호출
+    post_check: Dict = {}
+    if to_stage == "p12_approved":
+        try:
+            import m3_5_gate
+            post_check = m3_5_gate.evaluate()
+        except ImportError:
+            post_check = {"error": "m3_5_gate import failed"}
+    return {"ok": True, "promoted_to": to_stage, "post_check": post_check}
 
 
 def main() -> int:
