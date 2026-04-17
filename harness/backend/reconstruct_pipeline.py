@@ -13,6 +13,8 @@ from __future__ import annotations
 
 import json
 import hashlib
+import os
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
@@ -39,8 +41,37 @@ def _claim_id(agent_id: str, claim: Dict[str, Any]) -> str:
     return hashlib.sha1(payload.encode("utf-8")).hexdigest()[:12]
 
 
-def _entry_id(claim_id: str, stage: str, ts: str) -> str:
-    return hashlib.sha1(f"{claim_id}|{stage}|{ts}".encode("utf-8")).hexdigest()[:12]
+def _entry_id(claim_id: str, stage: str, ts: str, salt: str = "") -> str:
+    """entry_id 멱등성: P12 2차 지적(2026-04-18) — 같은 ts 에 같은 claim/stage 로 두 번 append 방지.
+    salt 에 run_id(uuid) 또는 monotonic seq 합쳐 uniqueness 강제.
+    """
+    if not salt:
+        salt = uuid.uuid4().hex[:8]
+    return hashlib.sha1(
+        f"{claim_id}|{stage}|{ts}|{salt}".encode("utf-8")
+    ).hexdigest()[:12]
+
+
+# 공공누리 4유형 등 파생 금지 라이선스 — P9 input 에서 자동 제외 (P12 2차 지적)
+BLOCKED_LICENSES_FOR_P9 = {
+    "공공누리 4유형",
+    "공공누리 제4유형",
+    "KOGL-4",
+    "kogl4",
+    "CC BY-ND",
+    "CC BY-NC-ND",
+}
+
+
+def license_eligible_for_p9(license_str: str) -> bool:
+    """License 가 파생(리버스 엔지니어링) 허용인지. fail-closed: 불명이면 False."""
+    if not license_str:
+        return False
+    lic = license_str.strip().lower()
+    for blocked in BLOCKED_LICENSES_FOR_P9:
+        if blocked.lower() in lic:
+            return False
+    return True
 
 
 def load_agent_outputs(low_confidence_dir: Path) -> List[Tuple[str, Dict[str, Any]]]:
@@ -105,6 +136,7 @@ def route_and_log(
     restored_path.parent.mkdir(parents=True, exist_ok=True)
     quarantine_path.parent.mkdir(parents=True, exist_ok=True)
     stats = {"c0_passed": 0, "quarantined": 0}
+    run_id = os.environ.get("HARNESS_RUN_ID") or uuid.uuid4().hex[:8]
     with restored_path.open("a", encoding="utf-8") as r_fp, \
          quarantine_path.open("a", encoding="utf-8") as q_fp:
         for agent_id, claim in flat_claims:
@@ -112,7 +144,7 @@ def route_and_log(
             stage, reasons = c0_gate(agent_id, claim)
             ts = _now()
             entry = LineageEntry(
-                entry_id=_entry_id(cid, stage, ts),
+                entry_id=_entry_id(cid, stage, ts, salt=run_id),
                 claim_id=cid,
                 stage=stage,
                 actor=agent_id,

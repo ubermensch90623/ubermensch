@@ -179,6 +179,31 @@ class Sc2RegressionTests(unittest.TestCase):
         self.assertNotEqual(stage, "restored")
 
 
+class P12SecondAuditRegressionTests(unittest.TestCase):
+    """P12 2차 심사(2026-04-18) — 멱등성 + P9 라이선스 차단."""
+
+    def test_entry_id_is_unique_across_runs(self):
+        """같은 claim_id/stage/timestamp 라도 salt 로 uniqueness 강제."""
+        id1 = rp._entry_id("cid", "c0_passed", "2026-04-18T00:00:00Z", salt="run1")
+        id2 = rp._entry_id("cid", "c0_passed", "2026-04-18T00:00:00Z", salt="run2")
+        self.assertNotEqual(id1, id2)
+
+    def test_license_eligible_for_p9_blocks_kogl4(self):
+        self.assertFalse(rp.license_eligible_for_p9("공공누리 4유형"))
+        self.assertFalse(rp.license_eligible_for_p9("공공누리 제4유형 (출처·비상업·변형금지)"))
+        self.assertFalse(rp.license_eligible_for_p9("KOGL-4"))
+        self.assertFalse(rp.license_eligible_for_p9("CC BY-NC-ND"))
+
+    def test_license_eligible_fail_closed_on_empty(self):
+        self.assertFalse(rp.license_eligible_for_p9(""))
+        self.assertFalse(rp.license_eligible_for_p9(None))
+
+    def test_license_eligible_allows_permissive(self):
+        self.assertTrue(rp.license_eligible_for_p9("CC BY 4.0"))
+        self.assertTrue(rp.license_eligible_for_p9("MIT License"))
+        self.assertTrue(rp.license_eligible_for_p9("공공누리 1유형"))
+
+
 class RestoreScoreTests(unittest.TestCase):
     """restore_score 매트릭스 빌드 + 히트맵 색상."""
 

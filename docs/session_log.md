@@ -42,6 +42,20 @@
 - Fallback 5단계: 동적렌더 → Firecrawl > Perplexity > Gemini / 로그인벽 → Claude_in_Chrome / 대용량 PDF → NotebookLM=Gemini
 - 한국어 공공 PDF 실사례 quoted_text 확보는 부족 (required_additional_materials 에 기록됨)
 
+### 09:55 P12 2차 GATED → 6 결함 추가 수정 + 84 tests PASS
+- lineage _entry_id 에 salt 파라미터 추가 (uuid run_id) — 멱등성 보강
+- `BLOCKED_LICENSES_FOR_P9` + `license_eligible_for_p9` 함수 (공공누리 4유형·CC BY-ND·KOGL-4 차단, fail-closed)
+- `harness/backend/promote.py` 신설 — c0_passed → sc_reviewed → p12_approved → restored 승격 핸들러
+- map §1.2 수협 블록 **§2.10 로 물리 이동** (자기모순 해소)
+- map §2.11 신설 — 캠코 "5급 경제 범위" SC1 F4 강등 항목 명확화
+- 테스트 4개 추가: entry_id uniqueness·공공누리4 차단·fail-closed·permissive 통과 → **17 harness + 67 기존 = 84 PASS**
+- git commit: "harness: M1-M3 자율세션 v1 …" 1차 커밋 완료
+
+### 09:58 SESSION_HANDOFF.md 작성 (Phase 0 블로커 대문짝)
+
+### 블로커 통합 관리
+위 섹션(초기 로그) 참조. 최신: B1·B2·B3·B4·B7 + Phase 0 #1~#5.
+
 ## 블로커 · 사용자 복귀 시 결정 필요 사항
 
 ### B2. 캠코·수협 공식 공고 PDF 직접 다운로드 필요 (feedback_download_first 발동)
