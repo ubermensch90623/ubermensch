@@ -68,6 +68,35 @@
 - 양쪽 스크립트가 ubermensch 67 + harness 17 = 84 PASS 검증
 - P12 3차 minor recommendation #1 이행
 
+### 10:25 v3 마무리 commit (handoff + rebirth + Post-Mortem)
+- 3 files touched: docs/SESSION_HANDOFF.md (갱신) · docs/meta_overseer/2026-04-18_M1_rebirth.md (신설) · docs/agent_performance.md (2 Round 추기)
+- 7 files changed 총 179+ insertions
+
+### 10:30 UI 실사용 simulation (P12 3차 minor #1 이행)
+- preview_eval 검증: gridCols 320/712/360 @ 1440px, 기관 4개 (캠코·수협·신보·주금공), warn box 존재, lineage 28건 로드, restored 0건 (M3.5 반영)
+- north_star 0.95 는 서버 재기동 후 반영 예정 (현재 서버 캐시 0.9). 다음 세션 첫 단계에서 `python server.py` 재기동하면 즉시 갱신
+- screenshot timeout 지속 이슈 → 다음 세션이 종환 복귀 전 재시도. 단, 구조·텍스트는 preview_eval 로 검증 완료
+
+## 최종 종료 상태 (2026-04-18 10:30 KST)
+
+- **M1 공식 종료 선언 완료** (P12 3차 PASS + P11 rebirth 기점)
+- **84 tests PASS** (17 harness + 67 기존)
+- **3 git commits** (v1 harness skeleton → v2 SC/P12 교정 → v3 handoff/rebirth)
+- **생성 파일**: harness/ 27+ / docs/ 7 / .claude/agents/p12-jonghwan.md
+- **완전히 해결된 블로커**: B5 (lineage 생성), B6 (L80 버그), P12 호칭 정립, 설문 32문항 답변 반영
+- **미해결 블로커 (사용자 복귀 시 판결 필요)**: Phase 0 #1~#5 · B1 · B2 · B3 · B4 · B7
+- **북극성 진도**: 팩트 0/100 (0%). B1-B4 해소 후 M4 진입 → 캠코 경제학 복원 시작
+
+## 다음 세션 시작 지침
+
+1. `git fetch && git checkout claude/fix-handwriting-recognition-J9xJq`
+2. `python -m unittest discover tests` (67) + `python -m unittest discover harness/tests` (17)
+3. `docs/SESSION_HANDOFF.md` 읽기 → Phase 0 + B1~B7 AskUserQuestion
+4. `python harness/backend/server.py` 재기동 (포트 8765)
+5. preview_screenshot 재시도 (데스크톱 1440 · 태블릿 768 · 모바일 375)
+6. 사용자 답변 수령 후 `docs/gyeongyeon/2026-04-XX_M4_decisions.md` 기록
+7. 판결 후 M4 진입 (캠코 경제학 60문항 복원)
+
 ### 09:58 SESSION_HANDOFF.md 작성 (Phase 0 블로커 대문짝)
 
 ### 블로커 통합 관리
