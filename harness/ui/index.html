@@ -95,7 +95,7 @@
       <template x-if="lineage.length === 0">
         <p class="text-sm" style="color: var(--text-secondary);">아직 기록된 혈통 없음.</p>
       </template>
-      <template x-for="e in lineage.slice(-20).reverse()" :key="e.entry_id">
+      <template x-for="(e, i) in (lineage || []).slice(-20).reverse()" :key="(e && e.entry_id) ? e.entry_id + '-' + i : 'l' + i">
         <div class="text-xs mb-2 p-2 rounded" style="background: var(--bg-1);">
           <div class="flex justify-between">
             <span class="font-mono" x-text="e.actor"></span>
