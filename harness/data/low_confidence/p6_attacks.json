@@ -1,0 +1,166 @@
+{
+  "agent_id": "P6",
+  "persona": "회의론자 (박사급 방법론·메타분석 + 실무 12년 + 공공데이터 팩트체크). C-5 생성원리 의심 + C-0 스노우볼 차단.",
+  "run_date": "2026-04-18",
+  "scope": "M1 1st+2nd wave raw files: P1, P2, P3, P4, P5, P13, P14, P15",
+
+  "attacks": [
+    {
+      "target_agent": "P1",
+      "target_claim": "수협 스케줄 '지이코노미 보도 + 중앙이코노미뉴스 + 창업일보 3개 독립소스 일치'",
+      "attack_type": "source_duplicate",
+      "evidence": "3개 매체 모두 지방 경제지·보도자료 재유통 채널. 수협중앙회 단일 보도자료가 원 소스일 가능성 매우 높음. '날짜·인원·과목' 문장이 거의 동일하게 복제될 때는 독립소스가 아니라 동일 보도자료 n배 확산. P1 self_audit 에는 이 위험 언급 0건.",
+      "counter_source_needed": "수협중앙회 공식 보도자료 URL(suhyup.co.kr 또는 suhyup.incruit.com 원문) — 1차 승격 전까지 C-0 '독립 2' 기준 미충족 처리",
+      "verdict": "sustain"
+    },
+    {
+      "target_agent": "P1",
+      "target_claim": "캠코 exam_structure '미시경제학·거시경제학' 범위 quoted_text 가 2025 PDF(2job_write_test.pdf)에서 인용됨",
+      "attack_type": "unverified_scope",
+      "evidence": "P1 본인도 attachment_note 에 '바이너리로 저장됨 / 텍스트 추출은 메인 세션에서 필요' 명시. 즉 quoted_text 는 실제 PDF 원문 추출이 아니라 파일명·메타에서 유추. 범위가 '국제금융·재정학·화폐금융' 미포함인지 원문 미확인.",
+      "counter_source_needed": "PDF 바이너리를 pdf-viewer MCP 로 텍스트 추출 후 원문 인용 재수록",
+      "verdict": "sustain"
+    },
+    {
+      "target_agent": "P1 vs P5",
+      "target_claim": "shinsa.incruit.com 에 대한 상반된 판정 — P1 'WebFetch 오염·환각 의심', P5 'VERIFIED(환각 아님)'",
+      "attack_type": "contradiction",
+      "evidence": "P1 inaccessible_sources #1: 'WebFetch 반환값이 엉뚱한 내용… 모델 환각 의심'. P5 shinsa_incruit_verification.status='VERIFIED'. 두 에이전트가 동일 URL 에 대해 반대 결론. 한쪽은 반드시 틀렸거나, 양쪽이 다른 계층(도메인 실재성 vs WebFetch 반환 정확성)을 섞어 말하고 있음.",
+      "counter_source_needed": "브라우저 직접 접속 스크린샷 + HTML view-source — 도메인 실재성과 콘텐츠 정확성을 분리 검증",
+      "verdict": "undecided",
+      "p6_analysis": "도메인 실재성은 P5 가 맞을 가능성 높음(인크루트 공식 jobpost URL 패턴 2604090000813 은 인크루트 내부 ID 체계와 일치). 그러나 P1 이 '환각'이라 표현한 것은 WebFetch 반환값이 '회계·경제·세무·재무·통계' 라는 엉뚱한 과목 리스트를 돌려준 사실 — 이는 여전히 의심해야 하며 P5 의 VERIFIED 는 '도메인 존재' 수준에서만 유효. P5 가 P1 우려를 완전 해소한 것처럼 쓴 것은 과잉 자신."
+    },
+    {
+      "target_agent": "P3",
+      "target_claim": "'금융공공기관은 대체로 3~5영역으로 축소 운영' 일반화",
+      "attack_type": "selection_bias",
+      "evidence": "P3 표본: 신보(1회차) + HF(2회차 동일 구조) + 수협중앙회(블로그 1건). 총 3기관, 사실상 4회차. HF 의 2건은 동일 시험이므로 독립 관측 아님. 3기관 → 전 금융 공공기관 → 캠코 외삽. 이는 캠코·예보·서금원 등 미관측 기관에 대한 무근거 일반화.",
+      "counter_source_needed": "캠코·예보·서금원·주금공·신복위 각 최소 2회차 독립 후기. 현 시점 미확보.",
+      "verdict": "sustain",
+      "impact": "P9 리버스 엔지니어링이 이 일반화를 캠코 예상 문항 설계에 쓰면 스노우볼 발생. P7 합성 시 '3~5영역' 을 확정 팩트로 쓰지 말 것."
+    },
+    {
+      "target_agent": "P13",
+      "target_claim": "'수리능력 변별력 최고(조성준·박찬균 2020)' → 캠코 시험전략 도출",
+      "attack_type": "generalization",
+      "evidence": "원 논문 표본은 '수도권 G대학 NCS 강좌 수강생 474명(2017-2019)'. (1) 대학 강좌 응시자 ≠ 공공기관 실제 응시자, (2) 2017-2019 구식 NCS 체제, (3) 기관 구분 없음. 이 결과를 '캠코 NCS 20문항'의 수리 비중·변별력 추론에 외삽하는 것은 표본특성·시점·맥락 3중 불일치. P13 self_audit 도 'implications 는 추론' 명시했으나, 이 추론이 하류에서 '사실'로 변질될 스노우볼 위험.",
+      "counter_source_needed": "2023~2025 금융 공공기관 실제 응시자 대상 변별력 연구. 현재 부재.",
+      "verdict": "sustain"
+    },
+    {
+      "target_agent": "P5",
+      "target_claim": "캠코 출제분야 리스트 '미시 꾸르노·AC/MC·기간간 최적소비·독점 / 거시 IS / 국제 환율·PPP·리카도·먼델플레밍'",
+      "attack_type": "unverified_scope",
+      "evidence": "P5 structural_claims_reinforced 에도 'count_of_independent_reviews: 1' 명시 — 2023 링커리어 단일 후기. 또한 2023은 NCS 미도입(70+10 구조)이므로 2026 NCS 도입 회차에 그대로 출제된다는 보장 없음. 연도별 출제분야 변동성(예: 게임이론·성장론·재정학)이 후기 1건으로 고정된 '리스트'처럼 제시되면 학습 편중 유도.",
+      "counter_source_needed": "2024·2025 캠코 경제 회차 독립 후기 최소 2건 + 출제자 로테이션 패턴 자료",
+      "verdict": "sustain"
+    },
+    {
+      "target_agent": "P4",
+      "target_claim": "번들 '해커스공무원 국 경제학 15개년(7급) + 해커스공기업 NCS 통합기본서' 가 캠코 5급 대비 최적",
+      "attack_type": "generalization",
+      "evidence": "(1) '7급 경제학 15개년'은 국가직·지방직 패턴. 캠코 5급 경제 60문항은 공기업 5급 = 행시급에 가까운 난이도(P5 2023 후기도 '중상'). 7급 기출로 난이도 매칭 부족 가능성. (2) P3·P5 발견의 '미시+거시+국제금융(먼델플레밍 등)' 범위 중 '국제금융·국제경제' 는 7급 기출에 비중 낮음. (3) 정병열 미시편은 오히려 이 범위를 정확히 커버하는데 '예산초과'로 밀어낸 판단이 북극성(95%) 기여 면에서 역진적일 수 있음.",
+      "counter_source_needed": "캠코 5급 경제 합격자 실제 사용 교재 조합(2024·2025) 후기 교차",
+      "verdict": "sustain",
+      "severity": "medium — 종환 예산 판단에 직접 영향"
+    },
+    {
+      "target_agent": "P4",
+      "target_claim": "'캠코 전용 기출집 NOT_FOUND' 는 알라딘+교보+다나와 3중 교차 확인",
+      "attack_type": "unverified_scope",
+      "evidence": "P4 본문·self_audit 에 '다나와 검색' 실행 증거(URL·검색어·결과수) 미기재. '3중 교차' 주장은 절차 증거 없이 선언. 이는 P6 공격 대상.",
+      "counter_source_needed": "알라딘/교보/YES24 각 '캠코' 검색 URL + 결과 스크린샷 또는 JSON",
+      "verdict": "sustain"
+    },
+    {
+      "target_agent": "P2",
+      "target_claim": "모든 대행업체 계약 claim 전부 quarantine",
+      "attack_type": "none",
+      "evidence": "P2 는 본인 한계를 정직하게 격리 — C-0 준수 모범. 공격 대상 아님. 단, '수협=인크루트 접수플랫폼'과 '수협=잡코리아(2024 하반기)' 가 공존하는데 '플랫폼 교체' 로 해석될지 '이원 운용' 인지 미판단.",
+      "counter_source_needed": "2024 하반기 vs 2026 상반기 접수 시스템 변경 이력(수협 공지)",
+      "verdict": "refuted",
+      "note": "P2 는 공격받지 않음. P7 은 P2 내용을 하류 사용 금지."
+    },
+    {
+      "target_agent": "P14",
+      "target_claim": "출제위원 실명 추적 포기 + '출제 성향 프로파일'로 전환 권고",
+      "attack_type": "none",
+      "evidence": "C-0 + 개인정보보호 + 명예훼손 리스크 3중 고려. 합리적 철회.",
+      "verdict": "refuted"
+    },
+    {
+      "target_agent": "P15",
+      "target_claim": "'이미 보유 도구 3단 스택으로 충분, 신규 지출 0원' 권고",
+      "attack_type": "unverified_scope",
+      "evidence": "종환이 ChatGPT Plus·Gemini Advanced 를 실제 보유 중인지 본 보고서에서 재확인 없음(P15 '추정'). 실제 미보유일 경우 권고 붕괴. 또한 WebFetch 가 한국 공공기관 PDF 에 실패한 본 라운드 실제 사례(P1·P3 캠코 PDF) 를 감안하면 '기존 스택 충분' 결론은 optimistic bias.",
+      "counter_source_needed": "종환 실 보유 구독 목록 직접 확인",
+      "verdict": "sustain",
+      "severity": "low — 즉시 구매 권고가 아니므로 피해 제한적"
+    }
+  ],
+
+  "p1_vs_p5_contradictions": [
+    {
+      "topic": "shinsa.incruit.com 신뢰성",
+      "p1_says": "WebFetch 반환이 엉뚱한 과목 리스트(회계·경제·세무·재무·통계) 로 오염 — 환각 의심. 인코딩 깨짐.",
+      "p5_says": "VERIFIED. 복수 페이지가 동일 도메인을 2026 수협 채용사이트로 언급, 과거 연도 페이지(projectid=102) 존재.",
+      "tie_breaker": "두 주장은 다른 계층을 논한다. (A)도메인 실재성: P5 승 (B)WebFetch 반환 콘텐츠 정확성: P1 승. P7 합성 시 '도메인 실재함' 만 채택, '문항수·과목' 은 반드시 shinsa 원문 브라우저 직접 확인 후에만 사용."
+    },
+    {
+      "topic": "수협 필기 문항수(NCS 100 / 전공 50)",
+      "p1_says": "공개 보도자료 미명시. shinsa.incruit.com 재확인 필요.",
+      "p5_says": "WebSearch 요약 경유 '50+100' 언급 확인하되 원문 미확보 → 격리 유지.",
+      "tie_breaker": "양측 모두 격리 권고로 일치. 50/100 숫자는 비팩트 취급."
+    },
+    {
+      "topic": "캠코 필기 '경제 60 + NCS 20' 배점",
+      "p1_says": "공식 PDF 텍스트 추출 실패 — low confidence.",
+      "p5_says": "후기에서 직접 확인 실패. CLAUDE.md 요약 의존. 격리.",
+      "tie_breaker": "양측 일치. 해당 배점은 PDF 원문 추출 전까지 비팩트."
+    }
+  ],
+
+  "cross_generalization_warnings": [
+    "P3 '금융공공기관 3~5영역 축소' → 캠코 외삽 금지 (표본 3기관).",
+    "P13 '수리능력 변별력 최고(2017-2019 대학 수강생)' → 2026 캠코 전략 외삽 금지.",
+    "P5 '2023 캠코 후기 출제분야 리스트' → 2026 NCS 도입 회차에 그대로 출제 가정 금지.",
+    "P1 '3개 언론사 독립 일치' → 동일 보도자료 n배 유통일 개연성, 독립성 재검증 필요.",
+    "P4 '7급 경제학 기출 = 캠코 5급 준비' → 난이도·범위 차이 무시한 일반화.",
+    "P15 '한국 공공기관 PDF 3단 스택 충분' → quoted_text 실사례 0건 위의 optimistic claim."
+  ],
+
+  "suggested_p7_filters": [
+    "P7 합성에서 다음 claim 을 '격리 유지·합성본 미수록':",
+    "  - 캠코 '경제 60 + NCS 20' 배점 (PDF 원문 미추출)",
+    "  - 캠코 '미시+거시+국제 출제분야 리스트' (2023 단일 후기)",
+    "  - 수협 '전공 50 + NCS 100' 문항수 (블로그 경유, 원문 미확보)",
+    "  - 금융 공공기관 'NCS 3~5영역 축소' 일반화 (캠코 적용 근거 없음)",
+    "  - '수리 변별력 최고' 학술 주장의 캠코 시험전략 외삽",
+    "  - P4 번들 '해커스공무원 국 경제학 7급 = 캠코 5급 최적' (난이도·범위 매칭 미검증)",
+    "P7 합성 시 허용 가능 팩트:",
+    "  - 캠코 2026 마감일·인원·직렬 구성(보도자료 다중 일치, high)",
+    "  - 수협 2026 일정·인원·선택과목 5택(수협뉴스 1차 + 보도자료 교차, high)",
+    "  - 캠코 2024~ NCS 도입 전환(2023=미도입 후기 + 2024=도입 후기 시점 전환 확인, mid-high)",
+    "  - P13 5개 논문 메타데이터(KCI URL + 초록 + 발행일 충족, high) — 단 캠코 전략 도출은 불가"
+  ],
+
+  "p12_reset_question": {
+    "p12_did_not_reset": true,
+    "tolerance_or_laxity": "laxity",
+    "evidence": "본 P6 라운드에서 확인된 오염 수준(P3 과잉일반화, P13 표본외삽, P4 번들 매칭 부족, P5 2023 단일후기 리스트화, P1-P5 shinsa 상호모순)이 C-0/C-5 기준으로는 RESET 사유에 해당. P12 가 관용으로 통과시킨 것은 북극성(95%) 보호 실패. 다음 라운드에 RESET 기준 명시 필요(예: 격리 해제 실패 claim 이 합성본에 섞이면 자동 RESET).",
+    "recommended_p12_rule": "RESET 트리거: (1) 격리 claim 이 하류에 섞임, (2) 독립소스 2+ 미충족이 합성 확정팩트로 승격됨, (3) 서로 모순된 에이전트 간 판정 없이 합성됨. 3건 중 1건이라도 발생 시 라운드 RESET."
+  },
+
+  "self_audit": [
+    "부당한 지적 #1 자기색출: P4 '다나와 3중 교차 절차증거 없음' 공격은 다소 과함. 알라딘 부재 자체가 타 채널도 부재에 강한 신호이며, negative finding 의 절차증거 요구는 시간 낭비일 수 있음. 단, 검색URL 기록은 앞으로 권장 수준으로 유지.",
+    "부당한 지적 #2 자기색출: P13 '수리 변별력 외삽' 공격 중 'P13 가 하류에서 사실로 변질될 스노우볼 위험' 표현은 P13 이 implications 에서 이미 '추론임' 명시했다는 점을 감안하면 공격 강도 과함. P13 본인 책임보다 하류 에이전트(P7/P9) 오남용 가능성에 대한 경고로 재해석.",
+    "부당한 지적 #3 자기색출: P15 '종환 보유 구독 미확인' 공격은 P15 원문이 '추정' 표기로 이미 self_audit 했다는 점에서 이중 처벌. 공격 severity 를 low 로 조정하여 반영.",
+    "공격 중 가장 확신: P3 의 '3~5영역 축소' 일반화 + P1-P5 shinsa 상호모순 + P4 번들 난이도 매칭 부족 — 이 3건은 북극성(95%) 에 직접 타격, 무조건 P7 필터 적용 필수."
+  ],
+
+  "next_actions": [
+    "P7 합성가: suggested_p7_filters 강제 준수, 격리 claim 합성본 유입 금지",
+    "SC1/SC2: P1-P5 shinsa 모순에 대한 명시적 판결 + P12 RESET 규정 신설 검토",
+    "다음 라운드: 캠코 PDF pdf-viewer 추출 재시도 + Claude_in_Chrome 으로 shinsa.incruit.com 직접 접속 스크린샷 확보"
+  ]
+}

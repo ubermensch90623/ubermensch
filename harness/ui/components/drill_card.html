@@ -1,0 +1,112 @@
+<!-- drill_card — 해설_카드 8단계 레이아웃 계승.
+  종환이 이미 검증한 구조 (독점_이윤극대화_탄력적구간.html 2026-04-17 확정).
+  트리거 단어 3개 + 오답 2분류 + 사고 역추적 필드 강제.
+  Alpine.js 바인딩 필드:
+    q.question_text, q.choices[], q.correct_index, q.explanation,
+    q.trigger_words[3], q.weakness_hints[]
+-->
+<article class="drill-card" x-data="{ step: 1, max: 8, sel: null, wrong2: null }">
+
+  <!-- 상단 진행 dot -->
+  <nav class="flex items-center gap-2 mb-4" aria-label="step progress">
+    <template x-for="i in max" :key="i">
+      <span class="dot" :class="{'active': i <= step}"></span>
+    </template>
+    <span class="ml-auto text-xs" style="color: var(--text-secondary);"
+          x-text="step + ' / ' + max + ' 단계'"></span>
+  </nav>
+
+  <!-- Step 1: 문제 본문 + 선지 -->
+  <section x-show="step === 1" class="step active">
+    <div class="step-title text-lg font-bold mb-3" style="color: var(--text-accent);">1. 문제</div>
+    <p class="mb-4" data-field="question_text" style="line-height: 1.8;">(문제 본문)</p>
+    <ul class="space-y-2" data-field="choices">
+      <!-- 각 선지는 data-idx 에 1~5 -->
+      <li>
+        <button class="w-full text-left p-3 rounded"
+                :class="sel === 1 ? 'box yellow' : 'box'" @click="sel = 1">
+          <span class="font-mono mr-2">1</span> <span data-field="choice-text">선지 1</span>
+        </button>
+      </li>
+      <!-- 2-5 반복 (state.js 가 생성) -->
+    </ul>
+    <p class="mt-3 text-xs" style="color: var(--text-secondary);">
+      <kbd>Space</kbd> 답 지우기 · <kbd>1</kbd>-<kbd>5</kbd> 선지 선택
+    </p>
+  </section>
+
+  <!-- Step 2: 정답·사고 역추적 (feedback_explanation_formula 반영) -->
+  <section x-show="step === 2" class="step">
+    <div class="step-title text-lg font-bold mb-3" style="color: var(--text-accent);">2. 사고 역추적</div>
+    <div class="box red">
+      <strong>종환님 선택:</strong> <span data-field="user-choice">선지 N</span>
+    </div>
+    <div class="box green">
+      <strong>정답:</strong> <span data-field="correct-choice">선지 M</span>
+    </div>
+    <p class="mt-3" data-field="thought-trace" style="color: var(--text-primary);">
+      사고가 어디서 틀어졌는지 추적.
+    </p>
+    <div class="mt-3">
+      <strong>오답 2분류:</strong>
+      <button class="pill mr-2" @click="wrong2 = 'dont_know'"
+              :class="wrong2 === 'dont_know' ? 'bg-red-600' : ''">몰라서 틀림</button>
+      <button class="pill" @click="wrong2 = 'missed_signal'"
+              :class="wrong2 === 'missed_signal' ? 'bg-red-600' : ''">알았는데 못 알아챔</button>
+    </div>
+  </section>
+
+  <!-- Step 3: 개념 (왜) -->
+  <section x-show="step === 3" class="step">
+    <div class="step-title text-lg font-bold mb-3" style="color: var(--text-accent);">3. 왜 이 답인가 (개념)</div>
+    <div class="box blue" data-field="concept">개념 스토리 (피자가게·빵집 스타일 구체 예)</div>
+  </section>
+
+  <!-- Step 4: 공식·수식 -->
+  <section x-show="step === 4" class="step">
+    <div class="step-title text-lg font-bold mb-3" style="color: var(--text-accent);">4. 공식</div>
+    <div class="formula" data-field="formula">공식 (평문·유니코드 only)</div>
+  </section>
+
+  <!-- Step 5: 발동 조건 체크리스트 -->
+  <section x-show="step === 5" class="step">
+    <div class="step-title text-lg font-bold mb-3" style="color: var(--text-accent);">5. 발동 조건 체크리스트</div>
+    <ul class="space-y-2" data-field="trigger-checks">
+      <li>✔ 조건 A</li>
+      <li>✔ 조건 B</li>
+    </ul>
+  </section>
+
+  <!-- Step 6: 헷갈리는 개념 비교 + 트리거 단어 3개 -->
+  <section x-show="step === 6" class="step">
+    <div class="step-title text-lg font-bold mb-3" style="color: var(--text-accent);">6. 비교 + 트리거</div>
+    <table class="w-full text-sm" data-field="compare-table">
+      <thead><tr><th>구분</th><th>A</th><th>B</th></tr></thead>
+      <tbody><tr><td>정의</td><td>…</td><td>…</td></tr></tbody>
+    </table>
+    <div class="mt-3">
+      <strong class="mr-2">시험 트리거 단어:</strong>
+      <span class="trigger" data-field="trigger-1">단어1</span>
+      <span class="trigger" data-field="trigger-2">단어2</span>
+      <span class="trigger" data-field="trigger-3">단어3</span>
+    </div>
+  </section>
+
+  <!-- Step 7: 실전 기출 패턴 -->
+  <section x-show="step === 7" class="step">
+    <div class="step-title text-lg font-bold mb-3" style="color: var(--text-accent);">7. 실전 기출 패턴</div>
+    <div class="box blue" data-field="exam-patterns">패턴 3-5개 요약</div>
+  </section>
+
+  <!-- Step 8: 함정·인과 역방향 예방 -->
+  <section x-show="step === 8" class="step">
+    <div class="step-title text-lg font-bold mb-3" style="color: var(--text-accent);">8. 함정·인과 방향</div>
+    <div class="box warn" data-field="trap">종환이 과거에 헷갈렸던 사고 역추적 기록부 매칭 경고</div>
+  </section>
+
+  <!-- 하단 네비게이션 -->
+  <nav class="flex justify-between mt-5">
+    <button class="pill hb-badge" @click="step = Math.max(1, step - 1)">← 이전</button>
+    <button class="pill hb-badge" @click="step = Math.min(max, step + 1)">다음 →</button>
+  </nav>
+</article>

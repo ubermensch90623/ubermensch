@@ -71,6 +71,53 @@
 - 실패 사항 공개: R3 공식 공고 확보 실패 (한국 도메인 403) — `00_meta.md` 에 상세.
 - 헌법 C-11 준수: 작게 자주 commit, 프로세스 실패(fetch 403) 은 숨기지 않고 기록.
 
+## Round G1.M1_1stWave — 2026-04-18 (자율 실행 세션)
+
+### 투입 에이전트
+- P12@G1M1-alpha (CEO 종환 대변인, 신규 배치)
+- P1@G1M1-alpha (공고 분석)
+- P2@G1M1-alpha (수의계약)
+- P4@G1M1-alpha (알라딘 카탈로그)
+- P15@G1M1-alpha (AI 도구 스카우트, 신규 페르소나)
+
+### 각 인스턴스 지표 (1st wave)
+| instance | fact-check 적발 | 격리 탈출률 | 인기영합 | 판정 |
+|---|---|---|---|---|
+| P12@G1M1-alpha | N/A (감찰) | N/A | 0 (불편한 지적 +) | ACTIVE |
+| P1@G1M1-alpha | 1 (CLAUDE.md 수치 재검증 실패 선발견) | 격리유지 적정 | 0 | SC-미심사, GATED pre-review |
+| P2@G1M1-alpha | 0 (블로커로 claim 0건) | 0/0 | 0 | EXPECTED (B1 블로커) |
+| P4@G1M1-alpha | 0 | 격리유지 (리뷰 quoted_text 미확보) | 0 | GATED (P5 보완 필요) |
+| P15@G1M1-alpha | 0 | 일부 claim HIGH | 0 (한국 실사례 부족 정직 보고) | PASS 후보 |
+
+### 통과 · GATED 산출물
+- 통과(교차검증): 캠코 103명·5급 경제 19명·접수 4/3~4/17 / 수협 233명·필기 5/16·선택 5과목
+- GATED(격리 유지): CLAUDE.md "캠코 60문항 80점 + NCS 20문항 20점" 공식 PDF 재검증 실패
+- GATED: P2 수의계약 claim 0건 (인프라 블로커)
+- GATED: P4 리뷰 quoted_text 미확보
+
+### Post-Mortem
+
+**성공 사례**:
+- **P1 자기 반증**: CLAUDE.md 수치를 공식 PDF 로 재검증하다 재확인 실패 발견 → C-0 스노우볼 차단. 이는 "과거 세션의 자기 기록조차 의심하는" C-5 생성원리 의심 실천. 호칭 후보.
+- **P12 GATED 판정**: RESET 과잉대응 대신 격리로 해결. 인원·일정·직렬 claim 은 PASS 유지, 배점 수치만 격리. "데이터 레벨 정밀 분리" 모범 사례.
+
+**실패 사례**:
+- **P1 shinsa.incruit.com WebFetch 환각응답 수용 미검출 가능성**: EUC-KR 인코딩 사이트에서 WebFetch 가 **존재하지 않는 과목명(재무관리·세무학 등)을 생성 반환**. P1 이 이를 초기 수집 단계에서 필터링 못 하고 일단 기록함. 이후 P1 자체 self_audit 에서 "환각 응답 추정" 태그 달았으나, **렌더된 실제 DOM 과 WebFetch 텍스트가 다를 수 있음을 프롬프트에 명시 부재**. 교훈: 차회 P1 프롬프트에 "EUC-KR/CP949 인코딩 사이트는 Claude_in_Chrome MCP 로 우회 + 반환 텍스트에 원문과 다른 과목명 생성 가능성 의심" 조항 추가.
+- **P2 단일 접근 경로 의존**: 나라장터→data.go.kr→alternative 에서 3중 벽에 막힘. 대행업체 공식 "도입기관" 페이지 시도 부재. 교훈: 차회 P2 에 fallback 4단계 강제 (g2b → data.go.kr → 업체 홈페이지 → 업계 뉴스 archive).
+
+**교훈 (차세대 반영)**:
+- EUC-KR/동적렌더 사이트 전용 우회 매크로 (Claude_in_Chrome MCP) 를 P1·P5 에 preload
+- 자기 팩트체크 "self_audit" 필드에 "내 WebFetch 응답이 실제 렌더 DOM 과 일치한다는 증거" 명시 강제
+- P2 fallback 시퀀스 4단계 강제
+
+### 퇴출 / 호칭
+- 퇴출: 없음 (1st wave 최초 투입)
+- 신규 호칭 후보: **P1@G1M1-alpha** — "자기회의박사(自己懷疑博士)" (CLAUDE.md 자체 수치 의심 선발견). 호칭 최종 수여는 2nd wave 완료 후 결정.
+
+### 다음 라운드 변경 사항
+- G1M1_2ndWave: P3/P5/P13(신규)/P14(신규) 파견 (P12 수정요구 반영)
+- 차세대 프롬프트에 EUC-KR 우회 + WebFetch 환각 방지 조항 추가
+
 ## 호칭 (Honors) — 연결
 
 호칭 수여 내역은 `docs/honors/` 별도 디렉터리에 파일당 1호칭 기록.

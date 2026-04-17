@@ -1,0 +1,120 @@
+{
+  "agent_id": "P1",
+  "persona": "공기업 채용공고 분석 전문가 (박사급 + 실무 15년 + 출제위원 경험)",
+  "collected_at": "2026-04-18",
+  "claims": [
+    {
+      "agency": "캠코",
+      "claim_type": "schedule",
+      "claim": "2026년 정규직 신입직원 채용 접수기간: 2026-04-03(금) ~ 2026-04-17(금) 16:00, 최종합격 발표 2026년 7월 예정",
+      "source_url": "https://www.busan.com/view/busan/view.php?code=2026040317083263136",
+      "quoted_text": "캠코(한국자산관리공사)가 2026년 정규직 신입직원 103명을 공개 채용한다. 지원서 접수는 캠코 채용 홈페이지(http://kamco.saramin.co.kr)를 통해 4월 3일(금)부터 4월 17일(금) 오후 4시까지",
+      "source_date": "2026-04-03",
+      "confidence": "high",
+      "attachment_note": "본문 기사 (부산일보). 공식 PDF 첨부 미확인"
+    },
+    {
+      "agency": "캠코",
+      "claim_type": "eligibility",
+      "claim": "2026년 모집분야 총 103명. 5급 6개 분야(경영40, 경제19, NCS일반10, 변호사3, 건축6, IT12) + 6급 2개 분야(금융일반 전국6, 지역전문7). 5급 NCS일반 분야 신설 — 전공시험 없이 NCS 시험만으로 필기전형",
+      "source_url": "https://kpinews.kr/newsView/1065613850518474",
+      "quoted_text": "5급은 경영 40명, 경제 19명, NCS일반 10명, 변호사 3명, 건축 6명, IT 12명이고 6급은 금융일반 전국 6명, 지역전문 7명 ... 올해부터는 '5급 NCS일반' 분야를 새롭게 도입해 ... 전공 시험 없이 NCS 시험만으로 필기전형을 진행",
+      "source_date": "2026-04-03",
+      "confidence": "high",
+      "attachment_note": "보도자료 기반 2차 소스. 공식 공고 PDF 텍스트 미접근"
+    },
+    {
+      "agency": "캠코",
+      "claim_type": "exam_structure",
+      "claim": "5급 금융일반(경제) 필기전형 과목: 미시경제학, 거시경제학 (범위). CLAUDE.md 요약 '경제학 60문항 80점 + NCS 20문항 20점'은 공식 공고 PDF 원문으로 재검증 실패 — 보도자료/채용 aggregator에 문항수·배점이 명시되지 않음",
+      "source_url": "https://www.kamco.or.kr/portal/Downfiles/2job_write_test.pdf",
+      "quoted_text": "5급 금융일반(경제) 직렬의 필기시험 ... 경제학 관련 내용 (미시경제학, 거시경제학)",
+      "source_date": "2025",
+      "confidence": "low",
+      "attachment_note": "공식 PDF는 바이너리로 저장됨(C:\\Users\\윤상택\\.claude\\projects\\... webfetch-1776465916786-x89r21.bin). 텍스트 추출은 메인 세션에서 필요. 문항수·배점은 caveats"
+    },
+    {
+      "agency": "캠코",
+      "claim_type": "attachment",
+      "claim": "공식 채용 홈페이지(kamco.or.kr 게시판) 공고 상세페이지(bIdx=22347)에서 첨부파일(PDF/HWP) 접근 실패. 채용 포털은 kamco.saramin.co.kr",
+      "source_url": "https://www.kamco.or.kr/portal/bbs/view.do?mId=0105040000&ptIdx=263&bIdx=22347",
+      "quoted_text": "2026년도 한국자산관리공사 신입직원 채용공고 (공고일 2026-04-03, 마감일 2026-04-17)",
+      "source_date": "2026-04-03",
+      "confidence": "mid",
+      "attachment_note": "WebFetch가 메타데이터만 반환, 본문 PDF URL 미노출. 브라우저 직접 다운로드 필요 (feedback_download_first.md 규칙)"
+    },
+    {
+      "agency": "수협",
+      "claim_type": "schedule",
+      "claim": "2026 상반기 전국 회원조합 일괄공채: 접수 ~4/23, 서류합격 발표 5/4 14:00, 필기시험 5/16(토) 서울, 면접 5/26~6/2 (회원조합별), 최종합격 6/6",
+      "source_url": "https://www.geconomy.co.kr/news/article.html?no=319236",
+      "quoted_text": "서류 접수는 4월 23일까지 진행 ... 5월 4일 오후 2시에 서류전형 합격자가 발표 ... 같은 달 16일 서울에서 필기시험이 실시 ... 5월 26일부터 6월 2일까지 회원조합별 면접전형 ... 최종 합격자는 6월 6일 발표",
+      "source_date": "2026-04-09",
+      "confidence": "high",
+      "attachment_note": "지이코노미 보도자료. 중앙이코노미뉴스·창업일보 3개 독립소스 일치"
+    },
+    {
+      "agency": "수협",
+      "claim_type": "eligibility",
+      "claim": "총 233명 모집: 일반관리계 219명(일반 209 + 보훈 10), 기술·기능계 14명. 학력·연령 제한 없음",
+      "source_url": "https://www.news33.net/news/articleView.html?idxno=115700",
+      "quoted_text": "총 233명 (일반관리계 219명, 기술·기능계 14명) ... 학력과 연령의 벽을 허문 열린 채용",
+      "source_date": "2026-04",
+      "confidence": "high",
+      "attachment_note": "CLAUDE.md 요약 '일반관리 209명' = 보훈 제외 숫자와 일치 (209+10=219)"
+    },
+    {
+      "agency": "수협",
+      "claim_type": "exam_structure",
+      "claim": "일반관리계 필기: 인성검사 + NCS 직업기초능력평가(공통) + 선택과목 1개(민법/회계학/경영학/수협법/상업경제 중 1). 문항수·배점·시험시간은 공개 보도자료에 미명시 — 공식 shinsa.incruit.com 상세 공고 재확인 필요",
+      "source_url": "https://www.geconomy.co.kr/news/article.html?no=319236",
+      "quoted_text": "인성검사와 NCS 직업기초능력평가가 공통으로 포함되며, 일반관리계 지원자는 민법, 회계학, 경영학, 수협법, 상업경제 중 한 과목을 선택",
+      "source_date": "2026-04-09",
+      "confidence": "mid",
+      "attachment_note": "shinsa.incruit.com WebFetch가 인코딩 깨짐으로 실패. 문항수/배점은 세션 후속 직접접근 필요"
+    },
+    {
+      "agency": "수협",
+      "claim_type": "eligibility",
+      "claim": "권역별 인원 배정: 전남 38, 경남 44, 부산 33, 제주 30 등 10개 권역 (2차 소스)",
+      "source_url": "https://www.joongangenews.com/news/articleView.html?idxno=511389",
+      "quoted_text": "전남 38명, 경남 44명, 부산 33명, 제주 30명 등 10개 권역에 배정",
+      "source_date": "2026-04",
+      "confidence": "mid",
+      "attachment_note": "단일 언론사 수치. 공식 공고 PDF 재검증 필요"
+    }
+  ],
+  "inaccessible_sources": [
+    {
+      "url": "http://shinsa.incruit.com/hire/hirelist.asp",
+      "reason": "WebFetch 반환값이 엉뚱한 내용(2026-05-04 필기, 회계·경제·세무·재무·통계 등)으로 오염 — 실제 공고와 불일치. 한글 인코딩 문제 또는 모델 환각 의심. 사용자가 브라우저에서 직접 PDF 다운로드 권장"
+    },
+    {
+      "url": "https://shinsa.incruit.com/",
+      "reason": "EUC-KR 인코딩 깨짐으로 콘텐츠 파싱 불가"
+    },
+    {
+      "url": "https://m.incruit.com/jobdb_info/jobpost.asp?job=2604090000813",
+      "reason": "인코딩 깨짐"
+    },
+    {
+      "url": "https://www.catch.co.kr/NCS/RecruitInfoDetails/506078",
+      "reason": "HTTP 403"
+    },
+    {
+      "url": "https://kamco.saramin.co.kr/service/kamco/3469/applicant/apply/recruit_default.asp",
+      "reason": "WebFetch가 빈 페이지만 반환. 채용포털은 JavaScript 렌더링 필요"
+    },
+    {
+      "url": "https://www.kamco.or.kr/portal/Downfiles/2job_write_test.pdf",
+      "reason": "PDF 바이너리 저장됐으나 텍스트 추출 불가. 시험문항수·배점 원문 확인 실패"
+    }
+  ],
+  "self_audit": "근거 부실 항목: (1) 캠코 경제 5급 '경제학 60문항 80점 + NCS 20문항 20점' 배점은 CLAUDE.md에만 있고 공식 PDF 원문으로 재검증 실패 — confidence low 고정. (2) 수협 선택과목별 문항수·배점 전부 미확인. (3) 최근 회차 합격컷 정보 모든 agency에서 공개 소스 미발견 — 면접후기 커뮤니티(공준모·링커리어) 심층조사 필요. (4) 공식 공고 PDF 텍스트는 둘 다 확보 실패 — C-0 하드기준 '원문 직접 인용'은 보도자료 인용으로 대체됨 (격리 상태 유지, 하류 사용 금지)",
+  "required_additional_materials": [
+    "캠코 공식 2026 채용공고 PDF (kamco.saramin.co.kr 로그인 후 첨부파일) — 필기시험 문항수·배점·시간 확정용",
+    "수협 shinsa.incruit.com 공고 상세 PDF (브라우저 직접 다운로드) — 선택과목별 문항수·배점·시간 확정용",
+    "캠코 5급 경제 최근 3개년 합격자 커뮤니티 후기 (공준모/링커리어/잡코리아) — 합격컷 추정용",
+    "수협 회원조합별 이전 회차 합격 후기 — 선택과목별 난이도/전략용"
+  ]
+}

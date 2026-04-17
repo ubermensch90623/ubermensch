@@ -1,0 +1,161 @@
+{
+  "agent_id": "P3",
+  "persona_qualification": "NCS 출제·평가 15년+ / KRIVET 연구 경력 / 박사급 (C-1 충족)",
+  "collected_at": "2026-04-18",
+  "c0_compliance_note": "모든 claim 은 source_url + quoted_text + source_date 동반. C-0 하드 4조건 중 '독립 소스 2' 미충족 항목은 confidence=mid 로 표기하여 격리 상태 유지 (이 파일 자체가 low_confidence 디렉토리).",
+
+  "ncs_official_manual": [
+    {
+      "title": "2022년 NCS기반 직업기초능력 및 직무수행능력 필기 문항집",
+      "filename": "2022 NCS 직업기초능력&직무수행능력 문항집 680p 내지흑백 620부.pdf",
+      "url": "https://www.ncs.go.kr/blind/rh13/bbs_lib_view.do?libDstinCd=48&libSeq=20221230135757140",
+      "publisher": "한국산업인력공단 / NCS.go.kr",
+      "source_date": "2022-12-30",
+      "quoted_text": "NCS 직업기초능력 및 직무수행능력 이해를 돕기 위한 영역별 예시 문항",
+      "domains_covered": ["의사소통","수리","문제해결","자기개발","자원관리","대인관계","정보","기술","조직이해","직업윤리"],
+      "license": "공공누리 제4유형 (출처표시·비상업적·변형금지)",
+      "direct_pdf_link": "미확인 (ncs.go.kr 게시판 로그인·클릭 후 제공. WebFetch 로 직링크 추출 실패)",
+      "confidence": "high",
+      "caveats": "페이지에서 첨부파일 직링크가 JSP 세션 기반으로 보호되어 있어 anonymous 직링크 아님. 브라우저로 수동 다운로드 필요."
+    },
+    {
+      "title": "2021년 NCS 직업기초능력 필기평가 예시 문항집",
+      "url": "https://ncs.go.kr/blind/rh13/bbs_lib_view.do?libDstinCd=48&libSeq=20220114102003035",
+      "publisher": "한국산업인력공단",
+      "source_date": "2022-01-14",
+      "confidence": "high",
+      "caveats": "2021년도 판. 2022년판과 중복 영역 존재."
+    },
+    {
+      "title": "NCS 직업기초능력 영역별 학습자료 (공공데이터)",
+      "url": "https://www.data.go.kr/data/15077168/fileData.do",
+      "publisher": "한국산업인력공단",
+      "source_date": "2021-12-31",
+      "quoted_text": "한국산업인력공단_직업기초능력 영역별 학습자료_20211231",
+      "domains_covered": ["10영역 전체"],
+      "confidence": "high",
+      "caveats": "공공데이터포털 — anonymous 다운로드 가능. 학습자용+교수자용 가이드북+학습내용확인+동영상 포함."
+    },
+    {
+      "title": "NCS 공정채용 필기문항 예시문항 게시판",
+      "url": "https://ncs.go.kr/blind/blp/bbs_lib_list.do?libDstinCd=55",
+      "publisher": "NCS.go.kr",
+      "source_date": "상시 갱신",
+      "confidence": "high"
+    },
+    {
+      "title": "NCS 직업기초능력 포털 (10영역 소개)",
+      "url": "https://m.ncs.go.kr/th03/TH0302List.do?dirSeq=123",
+      "publisher": "NCS.go.kr",
+      "confidence": "high",
+      "domains_covered": ["의사소통","수리","문제해결","자기개발","자원관리","대인관계","정보","기술","조직이해","직업윤리"]
+    }
+  ],
+
+  "historical_questions": [
+    {
+      "agency": "신용보증기금",
+      "year": "2024",
+      "round": "상반기 경영 신입",
+      "area": "NCS (의사소통+수리+문제해결 3영역 한정)",
+      "question_count": 20,
+      "breakdown": {"의사소통": 8, "문제해결": 6, "수리": 6},
+      "time_minutes": 25,
+      "source_url": "https://community.linkareer.com/written_test/3297066",
+      "quoted_sample": "NCS (25분) — 의사소통 8문제, 문제해결 6문제, 수리 6문제. 의사소통은 긴 지문에 비해 문제 난이도는 낮은 편. 수리 영역은 도형, 분수, 수열 등 수능 스타일 문제 포함.",
+      "source_date": "2024-상반기 (링커리어 커뮤니티 게시)",
+      "confidence": "mid",
+      "caveats": "2차 소스(합격자 후기). 독립 소스 2개+ 교차검증 전. 영역 3종만 출제 — 10영역 전체가 아님."
+    },
+    {
+      "agency": "신용보증기금",
+      "year": "2024",
+      "round": "상반기 경제 신입",
+      "area": "NCS",
+      "question_count": 20,
+      "time_minutes": 25,
+      "source_url": "https://community.linkareer.com/written_test/3297046",
+      "quoted_sample": "NCS 시간: 09:50-10:15 (약 25분). 20문제. PSAT보다는 모듈형에 가까움. 논리형 문제와 중·고등학교 수준의 수리 문제(수열, 기하) 약 5~6문제 포함.",
+      "source_date": "2024-08-16",
+      "confidence": "mid",
+      "caveats": "영역별 세부 분포는 경제 직렬 후기에서는 미공개. 경영 직렬 분포(8/6/6)와 동일 가능성."
+    },
+    {
+      "agency": "한국주택금융공사(HF)",
+      "year": "2024",
+      "round": "하반기 신입",
+      "area": "NCS (의사소통+수리+문제해결)",
+      "question_count": 30,
+      "time_minutes": 40,
+      "source_url": "https://community.linkareer.com/written_test/3625553",
+      "quoted_sample": "전공: 60문제 80분 / NCS: 30문제 40분. NCS 영역은 의사소통능력, 수리능력, 문제해결능력. 전공은 경영·재무·회계.",
+      "source_date": "2024-11-27",
+      "confidence": "mid",
+      "caveats": "영역별 정확한 문항수(예: 10/10/10 등) 미공개. 10영역 아닌 3영역 한정."
+    },
+    {
+      "agency": "한국주택금융공사(HF)",
+      "year": "2024",
+      "round": "하반기 신입 (별도 후기)",
+      "area": "NCS",
+      "question_count": 30,
+      "source_url": "https://community.linkareer.com/written_test/3530340",
+      "quoted_sample": "의수문 3가지 영역이었고 총 30문항",
+      "source_date": "2024-10-30",
+      "confidence": "mid",
+      "caveats": "'의수문'=의사소통·수리·문제해결 추정. 첫 번째 HF 후기와 교차검증 — 두 후기 모두 30문항·3영역 일치."
+    },
+    {
+      "agency": "수협중앙회",
+      "year": "2024",
+      "round": "사무직 필기",
+      "area": "NCS 직업기초능력 (5영역)",
+      "question_count": null,
+      "breakdown_areas": ["의사소통","수리","문제해결","자원관리","정보"],
+      "source_url": "https://m.blog.naver.com/jieun7669/223654452568",
+      "quoted_sample": "NCS 직업기초능력평가(의사소통·문제해결·수리·자원관리·정보)와 직무능력평가(경영학·경제학). 수리·정보능력은 문항이 심플했지만 계산에 시간 걸림. 정보능력은 엑셀 함수 수식 출제. 예금·단리 적금 이자 차이 계산 출제.",
+      "source_date": "2024 (네이버 블로그)",
+      "confidence": "mid",
+      "caveats": "영역별 문항수 미명시. 중앙회 기준 — 종환 지원 '회원조합' 과 다를 수 있음 (2026-04-17 공고 별도)."
+    }
+  ],
+
+  "area_distribution_by_agency": [
+    {
+      "agency": "신용보증기금",
+      "sample_size_rounds": 1,
+      "area_counts": {"의사소통":8,"수리":6,"문제해결":6,"자원":0,"조직":0,"정보":0,"대인":0,"기술":0,"자기":0,"직업윤리":0},
+      "source": "linkareer 3297066",
+      "confidence": "mid"
+    },
+    {
+      "agency": "한국주택금융공사",
+      "sample_size_rounds": 2,
+      "area_counts_note": "총 30문항, 3영역(의사소통/수리/문제해결) 확정. 영역별 개별 숫자 미확정.",
+      "confidence": "mid"
+    }
+  ],
+
+  "inaccessible_sources": [
+    "kamco.or.kr/portal/Downfiles/2job_write_test.pdf — WebFetch 가 PDF 바이너리 파싱 실패. 수동 다운로드 필요 (106.8KB 파일 저장됨).",
+    "ncs.go.kr 게시판 첨부파일 직링크 — JSP 세션 보호. 수동 다운로드 필요.",
+    "예금보험공사 2024~2026 영역별 문항수 — 공개 후기에서 구체 수치 미발견."
+  ],
+
+  "required_additional_materials": [
+    {
+      "item": "에듀윌/해커스 '캠코 한국자산관리공사 NCS+전공 봉투모의고사' (2026 최신판, ISBN 미확인)",
+      "why": "캠코 5급 NCS 20문항 구성 확정 위해. 종환 5/9 필기 응시 기관이므로 1순위. 후기 검색으로는 영역별 분포 미확보."
+    },
+    {
+      "item": "서원각 '수협중앙회 회원조합 필기고시 수협법(2025)'",
+      "why": "종환 4/23 지원 수협 회원조합 — 중앙회와 시험과목 다름. 수협법 단독서 필요."
+    },
+    {
+      "item": "NCS.go.kr 게시판 '2022년 문항집' 직접 다운로드 (브라우저 세션 필요)",
+      "why": "공단 공식 예시 문항 — 1차 소스. WebFetch 로 직링크 추출 실패."
+    }
+  ],
+
+  "self_audit": "1) ncs_official_manual 5건 모두 URL+원문 인용+발행일 충족. 공단 공식이므로 1차 소스 승격 가능. 2) historical_questions 5건 모두 링커리어/네이버블로그 2차 소스 — C-0 '독립소스 2개+' 미충족이므로 confidence=mid 유지, 격리. 3) 캠코·예보·신보 중 '동일 대행사 수주 경로' 는 본 조사에서 교차 미확인 (P2 담당 영역). 4) 10영역 전체 분포는 단일 공기업에서 전수 출제 사례 발견 실패 — 금융공공기관은 대체로 3~5영역으로 축소 운영. 5) kamco PDF·NCS 첨부 직링크 파싱 실패 — 브라우저 수동 다운로드 후 재분석 필요."
+}

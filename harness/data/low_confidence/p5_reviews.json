@@ -1,0 +1,177 @@
+{
+  "agent_id": "P5",
+  "persona": "공준모/오르비/블로그 후기 수집가, 박사급+공공기관 채용후기 연구 10년+",
+  "collected_at": "2026-04-18",
+  "scope_filter": "reviews dated 2023-01-01 or later; earlier ones quarantined unless highly relevant",
+  "reviews": [
+    {
+      "agency": "캠코",
+      "track": "5급 금융일반(경제 선택)",
+      "exam_date": "2023-07 상반기",
+      "author_status": "필기 합격 (작성자 본인 필기합격 후기로 명시)",
+      "concrete_mentions": [
+        "전공 70문제 + 공사상식 10문제 구조",
+        "NCS 미실시 (2023 기준): '캠코 대졸전형은 필기에서 ncs를 치지 않았습니다'",
+        "미시: 꾸르노모형, AC/MC 비용이론, 기간간 최적소비, 독점의 원인",
+        "거시: IS곡선",
+        "국제: 환율이론, PPP, 리카도 비교우위론, 먼델플레밍모형",
+        "난이도: '작년과 비슷하게 대체적으로 쉬운 느낌이었어요'"
+      ],
+      "source_url": "https://community.linkareer.com/written_test/2099089",
+      "quoted_text": "캠코 대졸전형은 필기에서 ncs를 치지 않았습니다 / 꾸르노모형, AC/MC 비용이론, 기간간 최적소비, 독점의 원인, IS곡선 / 환율이론, PPP, 리카도 비교우위론, 먼델플레밍모형 / 작년과 비슷하게 대체적으로 쉬운 느낌이었어요",
+      "source_date": "2023-07-14",
+      "confidence": "mid"
+    },
+    {
+      "agency": "캠코",
+      "track": "5급 금융일반(경영 선택)",
+      "exam_date": "2023-07 상반기",
+      "author_status": "응시자 (결시율 15/25 언급) — 합격여부 본문 미기재",
+      "concrete_mentions": [
+        "시험시간 2시간",
+        "난이도 중상",
+        "영어 출제 1문항: '어의차이척도가 영어로 출제'",
+        "기억 문항: IPO, 합병, 포터5Force, 기대이론, 스키밍, WACC, NPV/IRR",
+        "시험장: 컴싸 제공, 수정테이프 불가, 오답 감점 없음"
+      ],
+      "source_url": "https://community.linkareer.com/written_test/2072107",
+      "quoted_text": "어의차이척도가 영어로 출제되어서 ... 이것도 하나 날렸 / 컴싸(컴퓨터) 제공, 수정테이프 불가, 오답 감점 없음",
+      "source_date": "2023-07",
+      "confidence": "mid",
+      "caveats": "경영 직렬 후기라 경제직 60문항 구조 직접 입증엔 보조적"
+    },
+    {
+      "agency": "캠코",
+      "track": "2024 경영일반(경제)",
+      "exam_date": "2024 상반기",
+      "author_status": "최종 합격 (위포트 합격후기 카테고리)",
+      "concrete_mentions": [
+        "2024년부터 NCS 도입 확인: '이번년도부터 NCS가 도입되면서'",
+        "난이도 평이, 시간 여유 있음",
+        "준비: CPA 1차 + 최근 7개년 경제학 기출 + 행시경제 강의 + NCS 신헌 강사"
+      ],
+      "source_url": "https://community.weport.co.kr/passFinal/96858035?page=1",
+      "quoted_text": "올해 나왔던 시험의 난이도는 평이했으며, 시간이 많이 부족하지는 않았다고 생각합니다. 이번년도부터 NCS가 도입되면서 걱정을 많이 하였지만, NCS도 평이한 수준으로 출제되었습니다.",
+      "source_date": "2025-01-25",
+      "confidence": "mid",
+      "caveats": "정확한 경제학 60/NCS 20 분할 수치는 본문에 명시 없음 → 구조 수치는 공고로 별도 확인 필요"
+    },
+    {
+      "agency": "수협",
+      "track": "일반관리계 (회원조합/일괄공채)",
+      "exam_date": "2024 하반기 (2024-10-12 서울)",
+      "author_status": "언론 보도 (수협뉴스) — 응시자 후기 아님",
+      "concrete_mentions": [
+        "필수과목: 인·적성 검사 (30%)",
+        "선택과목 1택 (70%): 민법(친족·상속 제외) / 회계학(원가관리·세무 제외) / 경영학(회계학 제외) / 수협법(시행령·시행규칙 포함) / 상업경제",
+        "시험일: 10월 12일, 서울"
+      ],
+      "source_url": "https://www.suhyupnews.co.kr/news/articleView.html?idxno=32616",
+      "quoted_text": "일반관리계는 민법(친족, 상속편 제외), 회계학(원가관리회계, 세무회계 제외), 경영학(회계학 제외), 수협법(시행령, 시행규칙 포함), 상업경제 중 한 과목을 선택해 시험을 본다.",
+      "source_date": "2024-08-28",
+      "confidence": "high",
+      "caveats": "1차 소스급 (공식 채용 보도). 단 문항수·시간 미기재"
+    },
+    {
+      "agency": "수협",
+      "track": "일반관리계",
+      "exam_date": "2024 하반기",
+      "author_status": "응시자 본문 (2차 블로그). 합격여부 미확정 (fetch 차단으로 원문 부분 확인)",
+      "concrete_mentions": [
+        "WebSearch 요약에서 '전공 50문항(50분) + NCS 100문항(100분)' 언급 존재",
+        "NCS 모듈형, 전공 기초개념",
+        "난이도 3/5 (보통)",
+        "쉬는 시간 문제집·전자기기 사용 제지 없음"
+      ],
+      "source_url": "https://m.blog.naver.com/jieun7669/223654452568",
+      "quoted_text": "[WebSearch 요약 경유 인용] NCS 100문항(100분), 전공 50문항(50분) / NCS 모듈형과 전공 기초 개념을 공부하면 합격할 수 있는 시험",
+      "source_date": "2024-11 추정",
+      "confidence": "low",
+      "caveats": "m.blog.naver.com WebFetch 차단 → 원문 직접 인용 실패. WebSearch 요약 경유 2중전달이라 C-0 기준 미충족. **격리 유지**. 수협 문항수 50/100 숫자는 확정 팩트로 승격 금지."
+    },
+    {
+      "agency": "수협",
+      "track": "일반관리계 (2024 상반기)",
+      "exam_date": "2024 상반기",
+      "author_status": "불명 (블로그 문제집 추천 글)",
+      "concrete_mentions": [
+        "경영학/수협법 선택자 대상 문제집 추천",
+        "EBS 상업경제 수능특강 94% 커버 주장 (WebSearch 요약 경유)"
+      ],
+      "source_url": "https://m.blog.naver.com/kmha90/223456151827",
+      "quoted_text": "[fetch 차단으로 원문 미확보]",
+      "source_date": "2024-05 추정",
+      "confidence": "low",
+      "caveats": "fetch 실패. 94% 수치는 출처 검증 불가 → 격리"
+    }
+  ],
+  "structural_claims_reinforced": [
+    {
+      "claim": "캠코 2024~ 필기에 NCS 도입",
+      "source_urls": [
+        "https://community.weport.co.kr/passFinal/96858035?page=1"
+      ],
+      "count_of_independent_reviews": 1,
+      "note": "2023 후기는 NCS 없음 명시, 2024 합격후기는 NCS 도입 명시 → 전환 시점 2024"
+    },
+    {
+      "claim": "캠코 경제 직렬 출제범위: 미시+거시+국제(먼델플레밍/PPP/리카도)",
+      "source_urls": [
+        "https://community.linkareer.com/written_test/2099089"
+      ],
+      "count_of_independent_reviews": 1,
+      "note": "독립 후기 2건 이상 미확보. P1/P3 보고 교차 필요"
+    },
+    {
+      "claim": "캠코 경제 60문항 + NCS 20문항 구조 (2026 공고 주장)",
+      "source_urls": [],
+      "count_of_independent_reviews": 0,
+      "note": "**후기로는 직접 확인 실패**. 2023=70+공사상식10, 2024=NCS 도입만 확인. 60/20 분할은 2026 공고 원문으로만 확인됨. 후기 재보강 필요 (5월 필기 후 R+1 라운드)."
+    },
+    {
+      "claim": "수협 일반관리계 선택과목 5택(민법/회계학/경영학/수협법/상업경제)",
+      "source_urls": [
+        "https://www.suhyupnews.co.kr/news/articleView.html?idxno=32616"
+      ],
+      "count_of_independent_reviews": 1,
+      "note": "공식 보도 1건 + 알라딘 기본서 메타 1건 = 강한 확정"
+    },
+    {
+      "claim": "수협 필기 문항수 NCS100/전공50",
+      "source_urls": [
+        "https://m.blog.naver.com/jieun7669/223654452568 (WebSearch 경유)"
+      ],
+      "count_of_independent_reviews": 0,
+      "note": "원문 직접 확인 실패. **격리 유지**. 2026 공고 PDF로 재확인 필수"
+    }
+  ],
+  "shinsa_incruit_verification": {
+    "status": "VERIFIED (P1 환각 의심 해소)",
+    "evidence": [
+      "검색 결과 복수 페이지가 'shinsa.incruit.com' 을 '2026년 수협회원조합 채용사이트' 로 언급",
+      "동일 도메인의 과거 연도 페이지 존재 (2025년 상반기: shinsa.incruit.com/hire/viewhire.asp?projectid=102)",
+      "인크루트 공식 jobpost 링크가 '26년도 상반기 전국 수협 일괄공개채용 공고' 로 연결 (m.incruit.com/jobdb_info/jobpost.asp?job=2604090000813)"
+    ],
+    "caveat": "접속 시 인코딩 문제로 WebFetch 본문 파싱 실패했으나 URL·검색결과 메타는 일관. 실제 지원 시 브라우저 직접 접속 권장.",
+    "confidence": "high"
+  },
+  "inaccessible_sources": [
+    "m.blog.naver.com/* (WebFetch 전역 차단)",
+    "공준모(gongzum.com / daum cafe) 로그인 필요 게시물",
+    "teamblind.com 블라인드 게시물 (로그인 필요)",
+    "유튜브 자막·댓글 (WebFetch 미지원)"
+  ],
+  "required_additional_materials": [
+    "캠코 2024·2025 경제 직렬 합격자 후기 원문 (PDF 스크랩 또는 위포트/링커리어 로그인 후 다운로드) — 60/20 분할 실제 체감 확인용",
+    "수협 2024 하반기 응시자 후기 원문 (지은7669 블로그 PDF 저장) — NCS100/전공50 수치 확정",
+    "수협 상업경제 선택 후기 (2023~2025) — 현재 0건. 경영학·회계학 후기에 비해 열세"
+  ],
+  "self_audit": [
+    "캠코 60문항 주장은 후기 독립 2건 미달 → C-0 격리 기준. 2026 공고 본문(P1)으로만 뒷받침되므로 P1 팩트와 교차 후에야 확정",
+    "수협 문항수는 naver blog fetch 실패로 원문 인용 미확보 → quarantine 유지",
+    "2023년 캠코 70+10 구조는 2024 NCS 도입으로 무효 → 하류 참조 금지",
+    "상업경제 EBS 94% 커버 주장은 근거 미확인 — 소비자 마케팅성 문구 가능성, 제거 권고",
+    "수협 일반관리계 선택과목 리스트는 공식 보도 + 출판사 메타로 가장 강한 확정. 종환 '경영학 또는 상업경제' 권장의 배경 팩트로 사용 가능",
+    "shinsa.incruit.com 은 P1 의심대로가 아닌 **실재 도메인**으로 확정"
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "agent_id": "P4",
+  "agent_role": "알라딘 공부법/기출 카탈로그 전문가 (박사급 서지학 + 10년 카탈로그 큐레이션)",
+  "generated_date": "2026-04-18",
+  "c0_compliance": "모든 가격·ISBN·출간일은 알라딘 공식 상세페이지 WebFetch 원문. 1차 자료 충족. 리뷰 수·평점 미확인 항목은 confidence=low 격리.",
+  "books": [
+    {
+      "category": "A",
+      "title": "한국자산관리공사(캠코) 전용 기출문제집",
+      "status": "NOT_FOUND",
+      "confidence": "low",
+      "caveats": "알라딘·교보 전수 검색 결과 캠코 단독 기출집 출판 이력 없음. 기관 규모가 작아 전용 교재 미출간. 대체: 공기업 NCS 통합 + 경제학 기출 조합 필요. 잡코리아·에듀캐스트 '기출 복원 특강' (온라인 강좌) 은 있으나 단행본 아님."
+    },
+    {
+      "category": "B",
+      "title": "2025 해커스공무원 국(局) 경제학 15개년 기출문제집 (7급)",
+      "author": "김종국",
+      "publisher": "해커스공무원",
+      "edition": "2025판 (2026판 출시됨 — 구매 권장)",
+      "isbn": "9791172447052",
+      "price_paper": 42300,
+      "price_ebook": null,
+      "url": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=354219869",
+      "review_count": 0,
+      "rating": 0.0,
+      "recent_reviews": [],
+      "ebook_support": false,
+      "paper_alternative": "현재 종이책만 — 알라딘 중고/택배",
+      "confidence": "mid",
+      "caveats": "리뷰 0건이나 해커스공무원 브랜드는 7급 경제학 교재 시장 점유 상위. 캠코 경제 5급 60문항 대비용 기출 패턴 학습에 직접 유효. 2026판 KOBIC 등재 확인(ISBN 9791174047564). 종환 구매 시 2026판 최신 요청."
+    },
+    {
+      "category": "B",
+      "title": "경제학연습 : 미시편 (10판)",
+      "author": "정병열",
+      "publisher": "세경",
+      "edition": "10판 (2025-04-25)",
+      "isbn": "9791159734526",
+      "price_paper": 47700,
+      "price_ebook": null,
+      "url": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=362803943",
+      "review_count": 0,
+      "rating": 0.0,
+      "recent_reviews": [],
+      "ebook_support": false,
+      "paper_alternative": "종이책만. 896페이지 레퍼런스북.",
+      "confidence": "mid",
+      "caveats": "CPA·감정평가사·공기업 5급 경제 표준 교재. 리뷰 0이나 저자 정병열은 공무원/CPA 경제학 1세대. 거시편(8판) 별도 구매 필요 — 캠코 경제 5급 60문항 범위 커버에는 미시+거시 세트 필수. 총합 10만원 초과 리스크."
+    },
+    {
+      "category": "B",
+      "title": "2025 공무원 경제학 기출문제 (정병열)",
+      "author": "정병열",
+      "publisher": "세경",
+      "edition": "2025판",
+      "isbn": "9791159734342",
+      "price_paper": 20900,
+      "price_ebook": null,
+      "url": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=352755810",
+      "review_count": 0,
+      "rating": 0.0,
+      "recent_reviews": [],
+      "ebook_support": false,
+      "paper_alternative": "현재 절판(알라딘 표기). 2026판 출시 확인.",
+      "confidence": "low",
+      "caveats": "2025판 절판 — 2026판 ItemID 재조회 필요. 국가직 7/9급·국회 8급 기출 구조가 캠코 경제 5급과 인접."
+    },
+    {
+      "category": "C",
+      "title": "2026 NCS 직업기초능력평가 통합기본서 (전자책)",
+      "author": "타임 NCS 연구소",
+      "publisher": "시스컴",
+      "edition": "2026판 (2026-01-05)",
+      "isbn": "9791169417884",
+      "price_paper": 17100,
+      "price_ebook": 13300,
+      "url": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=376179451",
+      "review_count": 0,
+      "rating": 0.0,
+      "recent_reviews": [],
+      "ebook_support": true,
+      "paper_alternative": "종이책 17,100원 병행 판매",
+      "confidence": "low",
+      "caveats": "이북 지원 확인(유일). 리뷰 0 + 시스컴은 해커스·고시넷 대비 2군 브랜드 — 단독 사용은 위험. 이북 편의성 목적의 보조 교재로만."
+    },
+    {
+      "category": "C",
+      "title": "2025 단기 합격 해커스공기업 NCS 통합 기본서",
+      "author": "윤종혁, 김소원, 김태형 외",
+      "publisher": "해커스공기업",
+      "edition": "2025판 (2026판 출시됨)",
+      "isbn": "9788969655769",
+      "price_paper": 24300,
+      "price_ebook": null,
+      "url": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=354350275",
+      "review_count": 17,
+      "rating": 10.0,
+      "recent_reviews": ["리뷰 본문 미추출 — 알라딘 상세페이지 17건/10.0점 집계만 확인"],
+      "ebook_support": false,
+      "paper_alternative": "종이책 전용",
+      "confidence": "mid",
+      "caveats": "리뷰 17건 + 평점 10/10 — 실사용 신호 유일한 강자. 수협·IBK·LH NCS 공통 대응. 2026판 교보문고 등재 확인(S000218882053) — 2026판 구매 요망."
+    },
+    {
+      "category": "C",
+      "title": "진짜 NCS 모듈형·예제형 기출문제집",
+      "author": "김한수, 길규범",
+      "publisher": "마이패스북스",
+      "edition": "개정판 (2021-01-15)",
+      "isbn": "9791189815059",
+      "price_paper": 19800,
+      "price_ebook": null,
+      "url": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=226586884",
+      "review_count": 56,
+      "rating": 9.3,
+      "recent_reviews": ["리뷰 56건(100자평 43+리뷰 13) — 원문 미추출"],
+      "ebook_support": false,
+      "paper_alternative": "현재 알라딘 품절",
+      "confidence": "low",
+      "caveats": "출간 2021 — 2023 이후 우선 기준 미달. 다만 리뷰 56건/9.3점으로 신뢰 누적. '독한취업' 카페 무료강의 40편 연동. 모듈형 기출 원류 교재. 품절 상태 — 중고 탐색 필요."
+    },
+    {
+      "category": "D",
+      "title": "KRIVET 보고서 단행본 / 시험학 단행본",
+      "status": "NOT_FOUND",
+      "confidence": "low",
+      "caveats": "한국직업능력연구원(KRIVET) 보고서는 krivet.re.kr 무료 PDF 배포 — 단행본화된 것은 드묾. 알라딘 검색에서 NCS 시험학 전문 단행본 부재. KRIVET 사이트 직접 접근 권장 (P3/P9 에이전트 조합)."
+    }
+  ],
+  "recommended_bundles": [
+    {
+      "bundle_name": "캠코 경제 5급 집중 (5/9 D-21)",
+      "books": ["2025 해커스공무원 국 경제학 15개년 기출문제집 2026판", "2025 단기 합격 해커스공기업 NCS 통합 기본서 2026판"],
+      "total_cost": 66600,
+      "rationale": "캠코 필기 = 경제 60문항(80점) + NCS 20문항(20점). 경제 배점 최우선 → 해커스 경제 15개년 기출로 패턴학습. NCS 20% 는 해커스공기업 통합기본서로 커버. 10만원 이내 여유.",
+      "meets_10man_budget": true
+    },
+    {
+      "bundle_name": "수협 일반관리 (5/16) + IBK캐피탈 (5/23) 병행",
+      "books": ["2025 단기 합격 해커스공기업 NCS 통합 기본서 2026판", "2026 NCS 직업기초능력평가 통합기본서 이북"],
+      "total_cost": 37600,
+      "rationale": "수협 필수 인적성 30% + IBK NCS 공통. 시스컴 이북은 출퇴근 세타파 골든타임(종환 학습프로토콜 #3) 모바일 학습용. 수협 선택과목(경영학/상업경제)은 별도 전공서 필요 — 현 검색 범위 외.",
+      "meets_10man_budget": true
+    },
+    {
+      "bundle_name": "경제 심화(정병열 풀세트) — 예산 초과",
+      "books": ["경제학연습 미시편 10판", "경제학연습 거시편 8판 추정"],
+      "total_cost": 100000,
+      "rationale": "캠코 탈락 시 내년 CPA/감정평가 전환 시 재사용 가능. 896페이지 미시편만 47,700원 — 거시편 합산 시 10만 초과. 1순위 해커스 기출 우선, 심화는 선택.",
+      "meets_10man_budget": false
+    }
+  ],
+  "inaccessible_sources": [
+    "알라딘 리뷰 본문 원문 — WebFetch 렌더러가 리뷰 집계만 추출. 상세페이지 JS 렌더 리뷰 본문 미접근. 종환 수기 확인 필요.",
+    "캠코·수협 전용 기출 — 알라딘 카탈로그 부재 (출판시장 공백). 후기 기반 2차 소스(P5) 로 대체 조사 필요.",
+    "KRIVET 단행본 — 알라딘 미유통. 공식 사이트 직접 접근."
+  ],
+  "self_audit": "C-0 하드룰 위반 점검: (1) 가격·ISBN·출간일은 알라딘 원문 직접 인용 충족. (2) 리뷰 본문 quoted_text 3개 요구사항 미충족 — 집계만 확보(low confidence 격리). (3) '캠코 전용 기출집 없음' 은 negative finding — 알라딘+교보+다나와 3중 검색 결과 교차로 확인. (4) 2021년 출간 '진짜 NCS' 포함한 것은 예외(56건 리뷰 실사용 신호). (5) '강추' 류 공허어구 미사용 확인. (6) 예산 초과 번들은 meets_10man_budget=false 명시. 리뷰 본문 미확보는 P5(후기 스크리너) 로 보완 권장."
+}
