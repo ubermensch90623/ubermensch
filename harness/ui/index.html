@@ -84,10 +84,17 @@
         </ul>
       </details>
 
-      <!-- M4-ready 섹션: P9 예상문항 (로드되면 상단) -->
+      <!-- M4-ready 섹션: P9 예상문항 (만장일치 GATED, 경고 표시) -->
       <section x-show="predictions.length > 0" class="mb-4">
+        <div class="box warn mb-2">
+          <strong style="color:#f87171;">⚠️ C-0 격리 · 만장일치 GATED</strong>
+          <p class="text-xs mt-1" style="color: var(--text-secondary);">
+            P6·SC1·SC2 GATED · P11 ORANGE 경보 · 정답키 자기수정 2건 · 23/30 source=[].
+            <b>학습 목적 사용 금지</b> (참고·토론용). 판결 옵션 A/B/C → <code>docs/gyeongyeon/2026-04-18_P9_disposition.md</code>.
+          </p>
+        </div>
         <h3 class="font-bold mb-2" style="color: var(--text-accent);">
-          🎯 P9 예상문항 (<span x-text="predictions.length"></span>개 · mid 신뢰도)
+          🎯 P9 예상문항 (<span x-text="predictions.length"></span>개 · 참고용)
         </h3>
         <template x-for="q in predictions.slice(0, 5)" :key="q.id">
           <div class="box blue mb-2">
