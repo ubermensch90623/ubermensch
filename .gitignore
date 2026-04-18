@@ -1,0 +1,27 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+credentials.json
+secrets.json
+secrets.yaml
+secrets.yml
+secrets.toml
+*.pem
+id_rsa
+id_ed25519
+.aws/credentials
+
+# Claude local/user settings
+.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
