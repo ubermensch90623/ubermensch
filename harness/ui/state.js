@@ -1,6 +1,6 @@
-// harness Drill Store v2 — 해설카드 85 직접 풀이 엔진
-// 좌: 카드 tree (도메인 → 카드)
-// 중: drill 패널 (문제·선지·즉시채점·오답분류) + iframe 카드보기 토글
+// harness Drill Store v3 — NCS 수리능력 회독 엔진 (P12 HYBRID 판정 반영)
+// 좌: 도메인 tree (기초연산·도표분석·기초통계)
+// 중: drill 패널 (문제·선지·즉시채점·오답 2분류 + 풀이해설)
 // 우: 진도·오답노트·별표
 
 document.addEventListener('alpine:init', () => {
@@ -23,7 +23,7 @@ document.addEventListener('alpine:init', () => {
     async boot() {
       await Promise.all([this.loadItems(), this.loadProgress()]);
       this.bindKeys();
-      this.footerStatus = `ready · 85카드 · 풀수있음 ${this.drillableCount}`;
+      this.footerStatus = `ready · NCS 수리 ${this.items.length}제 · 정답률 ${((this.stats.accuracy||0)*100).toFixed(0)}%`;
       const first = this.items.find(i => i.drillable);
       if (first) this.openCard(first);
       // 도메인 전체 펼쳐두기 (초기)
@@ -139,8 +139,6 @@ document.addEventListener('alpine:init', () => {
     },
 
     statusOf(item) {
-      // 상태 뱃지용
-      if (!item.drillable) return 'readonly';
       const attempts = this.history.filter(h => h.card_id === item.id);
       if (!attempts.length) return 'new';
       const lastOk = attempts[attempts.length - 1].is_correct;

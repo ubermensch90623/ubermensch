@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NCS Drill · 해설카드 85</title>
+  <title>NCS 수리 드릴 · 실전 29제</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
   <link rel="stylesheet" href="/ui/assets/tokens.css" />
@@ -28,7 +28,6 @@
     .badge.new { background: #1e3a5f; color: #7fdbff; }
     .badge.ok { background: #1d4d2f; color: #6ee7a0; }
     .badge.wrong { background: #5a1f1f; color: #ff9a9a; }
-    .badge.readonly { background: #3a3a3a; color: #aaa; }
     .choice {
       display:flex; align-items:center; gap:10px; padding: 12px 14px; margin: 6px 0;
       background: var(--bg-2); border: 2px solid transparent; border-radius: 8px; cursor: pointer; transition: all .15s;
@@ -68,16 +67,15 @@
   <!-- Header -->
   <header class="flex items-center justify-between px-4 py-2" style="background: var(--bg-1); border-bottom: 1px solid var(--bg-3);">
     <div class="flex items-center gap-3">
-      <span class="font-bold text-base" style="color: var(--text-accent);">NCS Drill</span>
+      <span class="font-bold text-base" style="color: var(--text-accent);">NCS 수리 드릴</span>
       <span class="text-xs" style="color: var(--text-secondary);">
-        해설카드 <span x-text="items.length"></span> ·
-        풀수있음 <span style="color: var(--green);" x-text="drillableCount"></span> ·
+        수리 문항 <span x-text="items.length"></span> ·
         정답률 <span style="color: var(--amber);" x-text="((stats.accuracy||0) * 100).toFixed(1) + '%'"></span>
-        (<span x-text="stats.total_attempts||0"></span>회)
+        (<span x-text="stats.total_attempts||0"></span>회 · 커버 <span x-text="(stats.unique_cards_attempted||0) + '/' + drillableCount"></span>)
       </span>
     </div>
     <div class="flex items-center gap-1">
-      <template x-for="f in [['all','전체'],['drillable','풀이'],['untouched','미시도'],['wrong','오답'],['starred','★'],['readonly','참고']]" :key="f[0]">
+      <template x-for="f in [['all','전체'],['untouched','미시도'],['wrong','오답'],['starred','★']]" :key="f[0]">
         <button class="filter-btn" :class="{active: filter===f[0]}" @click="setFilter(f[0])" x-text="f[1]"></button>
       </template>
     </div>
@@ -111,7 +109,7 @@
                     <span class="truncate" :title="it.title" x-text="it.subtopic + ' · ' + (it.id.length > 24 ? it.id.slice(0,24)+'…' : it.id)"></span>
                     <span class="flex items-center gap-1">
                       <span x-show="starredIdSet.has(it.id)" class="star">★</span>
-                      <span class="badge" :class="statusOf(it)" x-text="({new:'새',ok:'✓',wrong:'✗',readonly:'읽기'})[statusOf(it)]"></span>
+                      <span class="badge" :class="statusOf(it)" x-text="({new:'새',ok:'✓',wrong:'✗'})[statusOf(it)]"></span>
                     </span>
                   </div>
                 </template>
@@ -152,19 +150,7 @@
           </div>
         </template>
 
-        <template x-if="currentCard && !currentCard.drillable">
-          <div>
-            <div class="panel" style="background: var(--bg-2); padding: 14px; border-left: 4px solid var(--amber); margin-bottom: 16px;">
-              <p style="color: var(--amber); font-weight: 700;">📖 읽기 전용 카드</p>
-              <p class="text-xs mt-1" style="color: var(--text-secondary);">
-                문제·선지·정답 구조가 아닌 개념·체크리스트·대시보드 카드. 원본을 열어 학습하세요.
-              </p>
-            </div>
-            <iframe :src="currentCard.card_path" class="card-frame" style="height: calc(100vh - 220px);" x-show="showCardViewer"></iframe>
-          </div>
-        </template>
-
-        <template x-if="currentCard && currentCard.drillable">
+        <template x-if="currentCard">
           <div>
             <!-- 문제 -->
             <div class="mb-4 p-3" style="background: var(--bg-2); border-left: 4px solid var(--text-accent); border-radius: 0 8px 8px 0;">
@@ -231,9 +217,14 @@
                   </button>
                 </div>
 
-                <!-- 원본 카드 (해설) -->
-                <div class="mt-4" x-show="showCardViewer">
-                  <p class="text-xs mb-1" style="color: var(--text-secondary);">해설 원본 카드</p>
+                <!-- 해설 (풀이과정 + 핵심팁) -->
+                <div class="mt-4" x-show="showCardViewer && currentCard.explanation">
+                  <p class="text-xs mb-1" style="color: var(--text-secondary);">해설 · 풀이과정</p>
+                  <div class="p-3" style="background: var(--bg-2); border-radius: 8px; font-size: 13.5px; line-height: 1.7; white-space: pre-wrap;" x-text="currentCard.explanation"></div>
+                </div>
+                <!-- 원본 HTML 카드 경로 있을 때만 iframe -->
+                <div class="mt-4" x-show="showCardViewer && currentCard.card_path">
+                  <p class="text-xs mb-1" style="color: var(--text-secondary);">원본 해설 카드</p>
                   <iframe :src="currentCard.card_path" class="card-frame"></iframe>
                 </div>
               </div>

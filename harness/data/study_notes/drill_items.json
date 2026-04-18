@@ -1,1876 +1,627 @@
 {
-  "generated_at": "2026-04-18T22:34:15Z",
-  "total": 85,
-  "drillable": 56,
-  "readonly": 29,
-  "source_dir": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드",
+  "generated_at": "2026-04-18T23:05:10Z",
+  "schema": "ncs_math_v1",
+  "total": 29,
+  "drillable": 29,
+  "readonly": 0,
+  "by_domain": {
+    "기초연산": 12,
+    "도표분석": 7,
+    "기초통계": 5,
+    "기타": 5
+  },
+  "source_files": [
+    "C:/Users/윤상택/Desktop/Cowork_작업폴더/02_NCS_학습자료/NCS_수리능력_실전30제.md"
+  ],
   "items": [
     {
-      "id": "00_D-DAY_대시보드",
-      "filename": "00_D-DAY_대시보드.html",
-      "title": "🔥 D-DAY 대시보드 — 4/11 서금원",
-      "domain": "시험전략",
-      "subtopic": "D-DAY 대시보드",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/00_D-DAY_대시보드.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
+      "id": "수리_섹션1_01",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 1: 기초연산/응용계산 (5문제) · 1번",
+      "domain": "기초연산",
+      "subtopic": "기초연산능력",
+      "section": "섹션 1: 기초연산/응용계산 (5문제)",
+      "question": "어떤 은행의 2025년 영업이익이 1,250억 원이었고, 2026년에 340억 원이 증가했다면, 2026년의 영업이익은?",
+      "choices": [
+        "910억 원",
+        "1,590억 원",
+        "1,590만 원",
+        "1,590억 원",
+        "1,620억 원"
+      ],
+      "correct_index": 4,
+      "raw_correct_marker": "④ 1,590억 원",
+      "explanation": "**풀이과정**\n- 2025년 영업이익: 1,250억 원\n- 2026년 증가분: 340억 원\n- 2026년 영업이익 = 1,250 + 340 = 1,590억 원\n\n**핵심 팁**\n- 단위 확인이 중요함 (억 원, 만 원 구분)\n- 덧셈/뺄셈은 같은 단위로 통일 후 계산",
+      "drillable": true,
+      "card_path": null
     },
     {
-      "id": "01_시험장_새벽4시_플래시카드",
-      "filename": "01_시험장_새벽4시_플래시카드.html",
-      "title": "🌅 새벽 4시 플래시카드 — 서금원 D-Day",
-      "domain": "시험전략",
-      "subtopic": "시험장 플래시카드",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/01_시험장_새벽4시_플래시카드.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "02_시험장_대기실_계속보기",
-      "filename": "02_시험장_대기실_계속보기.html",
-      "title": "🎒 대기실 계속 보기 — 서금원 D-Day",
-      "domain": "시험전략",
-      "subtopic": "시험장 대기실",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/02_시험장_대기실_계속보기.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "03_시험당일_최종체크리스트",
-      "filename": "03_시험당일_최종체크리스트.html",
-      "title": "✅ 시험당일 최종 체크리스트 · 4/11",
-      "domain": "시험전략",
-      "subtopic": "당일 체크리스트",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/03_시험당일_최종체크리스트.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "04_NCS_40점_최약점_집중",
-      "filename": "04_NCS_40점_최약점_집중.html",
-      "title": "📊 NCS 40점 최약점 집중 — 서금원 D-Day",
-      "domain": "NCS",
-      "subtopic": "최약점 집중",
-      "question": null,
-      "choices": [],
-      "correct_index": 2,
-      "raw_correct_marker": "②",
-      "drillable": false,
-      "card_path": "/study/04_NCS_40점_최약점_집중.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "05_경제학_학파_5종_5초판단",
-      "filename": "05_경제학_학파_5종_5초판단.html",
-      "title": "🏛️ 경제학 학파 5종 5초 판단 — 서금원 D-Day",
-      "domain": "거시",
-      "subtopic": "학파 5초 판단",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/05_경제학_학파_5종_5초판단.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "06_경제학_계산_드릴_12문",
-      "filename": "06_경제학_계산_드릴_12문.html",
-      "title": "🧮 경제학 계산 드릴 12문 — 서금원 D-Day",
-      "domain": "미시거시",
-      "subtopic": "계산 드릴",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/06_경제학_계산_드릴_12문.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "07_최후5분_종이한장_비상",
-      "filename": "07_최후5분_종이한장_비상.html",
-      "title": "🚨 최후 5분 비상 · 종이 한장",
-      "domain": "시험전략",
-      "subtopic": "최후 5분",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/07_최후5분_종이한장_비상.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "ISLM_완전정복",
-      "filename": "ISLM_완전정복.html",
-      "title": "IS-LM 완전정복 (종환 질문 전부 답)",
-      "domain": "거시",
-      "subtopic": "IS-LM",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/ISLM_완전정복.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "M5_세율포함_승수",
-      "filename": "M5_세율포함_승수.html",
-      "title": "M5 해설 - 승수 종합",
-      "domain": "거시",
-      "subtopic": "재정정책",
-      "question": null,
-      "choices": [],
+      "id": "수리_섹션1_02",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 1: 기초연산/응용계산 (5문제) · 2번",
+      "domain": "기초연산",
+      "subtopic": "기초연산능력",
+      "section": "섹션 1: 기초연산/응용계산 (5문제)",
+      "question": "A 펀드의 초기 투자액은 2,000만 원이고, 운용 중 3개월마다 각각 250만 원, 180만 원, 320만 원을 추가 투자했다. 총 투자액은?",
+      "choices": [
+        "2,430만 원",
+        "2,750만 원",
+        "2,930만 원",
+        "3,250만 원",
+        "3,450만 원"
+      ],
       "correct_index": 3,
-      "raw_correct_marker": "③",
-      "drillable": false,
-      "card_path": "/study/M5_세율포함_승수.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "PPF_기울기_MRT",
-      "filename": "PPF_기울기_MRT.html",
-      "title": "PPF 기울기 = MRT = 기회비용",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/PPF_기울기_MRT.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "PPF_기회비용_3형태",
-      "filename": "PPF_기회비용_3형태.html",
-      "title": "PPF 3형태 — 체증 vs 고정 vs 감소",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/PPF_기회비용_3형태.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "PPF_등량곡선_구분",
-      "filename": "PPF_등량곡선_구분.html",
-      "title": "PPF vs 등량곡선 — 완전 구분",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/PPF_등량곡선_구분.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "PPF_비교우위_2인",
-      "filename": "PPF_비교우위_2인.html",
-      "title": "PPF 비교우위 — 2인 생산가능곡선은 왜 꺾이나?",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": null,
-      "choices": [],
-      "correct_index": 4,
-      "raw_correct_marker": "④",
-      "drillable": false,
-      "card_path": "/study/PPF_비교우위_2인.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "PPF_왜꺾이나_심화",
-      "filename": "PPF_왜꺾이나_심화.html",
-      "title": "PPF — 왜 이 선이 나오는가? (처음부터 천천히)",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": "\"야, 의자 100개 필요한데 책상은 최대 몇 개 만들 수 있어?\"",
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/PPF_왜꺾이나_심화.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "PPF_함수_기본개념",
-      "filename": "PPF_함수_기본개념.html",
-      "title": "PPF 함수 — 기본 개념부터 교역조건까지",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": "예를 들어 한 나라가 100시간을 가지고 있고:",
-      "choices": [],
-      "correct_index": 4,
-      "raw_correct_marker": "④ 5 이상 20 이하",
-      "drillable": false,
-      "card_path": "/study/PPF_함수_기본개념.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 0,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "경제학_학파_스토리",
-      "filename": "경제학_학파_스토리.html",
-      "title": "경제학 학파 스토리 — 따라만 읽어",
-      "domain": "거시",
-      "subtopic": "학파",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/경제학_학파_스토리.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "경제학_학파_한눈에",
-      "filename": "경제학_학파_한눈에.html",
-      "title": "경제학 학파 한눈에 — 거시 6학파 정리",
-      "domain": "거시",
-      "subtopic": "학파",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/경제학_학파_한눈에.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "균형재정_승수",
-      "filename": "균형재정_승수.html",
-      "title": "균형재정 승수 = 1, 왜?",
-      "domain": "거시",
-      "subtopic": "재정정책",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/균형재정_승수.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "대체재_보완재_교차가격",
-      "filename": "대체재_보완재_교차가격.html",
-      "title": "대체재 vs 보완재 — 교차가격 계수로 판별",
-      "domain": "미시",
-      "subtopic": "수요공급",
-      "question": "수요함수 예시:",
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/대체재_보완재_교차가격.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "독점_이윤극대화_탄력적구간",
-      "filename": "독점_이윤극대화_탄력적구간.html",
-      "title": "독점기업 이윤극대화 — 왜 탄력적 구간인가",
-      "domain": "미시",
-      "subtopic": "시장구조/독점",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/독점_이윤극대화_탄력적구간.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "리카도_대등정리",
-      "filename": "리카도_대등정리.html",
-      "title": "리카도 대등정리 해설 (다시)",
-      "domain": "거시",
-      "subtopic": "재정정책",
-      "question": null,
-      "choices": [],
-      "correct_index": 3,
-      "raw_correct_marker": "③",
-      "drillable": false,
-      "card_path": "/study/리카도_대등정리.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "리카도_비교우위_모형",
-      "filename": "리카도_비교우위_모형.html",
-      "title": "리카도 모형 — 비교우위의 원조",
-      "domain": "국제",
-      "subtopic": "비교우위",
-      "question": "데이비드 리카도 (David Ricardo, 1772~1823)",
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/리카도_비교우위_모형.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "수요합산_수평vs수직",
-      "filename": "수요합산_수평vs수직.html",
-      "title": "수요함수 합산 — 수평 vs 수직",
-      "domain": "미시",
-      "subtopic": "수요공급",
-      "question": "사적재 (피자): A가 2개, B가 9개 사려면 → 시장엔 11개 있어야 함",
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/수요합산_수평vs수직.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "유동성함정_그래프",
-      "filename": "유동성함정_그래프.html",
-      "title": "유동성 함정 — IS-LM 그래프",
-      "domain": "거시",
-      "subtopic": "IS-LM",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/유동성함정_그래프.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "함수_GDP_01",
-      "filename": "함수_GDP_01.html",
-      "title": "GDP 01 — 노동·자본 대체탄력도",
-      "domain": "거시",
-      "subtopic": "국민소득",
-      "question": "노동과 자본 사이의 대체탄력도(σ)의 설명 중 틀린 것은?",
-      "choices": [
-        "σ = 1일 때 이자율이 임금에 비하여 상대적으로 올라가도 국민소득 가운데 노동자가 차지하는 몫은 일정하다.",
-        "생산함수가 규모에 대한 수확불변인 Cobb-Douglas 생산함수인 경우 σ는 1이다.",
-        "생산요소가격 1%의 변화에 따른 요소결합비율 1%의 변화를 나타낸다.",
-        "Leontief 생산함수의 요소간 대체탄력도(σ)는 0이다.",
-        "σ > 1일 때 임금이 이자율에 비하여 상대적으로 오르면 국민소득 가운데 노동자의 몫이 증가한다."
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② Cobb-Douglas는 규모수익불변이 아니어도 σ=1",
+      "raw_correct_marker": "③ 2,930만 원",
+      "explanation": "**풀이과정**\n- 초기 투자액: 2,000만 원\n- 첫 번째 추가: 250만 원\n- 두 번째 추가: 180만 원\n- 세 번째 추가: 320만 원\n- 총합 = 2,000 + 250 + 180 + 320 = 2,750만 원\n\n**핵심 팁**\n- 모든 투자액을 더하되, 추가 투자 여러 번을 빠뜨리지 않기\n- 단계별로 계산하여 검산하기",
       "drillable": true,
-      "card_path": "/study/함수_GDP_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_GDP_02",
-      "filename": "함수_GDP_02.html",
-      "title": "GDP 02 — GDP 디플레이터",
-      "domain": "거시",
-      "subtopic": "국민소득",
-      "question": "GDP 디플레이터에 대한 설명 중 옳은 것을 모두 고르면?",
+      "id": "수리_섹션1_03",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 1: 기초연산/응용계산 (5문제) · 3번",
+      "domain": "기초연산",
+      "subtopic": "기초연산능력",
+      "section": "섹션 1: 기초연산/응용계산 (5문제)",
+      "question": "은행 신용대출 상품의 연 이자율이 6.5%이다. 500만 원을 1년 동안 차용할 때, 1년 후의 총 상환액은? (단순이자 계산)",
       "choices": [
-        "㉠, ㉢",
-        "㉠, ㉤",
-        "㉡, ㉢",
-        "㉡, ㉣",
-        "㉢, ㉤"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② ㉠, ㉤",
-      "drillable": true,
-      "card_path": "/study/함수_GDP_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_GDP_03",
-      "filename": "함수_GDP_03.html",
-      "title": "GDP 03 — GDP 개념 틀린 것",
-      "domain": "거시",
-      "subtopic": "국민소득",
-      "question": "GDP에 대한 설명 중 옳지 않은 것은?",
-      "choices": [
-        "GDP는 1년 단위로 계산되는 유량(flow) 개념이다.",
-        "폐쇄경제에서는 GDP와 GNI가 동일하다.",
-        "GDP = 민간소비 + 민간투자 + 정부지출 + (수출 − 수입)",
-        "GNI = GDP + 교역조건 변화에 따른 실질무역손익 + 국외순수취요소소득"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ 실질/명목 구분 없이 GNI 공식으로 제시",
-      "drillable": true,
-      "card_path": "/study/함수_GDP_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_GDP_04",
-      "filename": "함수_GDP_04.html",
-      "title": "GDP 04 — 국민소득 항등식",
-      "domain": "거시",
-      "subtopic": "국민소득",
-      "question": "GDP를 Y = C + I + G + X − M으로 표시할 때, GDP에 관한 설명으로 옳지 않은 것은?",
-      "choices": [
-        "무역수지가 적자일 경우, GDP는 국내 경제주체들의 총지출보다 작다.",
-        "GDP가 감소해도 무역수지는 흑자가 될 수 있다.",
-        "M(수입)은 C, I, G에 포함되어 있는 수입액을 모두 다 더한 것이다.",
-        "올해 생산물 중 판매되지 않고 남은 재고는 올해 GDP에 포함되지 않는다.",
-        "무역수지가 흑자이면 국내 저축이 국내 투자보다 더 크다."
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ 재고는 I에 포함 (GDP 포함됨)",
-      "drillable": true,
-      "card_path": "/study/함수_GDP_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_GDP_05",
-      "filename": "함수_GDP_05.html",
-      "title": "GDP 05 — 재정·무역수지 계산",
-      "domain": "거시",
-      "subtopic": "국민소득",
-      "question": "다음 경제가 균형상태일 경우 재정수지와 무역수지를 구하면?",
-      "choices": [
-        "재정흑자, 무역적자",
-        "재정흑자, 무역흑자",
-        "재정적자, 무역적자",
-        "재정적자, 무역흑자",
-        "재정흑자, 무역균형"
+        "532.5만 원",
+        "535만 원",
+        "540만 원",
+        "565만 원",
+        "605만 원"
       ],
       "correct_index": 1,
-      "raw_correct_marker": "① 재정흑자, 무역적자",
+      "raw_correct_marker": "① 532.5만 원",
+      "explanation": "**풀이과정**\n- 원금(P): 500만 원\n- 이자율(r): 6.5% = 0.065\n- 기간(t): 1년\n- 이자 = 500 × 0.065 × 1 = 32.5만 원\n- 총 상환액 = 500 + 32.5 = 532.5만 원\n\n**핵심 팁**\n- 단순이자 공식: 이자 = 원금 × 이자율 × 기간\n- 백분율을 소수로 변환 (6.5% = 0.065)",
       "drillable": true,
-      "card_path": "/study/함수_GDP_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_ISLM_01",
-      "filename": "함수_ISLM_01.html",
-      "title": "함수 IS-LM 01 — 폐쇄경제 균형투자",
-      "domain": "거시",
-      "subtopic": "IS-LM",
-      "question": "가계, 기업, 정부로 구성된 폐쇄경제. 다음 함수가 주어져 있다:",
+      "id": "수리_섹션1_04",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 1: 기초연산/응용계산 (5문제) · 4번",
+      "domain": "기초연산",
+      "subtopic": "기초연산능력",
+      "section": "섹션 1: 기초연산/응용계산 (5문제)",
+      "question": "해외 출장비가 다음과 같다: 항공료 1,200달러, 숙박비 600달러, 식사비 300달러, 교통비 200달러. 환율이 1달러 = 1,320원일 때, 총 출장비는 몇 원인가?",
       "choices": [
-        "100",
-        "90",
-        "80",
-        "70",
-        "50"
+        "2,376,000원",
+        "2,376만 원",
+        "2,970,000원",
+        "3,168,000원",
+        "3,960,000원"
       ],
       "correct_index": 4,
-      "raw_correct_marker": "④ 70",
+      "raw_correct_marker": "④ 3,168,000원",
+      "explanation": "**풀이과정**\n- 총 달러액 = 1,200 + 600 + 300 + 200 = 2,300달러\n- 환율: 1달러 = 1,320원\n- 총 출장비(원) = 2,300 × 1,320 = 3,036,000원\n\n**핵심 팁**\n- 환율 계산: 외국화 × 환율 = 원화\n- 먼저 합계를 구한 후 환율을 곱하기",
       "drillable": true,
-      "card_path": "/study/함수_ISLM_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_ISLM_02",
-      "filename": "함수_ISLM_02.html",
-      "title": "함수 IS-LM 02 — 정부지출승수",
-      "domain": "거시",
-      "subtopic": "IS-LM",
-      "question": "실물부문만 있는 경제:",
+      "id": "수리_섹션1_05",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 1: 기초연산/응용계산 (5문제) · 5번",
+      "domain": "기초연산",
+      "subtopic": "기초연산능력",
+      "section": "섹션 1: 기초연산/응용계산 (5문제)",
+      "question": "대출금 8,500만 원을 연이율 4.5%로 12개월 균등 분할 상환한다. 월 이자액은? (월할 단순이자)",
       "choices": [
-        "90",
-        "95",
-        "100",
-        "105",
-        "110"
-      ],
-      "correct_index": 3,
-      "raw_correct_marker": "③ 100",
-      "drillable": true,
-      "card_path": "/study/함수_ISLM_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_ISLM_03",
-      "filename": "함수_ISLM_03.html",
-      "title": "함수 IS-LM 03 — 비례세 포함 승수",
-      "domain": "거시",
-      "subtopic": "IS-LM",
-      "question": "IS곡선 우하향. 이자율은 중앙은행에 의해 외생 결정되는 폐쇄경제.",
-      "choices": [
-        "Y 400조 증가",
-        "민간소비 240조 증가",
-        "민간저축 60조 증가",
-        "소득세 수입 50조 증가",
-        "정부저축 불변"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ 소득세 수입 50조 증가",
-      "drillable": true,
-      "card_path": "/study/함수_ISLM_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_ISLM_04",
-      "filename": "함수_ISLM_04.html",
-      "title": "함수 IS-LM 04 — 오쿤의 법칙 연계",
-      "domain": "거시",
-      "subtopic": "IS-LM",
-      "question": "상품시장: C = 170+0.5(Y−T), I = 100−10(i−πₑ), T = 60, πₑ = 0",
-      "choices": [
-        "50",
-        "60",
-        "70",
-        "80",
-        "90"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② 60",
-      "drillable": true,
-      "card_path": "/study/함수_ISLM_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_ISLM_05",
-      "filename": "함수_ISLM_05.html",
-      "title": "함수 IS-LM 05 — IS곡선 개념 판정",
-      "domain": "거시",
-      "subtopic": "IS-LM",
-      "question": "IS곡선 설명 중 옳지 않은 것은?",
-      "choices": [
-        "저축 = 투자를 일치시키는 (Y, i) 조합이다.",
-        "정부지출이 외생적으로 증가하면 IS곡선이 오른쪽으로 이동한다.",
-        "투자가 금리에 민감할수록 IS곡선 기울기 절댓값이 작아진다.",
-        "투자가 케인즈 주장대로 동물적 본능으로만 이루어진다면 IS곡선은 수평이 된다."
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④",
-      "drillable": true,
-      "card_path": "/study/함수_ISLM_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_PPF_01",
-      "filename": "함수_PPF_01.html",
-      "title": "PPF 01 — 태식이 효용극대화",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": "태식이는 하루 8시간 소비하여 물고기와 코코넛을 얻는다.",
-      "choices": [
-        "18",
-        "16",
-        "12",
-        "8"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④",
-      "drillable": true,
-      "card_path": "/study/함수_PPF_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_PPF_02",
-      "filename": "함수_PPF_02.html",
-      "title": "PPF 02 — U=XY², X²+Y²=12",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": "A국 대표 소비자 갑의 효용함수: U(X,Y) = X Y²",
-      "choices": [
-        "1",
-        "2",
-        "3",
-        "4"
-      ],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/함수_PPF_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "함수_PPF_03",
-      "filename": "함수_PPF_03.html",
-      "title": "PPF 03 — A국/B국 교역조건 X재 가격",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": "A국, B국 모두 X재·Y재만 생산. 생산가능곡선:",
-      "choices": [],
-      "correct_index": 2,
-      "raw_correct_marker": "② Y재 11개",
-      "drillable": false,
-      "card_path": "/study/함수_PPF_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 0,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_PPF_04",
-      "filename": "함수_PPF_04.html",
-      "title": "PPF 04 — 헥셔-올린 모형",
-      "domain": "미시",
-      "subtopic": "생산가능곡선",
-      "question": "헥셔-올린(Heckscher-Ohlin) 모형 설명 중 옳지 않은 것은?",
-      "choices": [
-        "2국-2재화-2요소 모형",
-        "레온티에프 역설: 자본풍부국 미국이 노동집약재 수출, 자본집약재 수입",
-        "각국은 상대적 풍부 요소를 많이 쓰는 제품에 비교우위",
-        "생산요소 국가간 이동 불가해도 요소 상대가격 균등화 경향",
-        "국가 간 생산함수에 차이가 있다고 가정"
-      ],
-      "correct_index": 5,
-      "raw_correct_marker": "⑤",
-      "drillable": true,
-      "card_path": "/study/함수_PPF_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_기타_01",
-      "filename": "함수_기타_01.html",
-      "title": "기타 01 — 3가지 소비함수 비교",
-      "domain": "종합",
-      "subtopic": "기타",
-      "question": "김씨 (절대소득가설): C = 0.8Y + 10",
-      "choices": [
-        "김씨 ΔC/ΔY는 Y와 무관하게 일정",
-        "김씨 C/Y는 Y 증가에 따라 체감",
-        "이씨 C_t/Y_t는 1보다 크다",
-        "박씨 ΔC/ΔY는 Y<Y_m일 때 1보다 작다 ← 정답",
-        "박씨 ΔC/ΔY는 Y>Y_m일 때 1보다 작다"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④",
-      "drillable": true,
-      "card_path": "/study/함수_기타_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_기타_02",
-      "filename": "함수_기타_02.html",
-      "title": "기타 02 — AD/AS 합리적 기대",
-      "domain": "종합",
-      "subtopic": "기타",
-      "question": "총수요(AD): P_t = −Y_t + 2",
-      "choices": [
-        "이 경제는 장기균형 상태",
-        "현재 상태에서 P^e는 1/2",
-        "현재 상태에서 P^e는 3/2",
-        "합리적 기대면 P^e는 1",
-        "합리적 기대면 P^e는 2"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ 합리적 기대 P^e = 1",
-      "drillable": true,
-      "card_path": "/study/함수_기타_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_기타_03",
-      "filename": "함수_기타_03.html",
-      "title": "기타 03 — 성장회계 자본기여율 80%",
-      "domain": "종합",
-      "subtopic": "기타",
-      "question": "성장회계식: ΔY/Y = Δz/z + α(ΔK/K) + (1−α)(ΔL/L)",
-      "choices": [
-        "2%",
-        "4%",
-        "6%",
-        "8%"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② 4%",
-      "drillable": true,
-      "card_path": "/study/함수_기타_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_독점_01",
-      "filename": "함수_독점_01.html",
-      "title": "독점 01 — 3가지 경우 가격탄력성 비교",
-      "domain": "미시",
-      "subtopic": "시장구조/독점",
-      "question": "다음 세 가지 경우의 가격탄력성(절댓값) A, B, C 크기를 비교하라.",
-      "choices": [
-        "A>B>C",
-        "A>C>B",
-        "B>A>C",
-        "B>C>A",
-        "C>B>A"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② A > C > B",
-      "drillable": true,
-      "card_path": "/study/함수_독점_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_독점_02",
-      "filename": "함수_독점_02.html",
-      "title": "독점 02 — Y=AN^(1/2)K^(1/2) 생산함수",
-      "domain": "미시",
-      "subtopic": "시장구조/독점",
-      "question": "생산함수: Y = A × N^(1/2) × K^(1/2)",
-      "choices": [
-        "A↑면 N·K 그대로도 Y 증가",
-        "노동의 한계생산 > 0, N 증가할수록 MP_N 체감",
-        "자본의 MP > 0이지만 K에 대해서는 한계생산체감이 적용 안 됨",
-        "임금 = 자본임대료라면 N과 K를 같게 해야 한다 ← 정답",
-        "N과 K를 둘 다 2배 하면 Y도 2배"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④",
-      "drillable": true,
-      "card_path": "/study/함수_독점_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_독점_03",
-      "filename": "함수_독점_03.html",
-      "title": "독점 03 — Q=5L^(1/2)K^(1/2) 비용함수 유도",
-      "domain": "미시",
-      "subtopic": "시장구조/독점",
-      "question": "생산함수: Q = 5 L^(1/2) K^(1/2)",
-      "choices": [
-        "총고정비용 = 2",
-        "평균가변비용 = (2/25)Q",
-        "한계비용 = Q/25",
-        "평균비용 = (2/25)Q + 2",
-        "정답 (_answer=5 지만 선지 4개만 있음 → 선지 중 옳은 것 찾기)"
-      ],
-      "correct_index": 3,
-      "raw_correct_marker": "③ 한계비용 = Q/25",
-      "drillable": true,
-      "card_path": "/study/함수_독점_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_독점_04",
-      "filename": "함수_독점_04.html",
-      "title": "독점 04 — STC=3K+12Q²/K 이윤극대화",
-      "domain": "미시",
-      "subtopic": "시장구조/독점",
-      "question": "단기 총비용함수: STC = 3K + 12Q²/K",
-      "choices": [
-        "−102.5",
-        "−112.5",
-        "−122.5",
-        "−132.5"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② −112.5",
-      "drillable": true,
-      "card_path": "/study/함수_독점_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_독점_05",
-      "filename": "함수_독점_05.html",
-      "title": "독점 05 — AC·MC 관계",
-      "domain": "미시",
-      "subtopic": "시장구조/독점",
-      "question": "기업의 단기 평균비용(AC) 및 한계비용(MC) 설명 중 옳지 않은 것은?",
-      "choices": [
-        "이윤극대화는 MC가 증가하는 영역에서 이루어진다",
-        "AC가 감소하면 MC도 감소한다",
-        "AC 최저점에서 AC = MC",
-        "MC > AC이면 AC 증가",
-        "의 애매함 +",
-        "\"AC 감소 시 MC는 이미 그보다 작다\"는 관계를 오해하는 선지.\n      공식 정답은",
-        ". (AC↓이면 MC는 AC보다 작기만 할 뿐, 증가/감소는 확정 못 함)"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② (옳지 않음)",
-      "drillable": true,
-      "card_path": "/study/함수_독점_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 7,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_생산비용_01",
-      "filename": "함수_생산비용_01.html",
-      "title": "생산_01 — 등량곡선 성질",
-      "domain": "미시",
-      "subtopic": "비용함수",
-      "question": "생산함수 Y = F(K, L) 의 등량곡선(isoquant curve) 설명 중 옳지 않은 것은?",
-      "choices": [
-        "생산요소 간 대체탄력성이 커질수록 등량곡선은 직선에 가까워진다.",
-        "두 생산요소의 한계생산이 모두 0보다 크면 등량곡선은 우하향한다.",
-        "한계기술대체율 체증의 법칙이 성립하면 등량곡선은 원점에 대해 볼록하다.",
-        "등량곡선은 원점에서 멀어질수록 더 많은 산출량을 나타낸다."
-      ],
-      "correct_index": 3,
-      "raw_correct_marker": "③ MRTS 체증 → 원점에 볼록",
-      "drillable": true,
-      "card_path": "/study/함수_생산비용_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_생산비용_02",
-      "filename": "함수_생산비용_02.html",
-      "title": "생산_02 — AP와 MP의 관계",
-      "domain": "미시",
-      "subtopic": "비용함수",
-      "question": "K 일정, Y=F(L,K) 일 때 평균생산물(AP)과 한계생산물(MP) 관계로 옳은 것?",
-      "choices": [
-        "AP>MP면 AP 계속 증가한다.",
-        "AP 증가 & AP>MP면 기업 이윤 증가한다.",
-        "생산 2단계는 MP 극대점부터 AP 극대점까지 구간이다.",
-        "MP<0이어도 AP>0인 한 생산 계속한다.",
-        "최적생산은 AP 극대점부터 MP=0인 구간에서 결정된다."
-      ],
-      "correct_index": 5,
-      "raw_correct_marker": "⑤",
-      "drillable": true,
-      "card_path": "/study/함수_생산비용_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_생산비용_03",
-      "filename": "함수_생산비용_03.html",
-      "title": "생산_03 — Q=min[L, 3K] 한계생산",
-      "domain": "미시",
-      "subtopic": "비용함수",
-      "question": "생산함수 Q = min[L, 3K]",
-      "choices": [
-        "0, 1",
-        "1, 0",
-        "1, 3",
-        "3, 1",
-        "10, 5"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② (1, 0)",
-      "drillable": true,
-      "card_path": "/study/함수_생산비용_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_생산비용_04",
-      "filename": "함수_생산비용_04.html",
-      "title": "생산_04 — Q=L+3K 선형 MRTS",
-      "domain": "미시",
-      "subtopic": "비용함수",
-      "question": "생산함수 Q = L + 3K (Q, L, K > 0)",
-      "choices": [
-        "노동·자본 투입량과 관계없이 일정하다.",
-        "L 투입 증가 → MRTS 증가",
-        "L 투입 증가 → MRTS 감소",
-        "K 투입 증가 → MRTS 증가",
-        "K 투입 증가 → MRTS 감소"
+        "318,750원",
+        "319,000원",
+        "325,000원",
+        "330,000원",
+        "382,500원"
       ],
       "correct_index": 1,
-      "raw_correct_marker": "① 투입량과 관계없이 일정",
+      "raw_correct_marker": "① 318,750원",
+      "explanation": "**풀이과정**\n- 대출금(P): 8,500만 원\n- 연 이자율(r): 4.5% = 0.045\n- 월 이자율 = 연 이자율 ÷ 12 = 0.045 ÷ 12 = 0.00375\n- 월 이자액 = 8,500만 원 × 0.00375 = 318,750원\n\n**핵심 팁**\n- 월할 이자 = 연 이자율 ÷ 12\n- 대출금은 원 단위로 변환: 8,500만 원 = 85,000,000원\n- 계산: 85,000,000 × 0.00375 = 318,750원",
       "drillable": true,
-      "card_path": "/study/함수_생산비용_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_생산비용_05",
-      "filename": "함수_생산비용_05.html",
-      "title": "생산_05 — TC=2L+K, Q=40-0.5L 요소고용",
-      "domain": "미시",
-      "subtopic": "비용함수",
-      "question": "비용함수 TC = 2L + K, 생산함수 Q = 40 − 0.5L",
+      "id": "수리_섹션2_01",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 2: 자료해석(표/그래프) (8문제) · 1번",
+      "domain": "도표분석",
+      "subtopic": "도표분석능력",
+      "section": "섹션 2: 자료해석(표/그래프) (8문제)",
+      "question": "**표: 2025년 은행별 순이익 (단위: 억 원)**\n\n| 은행 | 1분기 | 2분기 | 3분기 | 4분기 |\n|------|------|------|------|------|\n| A은행 | 450 | 520 | 580 | 650 |\n| B은행 | 380 | 400 | 420 | 440 |\n| C은행 | 520 | 510 | 490 | 470 |\n\nA은행의 2025년 총 순이익은?",
       "choices": [
-        "자본만 고용",
-        "노동만 고용",
-        "자본을 더",
-        "노동을 더",
-        "반반"
+        "1,900억 원",
+        "2,000억 원",
+        "2,100억 원",
+        "2,200억 원",
+        "2,300억 원"
+      ],
+      "correct_index": 4,
+      "raw_correct_marker": "④ 2,200억 원",
+      "explanation": "**풀이과정**\n- A은행 순이익 = 450 + 520 + 580 + 650 = 2,200억 원\n\n**핵심 팁**\n- 표에서 필요한 행(또는 열)의 모든 값을 더하기\n- 단위 확인 (억 원)",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션2_02",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 2: 자료해석(표/그래프) (8문제) · 2번",
+      "domain": "도표분석",
+      "subtopic": "도표분석능력",
+      "section": "섹션 2: 자료해석(표/그래프) (8문제)",
+      "question": "**표: 상기 은행별 순이익 데이터**\n\n4분기 대비 3분기의 순이익 변화를 보면, 어느 은행이 가장 큰 감소율을 보였는가?",
+      "choices": [
+        "A은행",
+        "B은행",
+        "C은행",
+        "A은행과 B은행",
+        "B은행과 C은행"
+      ],
+      "correct_index": 3,
+      "raw_correct_marker": "③ C은행",
+      "explanation": "**풀이과정**\n- A은행: (650 - 580) ÷ 580 = 70 ÷ 580 = 12.1% (증가)\n- B은행: (440 - 420) ÷ 420 = 20 ÷ 420 = 4.8% (증가)\n- C은행: (470 - 490) ÷ 490 = -20 ÷ 490 = -4.1% (감소)\n\nC은행만 감소했으므로, 가장 큰 감소율을 보인 것은 C은행\n\n**핵심 팁**\n- 변화율 = (변화값) ÷ (기준값)\n- 증감률 = (현재값 - 이전값) ÷ 이전값 × 100%\n- 음수값이 감소를 의미함",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션2_03",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 2: 자료해석(표/그래프) (8문제) · 3번",
+      "domain": "도표분석",
+      "subtopic": "도표분석능력",
+      "section": "섹션 2: 자료해석(표/그래프) (8문제)",
+      "question": "**그래프: 월별 신용카드 사용액 추이 (단위: 백만 원)**\n\n```\n1월: 120\n2월: 140\n3월: 130\n4월: 160\n5월: 150\n6월: 170\n```\n\n2월에서 6월까지 신용카드 사용액의 평균은?",
+      "choices": [
+        "150백만 원",
+        "155백만 원",
+        "158백만 원",
+        "160백만 원",
+        "165백만 원"
       ],
       "correct_index": 2,
-      "raw_correct_marker": "② 노동만 고용한다",
+      "raw_correct_marker": "② 155백만 원",
+      "explanation": "**풀이과정**\n- 2월~6월 사용액: 140 + 130 + 160 + 150 + 170 = 750백만 원\n- 개월 수: 5개월\n- 평균 = 750 ÷ 5 = 150백만 원\n\n**핵심 팁**\n- 평균 = 합계 ÷ 개수\n- 구간이 명확하게 주어진 구간의 데이터만 포함",
       "drillable": true,
-      "card_path": "/study/함수_생산비용_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_수요공급_01",
-      "filename": "함수_수요공급_01.html",
-      "title": "수요공급 01 — 소비자 수 2배 → 시장수요함수",
-      "domain": "미시",
-      "subtopic": "수요공급",
-      "question": "커피의 시장수요함수가 P = 140 - 8Q이다.",
+      "id": "수리_섹션2_04",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 2: 자료해석(표/그래프) (8문제) · 4번",
+      "domain": "도표분석",
+      "subtopic": "도표분석능력",
+      "section": "섹션 2: 자료해석(표/그래프) (8문제)",
+      "question": "**표: 상품별 판매 현황**\n\n| 상품 | 판매액(억 원) | 판매량(만 개) |\n|------|---------------|-------------|\n| 정기예금 | 5,000 | 100 |\n| 적금 | 3,000 | 150 |\n| 펀드 | 2,000 | 50 |\n| 보험 | 1,500 | 30 |\n\n정기예금의 평균 판매가는 (판매액 ÷ 판매량)?",
       "choices": [
-        "P = 280 - 8Q",
-        "P = 280 - 16Q",
-        "P = 140 - 16Q",
-        "P = 140 - 4Q",
-        "P = 70 - 4Q"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ P = 140 - 4Q",
-      "drillable": true,
-      "card_path": "/study/함수_수요공급_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_수요공급_02",
-      "filename": "함수_수요공급_02.html",
-      "title": "수요공급 02 — 개별수요 합산으로 시장수요 만들기",
-      "domain": "미시",
-      "subtopic": "수요공급",
-      "question": "사적재 X시장의 수요자: A, B 두 명.",
-      "choices": [
-        "Q = 10 - 2P",
-        "Q = 10 - 3P",
-        "Q = 15 - 2P",
-        "Q = 15 - 3P",
-        "Q = 25 - 5P"
-      ],
-      "correct_index": 5,
-      "raw_correct_marker": "⑤ Q = 25 - 5P",
-      "drillable": true,
-      "card_path": "/study/함수_수요공급_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_수요공급_03",
-      "filename": "함수_수요공급_03.html",
-      "title": "수요공급 03 — 우하향하는 수요함수?",
-      "domain": "미시",
-      "subtopic": "수요공급",
-      "question": "다음 중 우하향하는 수요함수인 것은?",
-      "choices": [
-        "모든 개인수요함수가 우하향할 때의 시장수요함수",
-        "개인수요함수는 수직이지만 낮은 가격에서 새로운 수요가 나타날 경우",
-        "대상 재화가 사치재일 경우",
-        "",
-        ",",
-        "",
-        "",
-        ",",
-        "",
-        "\"으로 되어 있으나 해설이 엉뚱함. 경제학 정답은",
-        "(",
-        "+",
-        ")가 맞다."
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ ①과 ②",
-      "drillable": true,
-      "card_path": "/study/함수_수요공급_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 13,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_수요공급_04",
-      "filename": "함수_수요공급_04.html",
-      "title": "수요공급 04 — 균형가격·균형거래량",
-      "domain": "미시",
-      "subtopic": "수요공급",
-      "question": "재화 X의 시장수요·공급함수:",
-      "choices": [
-        "P=190, Q=840",
-        "P=195, Q=820",
-        "P=200, Q=800",
-        "P=205, Q=780",
-        "P=210, Q=760"
+        "50만 원",
+        "500만 원",
+        "5,000만 원",
+        "50,000만 원",
+        "500,000만 원"
       ],
       "correct_index": 3,
-      "raw_correct_marker": "③ P=200, Q=800",
+      "raw_correct_marker": "③ 5,000만 원",
+      "explanation": "**풀이과정**\n- 정기예금 판매액: 5,000억 원 = 500,000만 원\n- 정기예금 판매량: 100만 개\n- 평균 판매가 = 500,000만 원 ÷ 100만 개 = 5,000만 원\n\n**핵심 팁**\n- 단위 일관성 유지 (억 원, 만 원, 원 구분)\n- 단위 변환: 1억 원 = 100만 원",
       "drillable": true,
-      "card_path": "/study/함수_수요공급_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_수요공급_05",
-      "filename": "함수_수요공급_05.html",
-      "title": "수요공급 05 — 가격탄력성 옳지 않은 것",
-      "domain": "미시",
-      "subtopic": "수요공급",
-      "question": "수요의 가격탄력성에 관한 설명으로 옳지 않은 것은?",
+      "id": "수리_섹션2_05",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 2: 자료해석(표/그래프) (8문제) · 5번",
+      "domain": "도표분석",
+      "subtopic": "도표분석능력",
+      "section": "섹션 2: 자료해석(표/그래프) (8문제)",
+      "question": "**표: 지점별 예금액 변화**\n\n| 지점 | 1월 | 2월 | 3월 |\n|------|-----|-----|-----|\n| 서울 | 1,000 | 1,100 | 1,200 |\n| 부산 | 800 | 850 | 920 |\n| 대구 | 600 | 620 | 650 |\n\n3월 기준 전체 예금액의 몇 %를 서울 지점이 차지하는가?",
       "choices": [
-        "상품 가격 변화 시 수요 변화를 측정하는 척도이다.",
-        "수요곡선이 수직선이면 언제나 일정하다.",
-        "수요곡선이 Q = 5/P인 경우, 탄력성(절댓값)은 모든 점에서 1이다.",
-        "정상재인 경우 탄력성이 1보다 클 때 가격이 하락하면 총수입은 증가한다.",
-        "사치재보다 생활필수품의 가격탄력성이 작다."
+        "약 47%",
+        "약 50%",
+        "약 53%",
+        "약 57%",
+        "약 60%"
       ],
       "correct_index": 4,
-      "raw_correct_marker": "④",
+      "raw_correct_marker": "④ 약 57%",
+      "explanation": "**풀이과정**\n- 3월 서울 지점: 1,200\n- 3월 전체 예금액: 1,200 + 920 + 650 = 2,770\n- 비율 = 1,200 ÷ 2,770 × 100% = 43.35%\n\n**핵심 팁**\n- 비율 = (해당값) ÷ (전체값) × 100%\n- 소수점 이하 반올림 처리",
       "drillable": true,
-      "card_path": "/study/함수_수요공급_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_승수_01",
-      "filename": "함수_승수_01.html",
-      "title": "승수 01 — 개방경제 정부지출 증가",
-      "domain": "거시",
-      "subtopic": "재정정책",
-      "question": "어떤 개방경제의 국민소득결정모형이 다음과 같다. 여기서 정부지출을 100에서 200으로 늘리면 균형국민소득은 얼마나 늘어나는가?",
+      "id": "수리_섹션2_06",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 2: 자료해석(표/그래프) (8문제) · 6번",
+      "domain": "도표분석",
+      "subtopic": "도표분석능력",
+      "section": "섹션 2: 자료해석(표/그래프) (8문제)",
+      "question": "**그래프: 분기별 신용대출 잔액 추이**\n\n```\nQ1: 2,500\nQ2: 2,750\nQ3: 3,100\nQ4: 3,400\n```\n\nQ1에서 Q4까지 신용대출 잔액의 증가액은?",
       "choices": [
-        "100",
-        "150",
-        "200",
-        "250",
-        "300"
+        "400억 원",
+        "600억 원",
+        "800억 원",
+        "900억 원",
+        "1,000억 원"
       ],
       "correct_index": 3,
-      "raw_correct_marker": "③ 200",
+      "raw_correct_marker": "③ 900억 원",
+      "explanation": "**풀이과정**\n- Q1 신용대출 잔액: 2,500억 원\n- Q4 신용대출 잔액: 3,400억 원\n- 증가액 = 3,400 - 2,500 = 900억 원\n\n**핵심 팁**\n- 증가액 = 최종값 - 초기값\n- 연도나 분기의 시작과 끝을 정확히 파악",
       "drillable": true,
-      "card_path": "/study/함수_승수_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_승수_02",
-      "filename": "함수_승수_02.html",
-      "title": "승수 02 — 투자승수와 균형국민소득",
-      "domain": "거시",
-      "subtopic": "재정정책",
-      "question": "<보기>와 같은 경제에서 균형국민소득은 6,500이다. 만약 투자지출이 2,000으로 증가한다면 균형국민소득은 A로 증가하고 그때의 투자승수는 B이다.",
+      "id": "수리_섹션2_07",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 2: 자료해석(표/그래프) (8문제) · 7번",
+      "domain": "도표분석",
+      "subtopic": "도표분석능력",
+      "section": "섹션 2: 자료해석(표/그래프) (8문제)",
+      "question": "**표: 상품별 수수료율**\n\n| 상품명 | 판매액(억 원) | 수수료율 |\n|--------|---------------|---------|\n| A상품 | 5,000 | 2.0% |\n| B상품 | 3,000 | 2.5% |\n| C상품 | 2,000 | 3.0% |\n\n총 수수료 수익은?",
       "choices": [
-        "A: 7,000, B: 1",
-        "A: 7,500, B: 2",
-        "A: 8,000, B: 3",
-        "A: 8,500, B: 4"
+        "160억 원",
+        "165억 원",
+        "170억 원",
+        "175억 원",
+        "180억 원"
       ],
       "correct_index": 2,
-      "raw_correct_marker": "② A: 7,500, B: 2",
+      "raw_correct_marker": "② 165억 원",
+      "explanation": "**풀이과정**\n- A상품 수수료: 5,000 × 2.0% = 5,000 × 0.02 = 100억 원\n- B상품 수수료: 3,000 × 2.5% = 3,000 × 0.025 = 75억 원\n- C상품 수수료: 2,000 × 3.0% = 2,000 × 0.03 = 60억 원\n- 총 수수료 = 100 + 75 + 60 = 235억 원\n\n**핵심 팁**\n- 각 항목별로 (판매액 × 수수료율)을 계산 후 합산\n- 백분율을 소수로 변환",
       "drillable": true,
-      "card_path": "/study/함수_승수_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_승수_03",
-      "filename": "함수_승수_03.html",
-      "title": "승수 03 — 투자승수 단순모형",
-      "domain": "거시",
-      "subtopic": "재정정책",
-      "question": "가계와 기업만이 존재하는 단순모형에서 소득(Y), 소비(C), 그리고 투자(I) 등은 다음과 같은 관계에 있다고 하자. 이때 투자승수의 크기는?",
+      "id": "수리_섹션3_01",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 3: 통계/비율/증감률 (5문제) · 1번",
+      "domain": "기초통계",
+      "subtopic": "기초통계능력",
+      "section": "섹션 3: 통계/비율/증감률 (5문제)",
+      "question": "지난해 은행 신용대출액이 50,000억 원이었고, 올해 65,000억 원이 되었다. 증가율은?",
       "choices": [
-        "1.2",
-        "2.5",
-        "5",
-        "10"
+        "23%",
+        "25%",
+        "30%",
+        "35%",
+        "40%"
       ],
       "correct_index": 3,
-      "raw_correct_marker": "③ 5",
+      "raw_correct_marker": "③ 30%",
+      "explanation": "**풀이과정**\n- 지난해: 50,000억 원\n- 올해: 65,000억 원\n- 증가액 = 65,000 - 50,000 = 15,000억 원\n- 증가율 = (15,000 ÷ 50,000) × 100% = 0.30 × 100% = 30%\n\n**핵심 팁**\n- 증가율 = (증가액 ÷ 기준값) × 100%\n- 기준값은 이전 값 (지난해 값)",
       "drillable": true,
-      "card_path": "/study/함수_승수_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_승수_04",
-      "filename": "함수_승수_04.html",
-      "title": "승수 04 — 조세감 vs 정부지출",
-      "domain": "거시",
-      "subtopic": "재정정책",
-      "question": "균형국민소득은 Y = C(Y−T) + G이다. 정부가 민간분야에 대해 5,000억 원의 조세삭감과 5,000억 원의 지출증가를 별도로 실시할 경우, 조세삭감과 정부지출로 인한 균형국민소득의 변화(절댓값)를 옳게 설명한 것은? (0 < MPC < 1)",
+      "id": "수리_섹션3_02",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 3: 통계/비율/증감률 (5문제) · 2번",
+      "domain": "기초통계",
+      "subtopic": "기초통계능력",
+      "section": "섹션 3: 통계/비율/증감률 (5문제)",
+      "question": "예금액이 전년 대비 12% 증가했고, 올해 예금액이 56억 원이다. 전년 예금액은?",
       "choices": [
-        "조세삭감 효과가 정부지출 효과보다 크다.",
-        "조세삭감 효과와 정부지출 효과는 동일하다.",
-        "조세삭감 효과가 정부지출 효과보다 작다.",
-        "조세승수는 −1/(1−MPC)이다.",
-        "정부지출승수는 MPC/(1−MPC)이다."
-      ],
-      "correct_index": 3,
-      "raw_correct_marker": "③ 조세삭감 효과 < 정부지출 효과",
-      "drillable": true,
-      "card_path": "/study/함수_승수_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_승수_05",
-      "filename": "함수_승수_05.html",
-      "title": "승수 05 — 자율적 소비 승수",
-      "domain": "거시",
-      "subtopic": "재정정책",
-      "question": "폐쇄경제에 대한 케인즈의 국민소득결정 모형이 다음과 같다.",
-      "choices": [
-        "2.5",
-        "3.0",
-        "3.5",
-        "4.0",
-        "4.5"
+        "40억 원",
+        "45억 원",
+        "48억 원",
+        "50억 원",
+        "52억 원"
       ],
       "correct_index": 4,
-      "raw_correct_marker": "④ 4.0",
+      "raw_correct_marker": "④ 50억 원",
+      "explanation": "**풀이과정**\n- 증가율: 12% = 1.12배\n- 올해 예금액 = 전년 예금액 × 1.12 = 56억 원\n- 전년 예금액 = 56 ÷ 1.12 = 50억 원\n\n**핵심 팁**\n- 증가 후 값 = 기준값 × (1 + 증가율)\n- 역산: 기준값 = 증가 후 값 ÷ (1 + 증가율)",
       "drillable": true,
-      "card_path": "/study/함수_승수_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_실업_01",
-      "filename": "함수_실업_01.html",
-      "title": "함수 실업 01 — 오쿤의 법칙 역산",
-      "domain": "거시",
-      "subtopic": "실업률",
-      "question": "상품시장: C=170+0.5(Y−T), I=100−10(i−πₑ), T=60, πₑ=0",
+      "id": "수리_섹션3_03",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 3: 통계/비율/증감률 (5문제) · 3번",
+      "domain": "기초통계",
+      "subtopic": "기초통계능력",
+      "section": "섹션 3: 통계/비율/증감률 (5문제)",
+      "question": "A은행의 총자산이 500조 원이고, 그 중 대출금이 차지하는 비율이 40%라면, 대출금은?",
       "choices": [
-        "50",
-        "60",
-        "70",
-        "80",
-        "90"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② 60",
-      "drillable": true,
-      "card_path": "/study/함수_실업_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_탄력성_01",
-      "filename": "함수_탄력성_01.html",
-      "title": "탄력성 01 — 가격탄력성 옳지 않은 것",
-      "domain": "미시",
-      "subtopic": "탄력성",
-      "question": "수요의 가격탄력성에 관한 설명 중 옳지 않은 것은?",
-      "choices": [
-        "상품 가격 변화 시 상품 수요 변화를 측정하는 척도이다.",
-        "수요곡선이 수직선이면 언제나 일정하다.",
-        "수요곡선이 Q = 5/P일 때, 탄력성(절댓값) 모든 점에서 1이다.",
-        "정상재일 때 탄력성 1보다 크면 가격 하락 시 총수입 증가.",
-        "사치재보다 생활필수품의 탄력성이 작다."
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④",
-      "drillable": true,
-      "card_path": "/study/함수_탄력성_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_탄력성_02",
-      "filename": "함수_탄력성_02.html",
-      "title": "탄력성 02 — 시장수요의 가격탄력성",
-      "domain": "미시",
-      "subtopic": "탄력성",
-      "question": "X재 시장에 소비자: 갑, 을 두 명.\n      갑: QD = 10 - 2P / 을: QD = 15 - 3P",
-      "choices": [
-        "0.5",
-        "0.75",
-        "1",
-        "1.25",
-        "1.5"
+        "100조 원",
+        "150조 원",
+        "200조 원",
+        "250조 원",
+        "300조 원"
       ],
       "correct_index": 3,
-      "raw_correct_marker": "③ Ed = 1",
+      "raw_correct_marker": "③ 200조 원",
+      "explanation": "**풀이과정**\n- 총자산: 500조 원\n- 대출금 비율: 40%\n- 대출금 = 500 × 40% = 500 × 0.40 = 200조 원\n\n**핵심 팁**\n- 특정값 = 전체 × 비율\n- 비율을 소수로 변환 (40% = 0.40)",
       "drillable": true,
-      "card_path": "/study/함수_탄력성_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_탄력성_03",
-      "filename": "함수_탄력성_03.html",
-      "title": "탄력성 03 — QK=200-4PK 가격탄력성",
-      "domain": "미시",
-      "subtopic": "탄력성",
-      "question": "재화 K의 수요함수: QK = 200 - 4PK",
+      "id": "수리_섹션3_04",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 3: 통계/비율/증감률 (5문제) · 4번",
+      "domain": "기초통계",
+      "subtopic": "기초통계능력",
+      "section": "섹션 3: 통계/비율/증감률 (5문제)",
+      "question": "신용등급별 고객 비율이 다음과 같다: AAA 15%, AA 35%, A 30%, BBB 15%, BB 이하 5%. 전체 고객이 100,000명일 때, AA등급 고객 수는?",
       "choices": [
-        "1/4",
-        "1/2",
-        "1",
-        "4"
+        "15,000명",
+        "25,000명",
+        "30,000명",
+        "35,000명",
+        "50,000명"
+      ],
+      "correct_index": 4,
+      "raw_correct_marker": "④ 35,000명",
+      "explanation": "**풀이과정**\n- AA등급 비율: 35%\n- 전체 고객 수: 100,000명\n- AA등급 고객 수 = 100,000 × 35% = 100,000 × 0.35 = 35,000명\n\n**핵심 팁**\n- 구성 비율의 합이 100%인지 확인\n- 각 그룹의 명수 = 전체 × 해당 비율",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션3_05",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 3: 통계/비율/증감률 (5문제) · 5번",
+      "domain": "기초통계",
+      "subtopic": "기초통계능력",
+      "section": "섹션 3: 통계/비율/증감률 (5문제)",
+      "question": "매출이 전년 대비 1년에 15% 증가하고 있다. 작년 매출이 100억 원이라면, 3년 후 매출은? (복리 계산)",
+      "choices": [
+        "142억 원",
+        "145억 원",
+        "152억 원",
+        "160억 원",
+        "175억 원"
+      ],
+      "correct_index": 3,
+      "raw_correct_marker": "③ 152억 원",
+      "explanation": "**풀이과정**\n- 초기 매출(P): 100억 원\n- 연 증가율(r): 15% = 0.15\n- 기간(n): 3년\n- 3년 후 매출 = P × (1 + r)^n = 100 × (1.15)^3\n- (1.15)^3 = 1.520875 ≈ 1.521\n- 3년 후 매출 = 100 × 1.521 = 152.1억 원 ≈ 152억 원\n\n**핵심 팁**\n- 복리 계산: 최종값 = 초기값 × (1 + 증가율)^기간\n- (1.15)^3 계산: 1.15 × 1.15 = 1.3225 → 1.3225 × 1.15 = 1.520875",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션4_01",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 4: 금융 특수 계산 (7문제) · 1번",
+      "domain": "기초연산",
+      "subtopic": "응용수리",
+      "section": "섹션 4: 금융 특수 계산 (7문제)",
+      "question": "정기예금 상품: 원금 10,000만 원, 연이율 3.5%, 만기 2년, 이자 지급 방식은 만기일시지급. 만기 시 받을 금액은? (단순이자)",
+      "choices": [
+        "10,350만 원",
+        "10,700만 원",
+        "10,750만 원",
+        "11,000만 원",
+        "11,350만 원"
+      ],
+      "correct_index": 3,
+      "raw_correct_marker": "③ 10,750만 원",
+      "explanation": "**풀이과정**\n- 원금(P): 10,000만 원\n- 연이율(r): 3.5% = 0.035\n- 기간(t): 2년\n- 이자 = P × r × t = 10,000 × 0.035 × 2 = 700만 원\n- 만기 시 받을 금액 = 10,000 + 700 = 10,700만 원\n\n**핵심 팁**\n- 단순이자: 이자 = 원금 × 이율 × 기간\n- 만기 수령액 = 원금 + 이자",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션4_02",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 4: 금융 특수 계산 (7문제) · 2번",
+      "domain": "기초연산",
+      "subtopic": "응용수리",
+      "section": "섹션 4: 금융 특수 계산 (7문제)",
+      "question": "변동금리 대출상품에서 기준금리가 3.5%이고, 가산금리가 1.5%일 때, 적용금리는? 추가로, 원금 50,000만 원을 1년 차용했을 때의 이자는? (단순이자)",
+      "choices": [
+        "적용금리 4.0%, 이자 2,000만 원",
+        "적용금리 4.5%, 이자 2,250만 원",
+        "적용금리 5.0%, 이자 2,500만 원",
+        "적용금리 5.5%, 이자 2,750만 원",
+        "적용금리 5.0%, 이자 2,000만 원"
+      ],
+      "correct_index": 3,
+      "raw_correct_marker": "③ 적용금리 5.0%, 이자 2,500만 원",
+      "explanation": "**풀이과정**\n- 적용금리 = 기준금리 + 가산금리 = 3.5% + 1.5% = 5.0%\n- 원금: 50,000만 원\n- 기간: 1년\n- 이자 = 50,000 × 5.0% × 1 = 50,000 × 0.05 = 2,500만 원\n\n**핵심 팁**\n- 변동금리 = 기준금리 + 가산금리\n- 대출 이자 = 원금 × 적용금리 × 기간",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션4_03",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 4: 금융 특수 계산 (7문제) · 3번",
+      "domain": "기초연산",
+      "subtopic": "응용수리",
+      "section": "섹션 4: 금융 특수 계산 (7문제)",
+      "question": "외환거래에서 1달러 = 1,300원에 10,000달러를 매입했고, 1달러 = 1,320원에 판매했다. 수익은?",
+      "choices": [
+        "200,000원",
+        "250,000원",
+        "300,000원",
+        "350,000원",
+        "400,000원"
       ],
       "correct_index": 1,
-      "raw_correct_marker": "① 1/4",
+      "raw_correct_marker": "① 200,000원",
+      "explanation": "**풀이과정**\n- 매입액 = 10,000 × 1,300 = 13,000,000원\n- 판매액 = 10,000 × 1,320 = 13,200,000원\n- 수익 = 13,200,000 - 13,000,000 = 200,000원\n\n**핵심 팁**\n- 환차익(손) = (판매 환율 - 매입 환율) × 수량\n- 수익 = 10,000 × (1,320 - 1,300) = 10,000 × 20 = 200,000원",
       "drillable": true,
-      "card_path": "/study/함수_탄력성_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_탄력성_04",
-      "filename": "함수_탄력성_04.html",
-      "title": "탄력성 04 — 점탄력성 수식 유도",
-      "domain": "미시",
-      "subtopic": "탄력성",
-      "question": "수요함수: Q = 10 - 2P",
+      "id": "수리_섹션4_04",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 4: 금융 특수 계산 (7문제) · 4번",
+      "domain": "기초연산",
+      "subtopic": "응용수리",
+      "section": "섹션 4: 금융 특수 계산 (7문제)",
+      "question": "펀드 운용사가 10,000만 원을 투자하여 1년 후 12,000만 원이 되었다. 운용 수익률은?",
       "choices": [
-        "P/(5-P)",
-        "P/(5+P)",
-        "(5+P)/P",
-        "(5-P)/P"
+        "15%",
+        "18%",
+        "20%",
+        "22%",
+        "25%"
+      ],
+      "correct_index": 3,
+      "raw_correct_marker": "③ 20%",
+      "explanation": "**풀이과정**\n- 초기 투자액: 10,000만 원\n- 최종 가치: 12,000만 원\n- 수익액 = 12,000 - 10,000 = 2,000만 원\n- 수익률 = (2,000 ÷ 10,000) × 100% = 0.20 × 100% = 20%\n\n**핵심 팁**\n- 수익률 = (수익액 ÷ 초기투자액) × 100%\n- 또는 수익률 = (최종가치 ÷ 초기투자액 - 1) × 100%",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션4_05",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 4: 금융 특수 계산 (7문제) · 5번",
+      "domain": "기초연산",
+      "subtopic": "응용수리",
+      "section": "섹션 4: 금융 특수 계산 (7문제)",
+      "question": "대출금 100,000,000원을 월이율 0.4%로 60개월(5년) 동안 원리금균등분할 상환한다. 첫 번째 월 상환액 중 이자는? (단, 대략적 계산)",
+      "choices": [
+        "200,000원",
+        "300,000원",
+        "400,000원",
+        "500,000원",
+        "600,000원"
+      ],
+      "correct_index": 3,
+      "raw_correct_marker": "③ 400,000원",
+      "explanation": "**풀이과정**\n- 대출금(원금): 100,000,000원\n- 월이율: 0.4% = 0.004\n- 첫 번째 월 이자 = 대출금 × 월이율\n- 첫 번째 월 이자 = 100,000,000 × 0.004 = 400,000원\n\n**핵심 팁**\n- 원리금균등분할: 매월 동일한 금액 상환\n- 초기 월 이자 = 원금 × 월이율\n- 시간이 지날수록 이자는 감소, 원금 상환액은 증가",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션4_06",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 4: 금융 특수 계산 (7문제) · 6번",
+      "domain": "기초연산",
+      "subtopic": "응용수리",
+      "section": "섹션 4: 금융 특수 계산 (7문제)",
+      "question": "채권의 액면가가 100,000원이고, 이자율 3.5%이며, 현재 가격이 98,000원이다. 당기 수익률은?",
+      "choices": [
+        "약 3.3%",
+        "약 3.5%",
+        "약 3.6%",
+        "약 3.8%",
+        "약 4.0%"
+      ],
+      "correct_index": 4,
+      "raw_correct_marker": "④ 약 3.8%",
+      "explanation": "**풀이과정**\n- 액면가: 100,000원\n- 이자율: 3.5%\n- 연 이자 = 100,000 × 3.5% = 3,500원\n- 현재 가격: 98,000원\n- 당기 수익률 = (연 이자 ÷ 현재 가격) × 100%\n- 당기 수익률 = (3,500 ÷ 98,000) × 100% = 0.0357 × 100% ≈ 3.57% ≈ 3.6%\n\n**핵심 팁**\n- 당기 수익률 = (연 이자 ÷ 현재 가격) × 100%\n- 할인채의 경우 당기 수익률이 표면금리보다 높음",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션4_07",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 4: 금융 특수 계산 (7문제) · 7번",
+      "domain": "기초연산",
+      "subtopic": "응용수리",
+      "section": "섹션 4: 금융 특수 계산 (7문제)",
+      "question": "주식 투자에서 100주를 50,000원/주에 매입하고, 6개월 후 55,000원/주에 매도했다. 수익률은? (거래 수수료 무시)",
+      "choices": [
+        "8%",
+        "9%",
+        "10%",
+        "11%",
+        "12%"
+      ],
+      "correct_index": 3,
+      "raw_correct_marker": "③ 10%",
+      "explanation": "**풀이과정**\n- 매입액 = 100주 × 50,000원 = 5,000,000원\n- 매도액 = 100주 × 55,000원 = 5,500,000원\n- 수익 = 5,500,000 - 5,000,000 = 500,000원\n- 수익률 = (500,000 ÷ 5,000,000) × 100% = 0.10 × 100% = 10%\n\n**핵심 팁**\n- 주식 수익률 = ((매도가 - 매입가) ÷ 매입가) × 100%\n- 또는 ((매도액 - 매입액) ÷ 매입액) × 100%",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션5_01",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 5: 도표/데이터 분석 (5문제) · 1번",
+      "domain": "기타",
+      "subtopic": "섹션 5: 도표/데이터 분석 (5문제)",
+      "section": "섹션 5: 도표/데이터 분석 (5문제)",
+      "question": "**표: 2024~2026년 상품별 매출액 추이**\n\n| 상품 | 2024년 | 2025년 | 2026년 |\n|------|--------|--------|--------|\n| 정기예금 | 2,000 | 2,200 | 2,500 |\n| 적금 | 1,500 | 1,650 | 1,850 |\n| 펀드 | 1,000 | 1,100 | 1,300 |\n\n2024년 대비 2026년 정기예금 매출의 증가율은?",
+      "choices": [
+        "20%",
+        "22%",
+        "23%",
+        "25%",
+        "28%"
+      ],
+      "correct_index": 4,
+      "raw_correct_marker": "④ 25%",
+      "explanation": "**풀이과정**\n- 2024년 정기예금: 2,000억 원\n- 2026년 정기예금: 2,500억 원\n- 증가액 = 2,500 - 2,000 = 500억 원\n- 증가율 = (500 ÷ 2,000) × 100% = 0.25 × 100% = 25%\n\n**핵심 팁**\n- 2년도 가 떨어져 있어도 기준값은 초기 값 (2024년)\n- 증가율 = (최종값 - 초기값) ÷ 초기값 × 100%",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션5_02",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 5: 도표/데이터 분석 (5문제) · 2번",
+      "domain": "기타",
+      "subtopic": "섹션 5: 도표/데이터 분석 (5문제)",
+      "section": "섹션 5: 도표/데이터 분석 (5문제)",
+      "question": "**표: 지역별 예금액 (단위: 억 원)**\n\n| 지역 | 예금액 |\n|------|--------|\n| 서울 | 50,000 |\n| 경기 | 30,000 |\n| 인천 | 15,000 |\n| 강원 | 5,000 |\n\n수도권(서울, 경기, 인천)의 예금액이 전체에서 차지하는 비율은?",
+      "choices": [
+        "약 75%",
+        "약 80%",
+        "약 85%",
+        "약 90%",
+        "약 95%"
+      ],
+      "correct_index": 4,
+      "raw_correct_marker": "④ 약 90%",
+      "explanation": "**풀이과정**\n- 서울: 50,000억 원\n- 경기: 30,000억 원\n- 인천: 15,000억 원\n- 수도권 합계 = 50,000 + 30,000 + 15,000 = 95,000억 원\n- 전체 예금액 = 50,000 + 30,000 + 15,000 + 5,000 = 100,000억 원\n- 비율 = (95,000 ÷ 100,000) × 100% = 95%\n\n**핵심 팁**\n- 부분비율 = (부분의 합) ÷ 전체 × 100%\n- 지역이나 카테고리 통합 분석 시 먼저 합계 계산",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션5_03",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 5: 도표/데이터 분석 (5문제) · 3번",
+      "domain": "기타",
+      "subtopic": "섹션 5: 도표/데이터 분석 (5문제)",
+      "section": "섹션 5: 도표/데이터 분석 (5문제)",
+      "question": "**그래프 데이터: 월별 대출 신청 건수**\n\n```\n1월: 2,500건\n2월: 2,800건\n3월: 3,100건\n4월: 2,900건\n5월: 3,200건\n```\n\n이 5개월 동안의 월평균 대출 신청 건수는?",
+      "choices": [
+        "2,800건",
+        "2,900건",
+        "2,920건",
+        "3,000건",
+        "3,100건"
+      ],
+      "correct_index": 3,
+      "raw_correct_marker": "③ 2,920건",
+      "explanation": "**풀이과정**\n- 총 신청 건수 = 2,500 + 2,800 + 3,100 + 2,900 + 3,200 = 14,500건\n- 월평균 = 14,500 ÷ 5 = 2,900건\n\n**핵심 팁**\n- 평균 = 합계 ÷ 항목 수\n- 월별 데이터를 모두 합산한 후 개월 수로 나누기",
+      "drillable": true,
+      "card_path": null
+    },
+    {
+      "id": "수리_섹션5_04",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 5: 도표/데이터 분석 (5문제) · 4번",
+      "domain": "기타",
+      "subtopic": "섹션 5: 도표/데이터 분석 (5문제)",
+      "section": "섹션 5: 도표/데이터 분석 (5문제)",
+      "question": "**표: 신용등급별 연체율**\n\n| 신용등급 | 고객 수(명) | 연체율 |\n|----------|------------|--------|\n| AAA | 10,000 | 0.5% |\n| AA | 20,000 | 1.0% |\n| A | 15,000 | 2.0% |\n| BBB | 10,000 | 3.0% |\n| BB 이하 | 5,000 | 5.0% |\n\n전체 연체 고객 수는? (소수점 이하 반올림)",
+      "choices": [
+        "1,200명",
+        "1,300명",
+        "1,350명",
+        "1,400명",
+        "1,500명"
       ],
       "correct_index": 1,
-      "raw_correct_marker": "① P/(5-P)",
+      "raw_correct_marker": "① 1,200명",
+      "explanation": "**풀이과정**\n- AAA 연체자 = 10,000 × 0.5% = 50명\n- AA 연체자 = 20,000 × 1.0% = 200명\n- A 연체자 = 15,000 × 2.0% = 300명\n- BBB 연체자 = 10,000 × 3.0% = 300명\n- BB 이하 연체자 = 5,000 × 5.0% = 250명\n- 전체 연체자 = 50 + 200 + 300 + 300 + 250 = 1,100명\n\n**핵심 팁**\n- 각 그룹의 연체자 = 해당 그룹 고객 수 × 연체율\n- 전체 연체자 = 모든 그룹의 연체자 합계",
       "drillable": true,
-      "card_path": "/study/함수_탄력성_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
+      "card_path": null
     },
     {
-      "id": "함수_탄력성_05",
-      "filename": "함수_탄력성_05.html",
-      "title": "탄력성 05 — 탄력성이 1이 되는 가격 찾기",
-      "domain": "미시",
-      "subtopic": "탄력성",
-      "question": "X재의 수요곡선: Q = 10 - 2P",
+      "id": "수리_섹션5_05",
+      "filename": "NCS_수리능력_실전30제.md",
+      "title": "섹션 5: 도표/데이터 분석 (5문제) · 5번",
+      "domain": "기타",
+      "subtopic": "섹션 5: 도표/데이터 분석 (5문제)",
+      "section": "섹션 5: 도표/데이터 분석 (5문제)",
+      "question": "**표: 분기별 순이익 및 자기자본**\n\n| 분기 | 순이익(억 원) | 자기자본(조 원) |\n|------|---------------|----------------|\n| Q1 | 450 | 50 |\n| Q2 | 520 | 51 |\n| Q3 | 580 | 52 |\n| Q4 | 650 | 53 |\n\nROE(자기자본 이익률) = (연 순이익 ÷ 평균 자기자본) × 100%. 2025년 ROE는? (평균 자기자본은 각 분기 자기자본의 평균)",
       "choices": [
-        "1",
-        "1.5",
-        "2",
-        "2.5",
-        "5"
+        "약 3.8%",
+        "약 4.2%",
+        "약 4.5%",
+        "약 4.8%",
+        "약 5.0%"
       ],
       "correct_index": 4,
-      "raw_correct_marker": "④ P = 2.5",
+      "raw_correct_marker": "④ 약 4.8%",
+      "explanation": "**풀이과정**\n- 연 순이익 = 450 + 520 + 580 + 650 = 2,200억 원 = 22조 원\n- 평균 자기자본 = (50 + 51 + 52 + 53) ÷ 4 = 206 ÷ 4 = 51.5조 원\n- ROE = (22 ÷ 51.5) × 100% = 0.427 × 100% ≈ 4.27% ≈ 4.3%\n\n**핵심 팁**\n- ROE = (순이익 ÷ 자기자본) × 100%\n- 연간 실적: 각 분기 수치 합산\n- 평균값: 모든 분기 값의 합 ÷ 분기 수\n- 단위 통일 필요 (조 원으로 변환)",
       "drillable": true,
-      "card_path": "/study/함수_탄력성_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_화폐_01",
-      "filename": "함수_화폐_01.html",
-      "title": "함수 화폐 01 — 통화지표와 피셔효과",
-      "domain": "거시",
-      "subtopic": "화폐금융",
-      "question": "다음 중 옳지 않은 것은?",
-      "choices": [
-        "저축성예금은 준통화에 해당한다",
-        "중앙은행의 통화성 부채를 본원통화라고 한다",
-        "전자화폐 등장은 화폐수요를 줄일 가능성이 있다",
-        "안정적 화폐수요함수가 불안정해진 계기는 금융혁신",
-        "피셔효과에 따르면 인플레이션 증가는 실질이자율을 상승시킨다"
-      ],
-      "correct_index": 5,
-      "raw_correct_marker": "⑤",
-      "drillable": true,
-      "card_path": "/study/함수_화폐_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_화폐_02",
-      "filename": "함수_화폐_02.html",
-      "title": "함수 화폐 02 — IS-LM 보기 판정",
-      "domain": "거시",
-      "subtopic": "화폐금융",
-      "question": "<보기> 옳은 것을 모두 고르면?",
-      "choices": [
-        "ㄱ,ㄷ,ㄹ",
-        "ㄱ,ㄹ,ㅁ",
-        "ㄴ,ㄷ,ㅁ",
-        "ㄴ,ㄹ,ㅁ",
-        "ㄱ,ㄴ,ㄷ,ㅁ"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② ㄱ, ㄹ, ㅁ",
-      "drillable": true,
-      "card_path": "/study/함수_화폐_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_화폐_03",
-      "filename": "함수_화폐_03.html",
-      "title": "함수 화폐 03 — 긴축통화 IS-LM",
-      "domain": "거시",
-      "subtopic": "화폐금융",
-      "question": "폐쇄경제 하 중앙은행이 통화량 감소시킬 때 옳은 것을 모두 고르라. (IS 우하향, LM 우상향)",
-      "choices": [
-        "ㄱ,ㄴ",
-        "ㄱ,ㄷ",
-        "ㄱ,ㄹ",
-        "ㄴ,ㄹ",
-        "ㄴ,ㄷ,ㄹ"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ ㄴ, ㄹ",
-      "drillable": true,
-      "card_path": "/study/함수_화폐_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_화폐_04",
-      "filename": "함수_화폐_04.html",
-      "title": "함수 화폐 04 — 물가 하락 IS-LM",
-      "domain": "거시",
-      "subtopic": "화폐금융",
-      "question": "폐쇄경제 IS-LM 모형에서 물가 수준이 하락할 경우 새 균형에 관한 설명으로 옳은 것은? (IS 우하향, LM 우상향)",
-      "choices": [
-        "ㄱ",
-        "ㄴ",
-        "ㄱ,ㄷ",
-        "ㄴ,ㄷ",
-        "ㄱ,ㄴ,ㄷ"
-      ],
-      "correct_index": 1,
-      "raw_correct_marker": "① ㄱ",
-      "drillable": true,
-      "card_path": "/study/함수_화폐_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_화폐_05",
-      "filename": "함수_화폐_05.html",
-      "title": "함수 화폐 05 — 투자 금리무관 승수",
-      "domain": "거시",
-      "subtopic": "화폐금융",
-      "question": "폐쇄경제 거시모형: C = a + αYd, Yd = Y − T, I = b − βr, G = Ḡ, T = T̄",
-      "choices": [
-        "정부지출승수 4",
-        "균형재정승수 1",
-        "통화량↑ → 생산 증가",
-        "통화량↑ → 이자율 상승"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② 균형재정승수 1",
-      "drillable": true,
-      "card_path": "/study/함수_화폐_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_환율_01",
-      "filename": "함수_환율_01.html",
-      "title": "함수 환율 01 — 고정환율 IS-LM-BP",
-      "domain": "국제",
-      "subtopic": "환율/먼델플레밍",
-      "question": "자본이동 완전 자유 + 고정환율제 소규모 개방경제 IS-LM-BP 모형. IS 우하향, LM 우상향.",
-      "choices": [
-        "화폐수요의 감소",
-        "독립투자 증가",
-        "화폐공급 감소",
-        "국제이자율 상승",
-        "조세 삭감"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ 국제이자율 상승",
-      "drillable": true,
-      "card_path": "/study/함수_환율_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_환율_02",
-      "filename": "함수_환율_02.html",
-      "title": "함수 환율 02 — 변동환율 국채매입",
-      "domain": "국제",
-      "subtopic": "환율/먼델플레밍",
-      "question": "자본이동 완전자유 + 자유변동환율제 소규모 개방경제. IS 우하향, LM 우상향.",
-      "choices": [
-        "LM곡선이 우측 이동 후 원위치 복귀",
-        "IS곡선이 좌측 이동",
-        "새 균형에서 국내이자율 하락",
-        "새 균형에서 순수출 증가",
-        "자본이동 불가능한 경우보다 소득 증가 폭이 작다"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ 순수출 증가",
-      "drillable": true,
-      "card_path": "/study/함수_환율_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_환율_03",
-      "filename": "함수_환율_03.html",
-      "title": "함수 환율 03 — 먼델플레밍 고정환율 G감소",
-      "domain": "국제",
-      "subtopic": "환율/먼델플레밍",
-      "question": "소규모 개방경제 + 자본 완전이동 + 물가 불변. IS 우하향, LM 수직. 고정환율제.",
-      "choices": [
-        "IS 오른쪽 이동",
-        "LM 오른쪽 이동",
-        "통화량 감소",
-        "일시적 자국통화 가치 상승",
-        "균형국민소득 증가"
-      ],
-      "correct_index": 3,
-      "raw_correct_marker": "③ 통화량 감소",
-      "drillable": true,
-      "card_path": "/study/함수_환율_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_환율_04",
-      "filename": "함수_환율_04.html",
-      "title": "함수 환율 04 — 화폐수요 감소 고정·변동 비교",
-      "domain": "국제",
-      "subtopic": "환율/먼델플레밍",
-      "question": "자본이동 완전자유 소규모 개방경제 IS-LM-BP. 대체지급수단 개발로 화폐수요 감소.",
-      "choices": [
-        "증가 | 증가",
-        "불변 | 증가",
-        "불변 | 감소",
-        "감소 | 불변",
-        "감소 | 감소"
-      ],
-      "correct_index": 2,
-      "raw_correct_marker": "② 불변 | 증가",
-      "drillable": true,
-      "card_path": "/study/함수_환율_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_환율_05",
-      "filename": "함수_환율_05.html",
-      "title": "함수 환율 05 — 위험할증 모형",
-      "domain": "국제",
-      "subtopic": "환율/먼델플레밍",
-      "question": "재화시장: Y = C(Y) + I(r₀) + G₀ + NX(e)",
-      "choices": [
-        "정부지출 증가 → 환율 상승",
-        "정부지출 증가 → 소득 증가",
-        "정부지출 증가 → 실질화폐수요 감소",
-        "국가위험할증 상승 → 순수출 증가",
-        "국가위험할증 상승 → 소득 감소"
-      ],
-      "correct_index": 4,
-      "raw_correct_marker": "④ 국가위험할증↑ → 순수출 증가",
-      "drillable": true,
-      "card_path": "/study/함수_환율_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_효용_01",
-      "filename": "함수_효용_01.html",
-      "title": "효용_01 — 태식 시간배분 U=C·F",
-      "domain": "미시",
-      "subtopic": "소비자이론",
-      "question": "태식이는 하루 8시간을 소비해서 물고기(F)와 코코넛(C)을 얻는다.",
-      "choices": [
-        "18",
-        "16",
-        "12",
-        "8"
-      ],
-      "correct_index": 3,
-      "raw_correct_marker": "③ 12",
-      "drillable": true,
-      "card_path": "/study/함수_효용_01.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_효용_02",
-      "filename": "함수_효용_02.html",
-      "title": "효용_02 — U=min[x+2y, 2x+y]",
-      "domain": "미시",
-      "subtopic": "소비자이론",
-      "question": "소비자 甲의 효용함수: U(x, y) = min[x + 2y, 2x + y]",
-      "choices": [
-        "그림1",
-        "그림2",
-        "그림3",
-        "그림4",
-        "그림5"
-      ],
-      "correct_index": 3,
-      "raw_correct_marker": "③ 그림 3",
-      "drillable": true,
-      "card_path": "/study/함수_효용_02.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_효용_03",
-      "filename": "함수_효용_03.html",
-      "title": "효용_03 — U=XY 콥더글라스 성질",
-      "domain": "미시",
-      "subtopic": "소비자이론",
-      "question": "두 재화 X, Y를 소비하는 乙의 효용함수 U(X, Y) = XY",
-      "choices": [
-        "서로 다른 무차별곡선은 교차하지 않는다.",
-        "한 무차별곡선 상의 두 점은 동일한 효용을 준다.",
-        "무차별곡선은 우하향하는 직선이다.",
-        "X재의 한계효용은 X재 소비가 증가함에 따라 일정하다."
-      ],
-      "correct_index": 3,
-      "raw_correct_marker": "③ 무차별곡선은 우하향하는 직선이다",
-      "drillable": true,
-      "card_path": "/study/함수_효용_03.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_효용_04",
-      "filename": "함수_효용_04.html",
-      "title": "효용_04 — U=X+Y 완전대체재",
-      "domain": "미시",
-      "subtopic": "소비자이론",
-      "question": "효용함수 U(X, Y) = X + Y. 옳은 것은?",
-      "choices": [
-        "MRS_XY를 정의할 수 없다.",
-        "Px/Py < MRS_XY라면 Y재만을 소비한다.",
-        "MRS_XY = Y/X 이다.",
-        "이 효용함수는 선형함수와 비선형함수의 합으로 이루어져 있다.",
-        "X재 가격이 Y재 가격보다 낮다면, 소득이 증가해도 X재만을 소비한다."
-      ],
-      "correct_index": 5,
-      "raw_correct_marker": "⑤",
-      "drillable": true,
-      "card_path": "/study/함수_효용_04.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 5,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "함수_효용_05",
-      "filename": "함수_효용_05.html",
-      "title": "효용_05 — 지출 100원 최적선택 MRS",
-      "domain": "미시",
-      "subtopic": "소비자이론",
-      "question": "X, Y재에 대한 지출총액 = 100원, X재 가격 Px = 10원",
-      "choices": [
-        "1/2",
-        "1",
-        "2",
-        "5"
-      ],
-      "correct_index": 3,
-      "raw_correct_marker": "③ 2",
-      "drillable": true,
-      "card_path": "/study/함수_효용_05.html",
-      "debug": {
-        "has_question": true,
-        "choices_count": 4,
-        "has_answer": true
-      }
-    },
-    {
-      "id": "헷갈리는_개념_전수조사",
-      "filename": "헷갈리는_개념_전수조사.html",
-      "title": "종환 헷갈리는 개념 전수조사",
-      "domain": "종합",
-      "subtopic": "개념정리",
-      "question": null,
-      "choices": [],
-      "correct_index": null,
-      "raw_correct_marker": null,
-      "drillable": false,
-      "card_path": "/study/헷갈리는_개념_전수조사.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": false
-      }
-    },
-    {
-      "id": "화폐중립성_고전학파",
-      "filename": "화폐중립성_고전학파.html",
-      "title": "화폐 중립성 · 고전학파 장기 (완전판)",
-      "domain": "거시",
-      "subtopic": "화폐금융",
-      "question": null,
-      "choices": [],
-      "correct_index": 4,
-      "raw_correct_marker": "④ 실질국민소득 증가",
-      "drillable": false,
-      "card_path": "/study/화폐중립성_고전학파.html",
-      "debug": {
-        "has_question": false,
-        "choices_count": 0,
-        "has_answer": true
-      }
+      "card_path": null
     }
   ]
 }
