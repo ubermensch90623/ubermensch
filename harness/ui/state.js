@@ -8,18 +8,44 @@ document.addEventListener('alpine:init', () => {
     score: { overall_rate: 0, agencies: [] },
     lineage: [],
     restored: [],
+    cards: [],
+    predictions: [],
     panels: { left: true, right: true },
     drillHtml: '',
     footerStatus: 'idle',
 
     async boot() {
-      await this.refreshScore();
-      await this.refreshLineage();
-      await this.refreshRestored();
+      await Promise.all([
+        this.refreshScore(),
+        this.refreshLineage(),
+        this.refreshRestored(),
+        this.refreshCards(),
+        this.refreshPredictions(),
+      ]);
       this.bindKeys();
       this.applyResponsive();
       window.addEventListener('resize', () => this.applyResponsive());
-      this.footerStatus = 'ready';
+      this.footerStatus = `ready · 해설카드 ${this.cards.length} · 예상문항 ${this.predictions.length}`;
+    },
+
+    async refreshCards() {
+      try {
+        const r = await fetch('/api/cards/catalog');
+        if (r.ok) {
+          const j = await r.json();
+          this.cards = j.cards || [];
+        }
+      } catch (_) {}
+    },
+
+    async refreshPredictions() {
+      try {
+        const r = await fetch('/api/predictions');
+        if (r.ok) {
+          const j = await r.json();
+          this.predictions = j.questions || [];
+        }
+      } catch (_) {}
     },
 
     applyResponsive() {
@@ -82,6 +108,35 @@ document.addEventListener('alpine:init', () => {
       let r = 0, t = 0;
       ags.forEach(m => { r += (m.total_restored || 0); t += (m.total_target || 0); });
       return t ? (r / t) : 0;
+    },
+
+    get cardsForArea() {
+      if (!this.currentArea) return [];
+      // subtopic 이나 domain 또는 이름에 currentArea 포함
+      const key = this.currentArea.toLowerCase();
+      return (this.cards || []).filter(c => {
+        const hay = ((c.subtopic||'') + ' ' + (c.domain||'') + ' ' + (c.filename||'') + ' ' + (c.title||'')).toLowerCase();
+        return hay.includes(key);
+      });
+    },
+
+    openPrediction(q) {
+      this.drillHtml = this.renderPrediction(q);
+    },
+
+    renderPrediction(q) {
+      const choices = (q.choices||[]).map((ch, i) => `<li class="mb-1">${ch}</li>`).join('');
+      const steps = (q.explanation_steps||[]).map(s => `<li>${s}</li>`).join('');
+      const triggers = (q.trigger_words||[]).map(t => `<span class="trigger">${t}</span>`).join(' ');
+      return `<article class="drill-card">
+        <div class="step-title font-bold mb-2" style="color:var(--text-accent);">${q.id} · ${q.domain} · ${q.topic||''}</div>
+        <p class="mb-3">${q.question_text||''}</p>
+        <ol class="mb-3">${choices}</ol>
+        <div class="box blue"><strong>정답:</strong> ${q.correct_index}</div>
+        <div class="mt-3"><strong>트리거:</strong> ${triggers}</div>
+        <div class="mt-3"><strong>해설 8단계:</strong><ol class="list-decimal list-inside">${steps}</ol></div>
+        <div class="box warn mt-3"><strong>약점 힌트:</strong> ${q.weakness_hint||''}</div>
+      </article>`;
     },
 
     get currentMatrix() {

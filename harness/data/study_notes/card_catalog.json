@@ -1,0 +1,781 @@
+{
+  "generated_at": "2026-04-18T09:06:59Z",
+  "total": 85,
+  "source_dir": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드",
+  "cards": [
+    {
+      "filename": "00_D-DAY_대시보드.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/00_D-DAY_대시보드.html",
+      "domain": "시험전략",
+      "subtopic": "D-DAY 대시보드",
+      "title": "🔥 D-DAY 대시보드 — 4/11 서금원",
+      "stage": "study_note",
+      "size_bytes": 13227
+    },
+    {
+      "filename": "01_시험장_새벽4시_플래시카드.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/01_시험장_새벽4시_플래시카드.html",
+      "domain": "시험전략",
+      "subtopic": "시험장 플래시카드",
+      "title": "🌅 새벽 4시 플래시카드 — 서금원 D-Day",
+      "stage": "study_note",
+      "size_bytes": 35273
+    },
+    {
+      "filename": "02_시험장_대기실_계속보기.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/02_시험장_대기실_계속보기.html",
+      "domain": "시험전략",
+      "subtopic": "시험장 대기실",
+      "title": "🎒 대기실 계속 보기 — 서금원 D-Day",
+      "stage": "study_note",
+      "size_bytes": 34894
+    },
+    {
+      "filename": "03_시험당일_최종체크리스트.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/03_시험당일_최종체크리스트.html",
+      "domain": "시험전략",
+      "subtopic": "당일 체크리스트",
+      "title": "✅ 시험당일 최종 체크리스트 · 4/11",
+      "stage": "study_note",
+      "size_bytes": 20714
+    },
+    {
+      "filename": "04_NCS_40점_최약점_집중.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/04_NCS_40점_최약점_집중.html",
+      "domain": "NCS",
+      "subtopic": "최약점 집중",
+      "title": "📊 NCS 40점 최약점 집중 — 서금원 D-Day",
+      "stage": "study_note",
+      "size_bytes": 28010
+    },
+    {
+      "filename": "05_경제학_학파_5종_5초판단.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/05_경제학_학파_5종_5초판단.html",
+      "domain": "거시",
+      "subtopic": "학파 5초 판단",
+      "title": "🏛️ 경제학 학파 5종 5초 판단 — 서금원 D-Day",
+      "stage": "study_note",
+      "size_bytes": 22813
+    },
+    {
+      "filename": "06_경제학_계산_드릴_12문.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/06_경제학_계산_드릴_12문.html",
+      "domain": "미시거시",
+      "subtopic": "계산 드릴",
+      "title": "🧮 경제학 계산 드릴 12문 — 서금원 D-Day",
+      "stage": "study_note",
+      "size_bytes": 25069
+    },
+    {
+      "filename": "07_최후5분_종이한장_비상.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/07_최후5분_종이한장_비상.html",
+      "domain": "시험전략",
+      "subtopic": "최후 5분",
+      "title": "🚨 최후 5분 비상 · 종이 한장",
+      "stage": "study_note",
+      "size_bytes": 10160
+    },
+    {
+      "filename": "ISLM_완전정복.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/ISLM_완전정복.html",
+      "domain": "거시",
+      "subtopic": "IS-LM",
+      "title": "IS-LM 완전정복 (종환 질문 전부 답)",
+      "stage": "study_note",
+      "size_bytes": 47465
+    },
+    {
+      "filename": "M5_세율포함_승수.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/M5_세율포함_승수.html",
+      "domain": "거시",
+      "subtopic": "재정정책",
+      "title": "M5 해설 - 승수 종합",
+      "stage": "study_note",
+      "size_bytes": 12818
+    },
+    {
+      "filename": "PPF_기울기_MRT.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/PPF_기울기_MRT.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF 기울기 = MRT = 기회비용",
+      "stage": "study_note",
+      "size_bytes": 20792
+    },
+    {
+      "filename": "PPF_기회비용_3형태.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/PPF_기회비용_3형태.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF 3형태 — 체증 vs 고정 vs 감소",
+      "stage": "study_note",
+      "size_bytes": 20483
+    },
+    {
+      "filename": "PPF_등량곡선_구분.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/PPF_등량곡선_구분.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF vs 등량곡선 — 완전 구분",
+      "stage": "study_note",
+      "size_bytes": 22323
+    },
+    {
+      "filename": "PPF_비교우위_2인.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/PPF_비교우위_2인.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF 비교우위 — 2인 생산가능곡선은 왜 꺾이나?",
+      "stage": "study_note",
+      "size_bytes": 17701
+    },
+    {
+      "filename": "PPF_왜꺾이나_심화.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/PPF_왜꺾이나_심화.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF — 왜 이 선이 나오는가? (처음부터 천천히)",
+      "stage": "study_note",
+      "size_bytes": 20089
+    },
+    {
+      "filename": "PPF_함수_기본개념.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/PPF_함수_기본개념.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF 함수 — 기본 개념부터 교역조건까지",
+      "stage": "study_note",
+      "size_bytes": 18912
+    },
+    {
+      "filename": "경제학_학파_스토리.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/경제학_학파_스토리.html",
+      "domain": "거시",
+      "subtopic": "학파",
+      "title": "경제학 학파 스토리 — 따라만 읽어",
+      "stage": "study_note",
+      "size_bytes": 8587
+    },
+    {
+      "filename": "경제학_학파_한눈에.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/경제학_학파_한눈에.html",
+      "domain": "거시",
+      "subtopic": "학파",
+      "title": "경제학 학파 한눈에 — 거시 6학파 정리",
+      "stage": "study_note",
+      "size_bytes": 15356
+    },
+    {
+      "filename": "균형재정_승수.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/균형재정_승수.html",
+      "domain": "거시",
+      "subtopic": "재정정책",
+      "title": "균형재정 승수 = 1, 왜?",
+      "stage": "study_note",
+      "size_bytes": 9677
+    },
+    {
+      "filename": "대체재_보완재_교차가격.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/대체재_보완재_교차가격.html",
+      "domain": "미시",
+      "subtopic": "수요공급",
+      "title": "대체재 vs 보완재 — 교차가격 계수로 판별",
+      "stage": "study_note",
+      "size_bytes": 16195
+    },
+    {
+      "filename": "독점_이윤극대화_탄력적구간.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/독점_이윤극대화_탄력적구간.html",
+      "domain": "미시",
+      "subtopic": "시장구조/독점",
+      "title": "독점기업 이윤극대화 — 왜 탄력적 구간인가",
+      "stage": "study_note",
+      "size_bytes": 17524
+    },
+    {
+      "filename": "리카도_대등정리.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/리카도_대등정리.html",
+      "domain": "거시",
+      "subtopic": "재정정책",
+      "title": "리카도 대등정리 해설 (다시)",
+      "stage": "study_note",
+      "size_bytes": 13624
+    },
+    {
+      "filename": "리카도_비교우위_모형.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/리카도_비교우위_모형.html",
+      "domain": "국제",
+      "subtopic": "비교우위",
+      "title": "리카도 모형 — 비교우위의 원조",
+      "stage": "study_note",
+      "size_bytes": 20056
+    },
+    {
+      "filename": "수요합산_수평vs수직.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/수요합산_수평vs수직.html",
+      "domain": "미시",
+      "subtopic": "수요공급",
+      "title": "수요함수 합산 — 수평 vs 수직",
+      "stage": "study_note",
+      "size_bytes": 23502
+    },
+    {
+      "filename": "유동성함정_그래프.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/유동성함정_그래프.html",
+      "domain": "거시",
+      "subtopic": "IS-LM",
+      "title": "유동성 함정 — IS-LM 그래프",
+      "stage": "study_note",
+      "size_bytes": 21051
+    },
+    {
+      "filename": "함수_GDP_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_GDP_01.html",
+      "domain": "거시",
+      "subtopic": "국민소득",
+      "title": "GDP 01 — 노동·자본 대체탄력도",
+      "stage": "study_note",
+      "size_bytes": 12003
+    },
+    {
+      "filename": "함수_GDP_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_GDP_02.html",
+      "domain": "거시",
+      "subtopic": "국민소득",
+      "title": "GDP 02 — GDP 디플레이터",
+      "stage": "study_note",
+      "size_bytes": 11083
+    },
+    {
+      "filename": "함수_GDP_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_GDP_03.html",
+      "domain": "거시",
+      "subtopic": "국민소득",
+      "title": "GDP 03 — GDP 개념 틀린 것",
+      "stage": "study_note",
+      "size_bytes": 11176
+    },
+    {
+      "filename": "함수_GDP_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_GDP_04.html",
+      "domain": "거시",
+      "subtopic": "국민소득",
+      "title": "GDP 04 — 국민소득 항등식",
+      "stage": "study_note",
+      "size_bytes": 11445
+    },
+    {
+      "filename": "함수_GDP_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_GDP_05.html",
+      "domain": "거시",
+      "subtopic": "국민소득",
+      "title": "GDP 05 — 재정·무역수지 계산",
+      "stage": "study_note",
+      "size_bytes": 10156
+    },
+    {
+      "filename": "함수_ISLM_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_ISLM_01.html",
+      "domain": "거시",
+      "subtopic": "IS-LM",
+      "title": "함수 IS-LM 01 — 폐쇄경제 균형투자",
+      "stage": "study_note",
+      "size_bytes": 10643
+    },
+    {
+      "filename": "함수_ISLM_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_ISLM_02.html",
+      "domain": "거시",
+      "subtopic": "IS-LM",
+      "title": "함수 IS-LM 02 — 정부지출승수",
+      "stage": "study_note",
+      "size_bytes": 8927
+    },
+    {
+      "filename": "함수_ISLM_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_ISLM_03.html",
+      "domain": "거시",
+      "subtopic": "IS-LM",
+      "title": "함수 IS-LM 03 — 비례세 포함 승수",
+      "stage": "study_note",
+      "size_bytes": 9526
+    },
+    {
+      "filename": "함수_ISLM_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_ISLM_04.html",
+      "domain": "거시",
+      "subtopic": "IS-LM",
+      "title": "함수 IS-LM 04 — 오쿤의 법칙 연계",
+      "stage": "study_note",
+      "size_bytes": 8998
+    },
+    {
+      "filename": "함수_ISLM_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_ISLM_05.html",
+      "domain": "거시",
+      "subtopic": "IS-LM",
+      "title": "함수 IS-LM 05 — IS곡선 개념 판정",
+      "stage": "study_note",
+      "size_bytes": 9621
+    },
+    {
+      "filename": "함수_PPF_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_PPF_01.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF 01 — 태식이 효용극대화",
+      "stage": "study_note",
+      "size_bytes": 10769
+    },
+    {
+      "filename": "함수_PPF_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_PPF_02.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF 02 — U=XY², X²+Y²=12",
+      "stage": "study_note",
+      "size_bytes": 10188
+    },
+    {
+      "filename": "함수_PPF_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_PPF_03.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF 03 — A국/B국 교역조건 X재 가격",
+      "stage": "study_note",
+      "size_bytes": 11106
+    },
+    {
+      "filename": "함수_PPF_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_PPF_04.html",
+      "domain": "미시",
+      "subtopic": "생산가능곡선",
+      "title": "PPF 04 — 헥셔-올린 모형",
+      "stage": "study_note",
+      "size_bytes": 11295
+    },
+    {
+      "filename": "함수_기타_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_기타_01.html",
+      "domain": "종합",
+      "subtopic": "기타",
+      "title": "기타 01 — 3가지 소비함수 비교",
+      "stage": "study_note",
+      "size_bytes": 12459
+    },
+    {
+      "filename": "함수_기타_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_기타_02.html",
+      "domain": "종합",
+      "subtopic": "기타",
+      "title": "기타 02 — AD/AS 합리적 기대",
+      "stage": "study_note",
+      "size_bytes": 10888
+    },
+    {
+      "filename": "함수_기타_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_기타_03.html",
+      "domain": "종합",
+      "subtopic": "기타",
+      "title": "기타 03 — 성장회계 자본기여율 80%",
+      "stage": "study_note",
+      "size_bytes": 10791
+    },
+    {
+      "filename": "함수_독점_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_독점_01.html",
+      "domain": "미시",
+      "subtopic": "시장구조/독점",
+      "title": "독점 01 — 3가지 경우 가격탄력성 비교",
+      "stage": "study_note",
+      "size_bytes": 11838
+    },
+    {
+      "filename": "함수_독점_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_독점_02.html",
+      "domain": "미시",
+      "subtopic": "시장구조/독점",
+      "title": "독점 02 — Y=AN^(1/2)K^(1/2) 생산함수",
+      "stage": "study_note",
+      "size_bytes": 12886
+    },
+    {
+      "filename": "함수_독점_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_독점_03.html",
+      "domain": "미시",
+      "subtopic": "시장구조/독점",
+      "title": "독점 03 — Q=5L^(1/2)K^(1/2) 비용함수 유도",
+      "stage": "study_note",
+      "size_bytes": 10650
+    },
+    {
+      "filename": "함수_독점_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_독점_04.html",
+      "domain": "미시",
+      "subtopic": "시장구조/독점",
+      "title": "독점 04 — STC=3K+12Q²/K 이윤극대화",
+      "stage": "study_note",
+      "size_bytes": 12080
+    },
+    {
+      "filename": "함수_독점_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_독점_05.html",
+      "domain": "미시",
+      "subtopic": "시장구조/독점",
+      "title": "독점 05 — AC·MC 관계",
+      "stage": "study_note",
+      "size_bytes": 10920
+    },
+    {
+      "filename": "함수_생산비용_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_생산비용_01.html",
+      "domain": "미시",
+      "subtopic": "비용함수",
+      "title": "생산_01 — 등량곡선 성질",
+      "stage": "study_note",
+      "size_bytes": 12146
+    },
+    {
+      "filename": "함수_생산비용_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_생산비용_02.html",
+      "domain": "미시",
+      "subtopic": "비용함수",
+      "title": "생산_02 — AP와 MP의 관계",
+      "stage": "study_note",
+      "size_bytes": 14559
+    },
+    {
+      "filename": "함수_생산비용_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_생산비용_03.html",
+      "domain": "미시",
+      "subtopic": "비용함수",
+      "title": "생산_03 — Q=min[L, 3K] 한계생산",
+      "stage": "study_note",
+      "size_bytes": 11417
+    },
+    {
+      "filename": "함수_생산비용_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_생산비용_04.html",
+      "domain": "미시",
+      "subtopic": "비용함수",
+      "title": "생산_04 — Q=L+3K 선형 MRTS",
+      "stage": "study_note",
+      "size_bytes": 12037
+    },
+    {
+      "filename": "함수_생산비용_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_생산비용_05.html",
+      "domain": "미시",
+      "subtopic": "비용함수",
+      "title": "생산_05 — TC=2L+K, Q=40-0.5L 요소고용",
+      "stage": "study_note",
+      "size_bytes": 11918
+    },
+    {
+      "filename": "함수_수요공급_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_수요공급_01.html",
+      "domain": "미시",
+      "subtopic": "수요공급",
+      "title": "수요공급 01 — 소비자 수 2배 → 시장수요함수",
+      "stage": "study_note",
+      "size_bytes": 12211
+    },
+    {
+      "filename": "함수_수요공급_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_수요공급_02.html",
+      "domain": "미시",
+      "subtopic": "수요공급",
+      "title": "수요공급 02 — 개별수요 합산으로 시장수요 만들기",
+      "stage": "study_note",
+      "size_bytes": 9713
+    },
+    {
+      "filename": "함수_수요공급_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_수요공급_03.html",
+      "domain": "미시",
+      "subtopic": "수요공급",
+      "title": "수요공급 03 — 우하향하는 수요함수?",
+      "stage": "study_note",
+      "size_bytes": 10287
+    },
+    {
+      "filename": "함수_수요공급_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_수요공급_04.html",
+      "domain": "미시",
+      "subtopic": "수요공급",
+      "title": "수요공급 04 — 균형가격·균형거래량",
+      "stage": "study_note",
+      "size_bytes": 9685
+    },
+    {
+      "filename": "함수_수요공급_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_수요공급_05.html",
+      "domain": "미시",
+      "subtopic": "수요공급",
+      "title": "수요공급 05 — 가격탄력성 옳지 않은 것",
+      "stage": "study_note",
+      "size_bytes": 10754
+    },
+    {
+      "filename": "함수_승수_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_승수_01.html",
+      "domain": "거시",
+      "subtopic": "재정정책",
+      "title": "승수 01 — 개방경제 정부지출 증가",
+      "stage": "study_note",
+      "size_bytes": 10629
+    },
+    {
+      "filename": "함수_승수_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_승수_02.html",
+      "domain": "거시",
+      "subtopic": "재정정책",
+      "title": "승수 02 — 투자승수와 균형국민소득",
+      "stage": "study_note",
+      "size_bytes": 9651
+    },
+    {
+      "filename": "함수_승수_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_승수_03.html",
+      "domain": "거시",
+      "subtopic": "재정정책",
+      "title": "승수 03 — 투자승수 단순모형",
+      "stage": "study_note",
+      "size_bytes": 8718
+    },
+    {
+      "filename": "함수_승수_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_승수_04.html",
+      "domain": "거시",
+      "subtopic": "재정정책",
+      "title": "승수 04 — 조세감 vs 정부지출",
+      "stage": "study_note",
+      "size_bytes": 11378
+    },
+    {
+      "filename": "함수_승수_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_승수_05.html",
+      "domain": "거시",
+      "subtopic": "재정정책",
+      "title": "승수 05 — 자율적 소비 승수",
+      "stage": "study_note",
+      "size_bytes": 10479
+    },
+    {
+      "filename": "함수_실업_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_실업_01.html",
+      "domain": "거시",
+      "subtopic": "실업률",
+      "title": "함수 실업 01 — 오쿤의 법칙 역산",
+      "stage": "study_note",
+      "size_bytes": 8809
+    },
+    {
+      "filename": "함수_탄력성_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_탄력성_01.html",
+      "domain": "미시",
+      "subtopic": "탄력성",
+      "title": "탄력성 01 — 가격탄력성 옳지 않은 것",
+      "stage": "study_note",
+      "size_bytes": 10207
+    },
+    {
+      "filename": "함수_탄력성_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_탄력성_02.html",
+      "domain": "미시",
+      "subtopic": "탄력성",
+      "title": "탄력성 02 — 시장수요의 가격탄력성",
+      "stage": "study_note",
+      "size_bytes": 9757
+    },
+    {
+      "filename": "함수_탄력성_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_탄력성_03.html",
+      "domain": "미시",
+      "subtopic": "탄력성",
+      "title": "탄력성 03 — QK=200-4PK 가격탄력성",
+      "stage": "study_note",
+      "size_bytes": 8635
+    },
+    {
+      "filename": "함수_탄력성_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_탄력성_04.html",
+      "domain": "미시",
+      "subtopic": "탄력성",
+      "title": "탄력성 04 — 점탄력성 수식 유도",
+      "stage": "study_note",
+      "size_bytes": 9100
+    },
+    {
+      "filename": "함수_탄력성_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_탄력성_05.html",
+      "domain": "미시",
+      "subtopic": "탄력성",
+      "title": "탄력성 05 — 탄력성이 1이 되는 가격 찾기",
+      "stage": "study_note",
+      "size_bytes": 9698
+    },
+    {
+      "filename": "함수_화폐_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_화폐_01.html",
+      "domain": "거시",
+      "subtopic": "화폐금융",
+      "title": "함수 화폐 01 — 통화지표와 피셔효과",
+      "stage": "study_note",
+      "size_bytes": 9873
+    },
+    {
+      "filename": "함수_화폐_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_화폐_02.html",
+      "domain": "거시",
+      "subtopic": "화폐금융",
+      "title": "함수 화폐 02 — IS-LM 보기 판정",
+      "stage": "study_note",
+      "size_bytes": 9266
+    },
+    {
+      "filename": "함수_화폐_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_화폐_03.html",
+      "domain": "거시",
+      "subtopic": "화폐금융",
+      "title": "함수 화폐 03 — 긴축통화 IS-LM",
+      "stage": "study_note",
+      "size_bytes": 7930
+    },
+    {
+      "filename": "함수_화폐_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_화폐_04.html",
+      "domain": "거시",
+      "subtopic": "화폐금융",
+      "title": "함수 화폐 04 — 물가 하락 IS-LM",
+      "stage": "study_note",
+      "size_bytes": 8465
+    },
+    {
+      "filename": "함수_화폐_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_화폐_05.html",
+      "domain": "거시",
+      "subtopic": "화폐금융",
+      "title": "함수 화폐 05 — 투자 금리무관 승수",
+      "stage": "study_note",
+      "size_bytes": 8873
+    },
+    {
+      "filename": "함수_환율_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_환율_01.html",
+      "domain": "국제",
+      "subtopic": "환율/먼델플레밍",
+      "title": "함수 환율 01 — 고정환율 IS-LM-BP",
+      "stage": "study_note",
+      "size_bytes": 10642
+    },
+    {
+      "filename": "함수_환율_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_환율_02.html",
+      "domain": "국제",
+      "subtopic": "환율/먼델플레밍",
+      "title": "함수 환율 02 — 변동환율 국채매입",
+      "stage": "study_note",
+      "size_bytes": 9463
+    },
+    {
+      "filename": "함수_환율_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_환율_03.html",
+      "domain": "국제",
+      "subtopic": "환율/먼델플레밍",
+      "title": "함수 환율 03 — 먼델플레밍 고정환율 G감소",
+      "stage": "study_note",
+      "size_bytes": 8961
+    },
+    {
+      "filename": "함수_환율_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_환율_04.html",
+      "domain": "국제",
+      "subtopic": "환율/먼델플레밍",
+      "title": "함수 환율 04 — 화폐수요 감소 고정·변동 비교",
+      "stage": "study_note",
+      "size_bytes": 8755
+    },
+    {
+      "filename": "함수_환율_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_환율_05.html",
+      "domain": "국제",
+      "subtopic": "환율/먼델플레밍",
+      "title": "함수 환율 05 — 위험할증 모형",
+      "stage": "study_note",
+      "size_bytes": 9899
+    },
+    {
+      "filename": "함수_효용_01.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_효용_01.html",
+      "domain": "미시",
+      "subtopic": "소비자이론",
+      "title": "효용_01 — 태식 시간배분 U=C·F",
+      "stage": "study_note",
+      "size_bytes": 12474
+    },
+    {
+      "filename": "함수_효용_02.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_효용_02.html",
+      "domain": "미시",
+      "subtopic": "소비자이론",
+      "title": "효용_02 — U=min[x+2y, 2x+y]",
+      "stage": "study_note",
+      "size_bytes": 13812
+    },
+    {
+      "filename": "함수_효용_03.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_효용_03.html",
+      "domain": "미시",
+      "subtopic": "소비자이론",
+      "title": "효용_03 — U=XY 콥더글라스 성질",
+      "stage": "study_note",
+      "size_bytes": 14748
+    },
+    {
+      "filename": "함수_효용_04.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_효용_04.html",
+      "domain": "미시",
+      "subtopic": "소비자이론",
+      "title": "효용_04 — U=X+Y 완전대체재",
+      "stage": "study_note",
+      "size_bytes": 12607
+    },
+    {
+      "filename": "함수_효용_05.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/함수_효용_05.html",
+      "domain": "미시",
+      "subtopic": "소비자이론",
+      "title": "효용_05 — 지출 100원 최적선택 MRS",
+      "stage": "study_note",
+      "size_bytes": 11433
+    },
+    {
+      "filename": "헷갈리는_개념_전수조사.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/헷갈리는_개념_전수조사.html",
+      "domain": "종합",
+      "subtopic": "개념정리",
+      "title": "종환 헷갈리는 개념 전수조사",
+      "stage": "study_note",
+      "size_bytes": 14476
+    },
+    {
+      "filename": "화폐중립성_고전학파.html",
+      "absolute_path": "C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드/화폐중립성_고전학파.html",
+      "domain": "거시",
+      "subtopic": "화폐금융",
+      "title": "화폐 중립성 · 고전학파 장기 (완전판)",
+      "stage": "study_note",
+      "size_bytes": 41144
+    }
+  ],
+  "by_domain": {
+    "시험전략": 5,
+    "종합": 4,
+    "미시거시": 1,
+    "국제": 6,
+    "NCS": 1,
+    "거시": 30,
+    "미시": 38
+  }
+}

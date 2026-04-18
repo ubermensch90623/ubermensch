@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import random
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Optional
 
 from .models import Attempt, CorpusSnapshot, Question, ReviewRound
@@ -66,7 +66,7 @@ def start_session(
 
     session = DrillSession(
         round_num=round_num,
-        started_at=datetime.utcnow().isoformat(timespec="seconds"),
+        started_at=datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec="seconds"),
         scope=pool,
         current_index=0,
         mode=mode,
@@ -115,7 +115,7 @@ def submit_answer(
     attempt = Attempt(
         question_id=q.id,
         round_num=session.round_num,
-        attempted_at=datetime.utcnow().isoformat(timespec="seconds"),
+        attempted_at=datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec="seconds"),
         selected_index=selected_index,
         is_correct=is_correct,
         time_spent_sec=time_spent_sec,
@@ -132,7 +132,7 @@ def end_session(
     session: DrillSession, snapshot: CorpusSnapshot, notes: str = ""
 ) -> dict:
     """세션 종료. ReviewRound.completed_at 갱신. 요약 반환."""
-    completed_at = datetime.utcnow().isoformat(timespec="seconds")
+    completed_at = datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec="seconds")
     # 해당 round_num 의 마지막 ReviewRound 갱신
     for r in reversed(snapshot.rounds):
         if r.round_num == session.round_num and not r.completed_at:

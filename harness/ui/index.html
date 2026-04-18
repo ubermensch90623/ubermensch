@@ -67,25 +67,64 @@
 
     <!-- Center: drill card -->
     <section class="panel p-5" x-show="true">
-      <template x-if="restoredEmpty">
-        <div class="box warn">
-          <h3 class="font-bold" style="color: var(--text-accent);">실제 기출 반영 대기</h3>
-          <p class="mt-2" style="color: var(--text-primary);">
-            현재 C-0 통과 복원 문항이 없습니다.
-            M3.5 P12 게이트에서 블로커 B2·B3 해소 대기 중.
-          </p>
-          <ul class="mt-3 text-sm list-disc list-inside" style="color: var(--text-secondary);">
-            <li>B2: 캠코/수협 공식 공고 PDF 직접 다운로드 필요</li>
-            <li>B3: kamco.or.kr 2job_write_test.pdf 바이너리 파싱 실패</li>
-            <li>B1: 나라장터 data.go.kr 인증키 발급 필요</li>
-          </ul>
-          <p class="mt-3 text-sm" style="color: var(--text-warn-soft);">
-            P12 RESET 판정을 자율모드에서 보류, log 에만 기록.
+      <!-- 실제 기출 없음 경고 (접힘) -->
+      <details class="box warn mb-3">
+        <summary class="cursor-pointer font-bold" style="color: var(--text-accent);">
+          실제 기출 반영 대기 · 블로커 현황 (클릭)
+        </summary>
+        <ul class="mt-3 text-sm list-disc list-inside" style="color: var(--text-secondary);">
+          <li>B1: 나라장터 data.go.kr 인증키</li>
+          <li>B2: 캠코/수협 공식 공고 PDF 브라우저 다운로드</li>
+          <li>B3: 수험번호 1056 직렬 확인</li>
+          <li>B4: 수협중앙회 공식 보도자료 URL</li>
+          <li>B7: ebook 경연 A/B/C 판결</li>
+        </ul>
+      </details>
+
+      <!-- M4-ready 섹션: P9 예상문항 (로드되면 상단) -->
+      <section x-show="predictions.length > 0" class="mb-4">
+        <h3 class="font-bold mb-2" style="color: var(--text-accent);">
+          🎯 P9 예상문항 (<span x-text="predictions.length"></span>개 · mid 신뢰도)
+        </h3>
+        <template x-for="q in predictions.slice(0, 5)" :key="q.id">
+          <div class="box blue mb-2">
+            <div class="flex justify-between text-xs mb-1">
+              <span style="color: var(--text-secondary);" x-text="q.domain + ' · ' + q.topic"></span>
+              <span class="pill" x-text="q.id"></span>
+            </div>
+            <p class="mb-2" x-text="q.question_text"></p>
+            <button @click="openPrediction(q)" class="pill hb-badge">풀기 →</button>
+          </div>
+        </template>
+        <p x-show="predictions.length > 5" class="text-xs mt-1" style="color: var(--text-secondary);">
+          ... 나머지 <span x-text="predictions.length - 5"></span>문항 J/K 단축키로 탐색
+        </p>
+      </section>
+
+      <!-- 해설_카드 카탈로그 -->
+      <section x-show="currentArea" class="mb-4">
+        <h3 class="font-bold mb-2" style="color: var(--text-accent);">
+          📈 해설카드 · <span x-text="currentArea"></span>
+          (<span x-text="cardsForArea.length"></span>개)
+        </h3>
+        <template x-for="c in cardsForArea.slice(0, 20)" :key="c.filename">
+          <a :href="'/study/' + encodeURIComponent(c.filename)"
+             target="_blank"
+             class="mindmap-node block mb-1 text-sm">
+            <span style="color: var(--text-accent);" x-text="c.subtopic"></span>
+            <span style="color: var(--text-secondary);" x-text="' · ' + (c.title || c.filename)"></span>
+          </a>
+        </template>
+      </section>
+
+      <!-- 기본 안내 -->
+      <template x-if="!currentArea && predictions.length === 0">
+        <div class="box">
+          <p style="color: var(--text-primary);">좌측 영역 클릭하면 해설카드 85개 중 관련 주제가 표시됩니다.</p>
+          <p class="mt-2 text-sm" style="color: var(--text-secondary);">
+            P9 예상문항 로드 시 상단에 자동 노출됩니다. (현재 <span x-text="footerStatus"></span>)
           </p>
         </div>
-      </template>
-      <template x-if="!restoredEmpty">
-        <div id="drill-slot" x-html="drillHtml"></div>
       </template>
     </section>
 

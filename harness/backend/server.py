@@ -82,6 +82,17 @@ class HarnessHandler(BaseHTTPRequestHandler):
             return {"records": _jsonl_tail(DATA_ROOT / "restored" / "c0_passed.jsonl")}
         if path == "/api/claims/quarantined":
             return {"records": _jsonl_tail(DATA_ROOT / "low_confidence" / "c0_failed.jsonl")}
+        if path == "/api/cards/catalog":
+            catalog = DATA_ROOT / "study_notes" / "card_catalog.json"
+            if catalog.exists():
+                return json.loads(catalog.read_text(encoding="utf-8"))
+            return {"cards": [], "total": 0, "error": "catalog not generated"}
+        if path == "/api/predictions":
+            # P9 리버스엔지니어링 예상문항 (있을 때만)
+            pred = DATA_ROOT / "low_confidence" / "p9_predictions.json"
+            if pred.exists():
+                return json.loads(pred.read_text(encoding="utf-8"))
+            return {"questions": [], "status": "P9 미실행 또는 대기 중"}
         return None
 
     def do_GET(self) -> None:  # noqa: N802
@@ -99,12 +110,23 @@ class HarnessHandler(BaseHTTPRequestHandler):
                 return
             self._send_json({"status": "harness UP", "ui": "미작성 (M3 마감 전)"})
             return
-        # Static
+        # Static (UI)
         if path.startswith("/ui/"):
             rel = path[len("/ui/"):]
             candidate = UI_ROOT / rel
             candidate = candidate.resolve()
             if UI_ROOT.resolve() in candidate.parents or candidate == UI_ROOT.resolve():
+                self._send_file(candidate)
+                return
+            self.send_error(403)
+            return
+        # 해설카드 직접 서빙 (읽기 전용)
+        if path.startswith("/study/"):
+            from urllib.parse import unquote
+            fname = unquote(path[len("/study/"):])
+            cards_dir = Path("C:/Users/윤상택/Desktop/Cowork_작업폴더/해설_카드")
+            candidate = (cards_dir / fname).resolve()
+            if cards_dir.resolve() in candidate.parents and candidate.suffix == ".html":
                 self._send_file(candidate)
                 return
             self.send_error(403)
