@@ -67,6 +67,9 @@
 
     <!-- Center: drill card -->
     <section class="panel p-5" x-show="true">
+      <!-- 선택된 drill card (x-html 렌더) -->
+      <div x-show="drillHtml" class="mb-4" x-html="drillHtml"></div>
+
       <!-- 실제 기출 없음 경고 (접힘) -->
       <details class="box warn mb-3">
         <summary class="cursor-pointer font-bold" style="color: var(--text-accent);">
