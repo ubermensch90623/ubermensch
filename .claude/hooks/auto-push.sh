@@ -11,6 +11,19 @@ log() { printf '[auto-push] %s\n' "$*" >&2; }
 export GIT_TERMINAL_PROMPT=0
 export GIT_ASKPASS=/bin/true
 
+# Drain any hook JSON from stdin (non-blocking if no stdin).
+# Used only to detect stop_hook_active to avoid recursive Stop loops.
+INPUT=""
+if [ ! -t 0 ]; then
+  INPUT=$(cat 2>/dev/null || true)
+fi
+case "$INPUT" in
+  *'"stop_hook_active"'*true*)
+    log "stop_hook_active=true; skip to avoid loop"
+    exit 0
+    ;;
+esac
+
 cd "${CLAUDE_PROJECT_DIR:-.}" 2>/dev/null || { log "no project dir; skip"; exit 0; }
 
 git rev-parse --git-dir >/dev/null 2>&1 || { log "not a git repo; skip"; exit 0; }

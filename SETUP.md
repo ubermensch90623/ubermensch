@@ -136,27 +136,47 @@ Get-NetTCPConnection -LocalPort 22   # LISTEN 확인
 ## 5. 자동 git push 훅 (재발 방지 핵심)
 
 **이미 이 레포에 설치됨**:
-- `.claude/settings.json` — Stop 훅 등록 (타임아웃 45초)
-- `.claude/hooks/auto-push.sh` — 방어적 푸시 스크립트
+- `.claude/settings.json` — Stop + PreToolUse 훅 등록
+- `.claude/hooks/auto-push.sh` — 방어적 푸시 스크립트 (Stop 이벤트)
+- `.claude/hooks/block-dangerous-git.sh` — 파괴적 git 명령 차단 (PreToolUse 이벤트)
 - `.gitignore` — 시크릿·OS 부스러기 차단
 
-### 동작
-Claude Code 세션이 종료될 때마다:
-1. 현재 브랜치 확인 (`main`, `master`, `release/*` 등 보호 브랜치면 스킵)
-2. 변경사항 stage → 시크릿 의심 파일(`.env`, `*.pem`, `id_rsa` 등)이 있으면 **중단하고 un-stage**
-3. 없으면 `auto: claude session snapshot <UTC timestamp>` 메시지로 커밋
-4. 30초 타임아웃 걸린 `git push` 실행
-5. 실패해도 세션은 정상 종료 (stderr 로그에 원인 남김)
+### Stop 훅 — 자동 스냅샷 동작
+Claude가 응답을 마칠 때마다(=세션 종료 포함):
+1. `stop_hook_active=true` 인 경우 **무한 루프 방지**를 위해 즉시 종료 ([공식 권장](https://code.claude.com/docs/en/hooks-guide))
+2. 현재 브랜치 확인 (`main`, `master`, `release/*` 등 보호 브랜치면 스킵)
+3. 변경사항 stage → 시크릿 의심 파일(`.env`, `*.pem`, `id_rsa` 등)이 있으면 **중단하고 un-stage**
+4. 없으면 `auto: claude session snapshot <UTC timestamp>` 메시지로 커밋
+5. 30초 타임아웃 걸린 `git push` 실행
+6. 실패해도 세션은 정상 종료 (stderr 로그에 원인 남김)
+
+### PreToolUse 훅 — 파괴적 git 명령 차단
+`if: "Bash(git *)"` 로 git 명령일 때만 발동 (비-git Bash에는 오버헤드 없음). **exit 2** 로 블록하고 stderr 메시지는 Claude에게 피드백으로 전달됨 → Claude가 스스로 대안 명령으로 재시도.
+
+| 차단 대상 | 대안 제시 |
+|---|---|
+| `git push --force`, `push -f`, `push --mirror` | `push --force-with-lease` |
+| `git reset --hard`, `--merge` | `git stash` 또는 `reset --mixed` |
+| `git clean -f/-d/-x/-X/-i` | `git clean -n` (dry run) 먼저 |
+| `git checkout -- .`, `checkout .` | `git stash` 또는 파일명 명시 |
+| `git restore --source/--worktree` | `git stash` |
+| `git branch -D`, `--delete --force` | `git branch -d` (소문자) |
+| `git commit --amend` | 경고만 출력 (push 안 한 로컬 커밋이면 OK) |
 
 ### 설계 이유
 | 문제 | 대응 |
 |---|---|
+| Stop 훅 무한 재귀 | `stop_hook_active` JSON 필드 확인 후 조기 종료 |
 | 인증 프롬프트로 훅 무한 대기 | `GIT_TERMINAL_PROMPT=0` + `timeout 30` |
 | main/master 브랜치 보호 규칙 거부 | 보호 브랜치면 조기 종료 |
 | 시크릿 실수 커밋 | staged 파일명 정규식 차단 + `.gitignore` |
 | git identity 미설정으로 커밋 실패 | `claude@local` / `Claude Code` 자동 지정 |
 | 네트워크 실패 조용히 삼킴 | stderr에 명시적 로그 |
 | 훅 실패로 세션 못 끝남 | 스크립트는 항상 `exit 0` |
+| 실수로 `git push --force` 실행 | PreToolUse 훅 차단 + 대안 제시 |
+| 실수로 `git reset --hard` 로 작업 날림 | PreToolUse 훅 차단 |
+| `jq` 미설치 환경 (Windows Git Bash 기본) | JSON stdin을 substring match 로 파싱 |
+| 쉘 프로파일 `echo` 가 JSON 오염 | 모든 로그는 stderr로만 출력 |
 
 ### 다른 레포에도 적용하려면
 
@@ -180,6 +200,30 @@ GitHub에서 `claude/resume-local-work-EiJIa` 브랜치에 `auto: claude session
 - **현재 훅은 feature 브랜치에서만 동작** — `main`에서 바로 작업하면 자동 푸시 안 됨 (의도된 동작).
 - 시크릿 차단은 **파일명 기반**이라 완벽하지 않음. 파일 내용에 API 키를 박아 놓으면 못 잡는다. `git secrets` 같은 도구 병용 권장.
 - pre-commit 훅이 있는 레포에서 훅이 느리거나 실패하면 자동 스냅샷도 실패(경고 로그 남김, 세션은 정상 종료).
+- PreToolUse 블로커는 **파이프·변수 치환을 통한 우회는 막지 못함** (예: `A="--force"; git push $A`). 최종 안전망은 GitHub branch protection rules — **꼭 리포지토리 설정에서 `main`에 force-push 금지 켜둘 것**.
+
+### 디버깅
+훅이 이상하게 동작하면:
+```bash
+# 수동 시뮬레이션
+echo '{"tool_name":"Bash","tool_input":{"command":"git push --force"}}' \
+  | sh .claude/hooks/block-dangerous-git.sh
+echo "exit=$?"
+# 예상: BLOCKED... 메시지 + exit=2
+```
+```bash
+# 전체 디버그 로그
+claude --debug-file /tmp/claude.log
+# 다른 터미널: tail -f /tmp/claude.log
+```
+Claude Code 내에서 `/hooks` 명령으로 등록 상태 확인 가능.
+
+### 참고한 외부 사례
+- [Claude Code hooks 공식 가이드](https://code.claude.com/docs/en/hooks-guide)
+- [git-safe: Stop Claude Code From Force-Pushing](https://dev.to/boucle2026/git-safe-stop-claude-code-from-force-pushing-your-branch-115f)
+- [disler/claude-code-hooks-mastery](https://github.com/disler/claude-code-hooks-mastery) — `stop_hook_active` 패턴
+- [ChrisWiles/claude-code-showcase](https://github.com/ChrisWiles/claude-code-showcase) — 브랜치 보호 PreToolUse 훅
+- [karanb192/claude-code-hooks](https://github.com/karanb192/claude-code-hooks) — auto-stage / protect-secrets 패턴
 
 ---
 
