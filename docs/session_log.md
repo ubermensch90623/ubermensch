@@ -238,3 +238,20 @@
 - P14 권고: "출제자 네트워크" → "출제 성향 프로파일" 로 대안 전환 (P2+P3+P9 에 P14 병합)
 - required: 나라장터 수의계약 PDF (B1 해소 시 자문위원 실명 일부 접근 가능성)
 - 판정: P14 단독 조사는 법적 리스크 + 공개자료 한계 → **단독 종결 권장**. G1.M1 에서 P14 퇴출 후보
+
+### 18:10 M4 사전작업 (사용자 복귀 전 준비) — P9·해설카드 통합
+- P9 리버스 엔지니어링 완료: 캠코 경제 60 + NCS 20 예상 30문항 격리생성
+  - 미시 12 · 거시 8 · 국제 5 · NCS수리 3 · NCS문해 2
+  - mid 7 (2023 후기 직접근거) + low 23 (학술·빈출)
+  - self_audit: 23/30 상상비중 + P9-001·P9-029 자가정정 공개 (correct_index_corrected)
+  - C-0 전체 격리 유지 (입력 P1/P5 격리 → 출력 격리)
+- `harness/backend/import_cards.py`: Cowork/해설_카드/*.html **85개** 자동 카탈로그
+  - 미시 38 · 거시 30 · 국제 6 · 종합 4 · 시험전략 5 · NCS 1
+- `server.py` 라우트: `/api/cards/catalog` · `/api/predictions` · `/study/{f}` (iframe 열람)
+- `state.js`: `cards[]` · `predictions[]` · `cardsForArea` · `openPrediction`
+- `index.html`: 블로커 details 접힘 + predictions 상단 + 영역별 카드 리스트
+- **drillHtml 렌더 버그 발견·수정**: `x-html="drillHtml"` anchor 누락 → commit 4916216
+- preview_eval 검증: P9-001 풀기 → drill-card 8단계 정상 렌더 / 영역별 cardsForArea (IS-LM 11·재정정책 8·독점 6)
+- M3.5 gate 재실행: 여전히 RESET_CANDIDATE (실제 기출 원문 0건) — 사용자 복귀 후 AskUserQuestion
+- P6 회의론자 background 파견 (P9 30문항 전수 공격)
+- git log v8·v9·v10 (202c359·4916216 등)

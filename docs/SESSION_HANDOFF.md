@@ -97,10 +97,18 @@
 1. ✅ **P12 3차 심사 완료** — PASS + handoff_approved. 최종 "3차 PASS. 남은 건 네 답 5개 (Phase 0) + UI 15분 확인 2개" 메시지.
 2. ✅ **P11 태상위원 rebirth** — M1 종료 기점 `docs/meta_overseer/2026-04-18_M1_rebirth.md` 작성. 경보 2건 발령.
 3. ✅ **G1.M1_2ndWave + SeniorReview Post-Mortem** — `docs/agent_performance.md` 두 Round 추기 완료. 호칭 후보: P1 자기회의박사, P13 한계박사, SC1 월경심사위원, P12 단계박사.
-4. 🔲 **Build 검증** — UI skeleton 은 preview_eval 로 동작 확인 (`pill: "북극성 95% · 현재 0.0%"`, gridCols `320px 712px 360px` at 1440px). screenshot 은 timeout 으로 보류. 다음 세션이 종환 복귀 전 10-15분 내 screenshot 재시도 + 실 사용 simulation.
+4. ✅ **Build 검증** — 1440x900 screenshot 확보. 3-panel 실측 `320px 697px 360px`, drill card 완전 렌더 (P9-013 IS곡선 기울기, 8단계·트리거·약점힌트 포함). `cardsForArea` 영역필터 IS-LM 11·재정 8·독점 6 확인.
 5. 🔲 **P12 RESET 자동화 대안** — cron 회피하되 `promote.py` 내부에서 `stage=p12_approved` 전이 시 `m3_5_gate.check()` 자동 호출 구조로 개선 (P12 3차 recommendation).
 6. 🔲 **reconstruction-plan.md / audit-v3.md 동기화** — 캠코 "60+20" 수치 참조 여부 grep 하여 §2.11 격리 반영 (P12 3차 minor #2).
+7. 🔲 **P6 P9 공격 결과 수령** — background agent a8be94c3f8db839c7 진행중. 완료 시 `harness/data/low_confidence/p6_attack_on_p9.json` 확인 → SC1/SC2 심사 → P11 경보(상상 23/30).
+
+## M4 사전작업 성과 (2026-04-18 ~18:30 KST, v9·v10 commit)
+
+- **P9 30문항 격리생성** (a8e54c4039b84caa5) — 캠코 경제 60 + NCS 20 예상. mid 7 · low 23. self_audit 전원 공개 (P9-001·P9-029 자가정정).
+- **해설카드 85 카탈로그** — `harness/data/study_notes/card_catalog.json` (import_cards.py). 미시 38·거시 30·국제 6·종합 4·시험전략 5·NCS 1.
+- **UI 통합 완료** — predictions 상단 섹션 + cardsForArea 필터 + drillHtml x-html 렌더 버그픽스 + /study/{f} iframe 열람 경로.
+- **M3.5 재평가** — 실제 기출 원문 여전히 0건 → RESET_CANDIDATE 유지 (자율모드 log).
 
 ## 마지막 기록 시각
 
-2026-04-18T00:05:00Z (~09:55 KST)
+2026-04-18T09:30:00Z (~18:30 KST)
