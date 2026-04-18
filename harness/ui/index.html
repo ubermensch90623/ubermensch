@@ -3,167 +3,317 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NCS 복원 Harness — 캠코·수협</title>
+  <title>NCS Drill · 해설카드 85</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
   <link rel="stylesheet" href="/ui/assets/tokens.css" />
   <style>
-    body { background: var(--bg-1); color: var(--text-primary); }
-    .panel { background: var(--bg-2); border-radius: var(--radius-md); }
-    .divider { background: var(--bg-3); }
-    .pill { background: var(--bg-3); color: var(--text-accent); padding: 2px 10px; border-radius: 999px; font-size: 12px; }
-    .hb-badge { min-width: 44px; min-height: 28px; }
-    kbd { background: var(--bg-3); color: var(--text-accent); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 12px; }
-    .mindmap-node { padding: 6px 10px; border-radius: 6px; cursor: pointer; color: var(--text-secondary); }
-    .mindmap-node:hover { background: var(--bg-3); color: var(--text-primary); }
-    .mindmap-node.active { background: var(--yellow-bg-strong); color: var(--text-accent); }
-    .heat-red   { background: rgba(239, 68, 68, 0.22); }
-    .heat-amber { background: rgba(251, 191, 36, 0.22); }
-    .heat-green { background: rgba(34, 197, 94, 0.22); }
+    :root {
+      --bg-0: #0a0e14; --bg-1: #0f1419; --bg-2: #1a1f2e; --bg-3: #2d3548;
+      --text-primary: #e6e6e6; --text-secondary: #9aa5b8; --text-accent: #ffd700;
+      --green: #2ecc71; --red: #e74c3c; --blue: #7fdbff; --pink: #ff69b4; --amber: #fbbf24;
+    }
+    html, body { height: 100%; }
+    body { background: var(--bg-0); color: var(--text-primary); font-family: 'Malgun Gothic','Segoe UI',system-ui,sans-serif; }
+    .panel { background: var(--bg-1); border-radius: 10px; border: 1px solid var(--bg-3); }
+    .panel-header { padding: 10px 14px; border-bottom: 1px solid var(--bg-3); color: var(--text-accent); font-weight: 700; font-size: 13px; display:flex; align-items:center; justify-content:space-between; }
+    .tree-group { padding: 4px 0; }
+    .tree-dom { padding: 6px 12px; color: var(--text-accent); font-weight: 700; font-size: 13px; cursor: pointer; user-select:none; display:flex; justify-content:space-between; align-items:center; border-top: 1px solid var(--bg-3); }
+    .tree-dom:hover { background: var(--bg-2); }
+    .tree-item { padding: 5px 12px 5px 24px; font-size: 12.5px; color: var(--text-secondary); cursor: pointer; display:flex; justify-content:space-between; align-items:center; gap:6px; border-left: 3px solid transparent; }
+    .tree-item:hover { background: var(--bg-2); color: var(--text-primary); }
+    .tree-item.active { background: var(--bg-3); color: var(--text-accent); border-left-color: var(--text-accent); }
+    .tree-item.readonly { opacity: .55; }
+    .badge { font-size: 10px; padding: 1px 6px; border-radius: 999px; font-weight:600; }
+    .badge.new { background: #1e3a5f; color: #7fdbff; }
+    .badge.ok { background: #1d4d2f; color: #6ee7a0; }
+    .badge.wrong { background: #5a1f1f; color: #ff9a9a; }
+    .badge.readonly { background: #3a3a3a; color: #aaa; }
+    .choice {
+      display:flex; align-items:center; gap:10px; padding: 12px 14px; margin: 6px 0;
+      background: var(--bg-2); border: 2px solid transparent; border-radius: 8px; cursor: pointer; transition: all .15s;
+      font-size: 14px; line-height: 1.5;
+    }
+    .choice:hover { border-color: var(--bg-3); }
+    .choice.selected { border-color: var(--amber); background: #2a2418; }
+    .choice.correct { border-color: var(--green); background: #16341e; }
+    .choice.wrong { border-color: var(--red); background: #3a1818; }
+    .choice-num { min-width: 28px; height: 28px; border-radius: 50%; background: var(--bg-3); color: var(--text-accent); display:flex; align-items:center; justify-content:center; font-weight: 700; flex-shrink:0; font-size: 13px; }
+    .choice.selected .choice-num { background: var(--amber); color: #000; }
+    .choice.correct .choice-num { background: var(--green); color: #000; }
+    .choice.wrong .choice-num { background: var(--red); color: #fff; }
+    .btn { padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; background: var(--bg-3); color: var(--text-accent); border: none; }
+    .btn:hover:not(:disabled) { background: #3a4563; }
+    .btn:disabled { opacity: .4; cursor:not-allowed; }
+    .btn.primary { background: var(--amber); color: #000; }
+    .btn.danger { background: #5a1f1f; color: #ff9a9a; }
+    .btn.success { background: #1d4d2f; color: #6ee7a0; }
+    kbd { background: var(--bg-3); color: var(--text-accent); padding: 2px 6px; border-radius: 4px; font-family: 'Consolas','Menlo',monospace; font-size: 11px; }
+    .stat-row { display:flex; justify-content:space-between; padding: 4px 0; font-size: 12.5px; }
+    .stat-row span:first-child { color: var(--text-secondary); }
+    .stat-row span:last-child { color: var(--text-primary); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .filter-btn { padding: 4px 10px; font-size: 11px; border-radius: 999px; background: var(--bg-2); color: var(--text-secondary); border:1px solid var(--bg-3); cursor:pointer; }
+    .filter-btn.active { background: var(--amber); color: #000; border-color: var(--amber); }
+    .star { color: var(--amber); font-size: 14px; }
+    .scroll-y { overflow-y: auto; }
+    .scroll-y::-webkit-scrollbar { width: 6px; }
+    .scroll-y::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
+    input.search { width: 100%; background: var(--bg-2); border:1px solid var(--bg-3); color: var(--text-primary); padding: 6px 10px; border-radius:6px; font-size: 12.5px; }
+    iframe.card-frame { width:100%; height: 420px; border: 1px solid var(--bg-3); border-radius: 8px; background: #0f1419; }
+    .progress-bar { height: 6px; background: var(--bg-3); border-radius: 3px; overflow: hidden; }
+    .progress-bar > div { height: 100%; background: var(--green); }
   </style>
 </head>
 <body x-data="harness" x-init="boot()" class="min-h-screen">
   <!-- Header -->
-  <header class="flex items-center justify-between px-5 py-3 divider" style="background: var(--bg-2);">
+  <header class="flex items-center justify-between px-4 py-2" style="background: var(--bg-1); border-bottom: 1px solid var(--bg-3);">
     <div class="flex items-center gap-3">
-      <span class="font-bold text-lg" style="color: var(--text-accent);">NCS 복원 Harness</span>
-      <span class="pill" x-text="'북극성 95% · 현재 ' + (globalRate() * 100).toFixed(1) + '%'"></span>
+      <span class="font-bold text-base" style="color: var(--text-accent);">NCS Drill</span>
+      <span class="text-xs" style="color: var(--text-secondary);">
+        해설카드 <span x-text="items.length"></span> ·
+        풀수있음 <span style="color: var(--green);" x-text="drillableCount"></span> ·
+        정답률 <span style="color: var(--amber);" x-text="((stats.accuracy||0) * 100).toFixed(1) + '%'"></span>
+        (<span x-text="stats.total_attempts||0"></span>회)
+      </span>
     </div>
-    <div class="flex items-center gap-3 text-sm" style="color: var(--text-secondary);">
-      <span>기관:</span>
-      <template x-for="a in agencies" :key="a">
-        <button @click="setAgency(a)"
-          :class="a === currentAgency ? 'pill' : ''"
-          class="px-2 py-1 rounded hb-badge" x-text="a"></button>
+    <div class="flex items-center gap-1">
+      <template x-for="f in [['all','전체'],['drillable','풀이'],['untouched','미시도'],['wrong','오답'],['starred','★'],['readonly','참고']]" :key="f[0]">
+        <button class="filter-btn" :class="{active: filter===f[0]}" @click="setFilter(f[0])" x-text="f[1]"></button>
       </template>
-      <button @click="togglePanel('left')" class="pill hb-badge">≡</button>
-      <button @click="togglePanel('right')" class="pill hb-badge">⚑</button>
     </div>
   </header>
 
-  <!-- Main 3-panel -->
-  <main class="grid gap-3 p-3"
-        :class="layoutClass()"
-        style="min-height: calc(100vh - 96px);">
+  <!-- 3-panel grid -->
+  <main class="grid gap-2 p-2" style="grid-template-columns: 280px 1fr 300px; height: calc(100vh - 76px);">
 
-    <!-- Left: mindmap -->
-    <aside class="panel p-4 overflow-auto" x-show="panels.left" style="max-height: calc(100vh - 96px);">
-      <h2 class="font-bold mb-3" style="color: var(--text-accent);">영역 지도</h2>
-      <template x-for="area in currentMatrix.areas" :key="area.name">
-        <div class="mindmap-node"
-             :class="{'active': area.name === currentArea}"
-             @click="setArea(area.name)">
-          <div class="flex justify-between items-center">
-            <span x-text="area.name"></span>
-            <span class="text-xs" x-text="area.restored + '/' + (area.target || '?')"
-                  :class="heatClass(area.rate)"></span>
+    <!-- Left: Card tree -->
+    <aside class="panel flex flex-col" style="min-height:0;">
+      <div class="panel-header">
+        <span>카드 트리</span>
+        <span class="text-xs" style="color:var(--text-secondary); font-weight:400;" x-text="filteredItems.length + '/' + items.length"></span>
+      </div>
+      <div class="p-2" style="border-bottom: 1px solid var(--bg-3);">
+        <input class="search" type="text" placeholder="제목·주제·문제 검색..." x-model="search" />
+      </div>
+      <div class="scroll-y flex-1">
+        <template x-for="(items_, dom) in itemsByDomain" :key="dom">
+          <div class="tree-group">
+            <div class="tree-dom" @click="toggleDomain(dom)">
+              <span><span x-text="expandedDomains[dom] ? '▾' : '▸'"></span> <span x-text="dom"></span></span>
+              <span class="badge" style="background:var(--bg-3); color:var(--text-secondary);" x-text="items_.length"></span>
+            </div>
+            <template x-if="expandedDomains[dom]">
+              <div>
+                <template x-for="it in items_" :key="it.id">
+                  <div class="tree-item"
+                       :class="{'active': currentCard && currentCard.id === it.id, 'readonly': !it.drillable}"
+                       @click="openCard(it)">
+                    <span class="truncate" :title="it.title" x-text="it.subtopic + ' · ' + (it.id.length > 24 ? it.id.slice(0,24)+'…' : it.id)"></span>
+                    <span class="flex items-center gap-1">
+                      <span x-show="starredIdSet.has(it.id)" class="star">★</span>
+                      <span class="badge" :class="statusOf(it)" x-text="({new:'새',ok:'✓',wrong:'✗',readonly:'읽기'})[statusOf(it)]"></span>
+                    </span>
+                  </div>
+                </template>
+              </div>
+            </template>
           </div>
-        </div>
-      </template>
-      <div class="mt-4 text-xs" style="color: var(--text-secondary);">
-        <p>빨강 &lt;70% · 주황 70-89% · 초록 ≥90%</p>
+        </template>
       </div>
     </aside>
 
-    <!-- Center: drill card -->
-    <section class="panel p-5" x-show="true">
-      <!-- 선택된 drill card (x-html 렌더) -->
-      <div x-show="drillHtml" class="mb-4" x-html="drillHtml"></div>
+    <!-- Center: Drill -->
+    <section class="panel flex flex-col" style="min-height:0;">
+      <div class="panel-header">
+        <span>
+          <span x-show="!currentCard">카드 선택</span>
+          <template x-if="currentCard">
+            <span>
+              <span x-text="currentCard.domain"></span> · <span x-text="currentCard.subtopic"></span>
+              <span class="text-xs" style="color:var(--text-secondary); font-weight:400;" x-text="'· ' + currentCard.id"></span>
+            </span>
+          </template>
+        </span>
+        <span class="flex items-center gap-2">
+          <button class="btn" @click="toggleStar()" :title="'★ ' + currentCardStarLevel + '/3'">
+            <span x-text="'★'.repeat(currentCardStarLevel) + '☆'.repeat(3-currentCardStarLevel)"></span>
+          </button>
+          <button class="btn" @click="showCardViewer = !showCardViewer" title="원본 카드 (V)">
+            <span x-text="showCardViewer ? '원본▾' : '원본▸'"></span>
+          </button>
+        </span>
+      </div>
 
-      <!-- 실제 기출 없음 경고 (접힘) -->
-      <details class="box warn mb-3">
-        <summary class="cursor-pointer font-bold" style="color: var(--text-accent);">
-          실제 기출 반영 대기 · 블로커 현황 (클릭)
-        </summary>
-        <ul class="mt-3 text-sm list-disc list-inside" style="color: var(--text-secondary);">
-          <li>B1: 나라장터 data.go.kr 인증키</li>
-          <li>B2: 캠코/수협 공식 공고 PDF 브라우저 다운로드</li>
-          <li>B3: 수험번호 1056 직렬 확인</li>
-          <li>B4: 수협중앙회 공식 보도자료 URL</li>
-          <li>B7: ebook 경연 A/B/C 판결</li>
-        </ul>
-      </details>
-
-      <!-- M4-ready 섹션: P9 예상문항 (만장일치 GATED, 경고 표시) -->
-      <section x-show="predictions.length > 0" class="mb-4">
-        <div class="box warn mb-2">
-          <strong style="color:#f87171;">⚠️ C-0 격리 · 만장일치 GATED</strong>
-          <p class="text-xs mt-1" style="color: var(--text-secondary);">
-            P6·SC1·SC2 GATED · P11 ORANGE 경보 · 정답키 자기수정 2건 · 23/30 source=[].
-            <b>학습 목적 사용 금지</b> (참고·토론용). 판결 옵션 A/B/C → <code>docs/gyeongyeon/2026-04-18_P9_disposition.md</code>.
-          </p>
-        </div>
-        <h3 class="font-bold mb-2" style="color: var(--text-accent);">
-          🎯 P9 예상문항 (<span x-text="predictions.length"></span>개 · 참고용)
-        </h3>
-        <template x-for="q in predictions.slice(0, 5)" :key="q.id">
-          <div class="box blue mb-2">
-            <div class="flex justify-between text-xs mb-1">
-              <span style="color: var(--text-secondary);" x-text="q.domain + ' · ' + q.topic"></span>
-              <span class="pill" x-text="q.id"></span>
-            </div>
-            <p class="mb-2" x-text="q.question_text"></p>
-            <button @click="openPrediction(q)" class="pill hb-badge">풀기 →</button>
+      <div class="scroll-y flex-1 p-4">
+        <template x-if="!currentCard">
+          <div class="text-center mt-20" style="color: var(--text-secondary);">
+            <p class="text-lg mb-2">◂ 좌측 카드를 선택하세요</p>
+            <p class="text-xs">키보드: <kbd>J</kbd>/<kbd>K</kbd> 다음/이전 · <kbd>1</kbd>~<kbd>5</kbd> 선지 · <kbd>Enter</kbd> 제출 · <kbd>Space</kbd> 초기화 · <kbd>V</kbd> 원본</p>
           </div>
         </template>
-        <p x-show="predictions.length > 5" class="text-xs mt-1" style="color: var(--text-secondary);">
-          ... 나머지 <span x-text="predictions.length - 5"></span>문항 J/K 단축키로 탐색
-        </p>
-      </section>
 
-      <!-- 해설_카드 카탈로그 -->
-      <section x-show="currentArea" class="mb-4">
-        <h3 class="font-bold mb-2" style="color: var(--text-accent);">
-          📈 해설카드 · <span x-text="currentArea"></span>
-          (<span x-text="cardsForArea.length"></span>개)
-        </h3>
-        <template x-for="c in cardsForArea.slice(0, 20)" :key="c.filename">
-          <a :href="'/study/' + encodeURIComponent(c.filename)"
-             target="_blank"
-             class="mindmap-node block mb-1 text-sm">
-            <span style="color: var(--text-accent);" x-text="c.subtopic"></span>
-            <span style="color: var(--text-secondary);" x-text="' · ' + (c.title || c.filename)"></span>
-          </a>
+        <template x-if="currentCard && !currentCard.drillable">
+          <div>
+            <div class="panel" style="background: var(--bg-2); padding: 14px; border-left: 4px solid var(--amber); margin-bottom: 16px;">
+              <p style="color: var(--amber); font-weight: 700;">📖 읽기 전용 카드</p>
+              <p class="text-xs mt-1" style="color: var(--text-secondary);">
+                문제·선지·정답 구조가 아닌 개념·체크리스트·대시보드 카드. 원본을 열어 학습하세요.
+              </p>
+            </div>
+            <iframe :src="currentCard.card_path" class="card-frame" style="height: calc(100vh - 220px);" x-show="showCardViewer"></iframe>
+          </div>
         </template>
-      </section>
 
-      <!-- 기본 안내 -->
-      <template x-if="!currentArea && predictions.length === 0">
-        <div class="box">
-          <p style="color: var(--text-primary);">좌측 영역 클릭하면 해설카드 85개 중 관련 주제가 표시됩니다.</p>
-          <p class="mt-2 text-sm" style="color: var(--text-secondary);">
-            P9 예상문항 로드 시 상단에 자동 노출됩니다. (현재 <span x-text="footerStatus"></span>)
-          </p>
-        </div>
-      </template>
+        <template x-if="currentCard && currentCard.drillable">
+          <div>
+            <!-- 문제 -->
+            <div class="mb-4 p-3" style="background: var(--bg-2); border-left: 4px solid var(--text-accent); border-radius: 0 8px 8px 0;">
+              <p class="text-xs mb-1" style="color: var(--text-secondary);">문제</p>
+              <p style="font-size: 15px; line-height: 1.65;" x-text="currentCard.question"></p>
+            </div>
+
+            <!-- 선지 -->
+            <div class="mb-4">
+              <template x-for="(c, i) in currentCard.choices" :key="i">
+                <div class="choice"
+                     :class="{
+                       'selected': !submitted && selected === (i+1),
+                       'correct': submitted && currentCard.correct_index === (i+1),
+                       'wrong': submitted && selected === (i+1) && selected !== currentCard.correct_index
+                     }"
+                     @click="select(i+1)">
+                  <div class="choice-num" x-text="['①','②','③','④','⑤'][i]"></div>
+                  <div x-text="c" style="flex:1;"></div>
+                </div>
+              </template>
+            </div>
+
+            <!-- 제출 전 -->
+            <template x-if="!submitted">
+              <div class="flex gap-2">
+                <button class="btn primary" :disabled="selected==null" @click="submit()">
+                  제출 (Enter) <span x-show="selected" x-text="'· ' + selected + '번'"></span>
+                </button>
+                <button class="btn" @click="clearSelection()">초기화 (Space)</button>
+                <button class="btn" @click="prev()">◂ 이전 (K)</button>
+                <button class="btn" @click="next()">다음 (J) ▸</button>
+              </div>
+            </template>
+
+            <!-- 제출 후 -->
+            <template x-if="submitted">
+              <div>
+                <div class="mb-3 p-3" :style="selected === currentCard.correct_index
+                    ? 'background: #16341e; border-left: 4px solid var(--green); border-radius: 0 8px 8px 0;'
+                    : 'background: #3a1818; border-left: 4px solid var(--red); border-radius: 0 8px 8px 0;'">
+                  <p style="font-weight:700;" :style="selected === currentCard.correct_index ? 'color:var(--green);' : 'color:var(--red);'">
+                    <span x-text="selected === currentCard.correct_index ? '✓ 정답' : '✗ 오답'"></span>
+                    · 공식 정답 <span x-text="currentCard.correct_index + '번'"></span>
+                  </p>
+                  <p class="text-xs mt-1" style="color: var(--text-secondary);" x-show="currentCard.raw_correct_marker"
+                     x-text="currentCard.raw_correct_marker"></p>
+                </div>
+
+                <!-- 오답이면 2분류 -->
+                <template x-if="selected !== currentCard.correct_index">
+                  <div class="mb-3 flex gap-2 flex-wrap">
+                    <span class="text-xs" style="color: var(--text-secondary);">오답 분류 →</span>
+                    <button class="btn danger" @click="classify('unknown')">몰라서 틀림</button>
+                    <button class="btn danger" @click="classify('missed')">알았는데 못 알아챔</button>
+                  </div>
+                </template>
+
+                <div class="flex gap-2 flex-wrap">
+                  <button class="btn success" @click="next()">다음 문제 (J) ▸</button>
+                  <button class="btn" @click="clearSelection()">다시 풀기 (Space)</button>
+                  <button class="btn" @click="showCardViewer = !showCardViewer">
+                    <span x-text="showCardViewer ? '해설▾' : '해설 보기 (V)'"></span>
+                  </button>
+                </div>
+
+                <!-- 원본 카드 (해설) -->
+                <div class="mt-4" x-show="showCardViewer">
+                  <p class="text-xs mb-1" style="color: var(--text-secondary);">해설 원본 카드</p>
+                  <iframe :src="currentCard.card_path" class="card-frame"></iframe>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
     </section>
 
-    <!-- Right: source panel -->
-    <aside class="panel p-4 overflow-auto" x-show="panels.right" style="max-height: calc(100vh - 96px);">
-      <h2 class="font-bold mb-3" style="color: var(--text-accent);">소스 혈통</h2>
-      <template x-if="lineage.length === 0">
-        <p class="text-sm" style="color: var(--text-secondary);">아직 기록된 혈통 없음.</p>
-      </template>
-      <template x-for="(e, i) in (lineage || []).slice(-20).reverse()" :key="(e && e.entry_id) ? e.entry_id + '-' + i : 'l' + i">
-        <div class="text-xs mb-2 p-2 rounded" style="background: var(--bg-1);">
-          <div class="flex justify-between">
-            <span class="font-mono" x-text="e.actor"></span>
-            <span :class="stageClass(e.stage)" x-text="e.stage"></span>
+    <!-- Right: Progress -->
+    <aside class="panel flex flex-col" style="min-height:0;">
+      <div class="panel-header">진도 & 오답노트</div>
+      <div class="scroll-y flex-1 p-3">
+
+        <!-- 전체 진도 -->
+        <div class="mb-4">
+          <div class="stat-row"><span>누적 풀이</span><span x-text="stats.total_attempts||0"></span></div>
+          <div class="stat-row"><span>정답 수</span><span x-text="stats.correct||0"></span></div>
+          <div class="stat-row"><span>정답률</span><span x-text="((stats.accuracy||0)*100).toFixed(1) + '%'"></span></div>
+          <div class="stat-row"><span>카드 커버리지</span>
+            <span x-text="(stats.unique_cards_attempted||0) + ' / ' + drillableCount"></span>
           </div>
-          <div class="mt-1 truncate" style="color: var(--text-secondary);" x-text="e.quoted_text || '(인용 없음)'"></div>
-          <a x-show="e.source_url" :href="e.source_url" target="_blank"
-             class="text-xs underline" style="color: var(--blue);" x-text="e.source_url"></a>
+          <div class="progress-bar mt-2">
+            <div :style="'width:' + Math.min(100, ((stats.unique_cards_attempted||0)/Math.max(1,drillableCount))*100) + '%'"></div>
+          </div>
         </div>
-      </template>
+
+        <!-- 현재 카드 이력 -->
+        <div class="mb-4" x-show="currentCard">
+          <p class="text-xs mb-2" style="color: var(--text-accent); font-weight: 700;">현재 카드 이력</p>
+          <template x-if="currentCardHistory.length === 0">
+            <p class="text-xs" style="color: var(--text-secondary);">— 아직 풀이 없음</p>
+          </template>
+          <template x-for="(h, i) in currentCardHistory.slice().reverse()" :key="i">
+            <div class="stat-row text-xs">
+              <span x-text="h.ts.slice(5,16).replace('T',' ')"></span>
+              <span :style="h.is_correct ? 'color:var(--green);' : 'color:var(--red);'">
+                <span x-text="(h.selected || '?') + '번'"></span>
+                <span x-text="h.is_correct ? '✓' : ('✗ · ' + (h.classification==='missed' ? '전사' : '모름'))"></span>
+              </span>
+            </div>
+          </template>
+        </div>
+
+        <!-- 오답노트 -->
+        <div class="mb-4">
+          <p class="text-xs mb-2" style="color: var(--red); font-weight: 700;">
+            오답 노트 <span x-text="'(' + wrongIdSet.size + ')'"></span>
+          </p>
+          <template x-if="wrongIdSet.size === 0">
+            <p class="text-xs" style="color: var(--text-secondary);">— 아직 오답 없음</p>
+          </template>
+          <template x-for="it in items.filter(i => wrongIdSet.has(i.id))" :key="it.id">
+            <div class="tree-item" @click="openCard(it)"
+                 :class="{active: currentCard && currentCard.id === it.id}">
+              <span class="truncate text-xs" x-text="it.subtopic + ' · ' + it.id"></span>
+            </div>
+          </template>
+        </div>
+
+        <!-- 별표 -->
+        <div class="mb-4">
+          <p class="text-xs mb-2" style="color: var(--amber); font-weight: 700;">
+            ★ 별표 <span x-text="'(' + starred.length + ')'"></span>
+          </p>
+          <template x-for="s in starred.slice().sort((a,b) => b.level - a.level)" :key="s.card_id">
+            <div class="tree-item" @click="openCard(items.find(i => i.id === s.card_id))">
+              <span class="truncate text-xs" x-text="s.card_id"></span>
+              <span class="star" x-text="'★'.repeat(s.level)"></span>
+            </div>
+          </template>
+        </div>
+      </div>
     </aside>
   </main>
 
-  <!-- Footer: keyboard hints -->
-  <footer class="flex items-center gap-3 px-5 py-2 text-xs divider" style="background: var(--bg-2); color: var(--text-secondary);">
-    <kbd>Space</kbd> 답지우기
-    <kbd>J</kbd>/<kbd>K</kbd> 다음/이전
-    <kbd>1</kbd>-<kbd>9</kbd> 선지
-    <kbd>[</kbd>/<kbd>]</kbd> 좌/우 패널
+  <!-- Footer -->
+  <footer class="flex items-center gap-3 px-4 py-1 text-xs" style="background: var(--bg-1); color: var(--text-secondary); border-top: 1px solid var(--bg-3);">
+    <kbd>1</kbd>-<kbd>5</kbd> 선지 · <kbd>Enter</kbd> 제출 · <kbd>Space</kbd> 초기화 ·
+    <kbd>J</kbd>/<kbd>K</kbd> 다음/이전 · <kbd>V</kbd> 원본 · <kbd>*</kbd> 별표
     <span class="ml-auto" x-text="footerStatus"></span>
   </footer>
 

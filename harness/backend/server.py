@@ -93,6 +93,21 @@ class HarnessHandler(BaseHTTPRequestHandler):
             if pred.exists():
                 return json.loads(pred.read_text(encoding="utf-8"))
             return {"questions": [], "status": "P9 미실행 또는 대기 중"}
+        if path == "/api/drill/items":
+            # 해설카드 85 → 문제·선지·정답 추출 결과
+            di = DATA_ROOT / "study_notes" / "drill_items.json"
+            if di.exists():
+                return json.loads(di.read_text(encoding="utf-8"))
+            return {"items": [], "total": 0, "drillable": 0, "error": "drill_loader 미실행"}
+        if path == "/api/progress":
+            # 풀이 이력 (로컬 전용)
+            prog = Path.home() / ".harness_progress.json"
+            if prog.exists():
+                try:
+                    return json.loads(prog.read_text(encoding="utf-8"))
+                except Exception:
+                    return {"history": [], "error": "corrupt"}
+            return {"history": [], "starred": [], "stats": {}}
         return None
 
     def do_GET(self) -> None:  # noqa: N802
@@ -132,6 +147,71 @@ class HarnessHandler(BaseHTTPRequestHandler):
             self.send_error(403)
             return
         self.send_error(404)
+
+    def do_POST(self) -> None:  # noqa: N802
+        """POST /api/progress — 풀이 이력 저장 (append + 통계)."""
+        path = self.path.split("?", 1)[0]
+        if path != "/api/progress":
+            self.send_error(404)
+            return
+        length = int(self.headers.get("Content-Length", "0") or "0")
+        try:
+            payload = json.loads(self.rfile.read(length).decode("utf-8")) if length else {}
+        except json.JSONDecodeError:
+            self.send_error(400, "invalid json")
+            return
+
+        prog_path = Path.home() / ".harness_progress.json"
+        try:
+            if prog_path.exists():
+                state = json.loads(prog_path.read_text(encoding="utf-8"))
+            else:
+                state = {"history": [], "starred": [], "stats": {}}
+        except Exception:
+            state = {"history": [], "starred": [], "stats": {}}
+
+        action = payload.get("action")
+        from datetime import datetime, timezone
+        ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        if action == "attempt":
+            entry = {
+                "ts": ts,
+                "card_id": payload.get("card_id"),
+                "selected": payload.get("selected"),     # 1~5
+                "correct": payload.get("correct"),       # 1~5
+                "is_correct": payload.get("is_correct"),
+                "classification": payload.get("classification"),  # 'unknown' | 'missed'
+            }
+            state.setdefault("history", []).append(entry)
+        elif action == "star":
+            starred = state.setdefault("starred", [])
+            cid = payload.get("card_id")
+            level = payload.get("level", 1)  # 0=clear, 1~3=별개수
+            # 기존 제거 후 재삽입
+            starred = [s for s in starred if s.get("card_id") != cid]
+            if level > 0:
+                starred.append({"card_id": cid, "level": level, "ts": ts})
+            state["starred"] = starred
+        else:
+            self.send_error(400, f"unknown action: {action}")
+            return
+
+        # 통계 갱신
+        hist = state.get("history", [])
+        total = len(hist)
+        correct = sum(1 for h in hist if h.get("is_correct"))
+        unique_cards = {h.get("card_id") for h in hist if h.get("card_id")}
+        state["stats"] = {
+            "total_attempts": total,
+            "correct": correct,
+            "accuracy": round(correct / total, 3) if total else 0,
+            "unique_cards_attempted": len(unique_cards),
+            "last_updated": ts,
+        }
+
+        prog_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+        self._send_json({"ok": True, "stats": state["stats"]})
 
     def log_message(self, fmt, *args):  # 로그 억제
         return
