@@ -18,12 +18,14 @@
 | 1 | 이미지/시각화/인포그래픽/그림으로/도식/플로우차트/포스터 | **ChatGPT GPT-Image 2** | Korean·CJK 95%+ 정확도(2026-04-21 공식). Image Arena #1, +242 Elo 격차. 인포그래픽·슬라이드·지도·만화 |
 | 1-b | 인터랙티브 시뮬레이션 / 수학·경제 시각 / IS-LM 그래프 조작 | **ChatGPT** (Interactive Learning, 70+ topics) | 2026-04 출시. 변수·수식 실시간 조작. NCS 수리·경제학 적합 |
 | 2 | 긴 PDF/논문/책 요약/100페이지+/대용량 문서 | **Gemini** (1M context) | 긴 컨텍스트 1위, 압축 정확 |
-| 3 | 깊은 검색/심층 조사/다중 소스 종합/팩트체크 | **Gemini Deep Research** | 비용 효율 + 자동 인용 |
+| 3 | 깊은 검색/심층 조사/다중 소스 종합/팩트체크 | **Gemini Deep Research Max** | DeepSearchQA 93.3%(12월 66.1%→+27.2pp)·HLE 54.6%·MCP 지원·자동 차트(Nano Banana 통합)·외부 web+사적 데이터 통합·overnight 60분 (2026-04-22 출시) |
 | 4 | 실시간 트렌드/X 검색/오늘 일어난 일/뉴스 종합 | **Grok** (X 통합) | X 실시간 access, 트렌드 1위 |
 | 5 | 학습 자료 종합/노트북 만들기/소스 → 오디오 요약/공부 자료 | **NotebookLM** | 다중 소스 → 단일 학습 자료 변환 |
 | 6 | 자소서 v→v / 면접 / 코드 / 법률 / 시스템 / hook | **Claude (나) 직접** | jaso_validator·cove·evidence_gate·종환 PII 보호 |
 | 7 | 캐주얼 잡담 / 의견 / 컨텍스트 필요 | **Claude (나) 직접** | 종환 컨텍스트 100% 인지 |
-| 8 | 소프트웨어 자동 조작 / 컴퓨터 사용 자동화 (브라우저 클릭·타이핑) | ⚠️ **보류 (macOS 전용)** | Codex Computer Use·ChatGPT Atlas Agent Mode 모두 macOS 한정 (2026-04-27). 종환 Windows → 사용 불가. Windows 출시 모니터링 |
+| 8 | 소프트웨어 자동 조작 / 컴퓨터 사용 자동화 (브라우저 클릭·타이핑) | ⚠️ **보류 (macOS 전용)** | Codex Computer Use·ChatGPT Atlas Agent Mode·Gemini Mac Desktop App 모두 macOS 한정 (2026-04-28). 종환 Windows → 사용 불가. Windows 출시 모니터링 |
+| 9 | Gmail·Drive·Docs 통합 검색·"내 문서에서 찾아"·"메일 정리해"·회의록 | **Gemini Workspace Intelligence** | semantic layer (이메일·채팅·파일·협업자·프로젝트, 2026-04-22 Cloud Next 발표). 한국어 Forms·Meet·Chat·Docs 4월 확장 |
+| 10 | 브라우저 내 즉시 분석·"이 페이지 요약"·"보고 있는 PDF" | ⚠️ **Gemini in Chrome (한국 출시 검증 필요)** | Plus/Ultra Win+Mac 출시(2026-04, US). 한국 rollout 미확인 → 미출시 시 Claude/Gemini 웹 사용 |
 
 ### B. 명시 우회
 
@@ -65,18 +67,39 @@
 - ChatGPT App SDK + MCP Developer Mode (jaso_validator·cove를 ChatGPT에서도 호출)
 - openai-agents-mcp / mcp-openai 통합 (Claude Code → OpenAI MCP 호출)
 
-### Gemini (Google Plus, 종환 구독)
+### Gemini (Google Plus, 종환 구독) — 2026-04-28 갱신
+
+**기본 모델**: **Gemini 3.1 Pro** (2026-02 출시, Plus 자동 적용). Artificial Analysis Intelligence Index **1위** (Claude Opus 4.6 대비 +4점, 비용 절반). 1M 입력 / 64K 출력. Deep Think mode → ARC-AGI-2 45.14%.
 
 **강점**:
-- 1M+ 토큰 컨텍스트 (책·논문 통째로)
-- Deep Research (다중 소스 자동 종합)
-- Gem (재사용 어시스턴트, NotebookLM 연동 가능)
-- Google Workspace 연동 (Docs·Sheets)
+- **Deep Research Max** (2026-04-22): DeepSearchQA 93.3% (12월 66.1% → +27.2pp), HLE 54.6%. **MCP 지원** (Claude Code 직접 연동 가능 — freeze 5/16 후 도입 큐). **Nano Banana 자동 차트·인포그래픽** in-line. 외부 web + 사적 데이터(Drive·Docs) 동시 조사. overnight 60분 워크플로
+- **Workspace Intelligence** (2026-04-22): 이메일·채팅·파일·협업자·프로젝트 semantic layer
+- **한국어 Workspace 확장** (2026-04): Forms·Meet·Chat·Docs 한국어 지원 4월 출시
+- 1M~2M 토큰 컨텍스트 (Gemini 1.5 Pro 2M GA)
+- Gem (재사용 어시스턴트, **공유 기능** 추가 — Drive 패턴, view/edit 권한 분리)
+- Nano Banana Pro (인포그래픽·다이어그램·차트, Korean 텍스트 정확)
 
 **약점**:
 - 한국어 자연스러움 GPT 대비 약간 떨어짐
-- 이미지 생성 (Imagen) GPT-Image-2 대비 한글 렌더링 약함
-- 법률 자료 분석 시 추정 위험
+- 이미지 정량 점수 (Image Arena) GPT-Image-2 +242 Elo 격차 — 단순 이미지는 ChatGPT 우위
+- 법률 자료 분석 시 추정 위험 (Tier 1 1차 출처 검증 필수)
+- **Mac 데스크톱 앱 macOS 전용** (2026-04-15) — Windows 출시 모니터링 큐
+- **Gemini in Chrome 한국 출시 미확인** — US 시작 (2026-04)
+
+**자동 호출 패턴**:
+- 긴 PDF → Gemini Files API or Chrome MCP 업로드 → 요약
+- Deep Research Max → Chrome MCP `gemini.google.com` 탭 → "Deep Research" 모드 → 5~60분 대기 → 자동 차트 포함 보고서 캡처 → Claude cove 검증
+- Workspace Intelligence (한국 rollout 시) → Gmail·Drive 통합 검색
+- Gem 활용 → NCS·경제학·법률 도메인별 Gem 미리 생성 + 종환 외부 공유
+
+**보류 큐 (freeze 5/16 후 검토)**:
+- `salviz/gemini-mcp-server` (23 tools, 우선순위 1) — chat·deep research·YouTube·Files·embeddings
+- `pminervini/deep-research-mcp` (multi-provider, 우선순위 2) — OpenAI + Gemini + Open Deep Research
+- `bharatvansh/gemini-deep-research-mcp` (Claude Code 코딩 어시스턴트 연동)
+- `capyBearista/gemini-researcher` (Gemini free tier proxy → 비용 0)
+- `rlabs-inc/gemini-mcp` (Claude Code → Gemini 3 직접 호출)
+- Mac Gemini Desktop App Windows 출시 (모니터링)
+- Subscription Plus → Pro/Ultra 자동 매핑 검증
 
 **자동 호출 패턴**:
 - 긴 PDF → Gemini Files API or Chrome MCP 업로드 → 요약
@@ -301,3 +324,13 @@ G. 종환 1줄 보고
   - §2 ChatGPT 섹션: GPT-5.5 기본 모델 명시, Interactive Learning·GPT-Image 2 공식 수치 갱신, 보류 큐 신설
   - 백업: `외부_LLM_자율운영_시스템_v2.md.bak.20260427`
   - 발견 보고서: `_AI진화일지/외부LLM_학습_2026-04-27.md`
+
+- **2026-04-28 v2.2**: Gemini 학습일 결과 반영
+  - §1 자동 위임 트리:
+    - 3행 → "Gemini Deep Research Max" 명시 (DeepSearchQA 93.3%·MCP·자동 차트·외부+사적 데이터, 2026-04-22)
+    - 8행 → Gemini Mac Desktop App macOS 전용 추가 (4/15)
+    - 9행 신설 → Gemini Workspace Intelligence (Gmail·Drive·Docs 통합 검색)
+    - 10행 신설 → Gemini in Chrome (한국 출시 검증 필요)
+  - §2 Gemini 섹션 전면 갱신: 기본 모델 Gemini 3.1 Pro 명시, Deep Research Max·Workspace Intelligence·한국어 확장·Nano Banana Pro·Gem 공유, 보류 큐 7개 신설
+  - 백업: `외부_LLM_자율운영_시스템_v2.md.bak.20260428`
+  - 발견 보고서: `_AI진화일지/외부LLM_학습_2026-04-28.md`
