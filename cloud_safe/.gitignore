@@ -1,0 +1,50 @@
+# PII 보호 — 이중 차단
+# 헌법: _SSOT/24_7_분신_헌법.md C-6
+# 위반 시 자동 revert
+
+# 화이트리스트 only
+*
+!.gitignore
+!README.md
+!_SSOT/
+!_SSOT/24_7_분신_헌법.md
+!_SSOT/세션_시작_체크리스트.md
+!_SSOT/채용_D2룰.md
+!_SSOT/메모리_동기화_아키텍처.md
+!_SSOT/자료검색_규칙.md
+!_SSOT/3agent_protocol.md
+!_SSOT/자동화_업그레이드_자가연구_시스템.md
+!_SSOT/공부_몰입_게임화_시스템.md
+!_SSOT/외부_LLM_자율운영_시스템_v2.md
+!_SSOT/외부LLM_주간학습_누적.md
+!_SSOT/미기모드_세상학습_명세.md
+!_SSOT/오른쪽이_운영모드.md
+!_SSOT/유튜브_자동수집_시스템.md
+!_SSOT/AI_도구_도입_로드맵_freeze후.md
+!_SSOT/캠코_5급_실전_출제패턴_검증_2026-04-27.md
+!_SSOT/캠코_학습_이력.md
+!_SSOT/인지진화_가중치.json
+!_SSOT/_AI진화일지/
+!_SSOT/_AI진화일지/INDEX.md
+!_SSOT/_AI진화일지/일일_cross-domain.md
+!_SSOT/_AI진화일지/주간_인사이트.md
+
+# 영구 차단 (화이트리스트 미해당 일체)
+종환_*
+자기방어_*
+한국사회_*
+나같은_*
+배신_*
+핸드오프_*
+세션_핸드오프_*
+전세*
+HUG_*
+임차*
+법원*
+등기부*
+보증금_*
+*_lived_*
+*_원본.md
+서금원_*
+ChatGPT_Gemini_종환아바타*
+자율_메타학습_시스템.md

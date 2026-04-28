@@ -1,0 +1,204 @@
+{
+  "_meta": {
+    "title": "종환 인지 진화 가중치 (Cognitive Evolution Weights)",
+    "version": "v1",
+    "purpose": "종환 약점 패턴 frequency·recency·severity → 다음날 출제 가중치 + 트리거 풀 자동 산출",
+    "ssot": true,
+    "created_at": "2026-04-28T17:35:00+09:00",
+    "updated_at": "2026-04-28T17:35:00+09:00",
+    "updater": "manual seed (Claude · 2026-04-28). 이후 cognitive-evolution-cloud cron이 매일 02:00 KST 자동 갱신.",
+    "scoring_formula": "weight = frequency*0.4 + recency*0.4 + severity*0.2",
+    "decay_days": 14,
+    "data_sources": [
+      "C:/Users/윤상택/.claude/projects/C--Users-----Desktop/memory/user_jonghwan_thought_error_log.md",
+      "C:/Users/윤상택/.claude/projects/C--Users-----Desktop/memory/user_jonghwan_weakness_pattern.md",
+      "C:/Users/윤상택/Desktop/작업/ObsidianVault/_SSOT/캠코_학습_이력.md (SYNC_JSON)",
+      "C:/Users/윤상택/.claude/projects/C--Users-----Desktop/*.jsonl (transcript)"
+    ],
+    "consumers": [
+      "econ-daily-quiz cron (출제 가중치)",
+      "kamco-daily-archive cron (★★★ 큐 우선순위)",
+      "nightly-autoresearch-loop cron (Layer 5 self-evolution)",
+      "Desktop/캠코_학습판_*.html (CTA stealth trigger pool)"
+    ],
+    "freeze_compliance": "5/16까지 신규 프레임워크 금지. 본 파일은 신규 SSOT 1건. 종환 2026-04-28 명시 명령 우선."
+  },
+
+  "patterns": {
+    "부호_직관_CV_EV": {
+      "category": "사고추적_오류",
+      "frequency_count": 1,
+      "first_seen": "2026-04-28",
+      "last_seen": "2026-04-28",
+      "severity": 3,
+      "promote_threshold": 3,
+      "examples": [
+        "캠코 §7 문제 1 콥-더글라스 py 4배 → CV 부호 헷갈림"
+      ],
+      "trigger_words": ["보상변화", "CV", "EV", "동등변화", "효용극대화", "py", "px", "지출함수"],
+      "stealth_inject_targets": ["econ-daily-quiz", "캠코_★★★_큐", "캠코_학습판_CTA"],
+      "evidence_anchor": "u/u\\* = (px·py / px'·py')^? · CV는 새 가격 기준(양수), EV는 옛 가격 기준(음수)",
+      "weight": 0.78
+    },
+
+    "인과관계_역방향": {
+      "category": "사고추적_오류",
+      "frequency_count": 1,
+      "first_seen": "2026-04-10",
+      "last_seen": "2026-04-10",
+      "severity": 3,
+      "promote_threshold": 3,
+      "examples": [
+        "화폐중립성: 종환은 'M으로 Y 가능하다 = 고전학파' 라고 정반대 진술. 실제는 고전학파가 부정하는 명제."
+      ],
+      "trigger_words": ["고전학파", "완전고용", "화폐중립성", "장기", "실질이자율 불변"],
+      "stealth_inject_targets": ["econ-daily-quiz", "캠코_★★★_큐"],
+      "evidence_anchor": "고전학파 = 실질 고정, 명목만 움직임. 케인즈 단기 = M↑→Y↑ (고전학파가 부정).",
+      "weight": 0.74
+    },
+
+    "학파_핵심주장_역전": {
+      "category": "사고추적_오류",
+      "frequency_count": 1,
+      "first_seen": "2026-04-10",
+      "last_seen": "2026-04-10",
+      "severity": 2,
+      "promote_threshold": 3,
+      "examples": [
+        "고전학파 vs 케인즈 핵심 주장 혼동"
+      ],
+      "trigger_words": ["고전학파", "케인즈", "통화주의", "신케인즈", "RBC"],
+      "stealth_inject_targets": ["econ-daily-quiz"],
+      "weight": 0.62
+    },
+
+    "명목_실질_헷갈림": {
+      "category": "사고추적_오류",
+      "frequency_count": 1,
+      "first_seen": "2026-04-10",
+      "last_seen": "2026-04-10",
+      "severity": 2,
+      "promote_threshold": 3,
+      "examples": [
+        "고전학파에서 명목임금이 안 움직인다고 잘못 판단 → 실제는 명목이 움직이고 실질이 고정"
+      ],
+      "trigger_words": ["명목임금", "실질임금", "명목이자율", "실질이자율", "디플레이터"],
+      "stealth_inject_targets": ["econ-daily-quiz", "캠코_★★★_큐"],
+      "weight": 0.62
+    },
+
+    "전사_실수": {
+      "category": "주의_피로",
+      "frequency_count": "누적 (weakness_pattern.md 기반)",
+      "first_seen": "장기",
+      "last_seen": "지속",
+      "severity": 2,
+      "examples": [
+        "1·2번 문제 → 단순 옮겨쓰기 실수 다발"
+      ],
+      "trigger_words": ["전사", "OMR", "1번", "마지막"],
+      "stealth_inject_targets": ["NCS_드릴", "시험_전_5분_리뷰"],
+      "evidence_anchor": "시험장 5대 룰 #4: 1·2번 + 마지막 5분 재검토",
+      "weight": 0.56
+    },
+
+    "직관_우선": {
+      "category": "선지_판별",
+      "frequency_count": "누적",
+      "first_seen": "장기",
+      "last_seen": "지속",
+      "severity": 2,
+      "examples": [
+        "지문 안 보고 직관으로 답 고름 → 함정 빠짐"
+      ],
+      "trigger_words": ["가장 적절한", "옳지 않은", "반드시", "만"],
+      "stealth_inject_targets": ["NCS_드릴", "캠코_★★★_큐"],
+      "evidence_anchor": "이윤규 암기법: 객관식 선지 먼저 → 개념 짐작 → 이질 선지 → 지문 검증",
+      "weight": 0.56
+    },
+
+    "발동조건_약함": {
+      "category": "트리거_누락",
+      "frequency_count": "누적",
+      "first_seen": "장기",
+      "last_seen": "지속",
+      "severity": 3,
+      "examples": [
+        "개념은 알지만 문제에서 어떤 단어를 보면 발동해야 하는지 못 잡음"
+      ],
+      "trigger_words": ["조건부", "단,", "라 가정", "이때"],
+      "stealth_inject_targets": ["econ-daily-quiz", "NCS_드릴", "캠코_학습판_트리거카드"],
+      "evidence_anchor": "이윤규 암기법: 개념마다 트리거 단어 3개 같이 심기",
+      "weight": 0.66
+    },
+
+    "시각화_필요": {
+      "category": "표상_부족",
+      "frequency_count": "누적",
+      "first_seen": "장기",
+      "last_seen": "지속",
+      "severity": 2,
+      "examples": [
+        "그래프·도식 없으면 추상 추론 어려움"
+      ],
+      "trigger_words": ["그래프", "그림", "도식", "곡선이동"],
+      "stealth_inject_targets": ["캠코_학습판_SVG", "ChatGPT_GPT_Image"],
+      "weight": 0.50
+    },
+
+    "힌트_거부": {
+      "category": "메타인지",
+      "frequency_count": "누적",
+      "first_seen": "장기",
+      "last_seen": "지속",
+      "severity": 1,
+      "examples": [
+        "힌트 받으면 자존심 상해 → 결과적으로 약점 누적"
+      ],
+      "trigger_words": [],
+      "stealth_inject_targets": ["캠코_학습판_CTA_자연스러운_노출"],
+      "evidence_anchor": "stealth = 힌트로 인식 안 되게 같은 트리거 다른 맥락 3-5회 반복",
+      "weight": 0.30
+    }
+  },
+
+  "next_actions": {
+    "_generated_by": "manual seed; cognitive-evolution-cloud cron이 매일 02:00 KST 자동 재계산",
+
+    "tomorrow_quiz_priority": [
+      {"pattern": "부호_직관_CV_EV", "weight_pct": 25, "rationale": "최신 발생 + severity 3 + 캠코 시험 §7 직격"},
+      {"pattern": "인과관계_역방향", "weight_pct": 20, "rationale": "severity 3 + 화폐중립성·재정정책 매년 출제"},
+      {"pattern": "발동조건_약함", "weight_pct": 20, "rationale": "트리거 단어 학습이 시험장 5룰 핵심"},
+      {"pattern": "전사_실수", "weight_pct": 10, "rationale": "지속 패턴, 매일 워밍업 필요"},
+      {"pattern": "직관_우선", "weight_pct": 10, "rationale": "선지 먼저 보기 강제 트레이닝"},
+      {"pattern": "기타_랜덤", "weight_pct": 15, "rationale": "신규 약점 발견용 탐색"}
+    ],
+
+    "kamco_card_emphasis": [
+      "p7-1 (CV/EV) — ★★★ 매일 재출제",
+      "p7-4 (피구세) — ★★ 격일 재출제",
+      "p7-5 (역선택) — ★ 주 2회 재출제",
+      "신규 미출제 카드 1장/일 — 신규 약점 탐색"
+    ],
+
+    "stealth_trigger_pool": [
+      "고전학파", "케인즈", "완전고용", "화폐중립성",
+      "보상변화", "CV", "EV", "지출함수",
+      "조건부", "단,", "라 가정",
+      "명목임금", "실질이자율"
+    ],
+
+    "claude_self_evolution_targets": [
+      {
+        "file": "C:/Users/윤상택/.claude/projects/C--Users-----Desktop/memory/feedback_explanation_formula.md",
+        "rule": "5단계 공식 효과성 매주 재평가 (정답률 vs 해설 길이/시각화/예시수)",
+        "preserve": ["LaTeX 금지", "한글 용어만", "한 문제씩"]
+      },
+      {
+        "file": "C:/Users/윤상택/.claude/projects/C--Users-----Desktop/memory/feedback_answer_style.md",
+        "rule": "톤·길이 종환 정답률↑ 패턴 추출 → 미세 업데이트",
+        "preserve": ["짧게", "시각적", "한글", "변수기호 금지"]
+      }
+    ]
+  }
+}
