@@ -19,7 +19,8 @@
 | 1-b | 인터랙티브 시뮬레이션 / 수학·경제 시각 / IS-LM 그래프 조작 | **ChatGPT** (Interactive Learning, 70+ topics) | 2026-04 출시. 변수·수식 실시간 조작. NCS 수리·경제학 적합 |
 | 2 | 긴 PDF/논문/책 요약/100페이지+/대용량 문서 | **Gemini** (1M context) | 긴 컨텍스트 1위, 압축 정확 |
 | 3 | 깊은 검색/심층 조사/다중 소스 종합/팩트체크 | **Gemini Deep Research Max** | DeepSearchQA 93.3%(12월 66.1%→+27.2pp)·HLE 54.6%·MCP 지원·자동 차트(Nano Banana 통합)·외부 web+사적 데이터 통합·overnight 60분 (2026-04-22 출시) |
-| 4 | 실시간 트렌드/X 검색/오늘 일어난 일/뉴스 종합 | **Grok** (X 통합) | X 실시간 access, 트렌드 1위 |
+| 4 | 실시간 트렌드/X 검색/오늘 일어난 일/뉴스 종합/X 변호사 본인 발화 | **Grok DeepSearch** (X+웹 통합) | X 실시간 access·웹+X 동시 검색 (Perplexity 유사 구조화 출력, r/grok 4월 사례 검증) |
+| 4-b | 긴 유튜브 강의·비디오 native 분석·NCS 강의 영상 요약 | **Grok 4.3 Beta** (native video) | 2026-04-17 출시. 비디오 input 직접 처리. SuperGrok Heavy ($300/월) tier 우선 — 종환 미가입 시 Plus tier 가용성 확인 필요 |
 | 5 | 학습 자료 종합/노트북 만들기/소스 → 오디오 요약/공부 자료 | **NotebookLM** | 다중 소스 → 단일 학습 자료 변환 |
 | 6 | 자소서 v→v / 면접 / 코드 / 법률 / 시스템 / hook | **Claude (나) 직접** | jaso_validator·cove·evidence_gate·종환 PII 보호 |
 | 7 | 캐주얼 잡담 / 의견 / 컨텍스트 필요 | **Claude (나) 직접** | 종환 컨텍스트 100% 인지 |
@@ -106,21 +107,37 @@
 - Deep Research → 종환 케이스 키워드 입력 → 보고서 생성 → Claude 검증
 - Gem 활용 → NCS·경제학·법률 도메인별 Gem 미리 생성
 
-### Grok (xAI, 무료 또는 Premium)
+### Grok (xAI, 무료 또는 Premium) — 2026-04-29 갱신
+
+**기본 모델**: **Grok 4.3 Beta** (2026-04-17 출시, SuperGrok Heavy $300/월 우선 + 5월 중후반 일반 출시 예정). 이전: Grok 4.20 (2/17, multi-agent 4 agents 내부 debate, 비용 1.5~2.5x).
 
 **강점**:
 - X (Twitter) 실시간 검색 — 다른 LLM 불가
-- 실시간 트렌드·전문가 본인 트윗 수집
+- **DeepSearch 모드** (2026-04 검증): 웹 + X 동시 검색, Perplexity 유사 구조화 출력
+- **Native video understanding** (4.3, 4/17): 비디오 input 직접 처리
+- **In-chat slide creation** (4.3): 프레젠테이션 슬라이드 챗 안에서 생성
+- **Multi-agent 내부 debate** (4.20): 4 agents 동시 추론 (시스템 C 3agent_protocol과 평행 진화)
+- **STT/TTS API 25개 언어 GA** (4/23): 한국어 포함 가능성 ↑ (공식 명시 미확인)
+- **grok-voice-think-fast-1.0** (4/23): 다단계 voice 워크플로우 — 면접 STAR 음성 연습 후보
 - Tier 2 (자료검색_규칙.md) X 검색 자동화
 
 **약점**:
-- 한국 도메인 약함 (영어 위주)
-- 컨텍스트 짧음
+- 한국 도메인 약함 (영어 위주, 한국 채용 정보 정확성 ↓ → recruitment-scanner alio.go.kr 직접 fetch가 우위)
+- 한국어 음성 인식 정확도 미검증
+- 일반 블로그 인용 ↑ (자료검색_규칙 §1 위반 가능성 — Tier 2 검증 필수)
 - 종환 PII 보호 정책 불명확 → PII 외부 전송 금지
+- SuperGrok Heavy $300/월 (freeze 5/16 보호)
 
 **자동 호출 패턴**:
-- "오늘 X에서 [전문가 본인] 발언" → Grok 실시간 검색
+- "오늘 X에서 [전문가 본인] 발언" → Grok DeepSearch (웹+X 통합)
+- "긴 유튜브/비디오 native 분석" → Grok 4.3 (4-b 트리)
 - AI 도구 신기능 트렌드 → 매일 20:30 cron 일부
+
+**Post-freeze 5/17 검토 큐**:
+- **Remote MCP Tools 도입**: Grok이 외부 MCP 서버 연결 → Claude recruitment-scanner/econ-daily-quiz 호출 가능. 종환 휴대폰→Grok→Claude 분신 통합도 ↑.
+- **grok-voice-think-fast-1.0 한국어 검증**: 면접 STAR 음성 연습 가능성
+- **merterbak/Grok-MCP** 또는 **Bob-lance/grok-mcp** (PyPI): Claude→Grok 호출 양방향 통합
+- **SuperGrok Heavy ROI 측정**: $300/월 × 1개월 vs 자소서/NCS 향상도
 
 ### NotebookLM (Google 무료, 종환 활용 중)
 

@@ -12,7 +12,7 @@
 |---|---|---|---|---|
 | 04-27 (월) | ChatGPT | GPT-5.5 (4/24)·GPT-Image 2 한글 95%+ 공식(4/21)·Interactive Learning 70+ topics·Codex Computer Use macOS(4/16)·Atlas Korean IME 정상(macOS) | ✅ 1행 갱신, 1-b 추가, 8행 macOS 보류 명시 | ⏳ |
 | 04-28 (화) | Gemini | **Gemini 3.1 Pro** (Artificial Analysis Index 1위, vs Claude Opus 4.6 +4점·비용 1/2)·**Deep Research Max** (4/22, DeepSearchQA 93.3%·MCP·자동 차트·외부+사적 데이터)·**Workspace Intelligence** (4/22, semantic layer)·**한국어 Workspace 4월 확장** (Forms·Meet·Chat·Docs)·**Gemini in Chrome Win+Mac** (4월 US, 한국 미확인)·**Mac Desktop App macOS 전용** (4/15)·Nano Banana Pro 인포그래픽·Gem 공유 기능 | ✅ 3행 갱신(Deep Research Max), 8행 보강, 9행 신설(Workspace Intelligence), 10행 신설(Chrome 검증 필요), §2 Gemini 전면 갱신 | ⏳ |
-| 04-29 (수) | Grok | (예정) | ⏳ | ⏳ |
+| 04-29 (수) | Grok | **Grok 4.3 Beta** (4/17, native video + slide creation in chat, SuperGrok Heavy $300/월)·**grok-voice-think-fast-1.0** (4/23, 다단계 voice 워크플로우, STT/TTS 25개 언어 GA, TTS $4.20/1M chars)·**Remote MCP Tools GA** (Grok이 외부 MCP 서버 연결, server_url+Bearer, 다중 서버 지원, native SDK + OpenAI Responses API + Voice Agent API)·**Multi-agent (Grok 4.20)** 4 agents 내부 debate (시스템 C 3agent_protocol과 평행 진화)·**GitHub MCP 서버** merterbak/Grok-MCP·Bob-lance/grok-mcp(PyPI) | ✅ "긴 비디오 native 분석"→Grok 4.3 즉시 갱신, "X 트렌드/X 실시간"→DeepSearch baseline 강화. Post-freeze 큐: "면접 STAR 음성 연습"→Voice Think Fast 1, "Grok→Claude MCP 호출"→Remote MCP Tools | ⏳ |
 | 04-30 (목) | NotebookLM | (예정) | ⏳ | ⏳ |
 | 05-01 (금) | 통합 갱신 | (월~목 4일치 통합) | ⏳ | — |
 | 05-02 (토) | Claude | (자기 자신 진화 + 4개 LLM 비교) | ⏳ | ⏳ |
@@ -34,6 +34,10 @@
 | Gemini in Chrome 한국 출시 모니터링 | 2026-04-28 | Plus/Win/한국 동시 충족 시 §1 트리 10행 활성화 | Google 한국 rollout 대기 |
 | Mac Gemini Desktop App Windows 출시 | 2026-04-28 | macOS 전용 → 종환 Windows 차단 | Google 발표 대기 |
 | Subscription Plus → Pro/Ultra 매핑 | 2026-04-28 | 4/11 재구조화로 종환 기존 구독 자동 이전 여부 불명 | 종환 직접 확인 |
+| **xAI Remote MCP Tools** (Grok→Claude 호출) | 2026-04-29 | 종환 휴대폰 발화→Grok→Claude recruitment-scanner/econ-daily-quiz 호출 가능. 분신 통합도 ↑. 종환 PII 정책 재검증 필요 | 5/16 freeze 해제 후 |
+| **grok-voice-think-fast-1.0** 한국어 검증 | 2026-04-29 | 25개 언어 GA — 한국어 명시 미확인. 면접 STAR 음성 인식 정확도 측정 필요 | 5/16 freeze 해제 후 |
+| **merterbak/Grok-MCP** (Claude→Grok 호출) | 2026-04-29 | Claude Code 내 Grok agentic tool calling + image/video gen 호출 가능 | 5/16 freeze 해제 후 |
+| **SuperGrok Heavy ($300/월) ROI 측정** | 2026-04-29 | Grok 4.3 native video + slide creation 활용도 vs 가격. 종환 자소서/NCS 영역 향상도 측정 | 5/16 freeze 해제 후 |
 
 ---
 
@@ -51,8 +55,14 @@
   - 10행 신설: 브라우저 내 즉시 분석 → Gemini in Chrome (한국 출시 검증 필요, US Plus/Ultra만 출시)
   - §2 Gemini 섹션 전면 갱신: 기본 모델 = Gemini 3.1 Pro, 한국어 Workspace 4월 확장, Gem 공유
 
+- **2026-04-29 v2.3**:
+  - "긴 유튜브/비디오 native 분석" 신설 → **Grok 4.3 Beta** (4/17 native video understanding 출시)
+  - "X 트렌드/X 실시간/X 변호사 발화" baseline 강화 → **Grok DeepSearch** (r/grok 4월 사례 — 웹+X 동시 검색, Perplexity 유사 구조화 출력)
+  - Post-freeze 큐 4건 신설: Remote MCP Tools, grok-voice-think-fast-1 한국어 검증, merterbak/Grok-MCP, SuperGrok Heavy ROI
+  - 시스템 C 3agent_protocol과 Grok 4.20 multi-agent 평행 진화 발견 (외부 검증)
+
 ---
 
 박제일: 2026-04-27 (첫 cron 실행)
-마지막 갱신: 2026-04-28 (Gemini, v2.2)
-다음 갱신: 2026-04-29 (수요일 Grok)
+마지막 갱신: 2026-04-29 (Grok, v2.3)
+다음 갱신: 2026-04-30 (목요일 NotebookLM)

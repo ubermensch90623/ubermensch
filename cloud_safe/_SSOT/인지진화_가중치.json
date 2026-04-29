@@ -5,8 +5,21 @@
     "purpose": "종환 약점 패턴 frequency·recency·severity → 다음날 출제 가중치 + 트리거 풀 자동 산출",
     "ssot": true,
     "created_at": "2026-04-28T17:35:00+09:00",
-    "updated_at": "2026-04-28T17:35:00+09:00",
-    "updater": "manual seed (Claude · 2026-04-28). 이후 cognitive-evolution-cloud cron이 매일 02:00 KST 자동 갱신.",
+    "updated_at": "2026-04-29T22:05:00+09:00",
+    "updater": "cognitive-evolution-loop §F (22:00 cron, 2026-04-29). 다음 자동 갱신: cognitive-evolution-cloud 02:00 KST.",
+    "today_signal_2026-04-29": {
+      "motivation_low": "D-10 학습판 미사용 (xp 220 동일) → 의지 가중치 +1 강화",
+      "physical_low": "야간 모드 (22:00~) 시스템 작업 흡수 → 모바일·5분만 강제 유지",
+      "obstacle_high": "★★★ CV/EV 부채 3일 누적 (D-11→D-10→D-9) — 부채 청산 1순위",
+      "infrastructure_drift": "PSAT 시스템 작업이 캠코 학습 시간 흡수 — Time Multiplier 4축 재검토",
+      "applied_to": "내일_액션_2026-04-30.md §B B-1 ★★★ 직격 (부채 청산)"
+    },
+    "today_signal_2026-04-28": {
+      "motivation_low": "종환 '100번 실망' 발화 1건 → XP·별표 가중치 강화 적용",
+      "physical_low": "종환 '잠 못잠' 발화 1건 → 모든 액션 5분 모바일 강제",
+      "obstacle_high": "claude-mem hnsw 사망 + 외부LLM_학습 cron 누락 (조사 큐)",
+      "applied_to": "내일_액션_2026-04-29.md §B (3초 안 시작 형태)"
+    },
     "scoring_formula": "weight = frequency*0.4 + recency*0.4 + severity*0.2",
     "decay_days": 14,
     "data_sources": [
@@ -30,15 +43,19 @@
       "frequency_count": 1,
       "first_seen": "2026-04-28",
       "last_seen": "2026-04-28",
+      "debt_days": 3,
+      "debt_note": "★★★ 큐 D-11 CV/EV — D-10·D-9 미풀이로 부채 +2일 누적. D-1까지 매일 풀이 룰 위반.",
+      "weight_multiplier": 2.5,
+      "multiplier_reason": "cross-domain link + 부채 3일 누적 → 0.78 → 0.85로 자동 강화. 다음 cron 학습판 CTA에 강제 노출.",
       "severity": 3,
       "promote_threshold": 3,
       "examples": [
         "캠코 §7 문제 1 콥-더글라스 py 4배 → CV 부호 헷갈림"
       ],
       "trigger_words": ["보상변화", "CV", "EV", "동등변화", "효용극대화", "py", "px", "지출함수"],
-      "stealth_inject_targets": ["econ-daily-quiz", "캠코_★★★_큐", "캠코_학습판_CTA"],
-      "evidence_anchor": "u/u\\* = (px·py / px'·py')^? · CV는 새 가격 기준(양수), EV는 옛 가격 기준(음수)",
-      "weight": 0.78
+      "stealth_inject_targets": ["econ-daily-quiz", "캠코_★★★_큐", "캠코_학습판_CTA", "캠코_학습판_상단_부채배너"],
+      "evidence_anchor": "CV는 새 가격 기준(양수), EV는 옛 가격 기준(음수)",
+      "weight": 0.85
     },
 
     "인과관계_역방향": {
@@ -166,12 +183,13 @@
     "_generated_by": "manual seed; cognitive-evolution-cloud cron이 매일 02:00 KST 자동 재계산",
 
     "tomorrow_quiz_priority": [
-      {"pattern": "부호_직관_CV_EV", "weight_pct": 25, "rationale": "최신 발생 + severity 3 + 캠코 시험 §7 직격"},
-      {"pattern": "인과관계_역방향", "weight_pct": 20, "rationale": "severity 3 + 화폐중립성·재정정책 매년 출제"},
-      {"pattern": "발동조건_약함", "weight_pct": 20, "rationale": "트리거 단어 학습이 시험장 5룰 핵심"},
-      {"pattern": "전사_실수", "weight_pct": 10, "rationale": "지속 패턴, 매일 워밍업 필요"},
-      {"pattern": "직관_우선", "weight_pct": 10, "rationale": "선지 먼저 보기 강제 트레이닝"},
-      {"pattern": "기타_랜덤", "weight_pct": 15, "rationale": "신규 약점 발견용 탐색"}
+      {"pattern": "부호_직관_CV_EV", "weight_pct": 35, "rationale": "★★★ 부채 3일 누적 + 가중 0.85 → D-9 부채 청산 1순위"},
+      {"pattern": "인과관계_역방향", "weight_pct": 20, "rationale": "severity 3 + 화폐중립성·재정정책 매년 출제. D-9 신규 노출"},
+      {"pattern": "발동조건_약함", "weight_pct": 15, "rationale": "B-1 통근 트리거 단어 직격 강화"},
+      {"pattern": "역선택·도덕적해이", "weight_pct": 10, "rationale": "D-9 신규 카드 (비대칭정보)"},
+      {"pattern": "전사_실수", "weight_pct": 5, "rationale": "지속 패턴, 매일 워밍업"},
+      {"pattern": "직관_우선", "weight_pct": 5, "rationale": "선지 먼저 보기 강제"},
+      {"pattern": "기타_랜덤", "weight_pct": 10, "rationale": "신규 약점 발견용 탐색"}
     ],
 
     "kamco_card_emphasis": [
