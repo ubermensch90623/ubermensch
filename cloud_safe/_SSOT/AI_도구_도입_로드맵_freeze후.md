@@ -1,3 +1,9 @@
+---
+type: ssot
+created: 2026-04-27
+status: active
+---
+
 # AI 도구 도입 로드맵 — freeze 5/16 이후
 
 > freeze: 2026-05-16까지 신규 프레임워크 도입 금지 (CLAUDE.md §10 또는 boot_state)

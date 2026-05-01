@@ -1,3 +1,14 @@
+---
+type: ssot
+created: 2026-04-29
+status: ledger
+cluster: external_llm
+entry_order: 4
+role: 주간 ledger — cron이 매일 append
+auto_appended_by: external-llm-meta-research (매일 20:30)
+retention: 일요일 retrospective 후 다음 주 ISO week로 롤오버
+---
+
 # 외부 LLM 주간 학습 누적 ledger
 
 > 자동 cron `external-llm-meta-research` 매일 20:30 결과를 누적.
@@ -13,8 +24,8 @@
 | 04-27 (월) | ChatGPT | GPT-5.5 (4/24)·GPT-Image 2 한글 95%+ 공식(4/21)·Interactive Learning 70+ topics·Codex Computer Use macOS(4/16)·Atlas Korean IME 정상(macOS) | ✅ 1행 갱신, 1-b 추가, 8행 macOS 보류 명시 | ⏳ |
 | 04-28 (화) | Gemini | **Gemini 3.1 Pro** (Artificial Analysis Index 1위, vs Claude Opus 4.6 +4점·비용 1/2)·**Deep Research Max** (4/22, DeepSearchQA 93.3%·MCP·자동 차트·외부+사적 데이터)·**Workspace Intelligence** (4/22, semantic layer)·**한국어 Workspace 4월 확장** (Forms·Meet·Chat·Docs)·**Gemini in Chrome Win+Mac** (4월 US, 한국 미확인)·**Mac Desktop App macOS 전용** (4/15)·Nano Banana Pro 인포그래픽·Gem 공유 기능 | ✅ 3행 갱신(Deep Research Max), 8행 보강, 9행 신설(Workspace Intelligence), 10행 신설(Chrome 검증 필요), §2 Gemini 전면 갱신 | ⏳ |
 | 04-29 (수) | Grok | **Grok 4.3 Beta** (4/17, native video + slide creation in chat, SuperGrok Heavy $300/월)·**grok-voice-think-fast-1.0** (4/23, 다단계 voice 워크플로우, STT/TTS 25개 언어 GA, TTS $4.20/1M chars)·**Remote MCP Tools GA** (Grok이 외부 MCP 서버 연결, server_url+Bearer, 다중 서버 지원, native SDK + OpenAI Responses API + Voice Agent API)·**Multi-agent (Grok 4.20)** 4 agents 내부 debate (시스템 C 3agent_protocol과 평행 진화)·**GitHub MCP 서버** merterbak/Grok-MCP·Bob-lance/grok-mcp(PyPI) | ✅ "긴 비디오 native 분석"→Grok 4.3 즉시 갱신, "X 트렌드/X 실시간"→DeepSearch baseline 강화. Post-freeze 큐: "면접 STAR 음성 연습"→Voice Think Fast 1, "Grok→Claude MCP 호출"→Remote MCP Tools | ⏳ |
-| 04-30 (목) | NotebookLM | (예정) | ⏳ | ⏳ |
-| 05-01 (금) | 통합 갱신 | (월~목 4일치 통합) | ⏳ | — |
+| 04-30 (목) | NotebookLM | ❌ **silent fail** — `_AI진화일지/외부LLM_학습_2026-04-30.md` 산출물 부재. cron 미실행 또는 검색 0건 silent skip. 동일 날짜 daily/시스템_정합성 파일은 존재 → external-llm-meta-research 단독 실패. boot_state·verify_overnight_fires hook 점검 큐 | ❌ 트리 영향 없음 (§2 NotebookLM 4/26 박제 시점 유지) | — |
+| 05-01 (금) | 통합 갱신 audit | 월~목 4일치 통합 audit 완료. 4/29 Grok v2.3 변경 이력 누락 소급 기록. 4/30 NotebookLM 결손 박제. 위임 트리 모순 0건 (영역 분리 확인). freeze 5/16 보호 — 신규 도입 0건 | ✅ §1 트리 충돌 없음 확인 + v2.4 audit entry 신설 (`외부_LLM_자율운영_시스템_v2.md`) | — |
 | 05-02 (토) | Claude | (자기 자신 진화 + 4개 LLM 비교) | ⏳ | ⏳ |
 | 05-03 (일) | retrospective | 1주일치 효과 측정 | ⏳ | — |
 
@@ -61,8 +72,16 @@
   - Post-freeze 큐 4건 신설: Remote MCP Tools, grok-voice-think-fast-1 한국어 검증, merterbak/Grok-MCP, SuperGrok Heavy ROI
   - 시스템 C 3agent_protocol과 Grok 4.20 multi-agent 평행 진화 발견 (외부 검증)
 
+- **2026-05-01 v2.4 (Friday integration audit)**:
+  - 월~목 4일치 통합 감사 완료 — 위임 트리 모순 0건 (LLM 영역 분리 확인)
+  - 4/29 Grok v2.3 변경 이력 SSOT v2.md에 소급 박제 (이전 누락분 보정)
+  - **결손 진단**: 4/30 NotebookLM cron silent fail — 산출물 부재. boot_state·verify_overnight_fires hook 점검 큐로 위임
+  - **freeze 5/16 보호**: 신규 LLM 구독·API 도입 0건. 누적 보류 큐 14건 5/17 ROI 측정 대기 유지
+  - SSOT v2 변경 이력에 v2.4 audit entry 신설 (`외부_LLM_자율운영_시스템_v2.md` §변경 이력)
+  - 종환 보고 트리거: ❌ 미발동 (중요 신기능 0건, audit는 silent 박제)
+
 ---
 
 박제일: 2026-04-27 (첫 cron 실행)
-마지막 갱신: 2026-04-29 (Grok, v2.3)
-다음 갱신: 2026-04-30 (목요일 NotebookLM)
+마지막 갱신: 2026-05-01 (Friday audit, v2.4)
+다음 갱신: 2026-05-02 (토요일 Claude 자기 진화 + 4개 LLM 비교)

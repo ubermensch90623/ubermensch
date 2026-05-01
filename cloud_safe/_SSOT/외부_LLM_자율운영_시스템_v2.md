@@ -1,3 +1,15 @@
+---
+type: ssot
+created: 2026-04-29
+status: active
+cluster: external_llm
+entry_order: 2
+role: 자율 위임 결정 트리 명세 (v2)
+referenced_by:
+  - external-llm-meta-research SKILL.md
+  - autonomous-meta-learning-loop SKILL.md (사전 read 후 중복 회피)
+---
+
 # 외부 LLM 자율 운영 시스템 v2 (Grok·NotebookLM 보강 + 자가 학습)
 
 > 종환 명령 (2026-04-27): "grok, gemini, chatgpt, notebook lm에 대해서 나처럼 내가 시키지 않아서 잘 활용하는 방법을 스스로 연구해... 그래야 내가 명령 내리면 니가 알아서 판단해서 그 작업을 스스로하지"
@@ -351,3 +363,23 @@ G. 종환 1줄 보고
   - §2 Gemini 섹션 전면 갱신: 기본 모델 Gemini 3.1 Pro 명시, Deep Research Max·Workspace Intelligence·한국어 확장·Nano Banana Pro·Gem 공유, 보류 큐 7개 신설
   - 백업: `외부_LLM_자율운영_시스템_v2.md.bak.20260428`
   - 발견 보고서: `_AI진화일지/외부LLM_학습_2026-04-28.md`
+
+- **2026-04-29 v2.3**: Grok 학습일 결과 반영 (변경 이력 누락 → 5/1 Friday 감사 시 소급 기록)
+  - §1 자동 위임 트리:
+    - 4행 baseline 강화 → **Grok DeepSearch** (웹+X 동시 검색, Perplexity 유사 구조화 출력, r/grok 4월 사례 검증)
+    - 4-b 신설 → **Grok 4.3 Beta** native video understanding + in-chat slide creation (4/17 출시, SuperGrok Heavy $300/월 tier 우선)
+  - §2 Grok 섹션 전면 갱신: 기본 모델 Grok 4.3 Beta, grok-voice-think-fast-1.0 (4/23, 25개 언어), Multi-agent debate (4 agents, 시스템 C 3agent_protocol 평행 진화)
+  - Post-freeze 5/17 큐 4건 신설: **Remote MCP Tools** (Grok→Claude recruitment-scanner 호출), **grok-voice-think-fast-1.0 한국어 검증** (면접 STAR 음성), **merterbak/Grok-MCP** & **Bob-lance/grok-mcp** PyPI (Claude→Grok 양방향), **SuperGrok Heavy ROI 측정** ($300/월 vs 자소서/NCS 향상도)
+  - 종환 PII 정책 재검증 큐: Remote MCP 도입 시 휴대폰→Grok→Claude 통합도 ↑ but 외부 전송 경로 재정의 필요
+  - 발견 보고서: `_AI진화일지/외부LLM_학습_2026-04-29.md`
+
+- **2026-05-01 v2.4 (Friday integration audit)**: 월~목 4일치 통합 반영 + 결손 진단
+  - **결손**: 2026-04-30 (목) NotebookLM 학습 cron silent fail — `_AI진화일지/외부LLM_학습_2026-04-30.md` 산출물 부재. 동일 날짜 daily/시스템_정합성/내일_액션 파일은 존재 → external-llm-meta-research cron만 단독 실패.
+    - 추정 원인: utf-8 stdin 분절(IBK D-0 패턴) 또는 Tier 1·2 출처 검색 0건 silent skip. boot_state·verify_overnight_fires hook 점검 큐.
+    - 영향: NotebookLM 섹션(§2)은 4/26 v2 박제 시점 컨텐츠 유지. 신규 발견 없음 → §1 트리 영향 없음.
+  - **소급 통합**: 4/29 v2.3 변경 이력 본 entry 신설 (위 항목)
+  - **위임 트리 모순 점검**: 월~목 발견 사이 §1 트리 충돌 없음. ChatGPT(이미지)·Gemini(긴 컨텍스트/Deep Research)·Grok(X 실시간/native video)·NotebookLM(다중 소스 학습) 영역 분리 확인
+  - **freeze 5/16 보호**: 본 audit 단계에서 신규 LLM 구독·API 도입 0건. 누적 보류 큐 14건 (`외부LLM_주간학습_누적.md` 참조) 5/17 ROI 측정 대기
+  - 다음 단계: 5/2 (토) Claude 자기 자신 진화 추적 + 4개 LLM 비교, 5/3 (일) 주간 retrospective
+  - 백업: `외부_LLM_자율운영_시스템_v2.md.bak.20260501`
+  - 발견 보고서: `_AI진화일지/외부LLM_학습_2026-05-01.md` (본 audit)
