@@ -5,8 +5,17 @@
     "purpose": "종환 약점 패턴 frequency·recency·severity → 다음날 출제 가중치 + 트리거 풀 자동 산출",
     "ssot": true,
     "created_at": "2026-04-28T17:35:00+09:00",
-    "updated_at": "2026-05-01T22:05:00+09:00",
-    "updater": "cognitive-evolution-loop §F (22:00 cron, 2026-05-01). 4/30 fire FAIL → 5/1 catch-up. 다음 자동 갱신: cognitive-evolution-cloud 02:00 KST.",
+    "updated_at": "2026-05-04T08:55:00+09:00",
+    "updater": "cognitive-evolution-loop §F (5/4 catch-up, 5/3 22:00 fire 미실행 추정). 다음 자동 갱신: 5/4 22:00 또는 5/5 06:30 backup.",
+    "today_signal_2026-05-04": {
+      "motivation_low": "5/4 court visit day → 학습 0건 정상. 헌법 C-3 protective. 단 D-5 진입에서 가속 압력 명확",
+      "physical_low": "court visit 외출 부담. 어깨 부상 통증 지속 가능",
+      "obstacle_high": "★★★ CV/EV 부채 7일 누적 (D-11 4/28 → D-5 5/4). Ebbinghaus 50% retention 임박 (5/2 통과). 5/5 D-4 mandatory 청산일 — 더 미루면 시험까지 retention <30%",
+      "infrastructure_drift": "분신 자율 cron 9건 정상 작동. 종환 직접 학습 0건. 헌법 C-0-α 단일 비전(시험합격) 측면에서 분신 직접 기여 0건 day",
+      "fire_failure": "5/3 22:00 cron 미실행 → 5/4 8:50 catch-up. PC-off 가능성. Phase 3 클라우드 이중화(5/17~) 전 단일 실패점 노출 지속",
+      "boris_cherny_meta": "Boris Cherny Claude Code 사용법 SSOT 박제 (S475) — 종환 자율 학습 큐 1건 처리. 시험 직접 기여 0이지만 도구 활용도 ↑",
+      "applied_to": "내일_액션_2026-05-05.md Mission 1 ★★★ CV/EV 강제 청산 + Claude_자가진화_2026-05-04 제안 5건"
+    },
     "today_signal_2026-05-01": {
       "motivation_low": "노동절 9h+ 활동 中 캠코 학습판 풀이 0건 → 환경 OK, 행동 변환 실패. 의지 가중치 +1 추가 강화",
       "physical_low": "OCR 캡처·cron 작업이 종일 흡수 → 시스템 작업 ROI 재산정 필요",
@@ -51,19 +60,19 @@
       "frequency_count": 1,
       "first_seen": "2026-04-28",
       "last_seen": "2026-04-28",
-      "debt_days": 5,
-      "debt_note": "★★★ 큐 D-11 CV/EV — D-10·D-9·D-8·D-7(예상) 미풀이로 부채 +4일 누적. Ebbinghaus retention 50% 위험 (4/28 풀이 → 5/2 D-7 = 4일 후 50%, 5/9 D-0 = 11일 후 <20%). D-1까지 매일 풀이 룰 5일 연속 위반.",
-      "weight_multiplier": 2.7,
-      "multiplier_reason": "cross-domain link + 부채 5일 누적 + 사고 회로 휘발 위험 → 0.85 → 0.92로 자동 재강화. 다음 cron 학습판 CTA + 5/2 새벽 직격 메시지에 강제 노출.",
+      "debt_days": 7,
+      "debt_note": "★★★ 큐 D-11 CV/EV — 4/28~5/4 7일 누적. Ebbinghaus 50% retention 통과(5/2). 현 retention 추정 ~35% (4/28 후 7일). D-4 5/5 mandatory mission 1 청산. 안 하면 D-0 시 retention <20% 확정.",
+      "weight_multiplier": 2.85,
+      "multiplier_reason": "cross-domain link + 부채 7일 누적 + retention 35% → 0.92 → 0.95로 추가 강화. 5/5 D-4 mission 1로 강제 카드. 5/4 court day는 reduced 모드로 inflict 보류.",
       "severity": 3,
       "promote_threshold": 3,
       "examples": [
         "캠코 §7 문제 1 콥-더글라스 py 4배 → CV 부호 헷갈림"
       ],
       "trigger_words": ["보상변화", "CV", "EV", "동등변화", "효용극대화", "py", "px", "지출함수"],
-      "stealth_inject_targets": ["econ-daily-quiz", "캠코_★★★_큐", "캠코_학습판_CTA", "캠코_학습판_상단_부채배너", "5월2일_새벽_직격"],
+      "stealth_inject_targets": ["econ-daily-quiz", "캠코_★★★_큐", "캠코_학습판_CTA", "캠코_학습판_상단_부채배너", "5월5일_새벽_직격_D-4"],
       "evidence_anchor": "CV는 새 가격 기준(양수), EV는 옛 가격 기준(음수)",
-      "weight": 0.92
+      "weight": 0.95
     },
 
     "인과관계_역방향": {

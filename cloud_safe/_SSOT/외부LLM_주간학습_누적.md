@@ -31,6 +31,20 @@ retention: 일요일 retrospective 후 다음 주 ISO week로 롤오버
 
 ---
 
+## 2026-W19 (2026-05-04 ~ 2026-05-10) — 캠코 D-5 보호 모드
+
+| 일자 | LLM | 핵심 신기능 | §1 트리 갱신 | 효과 (1주 후) |
+|---|---|---|---|---|
+| 05-04 (월) | ChatGPT | GPT-5.5 (4/23 정식, Plus 자동 승급)·Workspace Agents (5/6 무료 종료)·Super App 통합·Codex 90+ plugins·Advanced Account Security (6/1 Trusted Access)·Outlook 공유 메일 위임. **자가학습 큐 2건 처리 완료** (DALL-E 3 deprecate 5/12 + Custom GPT vs scheduled task 비용) | ❌ 즉시 갱신 0건 (freeze 5/16 보호) — Workspace Agents·Custom GPT 분신 등 4건 보류 큐 추가 | ⏳ |
+| 05-05 (화) | Gemini | ⏳ pending | ⏳ | ⏳ |
+| 05-06 (수) | Grok | ⏳ pending | ⏳ | ⏳ |
+| 05-07 (목) | NotebookLM | ⏳ pending | ⏳ | ⏳ |
+| 05-08 (금) | 통합 갱신 audit | ⏳ pending | ⏳ | — |
+| 05-09 (토) | Claude (자기 자신) | 🔥 캠코 필기 당일 — 학습 skip 또는 시험 후 야간 진행 | ⏳ | ⏳ |
+| 05-10 (일) | retrospective | 1주일치 효과 측정 | ⏳ | — |
+
+---
+
 ## 누적 보류 큐 (freeze 5/16 후 검토)
 
 | 도구 | 발견일 | 결정 사유 | 검토 일정 |
@@ -49,6 +63,10 @@ retention: 일요일 retrospective 후 다음 주 ISO week로 롤오버
 | **grok-voice-think-fast-1.0** 한국어 검증 | 2026-04-29 | 25개 언어 GA — 한국어 명시 미확인. 면접 STAR 음성 인식 정확도 측정 필요 | 5/16 freeze 해제 후 |
 | **merterbak/Grok-MCP** (Claude→Grok 호출) | 2026-04-29 | Claude Code 내 Grok agentic tool calling + image/video gen 호출 가능 | 5/16 freeze 해제 후 |
 | **SuperGrok Heavy ($300/월) ROI 측정** | 2026-04-29 | Grok 4.3 native video + slide creation 활용도 vs 가격. 종환 자소서/NCS 영역 향상도 측정 | 5/16 freeze 해제 후 |
+| **Workspace Agents (5/6 무료 종료, credit-based 시작)** | 2026-05-04 | 종환 single user enterprise 한정 — 직접 활용 X. 단 외부 협업 시 ROI 가능성. credit 단가 명시 추적 큐 | 5/16 freeze 해제 후 |
+| **Custom GPT "종환 분신" 생성 ROI** | 2026-05-04 | Plus 무료 기능. Claude·Gemini·Grok 분신 가이드와 통합 가능성. 분신 응답 vs Claude 직접 응답 시간/품질 측정 필요 | 5/16 freeze 해제 후 |
+| **Advanced Account Security 옵트인** | 2026-05-04 | 6/1 Trusted Access for Cyber 강제 — 일반 Plus는 강제 X. phishing-resistant sign-in 옵트인 효과·session 단축 영향 측정 | 5/16 freeze 해제 후 종환 직접 결정 |
+| **Outlook 공유 메일/캘린더 위임** | 2026-05-04 | 종환 회사 Microsoft 365 환경 가능성 — 확인 필요. 채용 자동화는 Claude 측 처리 (recruitment-scanner) → 직접 활용 0이지만 회사 업무 효율화 가능 | 종환 직접 회사 환경 확인 |
 
 ---
 
@@ -79,6 +97,15 @@ retention: 일요일 retrospective 후 다음 주 ISO week로 롤오버
   - **freeze 5/16 보호**: 신규 LLM 구독·API 도입 0건. 누적 보류 큐 14건 5/17 ROI 측정 대기 유지
   - SSOT v2 변경 이력에 v2.4 audit entry 신설 (`외부_LLM_자율운영_시스템_v2.md` §변경 이력)
   - 종환 보고 트리거: ❌ 미발동 (중요 신기능 0건, audit는 silent 박제)
+
+- **2026-05-04 v2.5 (W19 1일차 ChatGPT)**:
+  - §1 자동 위임 트리 즉시 갱신 0건 (freeze 5/16 보호 정상 작동, 캠코 D-5 보호 모드)
+  - 자가학습 큐 §4-A 2건 처리 완료:
+    - DALL-E 3 deprecate 5/12 → chatgpt-image-latest 자동 alias 이전, 종환 영향 NONE
+    - Custom GPT vs scheduled task → Plus($20)에 Custom GPT 포함, scheduled task 종환 박은 게 stale 다수 → 신규 X, 종환 직접 정리 우선
+  - 누적 보류 큐 4건 신설: Workspace Agents (5/6 무료 종료) · Custom GPT 분신 ROI · Advanced Account Security 옵트인 · Outlook 공유 메일 위임
+  - GPT-5.5 (4/23) 종환 ChatGPT UI 자동 승급 — 자소서 톤 baseline 측정은 5/16 freeze 후 (캠코 D-5 보호)
+  - 종환 보고 트리거: ❌ 미발동 (중요 baseline 승격 0건, 모두 보류 큐 적재)
 
 ---
 
