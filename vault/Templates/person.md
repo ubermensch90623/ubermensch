@@ -13,26 +13,26 @@ related-projects: []
 
 ## For future Claude
 
-This note is a person record for [[People/TBD]] saved on YYYY-MM-DD. It captures role, context, and history of interaction.
-Update `last-interaction` after every meaningful exchange.
+이 노트는 YYYY-MM-DD에 저장된 [[People/TBD]]에 대한 기록이다. 역할, 맥락, 상호작용 기록을 담는다.
+의미 있는 교류 후마다 `last-interaction`을 갱신한다.
 
 # TBD
 
-## Context
+## 맥락
 
-How we met, current relationship, why this person is in the vault.
+어떻게 만났고, 현재 관계는 어떠하며, 왜 이 사람이 볼트에 있는지.
 
-## Key facts
+## 핵심 정보
 
-- Role: 
-- Company: [[Companies/TBD]]
-- Location: 
+- 역할: 
+- 회사: [[Companies/TBD]]
+- 위치: 
 
-## History
+## 이력
 
-- YYYY-MM-DD: [interaction] (link to daily note or devlog)
+- YYYY-MM-DD: [상호작용] (일일 노트 또는 devlog 링크)
 
-## Related
+## 관련
 
-- Projects: 
-- People: 
+- 프로젝트: 
+- 사람: 

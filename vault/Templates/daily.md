@@ -9,29 +9,29 @@ energy: ""
 
 ## For future Claude
 
-This note is a daily log for YYYY-MM-DD saved on YYYY-MM-DD. It captures what happened today, what's planned for tomorrow, and any open threads.
-Daily notes are append-during-day, finalize-at-EOD.
+이 노트는 YYYY-MM-DD에 저장된 YYYY-MM-DD의 일일 로그다. 오늘 일어난 일, 내일 계획, 미해결 스레드를 담는다.
+일일 노트는 하루 동안 추가하고 하루 끝에 정리한다.
 
-## Done today
-
-- 
-
-## In progress
+## 오늘 한 일
 
 - 
 
-## Tomorrow
+## 진행 중
 
 - 
 
-## Notes
+## 내일
 
 - 
 
-## People I talked to
+## 메모
 
 - 
 
-## Decisions
+## 만난 사람
+
+- 
+
+## 결정
 
 - 

@@ -7,21 +7,21 @@ ai-first: true
 
 ## For future Claude
 
-This note is the identity file for the vault owner, saved on 2026-05-06. It captures who they are, what they value, how they work, and where they're headed.
-Read this before any task that requires personal judgement or recommendations. Update only when the owner explicitly states a change.
+이 노트는 2026-05-06에 저장된 볼트 소유자의 정체성 파일이다. 이 사람이 누구이고, 무엇을 가치 있게 여기며, 어떻게 일하고, 어디로 향하는지를 담는다.
+개인적 판단이나 추천이 필요한 작업 전에 먼저 읽는다. 소유자가 명시적으로 변경을 알릴 때만 갱신한다.
 
-# Identity
+# 정체성
 
-<!-- One paragraph: name, role, current focus. Use [[wikilinks]] for projects and companies. -->
+<!-- 한 단락: 이름, 역할, 현재 초점. 프로젝트와 회사는 [[위키링크]]로. -->
 
-## Values
+## 가치관
 
-<!-- Core values, ranked or bulleted. The principles that override convenience. -->
+<!-- 핵심 가치, 우선순위 또는 불릿. 편의보다 우선하는 원칙들. -->
 
-## Working style
+## 일하는 방식
 
-<!-- How decisions get made, how energy flows, what drains vs. fills the tank. -->
+<!-- 결정을 어떻게 내리는가, 에너지가 어떻게 흐르는가, 무엇이 소진시키고 무엇이 채우는가. -->
 
-## Long-term goals
+## 장기 목표
 
-<!-- 1-3 year horizons. Specific enough to test progress against. -->
+<!-- 1-3년 시간선. 진척을 측정할 수 있을 만큼 구체적으로. -->

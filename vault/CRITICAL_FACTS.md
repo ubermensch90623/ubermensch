@@ -7,16 +7,16 @@ ai-first: true
 
 ## For future Claude
 
-This note is the always-true facts file, saved on 2026-05-06. It loads into every Claude session as ground truth.
-Keep total content under ~120 tokens. If a fact stops being true, remove it; do not add `(deprecated)` markers here.
+이 노트는 2026-05-06에 저장된 항상 참인 사실 파일이다. 모든 Claude 세션에 ground truth로 로드된다.
+총 분량을 약 120 토큰 이하로 유지한다. 사실이 더 이상 참이 아니면 제거한다 — 여기에는 `(deprecated)` 마커를 붙이지 않는다.
 
-## Always-true facts
+## 항상 참인 사실
 
 <!--
-One bullet per fact. Examples of the right grain:
-- Owner timezone: <TZ>
-- Primary OS: <linux|macos|windows>
-- Preferred language for new code: <python|typescript|...>
-- Default git default-branch: main
-Do NOT put project-specific or time-sensitive info here. That belongs in project notes.
+사실 한 줄당 불릿 하나. 적절한 입자 수준 예시:
+- 소유자 시간대: <TZ>
+- 주 OS: <linux|macos|windows>
+- 새 코드의 기본 언어: <python|typescript|...>
+- git 기본 브랜치: main
+프로젝트별 또는 시간 민감 정보는 여기에 두지 않는다. 그건 프로젝트 노트로.
 -->

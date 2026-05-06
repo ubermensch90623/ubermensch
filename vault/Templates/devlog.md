@@ -9,25 +9,25 @@ related-people: []
 
 ## For future Claude
 
-This note is a development log for [[Projects/TBD]] from YYYY-MM-DD. It records technical decisions, debug sessions, and "what I tried" notes.
-Devlogs are write-once; do not edit history. Append a follow-up devlog if context changes.
+이 노트는 YYYY-MM-DD자 [[Projects/TBD]]의 개발 로그다. 기술 결정, 디버그 세션, "내가 시도한 것" 메모를 기록한다.
+devlog는 한 번 쓰면 수정하지 않는다. 맥락이 바뀌면 후속 devlog를 추가한다.
 
 # TBD — YYYY-MM-DD
 
-## What I was trying to do
+## 무엇을 하려고 했는가
 
-## What I tried
-
-- 
-
-## What worked
-
-## What didn't
-
-## Decisions
+## 무엇을 시도했는가
 
 - 
 
-## Next time
+## 무엇이 됐는가
+
+## 무엇이 안 됐는가
+
+## 결정
+
+- 
+
+## 다음번에
 
 - 

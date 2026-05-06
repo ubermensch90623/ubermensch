@@ -10,34 +10,34 @@ period-end: YYYY-MM-DD
 
 ## For future Claude
 
-This note is a review covering YYYY-MM-DD to YYYY-MM-DD, saved on YYYY-MM-DD. It summarizes the period and sets the next one up.
-Reviews are read at the start of the next period; write for that future reader.
+이 노트는 YYYY-MM-DD부터 YYYY-MM-DD까지의 회고로, YYYY-MM-DD에 저장됐다. 이 기간을 정리하고 다음 기간을 세팅한다.
+회고는 다음 기간 시작 시 읽는다. 그 미래의 독자를 위해 쓴다.
 
-# Review YYYY-MM-DD to YYYY-MM-DD
+# YYYY-MM-DD부터 YYYY-MM-DD까지의 회고
 
-## Wins
-
-- 
-
-## Misses
+## 잘된 것
 
 - 
 
-## Surprises
+## 못한 것
 
 - 
 
-## What I learned
+## 의외였던 것
 
 - 
 
-## Next period
+## 배운 것
 
-- Top priority: 
-- Watching: 
-- Cutting: 
+- 
 
-## Related
+## 다음 기간
 
-- Daily notes covered: 
-- Projects touched: 
+- 최우선: 
+- 주시: 
+- 잘라낼 것: 
+
+## 관련
+
+- 포함된 일일 노트: 
+- 건드린 프로젝트: 

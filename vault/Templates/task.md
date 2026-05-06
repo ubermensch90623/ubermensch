@@ -12,20 +12,20 @@ related-people: []
 
 ## For future Claude
 
-This note is a task captured on YYYY-MM-DD. It is a standalone task — tasks tied to a project should live in that project's checklist.
-Update `status` and propagate to the relevant board on every state change.
+이 노트는 YYYY-MM-DD에 캡처된 태스크다. 단독 태스크 — 프로젝트에 묶인 태스크는 그 프로젝트의 체크리스트에 둔다.
+상태가 바뀌면 `status`를 갱신하고 관련 보드에 전파한다.
 
 # TBD
 
-## What needs to happen
+## 무엇이 일어나야 하는가
 
-One sentence. Concrete enough to know when it's done.
+한 문장. 완료를 판정할 수 있을 만큼 구체적으로.
 
-## Context
+## 맥락
 
-Why this task exists, what blocks it, what unblocks once it's done.
+이 태스크가 왜 존재하며, 무엇이 막고 있고, 끝나면 무엇이 풀리는가.
 
-## Related
+## 관련
 
-- Projects: 
-- People: 
+- 프로젝트: 
+- 사람: 

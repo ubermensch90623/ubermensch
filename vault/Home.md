@@ -7,23 +7,23 @@ ai-first: true
 
 ## For future Claude
 
-This note is the vault dashboard, saved on 2026-05-06. It is the entry point for any session and lists active projects, today's focus, recent decisions, and open questions.
-Update this file whenever a project changes status or a major decision is made.
+이 노트는 2026-05-06에 저장된 볼트 대시보드다. 모든 세션의 진입점이며 활성 프로젝트, 오늘의 초점, 최근 결정, 미해결 질문을 나열한다.
+프로젝트 상태가 바뀌거나 주요 결정이 나면 이 파일을 갱신한다.
 
 # Home
 
-## Active projects
+## 활성 프로젝트
 
-<!-- Add wiki-links to projects in flight, e.g. [[Projects/Example]] -->
+<!-- 진행 중인 프로젝트 위키링크. 예: [[Projects/Example]] -->
 
-## Today
+## 오늘
 
-<!-- Link to today's daily note, e.g. [[Daily/2026-05-06]] -->
+<!-- 오늘의 일일 노트 링크. 예: [[Daily/2026-05-06]] -->
 
-## Recent decisions
+## 최근 결정
 
-<!-- Link to the last 3-5 decision notes, e.g. [[Knowledge/ADR-001-example]] -->
+<!-- 마지막 3-5개 결정 노트 링크. 예: [[Knowledge/ADR-001-example]] -->
 
-## Open questions
+## 미해결 질문
 
-<!-- Things you're still figuring out. Link to ideas or knowledge notes. -->
+<!-- 아직 정리 중인 것들. 아이디어/지식 노트로 링크. -->

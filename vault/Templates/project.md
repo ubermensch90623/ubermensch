@@ -11,29 +11,29 @@ related-projects: []
 
 ## For future Claude
 
-This note is a project record for [[Projects/TBD]] saved on YYYY-MM-DD. It tracks status, decisions, and open questions for this project.
-Update `updated` and `status` whenever the project's state changes; propagate to [[Home]] and the relevant board.
+이 노트는 YYYY-MM-DD에 저장된 [[Projects/TBD]] 프로젝트 기록이다. 이 프로젝트의 상태, 결정, 미해결 질문을 추적한다.
+상태가 바뀌면 `updated`와 `status`를 갱신하고, [[Home]]과 관련 보드에도 전파한다.
 
 # TBD
 
-## Goal
+## 목표
 
-One sentence: what does done look like?
+한 문장: 무엇을 완료한 상태인가?
 
-## Status
+## 상태
 
-Current state in 1-3 bullets. Cite the daily note or devlog that justifies each.
+현재 상태를 1-3개 불릿으로. 각 항목을 뒷받침하는 일일 노트 또는 devlog를 인용.
 
-## Decisions
+## 결정
 
-- YYYY-MM-DD: [decision] — [why] — link to [[Knowledge/ADR-xxx]] if formalized
+- YYYY-MM-DD: [결정] — [이유] — 정식화되면 [[Knowledge/ADR-xxx]] 링크
 
-## Open questions
+## 미해결 질문
 
 - 
 
-## Related
+## 관련
 
-- People: 
-- Projects: 
-- Knowledge: 
+- 사람: 
+- 프로젝트: 
+- 지식: 

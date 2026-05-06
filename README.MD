@@ -1,32 +1,35 @@
 # ubermensch
 
-A personal second brain, modeled on [eugeniughelbur/obsidian-second-brain](https://github.com/eugeniughelbur/obsidian-second-brain) but tailored for this owner. The long-term plan is for this repo to grow into a Claude Code skill (slash commands, hooks, scheduled agents) layered on top of an Obsidian vault.
+[`eugeniughelbur/obsidian-second-brain`](https://github.com/eugeniughelbur/obsidian-second-brain)을 모델로 만든 개인용 세컨드 브레인. 장기적으로는 Obsidian 볼트 위에 얹는 Claude Code 스킬(슬래시 명령, 훅, 스케줄 에이전트)로 자라날 예정이다.
 
-This first cut is intentionally minimal: just the **vault skeleton** and the operating manual that binds any Claude session writing into it. No commands or automation yet — those come later.
+이번 첫 컷은 의도적으로 최소다 — 볼트에 쓰는 모든 Claude 세션을 구속하는 **볼트 스켈레톤**과 **운영 매뉴얼**까지만. 명령이나 자동화는 다음 컷.
 
-## Layout
+## 구성
 
-- `vault/` — the Obsidian vault. Open this folder in Obsidian to use it.
-  - `vault/_CLAUDE.md` — operating manual. Read first by any Claude session.
-  - `vault/Home.md`, `SOUL.md`, `CRITICAL_FACTS.md`, `index.md`, `log.md` — root-level vault files.
-  - `vault/Templates/` — note templates per type. Copy, don't edit in place.
-  - `vault/{Daily,Projects,People,Companies,Ideas,Tasks,Dev Logs,Reviews,Boards,Knowledge}/` — note folders.
+- `vault/` — Obsidian 볼트. Obsidian에서 이 폴더를 열어 사용한다.
+  - `vault/_CLAUDE.md` — 운영 매뉴얼. 모든 Claude 세션이 가장 먼저 읽는다.
+  - `vault/SYNC.md` — Claude Code, Claude Desktop, claude.ai 웹과 볼트를 동기화하는 방법.
+  - `vault/Home.md`, `SOUL.md`, `CRITICAL_FACTS.md`, `index.md`, `log.md` — 루트 레벨 볼트 파일.
+  - `vault/Templates/` — 타입별 노트 템플릿. 복사해서 쓰고 원본은 수정하지 않는다.
+  - `vault/{Daily,Projects,People,Companies,Ideas,Tasks,Dev Logs,Reviews,Boards,Knowledge}/` — 노트 폴더.
 
-## How to use
+## 사용법
 
-1. Open `vault/` as a vault in Obsidian (or any markdown editor).
-2. Read `vault/_CLAUDE.md` to understand the conventions.
-3. Fill in `SOUL.md` and `CRITICAL_FACTS.md` with your own identity and ground-truth facts.
-4. Start writing notes. Copy from `Templates/` for each new note.
+1. `vault/`를 Obsidian(또는 마크다운 에디터)에서 볼트로 연다.
+2. `vault/_CLAUDE.md`를 읽고 규칙을 익힌다.
+3. `SOUL.md`와 `CRITICAL_FACTS.md`를 본인 정보로 채운다.
+4. `vault/SYNC.md`를 따라 사용 중인 Claude 표면(Code/Desktop/웹)에 볼트를 연결한다.
+5. `Templates/`에서 복사해 노트를 쓰기 시작한다.
 
-## Roadmap
+## 로드맵
 
-- [x] Vault skeleton + `_CLAUDE.md`
-- [ ] Core save / daily / world commands
-- [ ] Thinking tools (challenge / emerge / connect)
-- [ ] Research toolkit (x / web / youtube)
-- [ ] Scheduled agents + PostCompact hook
+- [x] 볼트 스켈레톤 + `_CLAUDE.md`
+- [x] 동기화 가이드 (`SYNC.md`)
+- [ ] 핵심 명령 (`/save`, `/daily`, `/world`)
+- [ ] 사고 도구 (challenge / emerge / connect)
+- [ ] 리서치 툴킷 (x / web / youtube)
+- [ ] 스케줄 에이전트 + PostCompact 훅
 
-## Credits
+## 크레딧
 
-Patterns and conventions adapted from [`eugeniughelbur/obsidian-second-brain`](https://github.com/eugeniughelbur/obsidian-second-brain) (MIT). No source files were copied verbatim; structure and rule shapes were transcribed.
+패턴과 규칙은 [`eugeniughelbur/obsidian-second-brain`](https://github.com/eugeniughelbur/obsidian-second-brain) (MIT)에서 가져와 한국어와 본 저장소 맥락에 맞게 다듬었다. 원문 코드를 그대로 복사하지는 않았고, 구조와 규칙의 형태만 옮겼다.

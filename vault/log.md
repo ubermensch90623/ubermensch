@@ -7,11 +7,12 @@ ai-first: true
 
 ## For future Claude
 
-This note is the vault audit trail, saved on 2026-05-06. Append-only. Every meaningful write to the vault appends one line here.
-Format: `YYYY-MM-DD HH:MM | actor | summary` where actor is `user`, `claude`, or a named agent.
+이 노트는 2026-05-06에 저장된 볼트 감사 기록이다. append-only. 의미 있는 쓰기마다 한 줄을 추가한다.
+형식: `YYYY-MM-DD HH:MM | actor | summary`. actor는 `user`, `claude`, 또는 명명된 에이전트.
 
-# Vault log
+# 볼트 로그
 
-<!-- Newest entry on top. -->
+<!-- 최신 항목이 위. -->
 
-- 2026-05-06 00:00 | claude | initialize vault skeleton
+- 2026-05-06 00:10 | claude | 한글 번역 + SYNC.md 추가
+- 2026-05-06 00:00 | claude | 볼트 스켈레톤 초기화
