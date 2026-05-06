@@ -14,5 +14,6 @@ ai-first: true
 
 <!-- 최신 항목이 위. -->
 
+- 2026-05-06 00:20 | claude | scripts/quick-mcp-tunnel.sh 추가 (claude.ai 웹용 원격 MCP 터널)
 - 2026-05-06 00:10 | claude | 한글 번역 + SYNC.md 추가
 - 2026-05-06 00:00 | claude | 볼트 스켈레톤 초기화

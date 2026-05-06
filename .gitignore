@@ -2,3 +2,4 @@
 .trash/
 *.tmp
 .DS_Store
+.env

@@ -100,15 +100,34 @@ Obsidian이 켜져 있을 필요 없음. 단순 파일시스템 접근.
 
 핵심 함정: claude.ai의 클라우드 서버에서 당신의 MCP 서버로 인터넷을 통해 접속한다. 즉, 로컬 `localhost:27124`로는 안 된다. **공개 URL이 필요하다.**
 
-#### 권장 경로 — Cloudflare Tunnel + mcp-obsidian
+#### 권장 경로 — `scripts/quick-mcp-tunnel.sh` 한 방
 
+이 저장소에 헬퍼 스크립트가 있다. supergateway로 mcp-obsidian을 SSE로 래핑하고 Cloudflare Tunnel을 띄운 다음, claude.ai에 등록할 공개 URL을 출력한다.
+
+```bash
+# 1) Obsidian의 Local REST API 플러그인 활성화 후 API 키 복사
+# 2) 환경 설정
+cp .env.example .env
+$EDITOR .env                # OBSIDIAN_API_KEY 채우기
+# 3) 의존성 (없으면 설치)
+#    - uvx:        curl -LsSf https://astral.sh/uv/install.sh | sh
+#    - cloudflared: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/
+#    - npx:        Node.js 설치
+# 4) 실행
+./scripts/quick-mcp-tunnel.sh
+```
+
+스크립트가 출력하는 공개 URL을 claude.ai → Settings → Connectors → Add custom connector에 등록하면 끝.
+
+수동으로 같은 흐름을 따라가려면:
 1. 위 (2-A)대로 로컬에 `mcp-obsidian` + Local REST API 플러그인 세팅 완료
-2. `mcp-obsidian`을 SSE/HTTP 모드로 노출 (저장소 README의 `--transport sse` 옵션 참고)
-3. Cloudflare Tunnel 설치: `brew install cloudflared` 또는 [공식 가이드](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
-4. 터널 실행: `cloudflared tunnel --url http://localhost:8000` → 공개 HTTPS URL을 받는다
-5. claude.ai 우상단 프로필 → **Settings → Connectors → Add custom connector**
-6. 이름: `ubermensch-vault`, URL: 위에서 받은 공개 URL, 인증: Bearer 토큰(Local REST API 키)
-7. 새 채팅에서 connector를 활성화하면, claude.ai가 볼트를 직접 읽고 쓸 수 있다
+2. `npx -y supergateway --stdio "uvx mcp-obsidian" --port 8765`로 SSE 래핑
+3. `cloudflared tunnel --url http://localhost:8765` → 공개 HTTPS URL 획득
+4. claude.ai 우상단 프로필 → **Settings → Connectors → Add custom connector**
+5. 이름: `ubermensch-vault`, URL: `<공개 URL>/sse`, 인증: `Bearer <Local REST API 키>`
+6. 새 채팅에서 connector를 활성화하면, claude.ai가 볼트를 직접 읽고 쓸 수 있다
+
+스크립트가 띄우는 URL은 **임시(trycloudflare.com)**이고 셸을 종료하면 닫힌다. 영구 URL이 필요하면 cloudflared의 named tunnel을 따로 설정한다.
 
 대안 — **ClaudeSync** (단방향, 더 간단): [jahwag/ClaudeSync](https://github.com/jahwag/ClaudeSync) 파이썬 도구가 로컬 폴더를 claude.ai Project의 지식 파일로 자동 업로드한다. 단점: claude.ai → 볼트 쓰기는 안 됨, 읽기만.
 
@@ -144,11 +163,11 @@ Obsidian Sync(유료) 또는 iCloud/Dropbox에 `vault/`를 놓으면 git 없이�
 
 ## 다음 단계 (이 저장소 로드맵)
 
-지금은 볼트 스켈레톤만 있다. 다음 컷에서 추가될 것:
+지금까지: 볼트 스켈레톤 + claude.ai 웹용 터널 헬퍼. 다음 컷에서 추가될 것:
 
 - `commands/` — `/save`, `/daily`, `/world` 같은 슬래시 명령
 - `hooks/` — PostCompact 백그라운드 에이전트 (컨텍스트 압축 시 자동으로 볼트에 인사이트 저장)
-- `scripts/setup.sh` — Claude Desktop config 자동 편집
-- `scripts/quick-mcp-tunnel.sh` — Cloudflare Tunnel 한 줄로 띄우는 헬퍼
+- `scripts/setup-claude-desktop.sh` — Claude Desktop config 자동 편집
+- `scripts/named-tunnel.sh` — 영구 공개 URL용 cloudflared named tunnel 헬퍼
 
 이것들이 들어오면 위 설정 중 일부가 더 자동화된다.
