@@ -1,5 +1,3 @@
-import type { OrderedExcalidrawElement } from "@excalidraw/excalidraw/element/types";
-
 export type Format =
   | "history"
   | "biology"
@@ -53,7 +51,6 @@ export interface AtlasNode {
   format: Format;
   summary: string;
   claudeElements: ClaudeElement[];
-  excalidrawElements: OrderedExcalidrawElement[];
   createdAt: number;
 }
 

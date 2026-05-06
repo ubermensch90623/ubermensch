@@ -7,7 +7,6 @@ import type {
   ClaudeNodeOutput,
   Format,
 } from "@/types/atlas";
-import type { OrderedExcalidrawElement } from "@excalidraw/excalidraw/element/types";
 
 interface AtlasRow {
   id: string;
@@ -25,7 +24,6 @@ interface NodeRow {
   format: string;
   summary: string;
   claude_elements_json: string;
-  excalidraw_elements_json: string;
   created_at: number;
 }
 
@@ -39,9 +37,6 @@ function rowToNode(row: NodeRow): AtlasNode {
     format: row.format as Format,
     summary: row.summary,
     claudeElements: JSON.parse(row.claude_elements_json) as ClaudeElement[],
-    excalidrawElements: JSON.parse(
-      row.excalidraw_elements_json,
-    ) as OrderedExcalidrawElement[],
     createdAt: row.created_at,
   };
 }
@@ -49,7 +44,6 @@ function rowToNode(row: NodeRow): AtlasNode {
 export interface CreateAtlasArgs {
   topic: string;
   root: ClaudeNodeOutput;
-  rootExcalidraw: OrderedExcalidrawElement[];
 }
 
 export function createAtlas(args: CreateAtlasArgs): {
@@ -70,9 +64,8 @@ export function createAtlas(args: CreateAtlasArgs): {
     db.prepare(
       `INSERT INTO node (
          id, atlas_id, parent_id, parent_element_id,
-         title, format, summary,
-         claude_elements_json, excalidraw_elements_json, created_at
-       ) VALUES (?, ?, NULL, NULL, ?, ?, ?, ?, ?, ?)`,
+         title, format, summary, claude_elements_json, created_at
+       ) VALUES (?, ?, NULL, NULL, ?, ?, ?, ?, ?)`,
     ).run(
       rootNodeId,
       atlasId,
@@ -80,7 +73,6 @@ export function createAtlas(args: CreateAtlasArgs): {
       args.root.format,
       args.root.summary,
       JSON.stringify(args.root.elements),
-      JSON.stringify(args.rootExcalidraw),
       now,
     );
   });
@@ -142,7 +134,6 @@ export interface AddChildNodeArgs {
   parentNodeId: string;
   parentElementId: string;
   child: ClaudeNodeOutput;
-  childExcalidraw: OrderedExcalidrawElement[];
 }
 
 export function addChildNode(args: AddChildNodeArgs): AtlasNode {
@@ -153,9 +144,8 @@ export function addChildNode(args: AddChildNodeArgs): AtlasNode {
   db.prepare(
     `INSERT INTO node (
        id, atlas_id, parent_id, parent_element_id,
-       title, format, summary,
-       claude_elements_json, excalidraw_elements_json, created_at
-     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       title, format, summary, claude_elements_json, created_at
+     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).run(
     nodeId,
     args.atlasId,
@@ -165,7 +155,6 @@ export function addChildNode(args: AddChildNodeArgs): AtlasNode {
     args.child.format,
     args.child.summary,
     JSON.stringify(args.child.elements),
-    JSON.stringify(args.childExcalidraw),
     now,
   );
 

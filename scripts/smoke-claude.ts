@@ -36,7 +36,6 @@ async function main() {
     format: root.format,
     summary: root.summary,
     claudeElements: root.elements,
-    excalidrawElements: [],
     createdAt: Date.now(),
   };
 

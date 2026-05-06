@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS node (
   format                   TEXT NOT NULL,
   summary                  TEXT NOT NULL,
   claude_elements_json     TEXT NOT NULL,
-  excalidraw_elements_json TEXT NOT NULL,
   created_at               INTEGER NOT NULL,
   UNIQUE(atlas_id, parent_id, parent_element_id)
 );

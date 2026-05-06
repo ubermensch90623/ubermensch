@@ -35,7 +35,6 @@ console.log("[1] createAtlas...");
 const { atlasId, rootNodeId } = createAtlas({
   topic: "smoke test",
   root: fakeRoot,
-  rootExcalidraw: [],
 });
 console.log(`    atlasId=${atlasId}  rootNodeId=${rootNodeId}`);
 
@@ -56,7 +55,6 @@ const child = addChildNode({
   parentNodeId: rootNodeId,
   parentElementId: "child-a",
   child: fakeChild,
-  childExcalidraw: [],
 });
 console.log(`    childId=${child.id}  format=${child.format}`);
 
@@ -72,8 +70,7 @@ try {
     parentNodeId: rootNodeId,
     parentElementId: "child-a",
     child: fakeChild,
-    childExcalidraw: [],
-  });
+    });
 } catch (err) {
   collidedAsExpected = true;
   console.log(`    correctly rejected duplicate (${(err as Error).message.split("\n")[0]})`);
