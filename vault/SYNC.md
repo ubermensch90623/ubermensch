@@ -190,17 +190,28 @@ cron으로 매일 자동 흡수하고 싶으면:
 30 2 * * *  cd /path/to/ubermensch && python3 scripts/import-claude-code-sessions.py >> /tmp/import-claude-code.log 2>&1
 ```
 
-또는 더 즉각적으로 — **Claude Code의 Stop hook**으로 매 세션 종료마다 자동 흡수:
+또는 — **`scripts/auto-sync.sh`로 손 안 대는 자동 동기화**(권장):
 
 ```bash
-# 한 번만: ~/.claude/settings.json의 Stop hooks 배열에 추가
-jq '.hooks.Stop[0].hooks += [{"type":"command","command":"/path/to/ubermensch/scripts/auto-import-sessions.sh"}]' \
-   ~/.claude/settings.json > /tmp/settings.new.json && mv /tmp/settings.new.json ~/.claude/settings.json
+# ~/.claude/settings.json에 SessionStart + Stop hook 두 개 등록
+jq '
+  .hooks.SessionStart = [{"matcher":"","hooks":[{"type":"command","command":"/path/to/ubermensch/scripts/auto-sync.sh --start"}]}]
+  | .hooks.Stop = (.hooks.Stop // []) + [{"matcher":"","hooks":[{"type":"command","command":"/path/to/ubermensch/scripts/auto-sync.sh --stop"}]}]
+' ~/.claude/settings.json > /tmp/settings.new.json && mv /tmp/settings.new.json ~/.claude/settings.json
 ```
 
-`scripts/auto-import-sessions.sh`가 이미 저장소에 있고, hook이 발동되면 백그라운드로 `import-claude-code-sessions.py --skip-active 0`을 돌려 방금 끝난 세션을 잡아낸다. 다른 프로젝트에서 실행될 때는 조용히 종료(`vault/`가 없으면 exit 0).
+이러면 매 Claude Code 세션마다 자동으로:
 
-로그: `/tmp/auto-import-sessions.log`.
+| 시점 | 하는 일 |
+|---|---|
+| **세션 시작** | `git pull` → 과거 세션 임포트 → (`CLAUDE_AI_SESSION_KEY` 있으면) claude.ai 신규 채팅 fetch → `git commit && push` |
+| **세션 종료** | 방금 끝난 세션 jsonl 임포트 → `git commit && push` |
+
+claude.ai fetch는 `.claude-ai-last-fetch` sentinel을 두고 증분만 가져온다 (두 번째 실행부터 `--since <마지막날>`). sentinel은 `.gitignore`로 보호.
+
+다른 프로젝트에서 Claude Code를 실행하면 `vault/`가 없으니 hook이 조용히 종료 — 부작용 없음.
+
+로그: `/tmp/ubermensch-auto-sync.log`.
 
 ### claude.ai 웹 채팅 → 볼트
 

@@ -16,7 +16,7 @@
 - `scripts/import-claude-code-sessions.py` — `~/.claude/projects/*.jsonl`을 `vault/Sessions/`로 임포트.
 - `scripts/import-claude-ai-export.py` — claude.ai 공식 데이터 export(zip)를 `vault/Sessions/claude-ai/`로 임포트.
 - `scripts/fetch-claude-ai.py` — sessionKey 쿠키로 claude.ai 내부 API에서 모든 대화를 직접 가져와 `vault/Sessions/claude-ai/`에 저장 (가장 자동, 비공식).
-- `scripts/auto-import-sessions.sh` — Claude Code Stop hook용. 세션 종료 시 자동 임포트.
+- `scripts/auto-sync.sh` — Claude Code SessionStart/Stop hook용. 세션 시작/종료 시 자동으로 git pull, 세션 임포트, claude.ai fetch (키 있으면), commit, push.
 - `.env.example` — 스크립트가 읽는 환경변수 템플릿.
 
 ## 사용법

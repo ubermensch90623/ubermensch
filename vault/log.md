@@ -14,6 +14,7 @@ ai-first: true
 
 <!-- 최신 항목이 위. -->
 
+- 2026-05-07 00:50 | claude | auto-sync.sh로 통합 — SessionStart(pull+import+fetch+commit+push) + Stop(import+commit+push) 둘 다 자동
 - 2026-05-07 00:35 | claude | scripts/fetch-claude-ai.py 추가 — sessionKey 쿠키로 claude.ai 내부 API 직접 호출해 대화 가져오기
 - 2026-05-07 00:30 | claude | Stop hook 등록 (auto-import-sessions.sh) — 이제 세션 종료마다 자동 임포트
 - 2026-05-07 00:25 | claude | 현재 세션 강제 임포트 — Sessions/에 3건 (5/5 + 5/6 초반 + 현재) 모두 들어감
