@@ -9,7 +9,10 @@ let _db: Database.Database | null = null;
 export function getDb(): Database.Database {
   if (_db) return _db;
 
-  const absolutePath = path.resolve(process.cwd(), DATABASE_PATH);
+  const absolutePath = path.resolve(
+    /* turbopackIgnore: true */ process.cwd(),
+    DATABASE_PATH,
+  );
   fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
 
   const db = new Database(absolutePath);

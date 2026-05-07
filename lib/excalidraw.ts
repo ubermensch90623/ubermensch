@@ -6,6 +6,7 @@ import type {
   ElementCustomData,
   Format,
 } from "@/types/atlas";
+import { applyLayoutTemplate } from "./format";
 
 const SCALE = 1.4;
 const PADDING = 50;
@@ -55,13 +56,14 @@ function toCustomData(el: ClaudeElement): ElementCustomData {
 export function claudeToSkeletons(
   node: ClaudeNodeOutput,
 ): ExcalidrawElementSkeleton[] {
-  const stroke = FORMAT_STROKE[node.format];
-  const regionBg = FORMAT_REGION_BG[node.format];
+  const tuned = applyLayoutTemplate(node);
+  const stroke = FORMAT_STROKE[tuned.format];
+  const regionBg = FORMAT_REGION_BG[tuned.format];
 
   const skeletons: ExcalidrawElementSkeleton[] = [];
   const shapeIds = new Set<string>();
 
-  for (const el of node.elements) {
+  for (const el of tuned.elements) {
     if (el.kind === "arrow") continue;
     const skel = buildShape(el, stroke, regionBg);
     if (skel) {
@@ -70,7 +72,7 @@ export function claudeToSkeletons(
     }
   }
 
-  for (const el of node.elements) {
+  for (const el of tuned.elements) {
     if (el.kind !== "arrow") continue;
     const arrow = buildArrow(el, stroke, shapeIds);
     if (arrow) skeletons.push(arrow);
