@@ -112,10 +112,12 @@ def cmd_recommend(_args: argparse.Namespace) -> None:
         return
 
     rec = recommender.generate_recommendations(records_df, schedule_df)
-    overall_avg_solve = (
-        load_recent_records(records_df, days=30)["solve_time_sec"].mean()
-        if not load_recent_records(records_df, days=30).empty else 0.0
-    )
+    recent = load_recent_records(records_df, days=30)
+    if recent.empty:
+        overall_avg_solve = 0.0
+    else:
+        mean_val = recent["solve_time_sec"].mean()
+        overall_avg_solve = 0.0 if pd.isna(mean_val) else float(mean_val)
 
     print("[내일 학습 추천]")
     print()
@@ -127,7 +129,7 @@ def cmd_recommend(_args: argparse.Namespace) -> None:
         for i, (_, row) in enumerate(weak.iterrows(), start=1):
             count = max(3, min(int(row["wrong"]) + 2, 7))
             print(f"{i}. {row['subject']} - {row['area']} {count}문제")
-            reasons = explain_weak_area(row, rec["fail_tag_stats"], rec["risk_combos"], overall_avg_solve)
+            reasons = explain_weak_area(row, rec["risk_combos"], overall_avg_solve)
             if reasons:
                 print("이유:")
                 for r in reasons:
@@ -253,8 +255,12 @@ def cmd_export(_args: argparse.Namespace) -> None:
     print("이 파일을 Google Sheets 또는 Excel에서 열 수 있습니다.")
 
 
-def cmd_sample(_args: argparse.Namespace) -> None:
-    created = storage.generate_sample_data()
+def cmd_sample(args: argparse.Namespace) -> None:
+    created = storage.generate_sample_data(force=getattr(args, "force", False))
+    if created == 0:
+        print("[샘플 생성 건너뜀] 이미 records.csv에 기록이 존재합니다.")
+        print("강제로 추가하려면: python main.py sample --force")
+        return
     print(f"[샘플 데이터 생성 완료: {created}건]")
     print("이제 python main.py stats / recommend / review 를 실행해 보세요.")
 
@@ -278,7 +284,10 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("due", help="오늘 복습할 문제 목록").set_defaults(func=cmd_due)
     sub.add_parser("done-review", help="복습 완료 처리 (인터랙티브)").set_defaults(func=cmd_done_review)
     sub.add_parser("export", help="CSV 경로 안내").set_defaults(func=cmd_export)
-    sub.add_parser("sample", help="샘플 데이터 생성").set_defaults(func=cmd_sample)
+
+    p_sample = sub.add_parser("sample", help="샘플 데이터 생성 (기록 비어있을 때만)")
+    p_sample.add_argument("--force", action="store_true", help="기존 기록이 있어도 샘플 추가")
+    p_sample.set_defaults(func=cmd_sample)
 
     return parser
 
@@ -286,7 +295,14 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    args.func(args)
+    try:
+        args.func(args)
+    except KeyboardInterrupt:
+        print("\n[중단됨] 입력 도중 Ctrl+C가 눌렸습니다.")
+        return 130
+    except ValueError as e:
+        print(f"[입력 오류] {e}")
+        return 2
     return 0
 
 

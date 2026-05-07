@@ -232,3 +232,30 @@ study-evolve/
 - 정답이면 fail_tag·review_*는 자동으로 빈칸.
 - 같은 날 같은 문제를 두 번 추가해도 막지 않음 (각각 별 id로 저장).
 - CSV 직접 편집 가능 — 단, 헤더는 유지할 것.
+
+---
+
+## 안전성 노트 (Redteam Hardening)
+
+이 시스템은 매일 사용할 학습 데이터를 다루므로 다음 방어 장치가 들어가 있다.
+
+| 위험 | 방어 |
+| --- | --- |
+| Excel/Sheets에서 메모의 `=SUM(...)`이 수식으로 실행됨 | `_sanitize_cell` — `= + - @ \t \r`로 시작하는 값에 `'` prefix 자동 부착 |
+| 두 셸에서 동시 `add` → 같은 ID 생성 | POSIX `fcntl.flock` 기반 `_exclusive_lock` (Windows는 잠금 없는 fallback) |
+| `mark_review_done` 도중 SIGTERM → schedule.csv 손상 | tempfile + `os.replace` 원자적 교체 |
+| `sample` 재실행 → 데이터 누적 오염 | 기본 차단, 재실행은 `--force` 명시 필요 |
+| `parse_solve_time(0)` / `parse_solve_time(99999)` | 1초~3600초 범위 강제 |
+| `parse_date("2099-12-31")` | 오늘+1일까지만 허용 |
+| `parse_date("2024-1-1")` 형식 변형 | 정규식으로 `YYYY-MM-DD` (zero-padded) 강제 |
+| `1m70s` 등 60초 이상 초 단위 | 초 칸은 0~59만 허용 |
+| `done-review` 입력 `1,1,2` 중복 | `dict.fromkeys`로 순서 보존 dedupe |
+| Ctrl+C 도중 부분 쓰기 | append 1행 단위 + 원자적 mark_review_done. main에서 KeyboardInterrupt → exit 130 |
+
+### 테스트 실행
+
+```bash
+python -m unittest discover tests -v
+```
+
+전체 22 테스트 (CSV 주입, 파싱 경계, 동시성 50개 워커, 원자성, 멱등성, 추천 엣지, 풀 사이클).

@@ -89,7 +89,7 @@ def generate_recommendations(records_df: pd.DataFrame, schedule_df: pd.DataFrame
     }
 
 
-def explain_weak_area(row: pd.Series, fail_tag_stats: pd.DataFrame, risk_combos: list, overall_avg_solve: float) -> list[str]:
+def explain_weak_area(row: pd.Series, risk_combos: list, overall_avg_solve: float) -> list[str]:
     reasons: list[str] = []
     if row["total"] > 0:
         reasons.append(f"최근 정답률 {row['accuracy']*100:.0f}%")

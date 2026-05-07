@@ -1,10 +1,20 @@
-"""CSV storage — init, append, load, schedule, sample seeder."""
+"""CSV storage — init, append, load, schedule, sample seeder.
+
+Hardened against:
+- CSV formula injection (memo/problem_no etc. starting with =, +, -, @, \\t, \\r)
+- next_id race condition (POSIX file lock; Windows: best-effort fallback)
+- mark_review_done partial write (tempfile + atomic os.replace)
+- sample command non-idempotency (force flag required after first seed)
+"""
 
 from __future__ import annotations
 
 import csv
+import os
 import random
-from datetime import date, datetime, timedelta
+import tempfile
+from contextlib import contextmanager
+from datetime import date, timedelta
 from pathlib import Path
 
 import pandas as pd
@@ -18,6 +28,51 @@ from .constants import (
 )
 from .models import StudyRecord
 from .utils import now_iso
+
+try:
+    import fcntl  # POSIX
+    _HAS_FCNTL = True
+except ImportError:  # Windows
+    _HAS_FCNTL = False
+
+
+_DANGEROUS_PREFIX = ("=", "+", "-", "@", "\t", "\r")
+
+
+def _sanitize_cell(value) -> str:
+    """Prefix a single quote to values that Excel/Sheets would treat as formulas."""
+    if value is None:
+        return ""
+    s = str(value)
+    if s and s[0] in _DANGEROUS_PREFIX:
+        return "'" + s
+    return s
+
+
+def _sanitize_row(row: dict) -> dict:
+    return {k: _sanitize_cell(v) for k, v in row.items()}
+
+
+@contextmanager
+def _exclusive_lock(target: Path):
+    """File-level exclusive lock against concurrent CLI runs.
+
+    Best-effort: silently skipped on platforms without fcntl.
+    """
+    if not _HAS_FCNTL:
+        yield
+        return
+    target.parent.mkdir(parents=True, exist_ok=True)
+    lock_path = target.with_suffix(target.suffix + ".lock")
+    f = lock_path.open("w")
+    try:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        yield
+    finally:
+        try:
+            fcntl.flock(f, fcntl.LOCK_UN)
+        finally:
+            f.close()
 
 
 def ensure_data_files() -> tuple[bool, bool]:
@@ -47,15 +102,45 @@ def next_id() -> int:
     df = load_records()
     if df.empty:
         return 1
-    return int(df["id"].max()) + 1
+    max_id = df["id"].max()
+    if pd.isna(max_id):
+        return 1
+    return int(max_id) + 1
 
 
 def append_record(record: StudyRecord) -> None:
+    """Append a record under exclusive lock to prevent ID/row races."""
     ensure_data_files()
-    row = record.to_csv_row()
-    with RECORDS_CSV.open("a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=RECORDS_HEADER)
-        writer.writerow(row)
+    with _exclusive_lock(RECORDS_CSV):
+        row = _sanitize_row(record.to_csv_row())
+        with RECORDS_CSV.open("a", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=RECORDS_HEADER)
+            writer.writerow(row)
+
+
+def append_record_with_id(builder) -> StudyRecord:
+    """Allocate next id and append, all inside one lock.
+
+    builder(id) -> StudyRecord. Use this when callers need to ensure id
+    allocation and write happen atomically.
+    """
+    ensure_data_files()
+    with _exclusive_lock(RECORDS_CSV):
+        if RECORDS_CSV.exists():
+            df = load_records()
+            if df.empty:
+                new_id = 1
+            else:
+                max_id = df["id"].max()
+                new_id = 1 if pd.isna(max_id) else int(max_id) + 1
+        else:
+            new_id = 1
+        record = builder(new_id)
+        row = _sanitize_row(record.to_csv_row())
+        with RECORDS_CSV.open("a", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=RECORDS_HEADER)
+            writer.writerow(row)
+    return record
 
 
 def append_schedules(record: StudyRecord) -> None:
@@ -73,10 +158,11 @@ def append_schedules(record: StudyRecord) -> None:
         })
     if not rows:
         return
-    with SCHEDULE_CSV.open("a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=SCHEDULE_HEADER)
-        for r in rows:
-            writer.writerow(r)
+    with _exclusive_lock(SCHEDULE_CSV):
+        with SCHEDULE_CSV.open("a", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=SCHEDULE_HEADER)
+            for r in rows:
+                writer.writerow(_sanitize_row(r))
 
 
 def load_records() -> pd.DataFrame:
@@ -87,7 +173,7 @@ def load_records() -> pd.DataFrame:
     df["id"] = pd.to_numeric(df["id"], errors="coerce").astype("Int64")
     df["is_correct"] = df["is_correct"].map(_parse_bool).astype(bool)
     df["solve_time_sec"] = pd.to_numeric(df["solve_time_sec"], errors="coerce").fillna(0).astype(int)
-    df["difficulty"] = pd.to_numeric(df["difficulty"], errors="coerce").fillna(0).astype(int)
+    df["difficulty"] = pd.to_numeric(df["difficulty"], errors="coerce").astype("Int64")
     df["date_dt"] = pd.to_datetime(df["date"], errors="coerce")
     return df
 
@@ -110,30 +196,60 @@ def _parse_bool(v) -> bool:
     return s in ("true", "1", "y", "yes", "t")
 
 
+def _atomic_write_csv(df: pd.DataFrame, target: Path) -> None:
+    """Write df to target via tempfile + os.replace (atomic on POSIX/NTFS)."""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    tmp = tempfile.NamedTemporaryFile(
+        "w", encoding="utf-8", newline="", delete=False, dir=str(target.parent),
+        prefix=target.name + ".", suffix=".tmp",
+    )
+    try:
+        df.to_csv(tmp, index=False, encoding="utf-8")
+        tmp.flush()
+        os.fsync(tmp.fileno())
+        tmp.close()
+        os.replace(tmp.name, target)
+    except Exception:
+        tmp.close()
+        try:
+            os.unlink(tmp.name)
+        except OSError:
+            pass
+        raise
+
+
 def mark_review_done(record_id: int, review_type: str) -> bool:
-    """Mark a single review as done. Returns True if updated."""
+    """Mark a single review as done. Atomic. Returns True if updated."""
     if not SCHEDULE_CSV.exists():
         return False
-    df = pd.read_csv(SCHEDULE_CSV, dtype=str, keep_default_na=False)
-    if df.empty:
-        return False
-    mask = (df["record_id"].astype(str) == str(record_id)) & (df["review_type"] == review_type)
-    if not mask.any():
-        return False
-    df.loc[mask, "is_done"] = "True"
-    df.loc[mask, "done_at"] = now_iso()
-    df.to_csv(SCHEDULE_CSV, index=False, encoding="utf-8")
+    with _exclusive_lock(SCHEDULE_CSV):
+        df = pd.read_csv(SCHEDULE_CSV, dtype=str, keep_default_na=False)
+        if df.empty:
+            return False
+        mask = (df["record_id"].astype(str) == str(record_id)) & (df["review_type"] == review_type)
+        if not mask.any():
+            return False
+        if (df.loc[mask, "is_done"].map(_parse_bool)).all():
+            return False  # already done — idempotent no-op
+        df.loc[mask, "is_done"] = "True"
+        df.loc[mask, "done_at"] = now_iso()
+        _atomic_write_csv(df, SCHEDULE_CSV)
     return True
 
 
-def generate_sample_data() -> int:
-    """Seed sample records illustrating the patterns required for testing.
+def generate_sample_data(force: bool = False) -> int:
+    """Seed sample records.
 
+    Idempotent: if records.csv already has rows, returns 0 unless force=True.
     Returns number of records created.
     """
     ensure_data_files()
+    df_existing = load_records()
+    if not df_existing.empty and not force:
+        return 0
+
     today = date.today()
-    rng = random.Random(42)
+    _ = random.Random(42)  # reserved for future jitter
 
     # (offset_days, subject, area, source, problem_no, is_correct, solve_sec, diff, fail_tag, memo)
     seeds = [
@@ -156,7 +272,6 @@ def generate_sample_data() -> int:
         (0, "경제학", "독점", "전공기출", "2024-전공-40", False, 220, 5, "선지 판단 오류", "선지 비교 전 값 미정의"),
     ]
 
-    df_existing = load_records()
     start_id = int(df_existing["id"].max()) + 1 if not df_existing.empty else 1
 
     created = 0

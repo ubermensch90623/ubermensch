@@ -3,10 +3,15 @@
 from __future__ import annotations
 
 import re
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from typing import Iterable, Sequence
 
 from tabulate import tabulate
+
+
+SOLVE_TIME_MIN_SEC = 1
+SOLVE_TIME_MAX_SEC = 3600  # 1 hour cap; longer means data entry mistake
+DATE_FUTURE_GRACE_DAYS = 1  # allow today + 1 day (for late-night logging)
 
 
 def today_str() -> str:
@@ -17,16 +22,24 @@ def now_iso() -> str:
     return datetime.now().isoformat(timespec="seconds")
 
 
+_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
 def parse_date(raw: str, default_today: bool = True) -> str:
     raw = (raw or "").strip()
     if not raw:
         if default_today:
             return today_str()
         raise ValueError("빈 날짜 입력")
+    if not _DATE_RE.match(raw):
+        raise ValueError(f"날짜 형식 오류 (YYYY-MM-DD, 0-padded): {raw}")
     try:
         d = datetime.strptime(raw, "%Y-%m-%d").date()
     except ValueError as e:
         raise ValueError(f"날짜 형식 오류 (YYYY-MM-DD): {raw}") from e
+    max_allowed = date.today() + timedelta(days=DATE_FUTURE_GRACE_DAYS)
+    if d > max_allowed:
+        raise ValueError(f"미래 날짜는 {max_allowed.isoformat()}까지만 허용: {raw}")
     return d.isoformat()
 
 
@@ -57,15 +70,26 @@ def parse_solve_time(raw: str) -> int:
     if not m:
         raise ValueError(f"풀이 시간 형식 오류: {raw} (예: 90, 1:30, 2m, 1m30s)")
     if m.group("plain") is not None:
-        return int(m.group("plain"))
-    if m.group("min") is not None:
-        return int(m.group("min")) * 60 + int(m.group("sec"))
-    if m.group("m2") is not None:
-        secs = int(m.group("s2")) if m.group("s2") else 0
-        return int(m.group("m2")) * 60 + secs
-    if m.group("s3") is not None:
-        return int(m.group("s3"))
-    raise ValueError(f"풀이 시간 파싱 실패: {raw}")
+        secs = int(m.group("plain"))
+    elif m.group("min") is not None:
+        s = int(m.group("sec"))
+        if s >= 60:
+            raise ValueError(f"초 단위는 0~59 범위: {raw}")
+        secs = int(m.group("min")) * 60 + s
+    elif m.group("m2") is not None:
+        s2 = int(m.group("s2")) if m.group("s2") else 0
+        if s2 >= 60:
+            raise ValueError(f"초 단위는 0~59 범위: {raw}")
+        secs = int(m.group("m2")) * 60 + s2
+    elif m.group("s3") is not None:
+        secs = int(m.group("s3"))
+    else:
+        raise ValueError(f"풀이 시간 파싱 실패: {raw}")
+    if not (SOLVE_TIME_MIN_SEC <= secs <= SOLVE_TIME_MAX_SEC):
+        raise ValueError(
+            f"풀이 시간 범위 초과 ({SOLVE_TIME_MIN_SEC}~{SOLVE_TIME_MAX_SEC}초): {secs}초"
+        )
+    return secs
 
 
 def format_secs(seconds: int | float | None) -> str:

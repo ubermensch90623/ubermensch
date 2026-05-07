@@ -152,10 +152,15 @@ def done_review_interactive() -> None:
         except ValueError:
             print("입력 형식 오류. 처리하지 않았습니다.")
             return
+        if not selected_idx:
+            print("선택된 항목이 없습니다.")
+            return
         invalid = [i + 1 for i in selected_idx if i < 0 or i >= len(merged)]
         if invalid:
             print(f"범위 밖 번호: {invalid}. 처리하지 않았습니다.")
             return
+        # dedupe while preserving order — '1,1,2' → '1,2'
+        selected_idx = list(dict.fromkeys(selected_idx))
 
     updated = 0
     for i in selected_idx:
