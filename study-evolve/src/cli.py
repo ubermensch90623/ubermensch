@@ -13,12 +13,11 @@ from .constants import (
 )
 from .models import StudyRecord
 from .storage import (
-    append_record,
+    append_record_with_id,
     append_schedules,
     load_records,
     load_schedule,
     mark_review_done,
-    next_id,
 )
 from .utils import (
     prompt,
@@ -83,20 +82,23 @@ def add_interactive() -> None:
     print("10) 짧은 메모 (한 줄, Enter로 건너뛰기)")
     memo = prompt_optional("   메모: ")
 
-    record = StudyRecord(
-        id=next_id(),
-        date=rec_date,
-        subject=subject,
-        area=area,
-        source=source,
-        problem_no=problem_no,
-        is_correct=is_correct,
-        solve_time_sec=solve_time_sec,
-        difficulty=difficulty,
-        fail_tag=fail_tag,
-        memo=memo,
-    )
-    append_record(record)
+    def _build(new_id: int) -> StudyRecord:
+        return StudyRecord(
+            id=new_id,
+            date=rec_date,
+            subject=subject,
+            area=area,
+            source=source,
+            problem_no=problem_no,
+            is_correct=is_correct,
+            solve_time_sec=solve_time_sec,
+            difficulty=difficulty,
+            fail_tag=fail_tag,
+            memo=memo,
+        )
+
+    # ID allocation + write happen atomically inside one exclusive lock.
+    record = append_record_with_id(_build)
     append_schedules(record)
 
     print()

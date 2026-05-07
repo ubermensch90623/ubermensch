@@ -275,8 +275,17 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("init", help="data 폴더와 CSV 파일 생성").set_defaults(func=cmd_init)
     sub.add_parser("add", help="학습 기록 추가 (인터랙티브)").set_defaults(func=cmd_add)
 
+    def _positive_int(s: str) -> int:
+        try:
+            n = int(s)
+        except ValueError:
+            raise argparse.ArgumentTypeError(f"정수가 아님: {s}")
+        if n <= 0:
+            raise argparse.ArgumentTypeError(f"양수만 허용: {s}")
+        return n
+
     p_stats = sub.add_parser("stats", help="학습 통계")
-    p_stats.add_argument("--days", type=int, default=None, help="최근 N일 기준")
+    p_stats.add_argument("--days", type=_positive_int, default=None, help="최근 N일 기준 (양의 정수)")
     p_stats.set_defaults(func=cmd_stats)
 
     sub.add_parser("recommend", help="내일 학습 추천").set_defaults(func=cmd_recommend)

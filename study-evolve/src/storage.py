@@ -96,20 +96,24 @@ def _write_header(path: Path, header: list[str]) -> None:
         writer.writerow(header)
 
 
-def next_id() -> int:
+def _next_id_unlocked() -> int:
+    """Compute next ID without taking the lock — caller must hold it."""
     if not RECORDS_CSV.exists():
         return 1
     df = load_records()
     if df.empty:
         return 1
     max_id = df["id"].max()
-    if pd.isna(max_id):
-        return 1
-    return int(max_id) + 1
+    return 1 if pd.isna(max_id) else int(max_id) + 1
 
 
 def append_record(record: StudyRecord) -> None:
-    """Append a record under exclusive lock to prevent ID/row races."""
+    """Append a pre-allocated record under exclusive lock.
+
+    For interactive flows that need an auto-allocated ID + write to be atomic,
+    use append_record_with_id instead — calling next_id() then append_record()
+    is a known race (ID allocation outside the lock).
+    """
     ensure_data_files()
     with _exclusive_lock(RECORDS_CSV):
         row = _sanitize_row(record.to_csv_row())
@@ -121,20 +125,12 @@ def append_record(record: StudyRecord) -> None:
 def append_record_with_id(builder) -> StudyRecord:
     """Allocate next id and append, all inside one lock.
 
-    builder(id) -> StudyRecord. Use this when callers need to ensure id
-    allocation and write happen atomically.
+    builder(id) -> StudyRecord. Production callers (cli.add, generate_sample_data)
+    must use this — it is the only race-safe way to add a row.
     """
     ensure_data_files()
     with _exclusive_lock(RECORDS_CSV):
-        if RECORDS_CSV.exists():
-            df = load_records()
-            if df.empty:
-                new_id = 1
-            else:
-                max_id = df["id"].max()
-                new_id = 1 if pd.isna(max_id) else int(max_id) + 1
-        else:
-            new_id = 1
+        new_id = _next_id_unlocked()
         record = builder(new_id)
         row = _sanitize_row(record.to_csv_row())
         with RECORDS_CSV.open("a", newline="", encoding="utf-8") as f:
@@ -272,25 +268,28 @@ def generate_sample_data(force: bool = False) -> int:
         (0, "경제학", "독점", "전공기출", "2024-전공-40", False, 220, 5, "선지 판단 오류", "선지 비교 전 값 미정의"),
     ]
 
-    start_id = int(df_existing["id"].max()) + 1 if not df_existing.empty else 1
-
     created = 0
     for offset, subject, area, source, problem_no, is_correct, solve_sec, diff, fail_tag, memo in seeds:
         rec_date = (today - timedelta(days=offset)).isoformat()
-        record = StudyRecord(
-            id=start_id + created,
-            date=rec_date,
-            subject=subject,
-            area=area,
-            source=source,
-            problem_no=problem_no,
-            is_correct=is_correct,
-            solve_time_sec=solve_sec,
-            difficulty=diff,
-            fail_tag=fail_tag,
-            memo=memo,
-        )
-        append_record(record)
+
+        def _build(new_id: int,
+                   _d=rec_date, _s=subject, _a=area, _src=source, _p=problem_no,
+                   _c=is_correct, _t=solve_sec, _diff=diff, _f=fail_tag, _m=memo) -> StudyRecord:
+            return StudyRecord(
+                id=new_id,
+                date=_d,
+                subject=_s,
+                area=_a,
+                source=_src,
+                problem_no=_p,
+                is_correct=_c,
+                solve_time_sec=_t,
+                difficulty=_diff,
+                fail_tag=_f,
+                memo=_m,
+            )
+
+        record = append_record_with_id(_build)
         append_schedules(record)
         created += 1
 

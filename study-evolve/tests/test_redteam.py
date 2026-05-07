@@ -340,5 +340,59 @@ class TestFullCycle(TempDataCase):
         self.assertFalse(ok2)
 
 
+
+# ─────────────────── 10. production paths use the lock ──────────────────────
+
+class TestProductionUsesLock(unittest.TestCase):
+    """Ensure interactive add and sample seeder use append_record_with_id,
+    not the racy next_id() + append_record() pattern."""
+
+    def test_cli_does_not_import_next_id(self):
+        from src import cli
+        self.assertFalse(
+            hasattr(cli, "next_id"),
+            "cli.add_interactive must not allocate IDs outside the lock",
+        )
+
+    def test_cli_imports_with_id_helper(self):
+        from src import cli
+        self.assertTrue(hasattr(cli, "append_record_with_id"))
+
+    def test_storage_no_public_next_id(self):
+        from src import storage
+        self.assertFalse(
+            hasattr(storage, "next_id"),
+            "storage.next_id should be private (_next_id_unlocked) to prevent misuse",
+        )
+
+
+# ────────────────────── 11. concurrent sample --force ───────────────────────
+
+class TestConcurrentSampleForce(TempDataCase):
+    """Two simultaneous `sample --force` runs must produce unique IDs."""
+
+    def test_two_force_runs_no_dup(self):
+        from src import storage
+        # First run normally
+        n1 = storage.generate_sample_data()
+        self.assertGreater(n1, 0)
+
+        # Two force runs in parallel
+        results = []
+
+        def runner():
+            results.append(storage.generate_sample_data(force=True))
+
+        t1 = threading.Thread(target=runner)
+        t2 = threading.Thread(target=runner)
+        t1.start(); t2.start(); t1.join(); t2.join()
+
+        df = pd.read_csv(storage.RECORDS_CSV)
+        # Total = n1 + 2 forced batches
+        self.assertEqual(len(df), n1 + sum(results))
+        # All IDs unique
+        self.assertEqual(df["id"].nunique(), len(df))
+
+
 if __name__ == "__main__":
     unittest.main()
