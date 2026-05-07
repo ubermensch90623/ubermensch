@@ -51,6 +51,8 @@ ai-first: true         # 규칙 준수 플래그
 | `devlog` | `project: "[[Projects/...]]"`, `related-people: []` |
 | `review` | `period-start: YYYY-MM-DD`, `period-end: YYYY-MM-DD`, `period: weekly\|monthly\|quarterly` |
 | `adr` | `decision: ""`, `status: proposed\|accepted\|superseded`, `related-projects: []`, `supersedes: "[[Knowledge/ADR-...]]"` (선택) |
+| `session` | `source: claude-code`, `session-id: "..."`, `started: "ISO"`, `ended: "ISO"`, `cwd: "..."`, `message-count: N` |
+| `chat` | `source: claude-ai-web`, `chat-id: "..."`, `title: "..."`, `started: "ISO"`, `ended: "ISO"`, `message-count: N` |
 
 애매하면 `type: knowledge`로 두고, 노트가 자기완결적이도록 필요한 필드를 추가한다.
 
@@ -136,6 +138,7 @@ ai-first: true         # 규칙 준수 플래그
 | `Reviews/` | 주간/월간/분기 회고 | `review` |
 | `Boards/` | 칸반 보드 (체크박스 마크다운 또는 Kanban 플러그인) | (혼합) |
 | `Knowledge/` | 정제된 지속 지식: ADR, 원칙, 프레임워크 | `knowledge` 또는 `adr` |
+| `Sessions/` | Claude Code 세션 로그와 claude.ai 웹 채팅의 임포트본 (자동 생성) | `session` 또는 `chat` |
 | `Templates/` | 타입별 템플릿. 복사해서 쓰고 원본은 수정하지 않는다. | (템플릿) |
 
 ## 12. 루트 레벨 볼트 파일

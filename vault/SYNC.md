@@ -161,6 +161,62 @@ Obsidian Sync(유료) 또는 iCloud/Dropbox에 `vault/`를 놓으면 git 없이�
 | 가볍게 읽기만 필요 | (1) + (3) ClaudeSync |
 | 여러 기기 사용 | 위 조합 + (4) git 동기화 |
 
+## 과거 대화를 볼트로 통합
+
+지금까지 진행된 대화를 영구 메모리(볼트)로 끌어오는 두 임포터.
+
+### Claude Code 세션 → 볼트
+
+이 머신의 `~/.claude/projects/<project>/*.jsonl`를 마크다운으로 변환해 `vault/Sessions/`에 저장.
+
+```bash
+# 모든 프로젝트의 세션을 볼트로 임포트 (활성 세션은 자동 건너뜀)
+python3 scripts/import-claude-code-sessions.py
+
+# 특정 프로젝트만
+python3 scripts/import-claude-code-sessions.py --project -home-user-ubermensch
+
+# 미리 보기
+python3 scripts/import-claude-code-sessions.py --dry-run
+
+# 기존 노트를 덮어쓰며 재생성
+python3 scripts/import-claude-code-sessions.py --overwrite
+```
+
+각 세션은 `Sessions/YYYY-MM-DD_HH-MM_claude-code_<short-id>.md` 파일이 된다. 프론트매터에 `session-id`, `started`, `ended`, `cwd`, `message-count`가 붙고, 본문은 사용자/Claude 메시지 시간순. 도구 호출은 한 줄 요약, 도구 결과는 잡음이라 생략된다.
+
+cron으로 매일 자동 흡수하고 싶으면:
+```cron
+30 2 * * *  cd /path/to/ubermensch && python3 scripts/import-claude-code-sessions.py >> /tmp/import-claude-code.log 2>&1
+```
+
+### claude.ai 웹 채팅 → 볼트
+
+claude.ai 자체에는 외부 도구로 채팅을 끌어오는 공식 API가 없다. 공식 경로는 **데이터 export**다.
+
+1. claude.ai → 좌측 하단 프로필 → **Settings → Privacy → Export data** 버튼
+2. 24시간 이내 이메일로 다운로드 링크가 옴 (링크는 24시간 후 만료)
+3. zip을 받아서 임포터에 넘김:
+
+```bash
+python3 scripts/import-claude-ai-export.py ~/Downloads/data-export.zip
+
+# 압축 해제 후 디렉터리로 줘도 됨
+python3 scripts/import-claude-ai-export.py ~/Downloads/data-export/
+
+# 미리 보기
+python3 scripts/import-claude-ai-export.py --dry-run data-export.zip
+```
+
+각 대화는 `Sessions/claude-ai/YYYY-MM-DD_<제목-슬러그>_<id>.md` 파일이 된다. 프론트매터 type은 `chat`, source는 `claude-ai-web`.
+
+> 참고: export 포맷(`conversations.json`)이 바뀌면 임포터의 `extract_message_text` 휴리스틱을 손봐야 할 수 있다. 비공식 브라우저 익스텐션(예: socketteer/Claude-Conversation-Exporter)의 JSON 출력도 비슷한 구조라 같은 임포터가 대체로 동작한다.
+
+### 자동화 (선택)
+
+- Claude Code session-end 훅이나 cron으로 위 임포터를 주기적으로 실행
+- claude.ai export는 분기에 한 번 정도 수동으로 받아서 임포트 (export 자동화는 공식 지원 없음)
+
 ## 다음 단계 (이 저장소 로드맵)
 
 지금까지: 볼트 스켈레톤 + claude.ai 웹용 터널 헬퍼. 다음 컷에서 추가될 것:

@@ -11,8 +11,10 @@
   - `vault/SYNC.md` — Claude Code, Claude Desktop, claude.ai 웹과 볼트를 동기화하는 방법.
   - `vault/Home.md`, `SOUL.md`, `CRITICAL_FACTS.md`, `index.md`, `log.md` — 루트 레벨 볼트 파일.
   - `vault/Templates/` — 타입별 노트 템플릿. 복사해서 쓰고 원본은 수정하지 않는다.
-  - `vault/{Daily,Projects,People,Companies,Ideas,Tasks,Dev Logs,Reviews,Boards,Knowledge}/` — 노트 폴더.
+  - `vault/{Daily,Projects,People,Companies,Ideas,Tasks,Dev Logs,Reviews,Boards,Knowledge,Sessions}/` — 노트 폴더.
 - `scripts/quick-mcp-tunnel.sh` — claude.ai 웹에 볼트를 연결하는 원격 MCP 터널 헬퍼.
+- `scripts/import-claude-code-sessions.py` — `~/.claude/projects/*.jsonl`을 `vault/Sessions/`로 임포트.
+- `scripts/import-claude-ai-export.py` — claude.ai 공식 데이터 export(zip)를 `vault/Sessions/claude-ai/`로 임포트.
 - `.env.example` — 스크립트가 읽는 환경변수 템플릿.
 
 ## 사용법
@@ -28,6 +30,7 @@
 - [x] 볼트 스켈레톤 + `_CLAUDE.md`
 - [x] 동기화 가이드 (`SYNC.md`)
 - [x] claude.ai 웹용 원격 MCP 터널 헬퍼 (`scripts/quick-mcp-tunnel.sh`)
+- [x] 과거 대화 임포터 (Claude Code 세션 + claude.ai 웹 export)
 - [ ] 핵심 명령 (`/save`, `/daily`, `/world`)
 - [ ] 사고 도구 (challenge / emerge / connect)
 - [ ] 리서치 툴킷 (x / web / youtube)
