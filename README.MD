@@ -15,6 +15,8 @@
 - `scripts/quick-mcp-tunnel.sh` — claude.ai 웹에 볼트를 연결하는 원격 MCP 터널 헬퍼.
 - `scripts/import-claude-code-sessions.py` — `~/.claude/projects/*.jsonl`을 `vault/Sessions/`로 임포트.
 - `scripts/import-claude-ai-export.py` — claude.ai 공식 데이터 export(zip)를 `vault/Sessions/claude-ai/`로 임포트.
+- `scripts/fetch-claude-ai.py` — sessionKey 쿠키로 claude.ai 내부 API에서 모든 대화를 직접 가져와 `vault/Sessions/claude-ai/`에 저장 (가장 자동, 비공식).
+- `scripts/auto-import-sessions.sh` — Claude Code Stop hook용. 세션 종료 시 자동 임포트.
 - `.env.example` — 스크립트가 읽는 환경변수 템플릿.
 
 ## 사용법

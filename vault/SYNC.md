@@ -204,7 +204,35 @@ jq '.hooks.Stop[0].hooks += [{"type":"command","command":"/path/to/ubermensch/sc
 
 ### claude.ai 웹 채팅 → 볼트
 
-claude.ai 자체에는 외부 도구로 채팅을 끌어오는 공식 API가 없다. 공식 경로는 **데이터 export**다.
+claude.ai 자체에는 외부 도구로 채팅을 끌어오는 공식 API가 없다. 두 경로:
+
+#### 경로 A — sessionKey 쿠키로 내부 API 직접 호출 (가장 자동)
+
+claude.ai의 내부 REST API는 sessionKey 쿠키만 있으면 호출 가능하다. 커뮤니티 익스텐션(socketteer, agoramachina)이 모두 이 방식이고, `scripts/fetch-claude-ai.py`가 이걸 로컬에서 한다.
+
+```bash
+# 1) claude.ai 로그인 후 DevTools(F12) 열기
+# 2) Application(또는 Storage) → Cookies → https://claude.ai
+# 3) "sessionKey" 값 복사 (sk-ant-sid01-... 로 시작하는 긴 문자열)
+# 4) .env에 붙여넣기
+echo 'CLAUDE_AI_SESSION_KEY=sk-ant-sid01-...' >> .env
+# 5) 실행
+python3 scripts/fetch-claude-ai.py
+
+# 옵션
+python3 scripts/fetch-claude-ai.py --limit 50           # 가장 최근 50개만
+python3 scripts/fetch-claude-ai.py --since 2026-04-01   # 그 이후 갱신된 것만
+python3 scripts/fetch-claude-ai.py --dry-run            # 목록만
+```
+
+각 대화는 `vault/Sessions/claude-ai/YYYY-MM-DD_<제목-슬러그>_<id>.md`로 저장된다.
+
+> ⚠️ **주의**:
+> - sessionKey는 비밀번호와 같은 효력. 절대 git에 커밋하거나 공유 금지 (`.env`는 이미 `.gitignore`).
+> - 비공식 API라 Anthropic이 변경하면 깨질 수 있음. 깨지면 경로 B로 폴백.
+> - ToS 회색지대. 본인 데이터에 한해 합리적으로 사용.
+
+#### 경로 B — 공식 데이터 export (zip)
 
 1. claude.ai → 좌측 하단 프로필 → **Settings → Privacy → Export data** 버튼
 2. 24시간 이내 이메일로 다운로드 링크가 옴 (링크는 24시간 후 만료)
@@ -222,7 +250,7 @@ python3 scripts/import-claude-ai-export.py --dry-run data-export.zip
 
 각 대화는 `Sessions/claude-ai/YYYY-MM-DD_<제목-슬러그>_<id>.md` 파일이 된다. 프론트매터 type은 `chat`, source는 `claude-ai-web`.
 
-> 참고: export 포맷(`conversations.json`)이 바뀌면 임포터의 `extract_message_text` 휴리스틱을 손봐야 할 수 있다. 비공식 브라우저 익스텐션(예: socketteer/Claude-Conversation-Exporter)의 JSON 출력도 비슷한 구조라 같은 임포터가 대체로 동작한다.
+> 참고: export 포맷(`conversations.json`)이 바뀌면 임포터의 `extract_message_text` 휴리스틱을 손봐야 할 수 있다.
 
 ### 자동화 (선택)
 
