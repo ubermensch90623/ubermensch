@@ -23,5 +23,5 @@ ai-first: true
 | Dev Logs | `Dev Logs/` | 0 | — |
 | Reviews | `Reviews/` | 0 | — |
 | Knowledge | `Knowledge/` | 0 | — |
-| Sessions (Claude Code) | `Sessions/` | 2 | 2026-05-07 |
+| Sessions (Claude Code) | `Sessions/` | 3 | 2026-05-07 |
 | Chats (claude.ai) | `Sessions/claude-ai/` | 0 | — |

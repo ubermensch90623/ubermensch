@@ -190,6 +190,18 @@ cron으로 매일 자동 흡수하고 싶으면:
 30 2 * * *  cd /path/to/ubermensch && python3 scripts/import-claude-code-sessions.py >> /tmp/import-claude-code.log 2>&1
 ```
 
+또는 더 즉각적으로 — **Claude Code의 Stop hook**으로 매 세션 종료마다 자동 흡수:
+
+```bash
+# 한 번만: ~/.claude/settings.json의 Stop hooks 배열에 추가
+jq '.hooks.Stop[0].hooks += [{"type":"command","command":"/path/to/ubermensch/scripts/auto-import-sessions.sh"}]' \
+   ~/.claude/settings.json > /tmp/settings.new.json && mv /tmp/settings.new.json ~/.claude/settings.json
+```
+
+`scripts/auto-import-sessions.sh`가 이미 저장소에 있고, hook이 발동되면 백그라운드로 `import-claude-code-sessions.py --skip-active 0`을 돌려 방금 끝난 세션을 잡아낸다. 다른 프로젝트에서 실행될 때는 조용히 종료(`vault/`가 없으면 exit 0).
+
+로그: `/tmp/auto-import-sessions.log`.
+
 ### claude.ai 웹 채팅 → 볼트
 
 claude.ai 자체에는 외부 도구로 채팅을 끌어오는 공식 API가 없다. 공식 경로는 **데이터 export**다.
