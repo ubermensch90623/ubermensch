@@ -11,7 +11,7 @@ export default async function AtlasPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const atlas = getAtlas(id);
+  const atlas = await getAtlas(id);
   if (!atlas) notFound();
 
   return <AtlasViewer atlas={atlas} />;

@@ -85,16 +85,53 @@ scripts/
   smoke-excalidraw.ts                 # skeleton-mapper unit check
 ```
 
-## Notes
+## Storage backends
+
+Set `STORAGE_BACKEND` in `.env.local`:
+
+- `sqlite` (default) — local file at `DATABASE_PATH` (default `./data/atlas.db`).
+  Run `npm run db:init` once to create tables. Works on any self-hosted Node
+  process; does **not** work on Vercel's read-only FS.
+- `vercel-kv` — uses `@vercel/kv` against `KV_REST_API_URL` /
+  `KV_REST_API_TOKEN`. Stores each atlas as a JSON record (`atlas:<id>`)
+  carrying its `nodeIds` and a `childIndex` map keyed by
+  `<atlasId>::<parentNodeId>::<parentElementId>`; each node lives at
+  `node:<id>`. The same `atlas-repo` API is exposed; the runtime selector
+  in `lib/atlas-repo.ts` picks the implementation at module load.
+
+Adding another backend means implementing the same async function set
+(`createAtlas`, `getAtlas`, `getNode`, `findChildNode`, `addChildNode`)
+and adding a branch in `lib/atlas-repo.ts`.
+
+## Layout templates
+
+`lib/format.ts` post-processes Claude's coordinates per format before they
+hit Excalidraw:
+
+| Format    | Behavior                                                                          |
+|-----------|-----------------------------------------------------------------------------------|
+| process   | Topo-sort the arrow graph, distribute steps evenly across x∈[100,900], y=500.     |
+| concept   | Largest-area shape → (500, 500); rest on a circle of radius 320 starting at top.  |
+| history   | Topo-sorted chain → baseline at y=850 (timeline along the bottom).                |
+| biology   | Largest shape → (500, 500); other shapes shift halfway with it.                   |
+| geography | Sort `region` elements first so they render behind labels.                        |
+
+Each template short-circuits to a no-op when its preconditions aren't met
+(cycle detected, fewer than 2 shapes, no regions, etc.) — Claude's coords
+are the safe fallback.
+
+## Other notes
 
 - **Server/client split for Excalidraw.** The Excalidraw runtime touches
-  `window`/`navigator` at module load, so it cannot be imported on the
-  server. `lib/excalidraw.ts` is the pure skeleton builder (server-safe);
-  `lib/excalidraw-client.ts` is the only place that calls
-  `convertToExcalidrawElements` and is loaded only on the client.
+  `window`/`navigator` at module load. `lib/excalidraw.ts` is the pure
+  skeleton builder (server-safe); `lib/excalidraw-client.ts` is the only
+  place that calls `convertToExcalidrawElements`.
 - **No `excalidrawElements` in the DB.** We store only `claudeElements`
-  (semantic) and re-convert on every render. Saves ~half the JSON and
-  avoids needing a DOM in any server-side codepath.
-- **better-sqlite3 + serverless.** The local SQLite file works for self-hosted
-  deploys but not Vercel's read-only FS. Swap `lib/db.ts` for Vercel KV or
-  Postgres + Prisma to deploy serverlessly.
+  (semantic) and re-convert on every render.
+- **Dark mode.** No `next-themes` dependency — `lib/use-theme.ts` reads
+  `localStorage` then falls back to `prefers-color-scheme`. The theme is
+  applied on `<html data-theme>`. An inline `<script>` in `app/layout.tsx`
+  applies it before paint to avoid FOUC.
+- **Export.** PNG and SVG buttons in the viewer header use Excalidraw's
+  `exportToBlob` / `exportToSvg` helpers, dynamically imported on click
+  (no extra weight up front).

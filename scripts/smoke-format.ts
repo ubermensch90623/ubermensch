@@ -89,21 +89,66 @@ for (const l of leaves) {
 }
 console.log("    ✓ All satellites on circle r=320");
 
-console.log("\n[4] Default layouts (history, biology, geography) → no-op");
-for (const fmt of ["history", "biology", "geography"] as const) {
-  const inp: ClaudeNodeOutput = {
-    title: "X", format: fmt, summary: "",
-    elements: [
-      { id: "a", kind: "box", label: "A", x: 123, y: 456, expandable: false },
-      { id: "b", kind: "box", label: "B", x: 789, y: 234, expandable: false },
-    ],
-  };
-  const out = applyLayoutTemplate(inp);
-  const a = out.elements.find((e) => e.id === "a")!;
-  if (a.x !== 123 || a.y !== 456) {
-    throw new Error(`${fmt} should be no-op, but a moved`);
-  }
-  console.log(`    ✓ ${fmt}: coords preserved`);
+console.log("\n[4] History layout — chain → baseline y=850");
+const historyInput: ClaudeNodeOutput = {
+  title: "H", format: "history", summary: "",
+  elements: [
+    { id: "e1", kind: "box", label: "1789", x: 100, y: 300, expandable: false },
+    { id: "e2", kind: "box", label: "1791", x: 300, y: 500, expandable: false },
+    { id: "e3", kind: "box", label: "1793", x: 500, y: 100, expandable: false },
+    { id: "e4", kind: "box", label: "1799", x: 700, y: 700, expandable: false },
+    { id: "h1", kind: "arrow", label: "", x: 0, y: 0, from: "e1", to: "e2", expandable: false },
+    { id: "h2", kind: "arrow", label: "", x: 0, y: 0, from: "e2", to: "e3", expandable: false },
+    { id: "h3", kind: "arrow", label: "", x: 0, y: 0, from: "e3", to: "e4", expandable: false },
+  ],
+};
+const historyOut = applyLayoutTemplate(historyInput);
+for (const id of ["e1", "e2", "e3", "e4"]) {
+  const e = historyOut.elements.find((el) => el.id === id)!;
+  if (e.y !== 850) throw new Error(`${id} should be on baseline 850, got ${e.y}`);
+  console.log(`    ${id} → x=${e.x.toFixed(0)} y=${e.y}`);
 }
+console.log("    ✓ Timeline events snapped to baseline y=850");
+
+console.log("\n[5] Biology layout — largest centered, others shifted");
+const bioInput: ClaudeNodeOutput = {
+  title: "B", format: "biology", summary: "",
+  elements: [
+    { id: "cell",      kind: "ellipse", label: "Cell",      x: 300, y: 300, w: 400, h: 400, expandable: false },
+    { id: "nucleus",   kind: "ellipse", label: "Nucleus",   x: 300, y: 250, w: 80,  h: 80,  expandable: false },
+    { id: "mitoLabel", kind: "text",    label: "Mitochondrion", x: 250, y: 350, expandable: false },
+  ],
+};
+const bioOut = applyLayoutTemplate(bioInput);
+const cellOut = bioOut.elements.find((e) => e.id === "cell")!;
+if (cellOut.x !== 500 || cellOut.y !== 500) {
+  throw new Error(`cell should be centered, got (${cellOut.x},${cellOut.y})`);
+}
+console.log(`    ✓ Largest "cell" centered at (${cellOut.x}, ${cellOut.y})`);
+const nucleus = bioOut.elements.find((e) => e.id === "nucleus")!;
+console.log(`    nucleus shifted: (300, 250) → (${nucleus.x}, ${nucleus.y})`);
+if (nucleus.x === 300 && nucleus.y === 250) {
+  throw new Error("nucleus should have shifted with the cell");
+}
+
+console.log("\n[6] Geography layout — regions before non-regions");
+const geoInput: ClaudeNodeOutput = {
+  title: "G", format: "geography", summary: "",
+  elements: [
+    { id: "label1", kind: "text", label: "North", x: 200, y: 200, expandable: false },
+    { id: "region1", kind: "region", label: "Northern continent", x: 300, y: 300, expandable: false },
+    { id: "label2", kind: "text", label: "South", x: 200, y: 800, expandable: false },
+    { id: "region2", kind: "region", label: "Southern continent", x: 300, y: 700, expandable: false },
+  ],
+};
+const geoOut = applyLayoutTemplate(geoInput);
+const kindOrder = geoOut.elements.map((e) => e.kind);
+const firstNonRegion = kindOrder.findIndex((k) => k !== "region");
+const lastRegion = kindOrder.lastIndexOf("region");
+if (lastRegion >= firstNonRegion && firstNonRegion !== -1) {
+  throw new Error(`Regions should come first; order: ${kindOrder.join(",")}`);
+}
+console.log(`    Element order by kind: ${kindOrder.join(", ")}`);
+console.log("    ✓ All regions placed before non-regions for z-order");
 
 console.log("\n✓ Format layout smoke test passed");

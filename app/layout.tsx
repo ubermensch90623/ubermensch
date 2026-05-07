@@ -17,6 +17,18 @@ export const metadata: Metadata = {
   description: "Type any topic. Get a hand-drawn, clickable diagram you can explore.",
 };
 
+const themeBootScript = `
+(function () {
+  try {
+    var t = localStorage.getItem('atlas-theme');
+    if (t !== 'dark' && t !== 'light') {
+      t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+})();
+`.trim();
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,8 +38,14 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
+      <body className="min-h-full flex flex-col bg-stone-50 text-slate-900 dark:bg-stone-950 dark:text-stone-100">
+        {children}
+      </body>
     </html>
   );
 }

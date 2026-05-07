@@ -31,55 +31,62 @@ const fakeChild: ClaudeNodeOutput = {
   ],
 };
 
-console.log("[1] createAtlas...");
-const { atlasId, rootNodeId } = createAtlas({
-  topic: "smoke test",
-  root: fakeRoot,
-});
-console.log(`    atlasId=${atlasId}  rootNodeId=${rootNodeId}`);
+async function main() {
+  console.log("[1] createAtlas...");
+  const { atlasId, rootNodeId } = await createAtlas({
+    topic: "smoke test",
+    root: fakeRoot,
+  });
+  console.log(`    atlasId=${atlasId}  rootNodeId=${rootNodeId}`);
 
-console.log("[2] getAtlas...");
-const atlas = getAtlas(atlasId);
-if (!atlas) throw new Error("atlas not found");
-console.log(`    nodes=${Object.keys(atlas.nodes).length}  topic="${atlas.topic}"`);
-console.log(`    root title="${atlas.nodes[rootNodeId].title}"`);
-console.log(`    root elements=${atlas.nodes[rootNodeId].claudeElements.length}`);
+  console.log("[2] getAtlas...");
+  const atlas = await getAtlas(atlasId);
+  if (!atlas) throw new Error("atlas not found");
+  console.log(`    nodes=${Object.keys(atlas.nodes).length}  topic="${atlas.topic}"`);
+  console.log(`    root title="${atlas.nodes[rootNodeId].title}"`);
+  console.log(`    root elements=${atlas.nodes[rootNodeId].claudeElements.length}`);
 
-console.log("[3] findChildNode (should be null before adding)...");
-const before = findChildNode(atlasId, rootNodeId, "child-a");
-console.log(`    before=${before === null ? "null ✓" : "FOUND (unexpected!)"}`);
+  console.log("[3] findChildNode (should be null before adding)...");
+  const before = await findChildNode(atlasId, rootNodeId, "child-a");
+  console.log(`    before=${before === null ? "null ✓" : "FOUND (unexpected!)"}`);
 
-console.log("[4] addChildNode...");
-const child = addChildNode({
-  atlasId,
-  parentNodeId: rootNodeId,
-  parentElementId: "child-a",
-  child: fakeChild,
-});
-console.log(`    childId=${child.id}  format=${child.format}`);
-
-console.log("[5] findChildNode (should now return the child)...");
-const after = findChildNode(atlasId, rootNodeId, "child-a");
-console.log(`    after id=${after?.id ?? "null"}  match=${after?.id === child.id ? "✓" : "✗"}`);
-
-console.log("[6] idempotency: addChildNode with same key should fail...");
-let collidedAsExpected = false;
-try {
-  addChildNode({
+  console.log("[4] addChildNode...");
+  const child = await addChildNode({
     atlasId,
     parentNodeId: rootNodeId,
     parentElementId: "child-a",
     child: fakeChild,
+  });
+  console.log(`    childId=${child.id}  format=${child.format}`);
+
+  console.log("[5] findChildNode (should now return the child)...");
+  const after = await findChildNode(atlasId, rootNodeId, "child-a");
+  console.log(`    after id=${after?.id ?? "null"}  match=${after?.id === child.id ? "✓" : "✗"}`);
+
+  console.log("[6] idempotency: addChildNode with same key should fail...");
+  let collidedAsExpected = false;
+  try {
+    await addChildNode({
+      atlasId,
+      parentNodeId: rootNodeId,
+      parentElementId: "child-a",
+      child: fakeChild,
     });
-} catch (err) {
-  collidedAsExpected = true;
-  console.log(`    correctly rejected duplicate (${(err as Error).message.split("\n")[0]})`);
+  } catch (err) {
+    collidedAsExpected = true;
+    console.log(`    correctly rejected duplicate (${(err as Error).message.split("\n")[0]})`);
+  }
+  if (!collidedAsExpected) throw new Error("UNIQUE constraint did not fire");
+
+  console.log("[7] getAtlas after expand...");
+  const finalAtlas = await getAtlas(atlasId);
+  console.log(`    final nodes=${Object.keys(finalAtlas!.nodes).length} (expected 2)`);
+
+  console.log("\n✓ Repo layer smoke test passed");
+  closeDb();
 }
-if (!collidedAsExpected) throw new Error("UNIQUE constraint did not fire");
 
-console.log("[7] getAtlas after expand...");
-const finalAtlas = getAtlas(atlasId);
-console.log(`    final nodes=${Object.keys(finalAtlas!.nodes).length} (expected 2)`);
-
-console.log("\n✓ Repo layer smoke test passed");
-closeDb();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

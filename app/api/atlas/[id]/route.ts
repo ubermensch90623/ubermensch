@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  const atlas = getAtlas(id);
+  const atlas = await getAtlas(id);
   if (!atlas) {
     return Response.json({ error: "Atlas not found" }, { status: 404 });
   }

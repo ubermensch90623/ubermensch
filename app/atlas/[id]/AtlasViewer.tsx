@@ -11,10 +11,13 @@ import type {
   AppState,
 } from "@excalidraw/excalidraw/types";
 import { claudeToExcalidraw } from "@/lib/excalidraw-client";
+import { useTheme } from "@/lib/use-theme";
 import type { Atlas, AtlasNode, ElementCustomData } from "@/types/atlas";
 import { BreadcrumbTrail } from "@/components/BreadcrumbTrail";
 import { ShareBar } from "@/components/ShareBar";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { ExportMenu } from "@/components/ExportMenu";
 
 const Excalidraw = dynamic(
   () => import("@excalidraw/excalidraw").then((m) => m.Excalidraw),
@@ -23,7 +26,7 @@ const Excalidraw = dynamic(
 
 function CanvasFallback() {
   return (
-    <div className="flex h-full w-full items-center justify-center bg-stone-50">
+    <div className="flex h-full w-full items-center justify-center bg-stone-50 dark:bg-stone-900">
       <p className="text-slate-500">Loading canvas…</p>
     </div>
   );
@@ -40,6 +43,8 @@ export function AtlasViewer({ atlas: initialAtlas }: AtlasViewerProps) {
   const [error, setError] = useState<string | null>(null);
 
   const apiRef = useRef<ExcalidrawImperativeAPI | null>(null);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const currentNodeId = stack[stack.length - 1];
   const currentNode: AtlasNode = atlas.nodes[currentNodeId];
@@ -63,13 +68,19 @@ export function AtlasViewer({ atlas: initialAtlas }: AtlasViewerProps) {
   useEffect(() => {
     const api = apiRef.current;
     if (!api) return;
-    api.updateScene({ elements });
+    api.updateScene({
+      elements,
+      appState: {
+        viewBackgroundColor: isDark ? "#1c1917" : "#fffaf0",
+        theme: isDark ? "dark" : "light",
+      },
+    });
     api.scrollToContent(elements, {
       fitToContent: true,
       animate: true,
       duration: 400,
     });
-  }, [elements]);
+  }, [elements, isDark]);
 
   const expand = useCallback(
     async (parentNodeId: string, parentElementId: string) => {
@@ -126,40 +137,52 @@ export function AtlasViewer({ atlas: initialAtlas }: AtlasViewerProps) {
     setStack((prev) => prev.slice(0, depth + 1));
   }, []);
 
+  const filename = useMemo(
+    () =>
+      `atlas-${currentNode.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "diagram"}`,
+    [currentNode.title],
+  );
+
   return (
-    <div className="flex h-screen flex-col bg-stone-50">
-      <header className="flex items-center justify-between gap-4 border-b border-slate-200 bg-white px-4 py-3">
-        <div className="flex items-center gap-3">
+    <div className="flex h-screen flex-col bg-stone-50 dark:bg-stone-950">
+      <header className="flex items-center justify-between gap-2 border-b border-slate-200 bg-white px-3 py-3 sm:gap-4 sm:px-4 dark:border-stone-800 dark:bg-stone-900">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <Link
             href="/"
-            className="text-lg font-bold tracking-tight text-slate-900 hover:text-slate-700"
+            className="text-lg font-bold tracking-tight text-slate-900 hover:text-slate-700 dark:text-stone-100 dark:hover:text-stone-300"
           >
             Atlas
           </Link>
-          <span className="text-slate-300">/</span>
-          <span className="text-sm text-slate-500">{atlas.topic}</span>
+          <span className="hidden text-slate-300 sm:inline dark:text-stone-700">/</span>
+          <span className="hidden truncate text-sm text-slate-500 sm:inline dark:text-stone-400">
+            {atlas.topic}
+          </span>
         </div>
-        <ShareBar />
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <ExportMenu elements={elements} filename={filename} isDark={isDark} />
+          <ThemeToggle />
+          <ShareBar />
+        </div>
       </header>
 
-      <div className="flex items-center gap-3 border-b border-slate-200 bg-white px-4 py-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-white px-3 py-2 sm:gap-3 sm:px-4 dark:border-stone-800 dark:bg-stone-900">
         <button
           type="button"
           onClick={handleBack}
           disabled={stack.length <= 1}
-          className="rounded border border-slate-300 px-2 py-1 text-sm text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded border border-slate-300 px-2 py-1 text-sm text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800"
           aria-label="Back"
         >
           ← Back
         </button>
         <BreadcrumbTrail stack={stackNodes} onJump={handleJump} />
-        <span className="ml-auto text-xs text-slate-500">
+        <span className="ml-auto hidden text-xs text-slate-500 sm:block dark:text-stone-500">
           {currentNode.format} · {currentNode.claudeElements.length} elements
         </span>
       </div>
 
       {currentNode.summary && (
-        <div className="border-b border-slate-200 bg-stone-100 px-4 py-2 text-sm text-slate-600">
+        <div className="border-b border-slate-200 bg-stone-100 px-3 py-2 text-sm text-slate-600 sm:px-4 dark:border-stone-800 dark:bg-stone-900/50 dark:text-stone-400">
           {currentNode.summary}
         </div>
       )}
@@ -172,12 +195,14 @@ export function AtlasViewer({ atlas: initialAtlas }: AtlasViewerProps) {
           initialData={{
             elements,
             appState: {
-              viewBackgroundColor: "#fffaf0",
+              viewBackgroundColor: isDark ? "#1c1917" : "#fffaf0",
               zenModeEnabled: false,
               viewModeEnabled: true,
+              theme: isDark ? "dark" : "light",
             },
             scrollToContent: true,
           }}
+          theme={isDark ? "dark" : "light"}
           viewModeEnabled
           onPointerDown={handlePointerDown}
           UIOptions={{

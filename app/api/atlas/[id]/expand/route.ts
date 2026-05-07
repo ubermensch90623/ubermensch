@@ -35,12 +35,12 @@ export async function POST(
   }
   const { parentNodeId, parentElementId } = parsed.data;
 
-  const cached = findChildNode(atlasId, parentNodeId, parentElementId);
+  const cached = await findChildNode(atlasId, parentNodeId, parentElementId);
   if (cached) {
     return Response.json({ node: cached, cached: true });
   }
 
-  const parent = getNode(parentNodeId);
+  const parent = await getNode(parentNodeId);
   if (!parent || parent.atlasId !== atlasId) {
     return Response.json({ error: "Parent node not found" }, { status: 404 });
   }
@@ -61,7 +61,7 @@ export async function POST(
 
   try {
     const child = await generateChildNode(parent, element);
-    const node = addChildNode({
+    const node = await addChildNode({
       atlasId,
       parentNodeId,
       parentElementId,

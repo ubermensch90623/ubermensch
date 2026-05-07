@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
   try {
     const root = await generateRootAtlas(topic);
-    const { atlasId, rootNodeId } = createAtlas({ topic, root });
+    const { atlasId, rootNodeId } = await createAtlas({ topic, root });
     return Response.json({ id: atlasId, rootNodeId }, { status: 201 });
   } catch (err) {
     if (err instanceof AtlasGenerationError) {
