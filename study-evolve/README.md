@@ -61,6 +61,7 @@ python main.py recommend
 | `python main.py due` | 오늘 복습할 문제 목록 |
 | `python main.py done-review` | 복습 완료 처리 (번호 또는 `all`) |
 | `python main.py export` | CSV 파일 경로 안내 |
+| `python main.py obsidian-export --vault PATH` | Obsidian vault에 마크다운 트리 생성 |
 | `python main.py sample` | 샘플 데이터 생성 |
 
 ---
@@ -235,6 +236,66 @@ study-evolve/
 
 ---
 
+## Obsidian 통합
+
+`records.csv`와 `review_schedule.csv`를 Obsidian vault의 마크다운 트리로 자동 변환한다. wiki-link, YAML frontmatter, dataview 호환.
+
+### 사용법
+
+```bash
+# vault 경로 직접 지정
+python main.py obsidian-export --vault ~/Documents/MyVault
+
+# 또는 환경변수로
+export OBSIDIAN_VAULT=~/Documents/MyVault
+python main.py obsidian-export
+
+# 정답까지 노트로 만들기 (기본은 오답만)
+python main.py obsidian-export --vault ~/Documents/MyVault --include-correct
+```
+
+### 생성되는 vault 구조
+
+```
+{vault}/StudyEvolve/
+├── index.md                              # 통계 + 영역/태그/일일 인덱스 (dataview 예시 포함)
+├── records/<id>-<date>-<problem>.md      # 오답 1건 = 노트 1개 (frontmatter + 복습 일정 + wiki-link)
+├── by-area/<과목>__<영역>.md              # 영역별 오답 누적 + 태그 카운트
+├── by-failtag/<태그>.md                   # 실패 태그별 발생 기록
+└── daily/<YYYY-MM-DD>.md                 # 일일 학습 노트 (정답률 + 풀이 기록 + 태그)
+```
+
+### 멱등성과 안전성
+
+- **멱등**: 같은 데이터로 두 번 실행해도 SHA256 동일. 매일 cron으로 돌려도 vault git diff 노이즈 없음.
+- **사용자 노트 보호**: vault의 다른 파일/폴더(`MyDailyJournal.md`, `OtherFolder/`)는 절대 건드리지 않음. `StudyEvolve/` 서브트리만 영향.
+- **stale 파일 자동 정리**: 직전 export 후 records.csv에서 행이 삭제되면 다음 export에서 해당 노트도 사라짐.
+- **한글 파일명**: `독점적 경쟁` → `경제학__독점적_경쟁.md` (공백 → `_`, 슬래시·콜론 등 OS 무효 문자 제거).
+
+### 자동화 가이드
+
+매일 한 번 자동 export:
+
+```bash
+# crontab -e
+0 22 * * *  cd ~/study-evolve && python main.py obsidian-export --vault ~/Documents/MyVault >/dev/null
+```
+
+또는 alias로 `add` 후 즉시 export:
+
+```bash
+# ~/.zshrc 또는 ~/.bashrc
+alias study-add='python ~/study-evolve/main.py add && python ~/study-evolve/main.py obsidian-export --vault ~/Documents/MyVault'
+```
+
+### Obsidian에서 활용
+
+- **Backlinks**: 자동 작동. `[[경제학__조세]]` 클릭 → 영역 노트로 이동, 역링크로 모든 오답 확인.
+- **Dataview** (플러그인 설치 시): `index.md`에 예시 쿼리 포함. 난이도별/태그별 필터링 가능.
+- **Tags**: 모든 노트가 `#study-evolve` + 유형 태그(`#wrong`, `#area-index` 등). Obsidian Tags pane에서 한눈에.
+
+---
+
 ## 안전성 노트 (Redteam Hardening)
 
 이 시스템은 매일 사용할 학습 데이터를 다루므로 다음 방어 장치가 들어가 있다.
@@ -258,4 +319,4 @@ study-evolve/
 python -m unittest discover tests -v
 ```
 
-전체 22 테스트 (CSV 주입, 파싱 경계, 동시성 50개 워커, 원자성, 멱등성, 추천 엣지, 풀 사이클).
+전체 44 테스트 (CSV 주입, 파싱 경계, 동시성 50개 워커, 원자성, 멱등성, 추천 엣지, 풀 사이클, Obsidian 트리·frontmatter·한글 파일명·stale 정리).

@@ -2,6 +2,9 @@
 
 > **이 시스템은 나를 위로하기 위한 것이 아니다. 내 사고를 출력으로 바꾸기 위한 개인 연구소다.**
 
+> **Obsidian 사용자**: 이 폴더는 이미 표준 마크다운이라 vault에 그대로 두거나 심볼릭 링크하면 작동합니다.
+> `study-evolve`의 학습 데이터는 `python ../study-evolve/main.py obsidian-export --vault PATH`로 같은 vault에 통합 → backlinks·dataview 자동.
+
 ---
 
 ## 0. 선언

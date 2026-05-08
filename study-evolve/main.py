@@ -8,7 +8,7 @@ from datetime import date
 
 import pandas as pd
 
-from src import cli, recommender, review, storage
+from src import cli, obsidian, recommender, review, storage
 from src.analyzer import (
     calculate_area_stats,
     calculate_fail_tag_stats,
@@ -255,6 +255,30 @@ def cmd_export(_args: argparse.Namespace) -> None:
     print("이 파일을 Google Sheets 또는 Excel에서 열 수 있습니다.")
 
 
+def cmd_obsidian_export(args: argparse.Namespace) -> None:
+    storage.ensure_data_files()
+    vault = obsidian.resolve_vault(getattr(args, "vault", None))
+    records_df = storage.load_records()
+    schedule_df = storage.load_schedule()
+
+    summary = obsidian.export(
+        records_df,
+        schedule_df,
+        vault,
+        include_correct=getattr(args, "include_correct", False),
+    )
+
+    print("[Obsidian 내보내기 완료]")
+    print(f"  vault: {summary['vault']}")
+    print(f"  서브폴더: {summary['subdir']}/")
+    print(f"  기록 노트: {summary['records']}개")
+    print(f"  영역 노트: {summary['areas']}개")
+    print(f"  태그 노트: {summary['tags']}개")
+    print(f"  일일 노트: {summary['days']}개")
+    print()
+    print("Obsidian에서 vault를 열고 StudyEvolve/index.md 부터 확인하세요.")
+
+
 def cmd_sample(args: argparse.Namespace) -> None:
     created = storage.generate_sample_data(force=getattr(args, "force", False))
     if created == 0:
@@ -293,6 +317,22 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("due", help="오늘 복습할 문제 목록").set_defaults(func=cmd_due)
     sub.add_parser("done-review", help="복습 완료 처리 (인터랙티브)").set_defaults(func=cmd_done_review)
     sub.add_parser("export", help="CSV 경로 안내").set_defaults(func=cmd_export)
+
+    p_obs = sub.add_parser(
+        "obsidian-export",
+        help="Obsidian vault에 마크다운 트리 생성 (records → vault/StudyEvolve/)",
+    )
+    p_obs.add_argument(
+        "--vault",
+        default=None,
+        help="Obsidian vault 경로. 미지정 시 OBSIDIAN_VAULT 환경변수 사용.",
+    )
+    p_obs.add_argument(
+        "--include-correct",
+        action="store_true",
+        help="정답 기록도 records/ 폴더에 노트로 생성 (기본은 오답만)",
+    )
+    p_obs.set_defaults(func=cmd_obsidian_export)
 
     p_sample = sub.add_parser("sample", help="샘플 데이터 생성 (기록 비어있을 때만)")
     p_sample.add_argument("--force", action="store_true", help="기존 기록이 있어도 샘플 추가")
