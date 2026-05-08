@@ -62,6 +62,7 @@ python main.py recommend
 | `python main.py done-review` | 복습 완료 처리 (번호 또는 `all`) |
 | `python main.py export` | CSV 파일 경로 안내 |
 | `python main.py obsidian-export --vault PATH` | Obsidian vault에 마크다운 트리 생성 |
+| `python main.py sync-vault --vault PATH` | study-evolve + lab 둘 다 한 vault에 통합 |
 | `python main.py sample` | 샘플 데이터 생성 |
 
 ---
@@ -272,20 +273,38 @@ python main.py obsidian-export --vault ~/Documents/MyVault --include-correct
 - **stale 파일 자동 정리**: 직전 export 후 records.csv에서 행이 삭제되면 다음 export에서 해당 노트도 사라짐.
 - **한글 파일명**: `독점적 경쟁` → `경제학__독점적_경쟁.md` (공백 → `_`, 슬래시·콜론 등 OS 무효 문자 제거).
 
-### 자동화 가이드
+### 자동화 — `sync-vault` + `STUDY_EVOLVE_AUTO_SYNC` (권장)
 
-매일 한 번 자동 export:
+`sync-vault`는 study-evolve와 personal_intelligence_lab을 **하나의 vault**로 통합:
 
 ```bash
-# crontab -e
-0 22 * * *  cd ~/study-evolve && python main.py obsidian-export --vault ~/Documents/MyVault >/dev/null
+python main.py sync-vault --vault ~/Documents/MyVault
+# → vault/StudyEvolve/  (CSV → 마크다운)
+# → vault/PersonalIntelligenceLab/ (lab 디렉터리 미러)
 ```
 
-또는 alias로 `add` 후 즉시 export:
+옵션:
+- `--no-lab` — study-evolve만, lab은 건너뜀
+- `--symlink` — lab을 미러 대신 심볼릭 링크 (POSIX, 양방향 작동)
+- `--lab PATH` — lab 경로 명시 (기본은 자동 탐지 / `LAB_PATH` 환경변수)
+
+**완전 자동 (매번 sync 명령 안 쳐도 됨)**:
 
 ```bash
 # ~/.zshrc 또는 ~/.bashrc
-alias study-add='python ~/study-evolve/main.py add && python ~/study-evolve/main.py obsidian-export --vault ~/Documents/MyVault'
+export OBSIDIAN_VAULT=~/Documents/MyVault
+export STUDY_EVOLVE_AUTO_SYNC=1
+```
+
+이제 `add` / `done-review` / `sample` 명령이 끝나는 즉시 vault가 자동 갱신된다. 사용자가 export 명령을 따로 칠 필요 없음. 실패해도 메인 명령 종료 코드는 영향 없음 (warning만 stderr에).
+
+### 자동화 — cron (구식 / fallback)
+
+매일 한 번:
+
+```bash
+# crontab -e
+0 22 * * *  cd ~/study-evolve && python main.py sync-vault --vault ~/Documents/MyVault >/dev/null
 ```
 
 ### Obsidian에서 활용
@@ -319,4 +338,4 @@ alias study-add='python ~/study-evolve/main.py add && python ~/study-evolve/main
 python -m unittest discover tests -v
 ```
 
-전체 44 테스트 (CSV 주입, 파싱 경계, 동시성 50개 워커, 원자성, 멱등성, 추천 엣지, 풀 사이클, Obsidian 트리·frontmatter·한글 파일명·stale 정리).
+전체 57 테스트 (CSV 주입, 파싱 경계, 동시성 50개 워커, 원자성, 멱등성, 추천 엣지, 풀 사이클, Obsidian 트리·frontmatter·한글 파일명·stale 정리, vault sync 미러·심볼릭·auto-trigger·사용자 노트 보호).

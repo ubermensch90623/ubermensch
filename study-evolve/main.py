@@ -8,7 +8,7 @@ from datetime import date
 
 import pandas as pd
 
-from src import cli, obsidian, recommender, review, storage
+from src import cli, obsidian, recommender, review, storage, sync
 from src.analyzer import (
     calculate_area_stats,
     calculate_fail_tag_stats,
@@ -33,6 +33,7 @@ def cmd_init(_args: argparse.Namespace) -> None:
 def cmd_add(_args: argparse.Namespace) -> None:
     storage.ensure_data_files()
     cli.add_interactive()
+    sync.auto_sync_if_enabled()
 
 
 def cmd_stats(args: argparse.Namespace) -> None:
@@ -241,6 +242,7 @@ def cmd_due(_args: argparse.Namespace) -> None:
 def cmd_done_review(_args: argparse.Namespace) -> None:
     storage.ensure_data_files()
     cli.done_review_interactive()
+    sync.auto_sync_if_enabled()
 
 
 def cmd_export(_args: argparse.Namespace) -> None:
@@ -253,6 +255,33 @@ def cmd_export(_args: argparse.Namespace) -> None:
     print(f"  {SCHEDULE_CSV}")
     print()
     print("이 파일을 Google Sheets 또는 Excel에서 열 수 있습니다.")
+
+
+def cmd_sync_vault(args: argparse.Namespace) -> None:
+    storage.ensure_data_files()
+    vault = obsidian.resolve_vault(getattr(args, "vault", None))
+    summary = sync.sync_vault(
+        vault,
+        include_lab=not getattr(args, "no_lab", False),
+        lab_path=getattr(args, "lab", None),
+        symlink=getattr(args, "symlink", False),
+        include_correct=getattr(args, "include_correct", False),
+    )
+    print("[Vault sync 완료]")
+    print(f"  vault: {summary['vault']}")
+    se = summary["study_evolve"]
+    print(f"  study-evolve: records={se['records']} areas={se['areas']} tags={se['tags']} days={se['days']}")
+    lab = summary["lab"]
+    if lab is None:
+        print("  lab: (skipped — --no-lab)")
+    elif lab["status"] == "skipped":
+        print(f"  lab: skipped ({lab['reason']})")
+    elif lab["status"] == "symlinked":
+        print(f"  lab: symlinked → {lab['dest']}")
+    else:
+        print(f"  lab: mirrored ({lab.get('files', 0)} 파일 갱신) → {lab['dest']}")
+    print()
+    print("Obsidian에서 vault 열고 StudyEvolve/index.md / PersonalIntelligenceLab/README.md 부터.")
 
 
 def cmd_obsidian_export(args: argparse.Namespace) -> None:
@@ -287,6 +316,7 @@ def cmd_sample(args: argparse.Namespace) -> None:
         return
     print(f"[샘플 데이터 생성 완료: {created}건]")
     print("이제 python main.py stats / recommend / review 를 실행해 보세요.")
+    sync.auto_sync_if_enabled()
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -333,6 +363,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="정답 기록도 records/ 폴더에 노트로 생성 (기본은 오답만)",
     )
     p_obs.set_defaults(func=cmd_obsidian_export)
+
+    p_sync = sub.add_parser(
+        "sync-vault",
+        help="study-evolve + personal_intelligence_lab을 한 vault에 통합 (export + lab 미러)",
+    )
+    p_sync.add_argument("--vault", default=None, help="Obsidian vault 경로. 미지정 시 OBSIDIAN_VAULT 환경변수.")
+    p_sync.add_argument("--lab", default=None, help="personal_intelligence_lab 경로. 미지정 시 LAB_PATH 환경변수 또는 자동 탐지.")
+    p_sync.add_argument("--no-lab", action="store_true", help="lab 미러 건너뛰기 (study-evolve만 export)")
+    p_sync.add_argument("--symlink", action="store_true", help="lab을 미러 대신 심볼릭 링크 (POSIX 전용, 양방향 작동)")
+    p_sync.add_argument("--include-correct", action="store_true", help="study-evolve 정답 기록도 노트로 생성")
+    p_sync.set_defaults(func=cmd_sync_vault)
 
     p_sample = sub.add_parser("sample", help="샘플 데이터 생성 (기록 비어있을 때만)")
     p_sample.add_argument("--force", action="store_true", help="기존 기록이 있어도 샘플 추가")

@@ -2,8 +2,8 @@
 
 > **이 시스템은 나를 위로하기 위한 것이 아니다. 내 사고를 출력으로 바꾸기 위한 개인 연구소다.**
 
-> **Obsidian 사용자**: 이 폴더는 이미 표준 마크다운이라 vault에 그대로 두거나 심볼릭 링크하면 작동합니다.
-> `study-evolve`의 학습 데이터는 `python ../study-evolve/main.py obsidian-export --vault PATH`로 같은 vault에 통합 → backlinks·dataview 자동.
+> **Obsidian 사용자**: `python ../study-evolve/main.py sync-vault --vault PATH` 한 번으로 이 폴더와 `study-evolve` 둘 다 vault에 자동 통합됩니다.
+> `STUDY_EVOLVE_AUTO_SYNC=1` 환경변수 설정 시 `add`/`done-review` 후 vault가 자동 갱신 — 별도 명령 불필요.
 
 ---
 

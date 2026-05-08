@@ -128,10 +128,11 @@
 
 - **`personal_intelligence_lab/`** — 사용자의 일일 사고 알고리즘 실행 환경 (대시보드·실패 로그·프롬프트 라이브러리). 작업이 학습·반추·자동화 후보·차단 규칙과 관련되면 적절한 파일에 기록·연결한다.
 - **`study-evolve/`** — NCS·경제학 학습 진화 CLI. 문제 분석 작업은 가능하면 이 시스템의 데이터 흐름(`records.csv` → `recommend` → `review`)에 맞물리게 설계한다.
-- **Obsidian vault 통합** — 두 시스템 모두 vault 1개에서 통합 가능:
-  - `study-evolve`는 `python main.py obsidian-export --vault PATH`로 `vault/StudyEvolve/` 트리 자동 생성 (멱등, 사용자 노트 보호)
-  - `personal_intelligence_lab/`은 이미 마크다운 — vault에 직접 두거나 심볼릭 링크
-  - 두 트리 모두 `#study-evolve` / `#study-routine` 태그로 backlinks·dataview 활용
+- **Obsidian vault 통합** — 두 시스템 모두 vault 1개로 자동 통합:
+  - `python main.py sync-vault --vault PATH` 한 번으로 `vault/StudyEvolve/` (CSV→MD) + `vault/PersonalIntelligenceLab/` (lab 미러) 둘 다 생성
+  - 완전 자동: `OBSIDIAN_VAULT`+`STUDY_EVOLVE_AUTO_SYNC=1` 환경변수 설정 시 `add`/`done-review`/`sample` 끝날 때마다 vault 자동 갱신
+  - 옵션: `--symlink` (POSIX 양방향), `--no-lab` (study-evolve만), `--lab PATH` (lab 경로 override)
+  - 멱등, 사용자 노트 보호, stale 자동 정리. backlinks·dataview·태그 모두 작동
 
 ---
 
