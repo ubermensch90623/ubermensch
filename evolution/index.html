@@ -851,6 +851,7 @@ section {
   height: auto;
   display: block;
   cursor: crosshair;
+  touch-action: pan-y;
 }
 .flow-legend {
   display: flex;
@@ -2597,11 +2598,7 @@ body[data-role="pi"]        .phase-tab[data-phase="5"] {
           <div class="gist-box">
             <span class="gist-label">GIST</span>
             <span class="gist-url">https://gist.github.com/joonan30/cbce305684d079dbe9a3fbaefe4e3959</span>
-            <button class="gist-copy" id="gistCopy" onclick="
-              navigator.clipboard.writeText('https://gist.github.com/joonan30/cbce305684d079dbe9a3fbaefe4e3959');
-              this.textContent='복사됨'; this.classList.add('copied');
-              setTimeout(()=>{this.textContent='복사'; this.classList.remove('copied')}, 1800);
-            ">복사</button>
+            <button class="gist-copy" id="gistCopy" onclick="copyGist(this)">복사</button>
           </div>
           <p style="margin-top:0.6rem;">그리고 한 마디만 던지세요.</p>
           <div class="qs-prompt">나도 이거 세팅해줘</div>
@@ -2855,7 +2852,7 @@ body[data-role="pi"]        .phase-tab[data-phase="5"] {
       </div>
 
       <div class="chain-svg-wrap">
-        <svg class="chain-svg" viewBox="0 0 1100 220" id="chainSvg" xmlns="http://www.w3.org/2000/svg">
+        <svg class="chain-svg" viewBox="0 0 1100 220" id="chainSvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="원문 PDF에서 결과까지 이어지는 6단계 지식 체인 다이어그램">
           <defs>
             <marker id="arrowHead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
               <path d="M 0 0 L 10 5 L 0 10 z" fill="oklch(0.55 0.02 245)" />
@@ -2880,7 +2877,7 @@ body[data-role="pi"]        .phase-tab[data-phase="5"] {
     <!-- Reading Guide -->
     <div class="reading-guide">
       <h3 class="rg-title">이 페이지를 어떻게 읽나</h3>
-      <p class="rg-sub">7개 섹션. 위에서 선택한 역할에 따라 우선 봐야 할 섹션이 다르다. 점은 그 섹션에 가장 도움받을 역할을 표시한다.</p>
+      <p class="rg-sub">9개 섹션. 위에서 선택한 역할에 따라 우선 봐야 할 섹션이 다르다. 점은 그 섹션에 가장 도움받을 역할을 표시한다.</p>
       <div class="rg-grid">
         <a href="#flow" class="rg-item">
           <div class="rg-num">§01</div>
@@ -4293,6 +4290,19 @@ flowSvg.addEventListener('mouseleave', () => {
   flowHover.setAttribute('opacity', '0');
 });
 
+// Touch support — synthesize mousemove/mouseleave from touch events so the
+// tooltip works on mobile. touch-action:pan-y (set in CSS) keeps vertical
+// page scroll usable.
+flowSvg.addEventListener('touchmove', (e) => {
+  if (!e.touches || !e.touches[0]) return;
+  const t = e.touches[0];
+  flowSvg.dispatchEvent(new MouseEvent('mousemove', {
+    bubbles: true, clientX: t.clientX, clientY: t.clientY,
+  }));
+}, { passive: true });
+flowSvg.addEventListener('touchend',    () => flowSvg.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true })));
+flowSvg.addEventListener('touchcancel', () => flowSvg.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true })));
+
 /* ============================
    DAILY LEDGER — 31일치 진짜 데이터
    files = 그날 modified 파일 수 (find -newermt 측정)
@@ -4678,6 +4688,37 @@ function animateCounter(el) {
 }
 // Animate hero counters immediately on script load (no observer dependency)
 document.querySelectorAll('.h-stat-num[data-count]').forEach(animateCounter);
+
+/* ============================
+   CLIPBOARD HELPER (graceful fallback for non-secure contexts)
+   ============================ */
+function copyGist(btn) {
+  const text = 'https://gist.github.com/joonan30/cbce305684d079dbe9a3fbaefe4e3959';
+  function done() {
+    btn.textContent = '복사됨';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1800);
+  }
+  function fallback() {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) { /* ignore — best-effort */ }
+    document.body.removeChild(ta);
+    done();
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(fallback);
+  } else {
+    fallback();
+  }
+}
 </script>
 </body>
 </html>
