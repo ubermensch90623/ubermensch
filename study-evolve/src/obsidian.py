@@ -21,15 +21,17 @@ User notes elsewhere in the vault are never modified.
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import re
-import shutil
 from datetime import date
 from pathlib import Path
 
 import pandas as pd
 
 EXPORT_SUBDIR = "StudyEvolve"
+MANIFEST_NAME = ".study-evolve-manifest.json"
+MANIFEST_VERSION = 1
 
 
 def resolve_vault(cli_vault: str | None) -> Path:
@@ -121,6 +123,34 @@ def _write(path: Path, content: str) -> None:
     if path.exists() and path.read_text(encoding="utf-8") == content:
         return
     path.write_text(content, encoding="utf-8")
+
+
+def _read_manifest(target_root: Path) -> set[str]:
+    """Return set of relative paths previously written by study-evolve."""
+    f = target_root / MANIFEST_NAME
+    if not f.exists():
+        return set()
+    try:
+        data = json.loads(f.read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            return set()
+        files = data.get("files", [])
+        return {str(p) for p in files if isinstance(p, str)}
+    except (json.JSONDecodeError, OSError):
+        return set()
+
+
+def _write_manifest(target_root: Path, relative_files: set[str]) -> None:
+    target_root.mkdir(parents=True, exist_ok=True)
+    f = target_root / MANIFEST_NAME
+    f.write_text(
+        json.dumps(
+            {"version": MANIFEST_VERSION, "files": sorted(relative_files)},
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
 
 
 def _record_note(row: pd.Series, schedule_df: pd.DataFrame) -> tuple[str, str]:
@@ -368,41 +398,55 @@ def _index_note(records_df: pd.DataFrame) -> tuple[str, str]:
 
 def export(records_df: pd.DataFrame, schedule_df: pd.DataFrame, vault: Path,
            include_correct: bool = False) -> dict:
-    """Write the StudyEvolve/ tree under vault. Return summary dict."""
-    target_root = vault / EXPORT_SUBDIR
+    """Write the StudyEvolve/ tree under vault. Return summary dict.
 
-    # Clean only StudyEvolve subtree (preserve user's other notes).
-    if target_root.exists():
-        shutil.rmtree(target_root)
+    Uses a manifest file to track files study-evolve created so user-authored
+    files inside StudyEvolve/ are preserved across re-exports.
+    """
+    target_root = vault / EXPORT_SUBDIR
     target_root.mkdir(parents=True, exist_ok=True)
 
+    previous = _read_manifest(target_root)
+    new_files: set[str] = set()
+
+    def _track_write(rel_in_vault: str, content: str) -> None:
+        full = vault / rel_in_vault
+        _write(full, content)
+        # Record path relative to target_root (StudyEvolve/)
+        rel_in_target = full.relative_to(target_root).as_posix()
+        new_files.add(rel_in_target)
+
     if records_df.empty:
-        _write(vault / f"{EXPORT_SUBDIR}/index.md",
-               _frontmatter({"type": "index", "total": 0, "tags": ["study-evolve", "index"]}) +
-               "\n# Study Evolve — Index\n\n기록이 없습니다.\n")
-        return {"records": 0, "areas": 0, "tags": 0, "days": 0}
+        _track_write(
+            f"{EXPORT_SUBDIR}/index.md",
+            _frontmatter({"type": "index", "total": 0, "tags": ["study-evolve", "index"]}) +
+            "\n# Study Evolve — Index\n\n기록이 없습니다.\n",
+        )
+        _cleanup_stale(target_root, previous, new_files)
+        _write_manifest(target_root, new_files)
+        return {
+            "records": 0, "areas": 0, "tags": 0, "days": 0,
+            "vault": str(vault), "subdir": EXPORT_SUBDIR,
+        }
 
     df = records_df.copy()
     if "fail_tag" not in df.columns:
         df["fail_tag"] = ""
     df["fail_tag"] = df["fail_tag"].fillna("").astype(str)
 
-    # Records
     rec_subset = df if include_correct else df[~df["is_correct"]]
     written = 0
     for _, row in rec_subset.iterrows():
         rel, content = _record_note(row, schedule_df)
-        _write(vault / rel, content)
+        _track_write(rel, content)
         written += 1
 
-    # Areas
     areas = 0
     for (subject, area), area_df in df.groupby(["subject", "area"]):
         rel, content = _area_note(subject, area, area_df)
-        _write(vault / rel, content)
+        _track_write(rel, content)
         areas += 1
 
-    # Tags (wrong only)
     tags = 0
     wrong_df = df[~df["is_correct"]]
     if not wrong_df.empty:
@@ -410,25 +454,44 @@ def export(records_df: pd.DataFrame, schedule_df: pd.DataFrame, vault: Path,
             if not tag:
                 continue
             rel, content = _tag_note(tag, tag_df)
-            _write(vault / rel, content)
+            _track_write(rel, content)
             tags += 1
 
-    # Daily
     days = 0
     for d, day_df in df.groupby("date"):
         rel, content = _daily_note(d, day_df)
-        _write(vault / rel, content)
+        _track_write(rel, content)
         days += 1
 
-    # Index
     rel, content = _index_note(df)
-    _write(vault / rel, content)
+    _track_write(rel, content)
+
+    _cleanup_stale(target_root, previous, new_files)
+    _write_manifest(target_root, new_files)
 
     return {
-        "records": written,
-        "areas": areas,
-        "tags": tags,
-        "days": days,
-        "vault": str(vault),
-        "subdir": EXPORT_SUBDIR,
+        "records": written, "areas": areas, "tags": tags, "days": days,
+        "vault": str(vault), "subdir": EXPORT_SUBDIR,
     }
+
+
+def _cleanup_stale(target_root: Path, previous: set[str], current: set[str]) -> None:
+    """Remove only files that this exporter wrote in a prior run but no longer
+    needs. User-authored files (never in any manifest) are preserved."""
+    stale = previous - current
+    for rel in stale:
+        path = target_root / rel
+        try:
+            if path.is_file():
+                path.unlink()
+        except OSError:
+            pass
+
+    # Prune empty study-evolve subdirs only (records/, by-area/, by-failtag/, daily/).
+    for sub in ("records", "by-area", "by-failtag", "daily"):
+        d = target_root / sub
+        if d.exists() and d.is_dir() and not any(d.iterdir()):
+            try:
+                d.rmdir()
+            except OSError:
+                pass

@@ -201,20 +201,45 @@ class TestExport(TempDataCase):
         self.assertEqual(summary["records"], 0)
         self.assertTrue((self.vault / "StudyEvolve" / "index.md").exists())
 
-    def test_stale_files_cleaned(self):
-        # First export
+    def test_stale_records_cleaned_after_dataset_shrinks(self):
+        # First export with full sample
         records = storage.load_records()
         schedule = storage.load_schedule()
         obsidian.export(records, schedule, self.vault)
 
-        # Add a stale file inside StudyEvolve
-        stale = self.vault / "StudyEvolve" / "records" / "stale_garbage.md"
-        stale.write_text("# 오래된 파일\n", encoding="utf-8")
-        self.assertTrue(stale.exists())
+        rec_dir = self.vault / "StudyEvolve" / "records"
+        first_count = len(list(rec_dir.glob("*.md")))
+        self.assertGreater(first_count, 0)
 
-        # Re-export must remove the stale file
+        # Capture one record path that should be cleaned after shrinking
+        soon_stale = sorted(rec_dir.glob("*.md"))[0]
+        self.assertTrue(soon_stale.exists())
+
+        # Shrink dataset to a single record (simulate user deleting rows)
+        records_small = records.iloc[-1:].copy()
+        obsidian.export(records_small, schedule, self.vault)
+
+        # Stale records (from prior export but not in new dataset) must be cleaned
+        second_count = len(list(rec_dir.glob("*.md")))
+        self.assertEqual(second_count, 1)
+        self.assertFalse(soon_stale.exists(),
+                         "이전 export에서 만든 stale record 노트가 정리 안 됨")
+
+    def test_user_authored_file_in_export_subdir_preserved(self):
+        records = storage.load_records()
+        schedule = storage.load_schedule()
         obsidian.export(records, schedule, self.vault)
-        self.assertFalse(stale.exists())
+
+        # User adds their own note inside StudyEvolve/ — sync must NOT delete it
+        user_note = self.vault / "StudyEvolve" / "my_review.md"
+        user_note.write_text("# 사용자 회고\n", encoding="utf-8")
+
+        user_in_records = self.vault / "StudyEvolve" / "records" / "_my_extra.md"
+        user_in_records.write_text("# 사용자가 records에 추가\n", encoding="utf-8")
+
+        obsidian.export(records, schedule, self.vault)
+        self.assertTrue(user_note.exists())
+        self.assertTrue(user_in_records.exists())
 
 
 if __name__ == "__main__":
