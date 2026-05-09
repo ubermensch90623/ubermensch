@@ -18,24 +18,43 @@ CLI 기반 Python 프로그램. 웹앱 / 로그인 / DB 없음. 점수 상승 �
 
 ---
 
-## 설치
+## 설치 (1분)
 
 ```bash
-pip install -r requirements.txt
+git clone <repo-url> study-evolve && cd study-evolve
+bash bin/install.sh
 ```
 
-Python 3.10 이상.
+자동으로 다음을 처리합니다:
+1. Python ≥3.10 확인
+2. `.venv/` 가상환경 생성 (이미 있으면 재사용)
+3. `pandas`, `tabulate` 설치
+4. `data/` 폴더 + CSV 헤더 생성
+5. 57개 테스트 실행 (정상 작동 검증)
+
+옵션:
+- `bash bin/install.sh --no-venv`     — venv 없이 시스템 pip 사용
+- `bash bin/install.sh --no-tests`    — 테스트 건너뛰기 (빠른 설치)
+- `bash bin/install.sh --with-sample` — 설치 후 샘플 17건 자동 생성
+
+PATH에 추가하면 어디서든 호출 가능 (선택):
+```bash
+echo 'export PATH="$PATH:'$PWD'/bin"' >> ~/.bashrc
+source ~/.bashrc
+study-evolve add  # 어디서든 작동
+```
 
 ---
 
 ## 첫 실행 (5분)
 
 ```bash
-python main.py init
-python main.py sample        # 샘플 17건 자동 생성 (선택)
-python main.py stats
-python main.py recommend
+bin/study-evolve sample        # 샘플 17건 자동 생성 (선택)
+bin/study-evolve stats
+bin/study-evolve recommend
 ```
+
+(venv 활성화 후엔 `python main.py …` 도 동일)
 
 `sample`을 실행하면 다음 패턴이 들어간 데이터가 생성됩니다.
 
@@ -290,6 +309,13 @@ python main.py sync-vault --vault ~/Documents/MyVault
 
 **완전 자동 (매번 sync 명령 안 쳐도 됨)**:
 
+자동 추가:
+```bash
+bash bin/setup-shell.sh ~/Documents/MyVault --apply
+source ~/.bashrc   # 또는 ~/.zshrc
+```
+
+수동 추가:
 ```bash
 # ~/.zshrc 또는 ~/.bashrc
 export OBSIDIAN_VAULT=~/Documents/MyVault

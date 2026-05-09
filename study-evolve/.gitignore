@@ -2,6 +2,7 @@ data/records.csv
 data/review_schedule.csv
 data/*.lock
 data/*.tmp
+.venv/
 __pycache__/
 *.pyc
 .DS_Store
