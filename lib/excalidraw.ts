@@ -62,9 +62,11 @@ export function claudeToSkeletons(
 
   const skeletons: ExcalidrawElementSkeleton[] = [];
   const shapeIds = new Set<string>();
+  const seenArrowIds = new Set<string>();
 
   for (const el of tuned.elements) {
     if (el.kind === "arrow") continue;
+    if (shapeIds.has(el.id)) continue;
     const skel = buildShape(el, stroke, regionBg);
     if (skel) {
       skeletons.push(skel);
@@ -74,8 +76,12 @@ export function claudeToSkeletons(
 
   for (const el of tuned.elements) {
     if (el.kind !== "arrow") continue;
+    if (seenArrowIds.has(el.id) || shapeIds.has(el.id)) continue;
     const arrow = buildArrow(el, stroke, shapeIds);
-    if (arrow) skeletons.push(arrow);
+    if (arrow) {
+      skeletons.push(arrow);
+      seenArrowIds.add(el.id);
+    }
   }
 
   return skeletons;

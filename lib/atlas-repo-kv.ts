@@ -6,19 +6,21 @@ import type {
   ClaudeNodeOutput,
 } from "@/types/atlas";
 
-interface AtlasRecord {
+interface AtlasMeta {
   id: string;
   rootNodeId: string;
   topic: string;
   createdAt: number;
-  nodeIds: string[];
-  childIndex: Record<string, string>;
 }
 
 const atlasKey = (atlasId: string) => `atlas:${atlasId}`;
 const nodeKey = (nodeId: string) => `node:${nodeId}`;
-const childIndexKey = (atlasId: string, parentNodeId: string, parentElementId: string) =>
-  `${atlasId}::${parentNodeId}::${parentElementId}`;
+const atlasNodesKey = (atlasId: string) => `atlas-nodes:${atlasId}`;
+const childLinkKey = (
+  atlasId: string,
+  parentNodeId: string,
+  parentElementId: string,
+) => `child-link:${atlasId}::${parentNodeId}::${parentElementId}`;
 
 export interface CreateAtlasArgs {
   topic: string;
@@ -45,42 +47,48 @@ export async function createAtlas(args: CreateAtlasArgs): Promise<{
     createdAt: now,
   };
 
-  const atlasRecord: AtlasRecord = {
+  const meta: AtlasMeta = {
     id: atlasId,
     rootNodeId,
     topic: args.topic,
     createdAt: now,
-    nodeIds: [rootNodeId],
-    childIndex: {},
   };
 
-  await Promise.all([
-    kv.set(atlasKey(atlasId), atlasRecord),
-    kv.set(nodeKey(rootNodeId), rootNode),
-  ]);
+  // Order matters: write the node first, then the atlas record (the
+  // visibility boundary). atlas-nodes set is best-effort — getAtlas always
+  // includes rootNodeId regardless of the set, so a missing sadd is OK.
+  await kv.set(nodeKey(rootNodeId), rootNode);
+  await kv.set(atlasKey(atlasId), meta);
+  await kv.sadd(atlasNodesKey(atlasId), rootNodeId);
 
   return { atlasId, rootNodeId };
 }
 
 export async function getAtlas(atlasId: string): Promise<Atlas | null> {
-  const record = await kv.get<AtlasRecord>(atlasKey(atlasId));
-  if (!record) return null;
+  const meta = await kv.get<AtlasMeta>(atlasKey(atlasId));
+  if (!meta) return null;
 
-  const nodeKeys = record.nodeIds.map(nodeKey);
-  const nodeValues = nodeKeys.length
-    ? await kv.mget<(AtlasNode | null)[]>(...nodeKeys)
+  const setMembers =
+    (await kv.smembers(atlasNodesKey(atlasId))) ?? [];
+  const ids = new Set<string>(setMembers as string[]);
+  ids.add(meta.rootNodeId);
+
+  const idArray = [...ids];
+  const keys = idArray.map(nodeKey);
+  const values = keys.length
+    ? await kv.mget<(AtlasNode | null)[]>(...keys)
     : [];
 
   const nodes: Record<string, AtlasNode> = {};
-  for (const node of nodeValues) {
-    if (node) nodes[node.id] = node;
-  }
+  values.forEach((node, i) => {
+    if (node) nodes[idArray[i]] = node;
+  });
 
   return {
-    id: record.id,
-    rootNodeId: record.rootNodeId,
-    topic: record.topic,
-    createdAt: record.createdAt,
+    id: meta.id,
+    rootNodeId: meta.rootNodeId,
+    topic: meta.topic,
+    createdAt: meta.createdAt,
     nodes,
   };
 }
@@ -94,9 +102,9 @@ export async function findChildNode(
   parentNodeId: string,
   parentElementId: string,
 ): Promise<AtlasNode | null> {
-  const record = await kv.get<AtlasRecord>(atlasKey(atlasId));
-  if (!record) return null;
-  const childId = record.childIndex[childIndexKey(atlasId, parentNodeId, parentElementId)];
+  const childId = await kv.get<string>(
+    childLinkKey(atlasId, parentNodeId, parentElementId),
+  );
   if (!childId) return null;
   return await getNode(childId);
 }
@@ -109,16 +117,9 @@ export interface AddChildNodeArgs {
 }
 
 export async function addChildNode(args: AddChildNodeArgs): Promise<AtlasNode> {
-  const record = await kv.get<AtlasRecord>(atlasKey(args.atlasId));
-  if (!record) {
+  const meta = await kv.get<AtlasMeta>(atlasKey(args.atlasId));
+  if (!meta) {
     throw new Error(`Atlas ${args.atlasId} not found`);
-  }
-  const indexKey = childIndexKey(args.atlasId, args.parentNodeId, args.parentElementId);
-  const existingChildId = record.childIndex[indexKey];
-  if (existingChildId) {
-    throw new Error(
-      `Child already exists for (${args.parentNodeId}, ${args.parentElementId})`,
-    );
   }
 
   const nodeId = newNodeId();
@@ -135,16 +136,29 @@ export async function addChildNode(args: AddChildNodeArgs): Promise<AtlasNode> {
     createdAt: now,
   };
 
-  const updatedRecord: AtlasRecord = {
-    ...record,
-    nodeIds: [...record.nodeIds, nodeId],
-    childIndex: { ...record.childIndex, [indexKey]: nodeId },
-  };
+  // Step 1: write the node payload first.
+  await kv.set(nodeKey(nodeId), node);
 
-  await Promise.all([
-    kv.set(nodeKey(nodeId), node),
-    kv.set(atlasKey(args.atlasId), updatedRecord),
-  ]);
+  // Step 2: race-safe link reservation. NX semantics make this the
+  // atomic equivalent of the SQLite UNIQUE(atlas_id, parent_id,
+  // parent_element_id) constraint. If two concurrent calls race, only
+  // one wins.
+  const linkKey = childLinkKey(
+    args.atlasId,
+    args.parentNodeId,
+    args.parentElementId,
+  );
+  const reserved = await kv.set(linkKey, nodeId, { nx: true });
+  if (reserved !== "OK") {
+    await kv.del(nodeKey(nodeId));
+    throw new Error(
+      `UNIQUE conflict: child already exists for (${args.parentNodeId}, ${args.parentElementId})`,
+    );
+  }
+
+  // Step 3: track in the atlas's node set (best effort — getAtlas
+  // tolerates a missing entry by always including rootNodeId).
+  await kv.sadd(atlasNodesKey(args.atlasId), nodeId);
 
   return node;
 }

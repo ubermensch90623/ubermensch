@@ -11,8 +11,10 @@
     "test:format": "tsx scripts/smoke-format.ts",
     "test:excalidraw": "tsx scripts/smoke-excalidraw.ts",
     "test:repo": "rm -f data/atlas.db data/atlas.db-shm data/atlas.db-wal && tsx scripts/init-db.ts && tsx scripts/smoke-repo.ts",
+    "test:stress": "rm -f data/atlas.db data/atlas.db-shm data/atlas.db-wal && tsx scripts/init-db.ts && tsx scripts/stress-test.ts",
+    "test:volume": "rm -f data/atlas.db data/atlas.db-shm data/atlas.db-wal && tsx scripts/init-db.ts && tsx scripts/stress-volume.ts",
     "test:claude": "tsx scripts/smoke-claude.ts",
-    "test:all": "npm run test:format && npm run test:excalidraw && npm run test:repo"
+    "test:all": "npm run test:format && npm run test:excalidraw && npm run test:repo && npm run test:stress && npm run test:volume"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.0",
