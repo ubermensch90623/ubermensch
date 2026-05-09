@@ -35,6 +35,13 @@ npm run db:init
 npm run dev   # → http://localhost:3000
 ```
 
+## Tests
+
+```bash
+npm run test:all       # format + excalidraw + repo (all DOM-free)
+npm run test:claude    # full Claude round-trip (needs ANTHROPIC_API_KEY)
+```
+
 ## How it works
 
 1. User submits a topic on `/`.

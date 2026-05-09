@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:init": "tsx scripts/init-db.ts"
+    "db:init": "tsx scripts/init-db.ts",
+    "test:format": "tsx scripts/smoke-format.ts",
+    "test:excalidraw": "tsx scripts/smoke-excalidraw.ts",
+    "test:repo": "rm -f data/atlas.db data/atlas.db-shm data/atlas.db-wal && tsx scripts/init-db.ts && tsx scripts/smoke-repo.ts",
+    "test:claude": "tsx scripts/smoke-claude.ts",
+    "test:all": "npm run test:format && npm run test:excalidraw && npm run test:repo"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.0",

@@ -2,6 +2,13 @@ import { generateRootAtlas, generateChildNode } from "@/lib/claude";
 import type { AtlasNode } from "@/types/atlas";
 
 async function main() {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.error(
+      "✗ ANTHROPIC_API_KEY not set. Add it to .env.local (or your shell) and re-run.",
+    );
+    process.exit(1);
+  }
+
   const topic = process.argv[2] ?? "How a CPU executes an instruction";
   console.log(`\n[1] Generating root atlas for: "${topic}"\n`);
 
