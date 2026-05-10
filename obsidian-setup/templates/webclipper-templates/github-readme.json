@@ -1,0 +1,18 @@
+{
+  "name": "GitHub Repository",
+  "behavior": "create",
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-gh-{{title|slugify|truncate:60}}",
+  "path": "inbox/",
+  "noteContentFormat": "# {{title}}\n\n**Repo**: {{url}}\n**Description**: {{description}}\n**Stars**: {{selector:[id=\"repo-stars-counter-star\"]}}\n**Language**: {{selector:[itemprop=\"programmingLanguage\"]}}\n**License**: {{selector:[data-analytics-event*=\"License\"]}}\n**Clipped**: {{date|date:\"YYYY-MM-DD\"}}\n\n---\n\n## AI Summary\n{{\"이 레포가 무엇을 하는지 한국어 1~2문장으로\"}}\n\n## Why Save\n{{\"이 레포가 어떤 상황에서 유용한가? 1단락으로\"}}\n\n## Suggested Tags\n{{\"이 레포에 적절한 태그 5개. #kebab-case. 프로그래밍 언어와 도구 카테고리 포함\"}}\n\n## Install / Quick Start\n{{\"이 레포의 README에서 install 또는 quick start 명령을 코드 블록으로 추출\"}}\n\n## Comparable Alternatives\n{{\"이 레포와 비슷한 다른 도구/레포 3개를 추측해서 나열. 본인 추론으로\"}}\n\n## 적용 가능성\n<!-- 직접 채우기 — 내 어떤 프로젝트에 쓸 수 있나? -->\n- \n\n---\n\n## README 본문\n\n{{selector:#readme | markdown}}",
+  "properties": [
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "stars", "value": "{{selector:[id=\"repo-stars-counter-star\"]}}", "type": "text"},
+    {"name": "language", "value": "{{selector:[itemprop=\"programmingLanguage\"]}}", "type": "text"},
+    {"name": "clipped", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "literature, src/clipper, src/github, status/seedling", "type": "multitext"}
+  ],
+  "triggers": [
+    "github.com/*/*",
+    "*.github.com/*"
+  ]
+}

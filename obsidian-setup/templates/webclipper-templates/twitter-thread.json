@@ -1,0 +1,20 @@
+{
+  "name": "Twitter/X Thread",
+  "behavior": "create",
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-tweet-{{author|slugify}}-{{title|slugify|truncate:40}}",
+  "path": "inbox/",
+  "noteContentFormat": "# {{author}} 트윗/스레드\n\n**Author**: [{{author}}]({{schema:Person:url}})\n**Date**: {{published}}\n**URL**: {{url}}\n\n---\n\n## 원문\n\n{{content|markdown}}\n\n---\n\n## AI 분석\n\n### 핵심 주장\n{{\"이 트윗/스레드의 핵심 주장을 한국어 1~2문장으로\"}}\n\n### 왜 저장할 가치가 있나\n{{\"이 트윗이 갖는 인사이트를 1단락으로. 일반적이지 않은 관점을 강조\"}}\n\n### 연관 키워드\n{{\"이 주제와 연결될 만한 키워드 5개. #kebab-case 형식\"}}\n\n### 추가로 파볼 만한 질문\n{{\"이 트윗에서 출발해 더 깊이 탐구할 만한 질문 2개\"}}",
+  "properties": [
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "author", "value": "{{author}}", "type": "text"},
+    {"name": "platform", "value": "twitter/x", "type": "text"},
+    {"name": "clipped", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "fleeting, src/clipper, src/twitter, status/seedling", "type": "multitext"}
+  ],
+  "triggers": [
+    "*.twitter.com/*",
+    "*.x.com/*",
+    "twitter.com/*",
+    "x.com/*"
+  ]
+}

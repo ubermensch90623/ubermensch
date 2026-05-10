@@ -1,0 +1,20 @@
+{
+  "name": "YouTube Video",
+  "behavior": "create",
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-yt-{{title|slugify|truncate:60}}",
+  "path": "inbox/",
+  "noteContentFormat": "# {{title}}\n\n![{{title}}]({{meta:og:image}})\n\n**Channel**: {{schema:VideoObject:author}} \n**Published**: {{schema:VideoObject:uploadDate}}\n**Duration**: {{schema:VideoObject:duration}}\n**URL**: {{url}}\n\n---\n\n## AI Summary\n{{\"이 영상의 핵심 3가지를 한국어 불릿으로. 영상 제목과 설명을 보고 추정\"}}\n\n## Suggested Tags\n{{\"이 영상에 적절한 태그 5개. #kebab-case 형식\"}}\n\n## Why I Saved\n<!-- 직접 채우기 — 왜 이 영상을 저장했나? -->\n- \n\n## Key Timestamps\n<!-- 시청 후 채우기 -->\n- [ ] 0:00 — \n- [ ] \n\n---\n\n## Description\n\n{{description}}\n\n## Transcript (if available)\n\n{{selector:.ytd-transcript-renderer | markdown}}",
+  "properties": [
+    {"name": "source", "value": "{{url}}", "type": "text"},
+    {"name": "channel", "value": "{{schema:VideoObject:author}}", "type": "text"},
+    {"name": "duration", "value": "{{schema:VideoObject:duration}}", "type": "text"},
+    {"name": "published", "value": "{{schema:VideoObject:uploadDate}}", "type": "date"},
+    {"name": "clipped", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "tags", "value": "literature, src/clipper, src/youtube, status/seedling", "type": "multitext"}
+  ],
+  "triggers": [
+    "*.youtube.com/watch*",
+    "youtube.com/watch*",
+    "youtu.be/*"
+  ]
+}
