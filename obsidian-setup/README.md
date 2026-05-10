@@ -32,7 +32,8 @@
 | `08-curated-repos.md` | 큐레이션된 Obsidian GitHub 레포 20선 |
 | `templates/` | Vault에 복사할 노트 템플릿 (CLAUDE.md 포함) |
 | `templates/webclipper-templates/` | Web Clipper용 JSON 템플릿 5개 |
-| `starter-notes/` | "5개 노트로 시작" — 첫날부터 Graph View가 살아나는 시드 |
+| `starter-notes/` | 4개 시드 노트 (Why/How/Obsessions/Questions). vault의 `inbox/`로 복사 |
+| `inbox-init/` | `decisions.md` + `action-tracker.md` 초기 헤더. vault의 `inbox/`로 복사 |
 | `prompts/` | Daily Brief / Weekly Synthesis / Pattern Finder 프롬프트 |
 
 ## 두 가지 트랙

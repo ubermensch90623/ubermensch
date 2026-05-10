@@ -6,13 +6,18 @@ Claude를 Obsidian과 연결하는 3가지 방법. 위에서 아래로 갈수록
 
 [obsidian-skills](https://github.com/kepano/obsidian-skills) — Obsidian CEO Stephan Ango가 만든 Claude Code 에이전트 스킬 팩 (30k★).
 
-### 설치
+### 설치 (두 명령 모두 필요)
+
+Claude Code 안에서:
 
 ```
 /plugin marketplace add kepano/obsidian-skills
+/plugin install obsidian@obsidian-skills
 ```
 
-또는 수동:
+> ⚠️ `marketplace add`만 하면 카탈로그 등록만 되고 스킬이 활성화되지 않습니다. **반드시 두 번째 명령까지** 실행하세요.
+
+대체 방법 (NPX):
 ```bash
 npx skills add https://github.com/kepano/obsidian-skills
 ```
@@ -48,6 +53,24 @@ Claude가 vault를 **직접** read/write/move/search. Copy-paste 없어짐.
 
 ### 셋업 (MarkusPfundstein/mcp-obsidian 기준)
 
+> ⚠️ **중요**: 이 MCP 서버는 **Python (uvx)** 패키지입니다. npm/npx가 아닙니다.
+
+**0. 사전 준비 — `uv` 설치 (한 번만)**
+
+PowerShell:
+```powershell
+winget install astral-sh.uv
+```
+또는 (pip 사용 시):
+```powershell
+pip install uv
+```
+
+설치 확인:
+```powershell
+uvx --version
+```
+
 **1. Obsidian Local REST API 플러그인 활성화**
 - Settings → Community plugins → Browse → "Local REST API" 설치
 - Enable HTTPS: ON
@@ -55,13 +78,20 @@ Claude가 vault를 **직접** read/write/move/search. Copy-paste 없어짐.
 - 포트 확인: HTTPS는 27124, HTTP는 27123
 
 **2. MCP 설정 파일 편집**
-`~/.claude/mcp.json` (없으면 생성):
+
+Claude Desktop 사용 시 (Windows):
+- 위치: `%APPDATA%\Claude\claude_desktop_config.json`
+
+Claude Code 사용 시:
+- 위치: `~/.claude/mcp.json` (없으면 생성)
+- 또는 `claude mcp add` 명령으로 등록
+
 ```json
 {
   "mcpServers": {
     "obsidian-vault": {
-      "command": "npx",
-      "args": ["-y", "mcp-obsidian"],
+      "command": "uvx",
+      "args": ["mcp-obsidian"],
       "env": {
         "OBSIDIAN_API_KEY": "여기에_API_KEY_붙여넣기",
         "OBSIDIAN_HOST": "127.0.0.1",
@@ -72,7 +102,9 @@ Claude가 vault를 **직접** read/write/move/search. Copy-paste 없어짐.
 }
 ```
 
-**3. Claude Code 재시작**
+> 기본값: `OBSIDIAN_HOST=127.0.0.1`, `OBSIDIAN_PORT=27124`. 생략 가능.
+
+**3. Claude Code/Desktop 재시작**
 
 **4. 확인**
 ```
@@ -90,6 +122,27 @@ Claude가 vault를 **직접** read/write/move/search. Copy-paste 없어짐.
 Local REST API의 HTTPS는 self-signed 인증서. Node가 거부하면:
 - `NODE_TLS_REJECT_UNAUTHORIZED=0` 환경변수 (로컬만 권장)
 - 또는 HTTP 27123 사용 (보안 약간 떨어짐, 로컬만이면 OK)
+
+## CLAUDE.md 위치 — 헷갈리는 3개 정리
+
+이 시스템에는 **CLAUDE.md가 3개 위치에 있을 수 있음**. 역할이 다름:
+
+| 위치 | 누가 읽나 | 언제 자동 로드되나 | 역할 |
+|---|---|---|---|
+| **이 키트의 `templates/CLAUDE.md`** | 아무도 | 안 됨 (이건 그냥 템플릿 소스) | 복사용 마스터 사본 |
+| **Vault 루트의 `CLAUDE.md`** | Obsidian, Claude (MCP 경유), Claude Code (vault에서 실행 시) | Claude Code를 `cd <vault>` 후 실행했을 때 프로젝트 CLAUDE.md로 로드 | ★ 본인 정보를 채우는 곳 |
+| **`~/.claude/CLAUDE.md`** (Windows: `%USERPROFILE%\.claude\CLAUDE.md`) | Claude Code 글로벌 | 매번 자동 | Custom Instructions — vault 검색하라고 지시 |
+
+### 권장 셋업
+
+1. **이 키트의 `templates/CLAUDE.md`를 vault 루트에 복사** → 본인 정보로 채움
+2. **`~/.claude/CLAUDE.md`에는 한 단락만**: "내 vault는 X 경로에 있다. 매 답변 전 vault의 CLAUDE.md를 읽고 관련 노트를 검색해라."
+3. Claude Code 실행 시 **항상 `cd <vault>` 후 `claude`** — 그러면 vault CLAUDE.md가 프로젝트 CLAUDE.md로 추가 로드됨
+
+이 분리가 있어야:
+- Vault CLAUDE.md는 vault와 함께 동기화/백업됨 (본인 정보)
+- 글로벌 CLAUDE.md는 모든 Claude Code 세션에 적용됨 (지시문)
+- MCP가 있으면 Claude가 어디서 실행되든 vault CLAUDE.md를 직접 읽을 수 있음
 
 ## 레이어 3: Custom Instructions (가장 중요한 한 줄)
 

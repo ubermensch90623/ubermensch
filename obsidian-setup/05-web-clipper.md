@@ -21,19 +21,35 @@
 ### General 탭
 - **Vault**: `brain` (Obsidian이 인식하는 vault 이름)
 - **Default folder**: `inbox/`
-- **Default filename**: `{{date|date:"YYYY-MM-DD"}}-{{title|slugify}}`
+- **Default filename**: `{{time|date:"YYYY-MM-DD"}}-{{title|safe_name|truncate:60}}`
 - **Behavior**: "Create new note"
 
 ### Properties (Frontmatter) 기본값
+
+> ⚠️ **Properties는 YAML이 아니라 Web Clipper의 properties 배열로 정의됨.** YAML로 쓰는 게 아님. 다음은 결과 frontmatter 예시:
+
 ```yaml
-source: {{url}}
-author: {{author}}
-published: {{published}}
-clipped: {{date|date:"YYYY-MM-DD"}}
+source: https://example.com/article
+author: Jane Doe
+published: 2026-04-15
+clipped: 2026-05-10T14:32:01+09:00
 tags:
   - literature
   - src/clipper
 ```
+
+JSON 템플릿 안에서는 다음처럼 properties 배열:
+```json
+"properties": [
+  {"name": "source", "value": "{{url}}", "type": "text"},
+  {"name": "author", "value": "{{author}}", "type": "text"},
+  {"name": "published", "value": "{{published|date:\"YYYY-MM-DD\"}}", "type": "datetime"},
+  {"name": "clipped", "value": "{{time|date:\"YYYY-MM-DDTHH:mm:ssZ\"}}", "type": "datetime"},
+  {"name": "tags", "value": "literature, src/clipper", "type": "multitext"}
+]
+```
+
+> 날짜 properties는 `"type": "datetime"` (not `"date"`).
 
 ## 5가지 변수 종류
 
@@ -43,23 +59,33 @@ tags:
 | **Prompt** (AI) | `{{"이 글의 핵심 3가지를 한국어 불릿으로"}}` | AI Interpreter가 LLM으로 변환 |
 | **Meta** | `{{meta:author}}`, `{{meta:og:image}}` | HTML 메타태그 직접 추출 |
 | **Selector** | `{{selector:.article-body}}`, `{{selector:#main}}` | CSS 선택자로 특정 영역 |
-| **Schema.org** | `{{schema:NewsArticle:headline}}`, `{{schema:Recipe:ingredients}}` | 구조화된 데이터 |
+| **Schema.org** | `{{schema:@NewsArticle:headline}}`, `{{schema:@VideoObject:author}}` | 구조화된 데이터 (★ 타입 앞에 `@` 필수) |
 
 ## Filters (변수 후처리)
 
-변수 뒤에 `|`로 체이닝:
+변수 뒤에 `|`로 체이닝. **공식 명칭은 `safe_name`** — 파일명 변환 시 `slugify`가 아님:
 
 | Filter | 예시 | 효과 |
 |---|---|---|
-| `slugify` | `{{title|slugify}}` | "Hello World!" → "hello-world" |
+| `safe_name` | `{{title|safe_name}}` | 파일명으로 안전한 형태로 변환 (★ 파일명 필터로 이걸 사용) |
+| `slugify` | `{{title|slugify}}` | "Hello World!" → "hello-world" (URL용) |
 | `markdown` | `{{content|markdown}}` | HTML → Markdown |
 | `lower` / `upper` | `{{title|lower}}` | 대소문자 |
-| `date:"format"` | `{{date|date:"YYYY-MM-DD"}}` | 날짜 포맷 |
+| `date:"format"` | `{{time|date:"YYYY-MM-DD"}}` | 날짜 포맷 |
 | `join:", "` | `{{tags|join:", "}}` | 배열 → 문자열 |
-| `truncate:200` | `{{content|truncate:200}}` | 200자로 자르기 |
+| `truncate:60` | `{{title|truncate:60}}` | 60자로 자르기 |
+| `slice:0,8000` | `{{content|slice:0,8000}}` | 슬라이스 (긴 본문 자르기) |
 | `replace:"a","b"` | `{{title|replace:"&","and"}}` | 치환 |
+| `trim` | `{{content|trim}}` | 앞뒤 공백 제거 |
+| `first` | `{{thumbnailUrl|first}}` | 배열의 첫 요소 |
 
-체이닝: `{{content|markdown|truncate:500}}`
+체이닝: `{{selectorHtml:article|markdown|slice:0,8000|trim}}`
+
+### 현재 시간 vs 발행 시간
+
+- `{{time}}` — 클립한 **현재 시각** (`{{time|date:"YYYY-MM-DDTHH:mm:ssZ"}}`)
+- `{{date}}` — 컨텍스트에 따라 다름. 안전하게 `{{time}}` 사용 권장
+- `{{published}}` 또는 `{{schema:@VideoObject:uploadDate}}` — 글의 발행 시각
 
 ## ★ AI Interpreter — Anthropic API 키 셋업 (단계별)
 
@@ -95,12 +121,13 @@ tags:
 2. **Interpreter** 탭
 3. **Enable interpreter**: ON
 4. **Provider**: `Anthropic`
-5. **Model** 선택:
-   - **`claude-haiku-4-5`** — 빠르고 저렴 (글 1건 ~$0.005). 클립용 권장
-   - **`claude-sonnet-4-6`** — 품질 우선 (글 1건 ~$0.02). 중요 자료용
+5. **Model** 선택 (드롭다운에서 사용 가능한 최신 모델):
+   - **Haiku 계열** (`claude-haiku-4-5` 또는 그 시점 최신 Haiku) — 빠르고 저렴 (글 1건 ~$0.005). 클립용 권장
+   - **Sonnet 계열** (`claude-sonnet-4-6` 또는 최신 Sonnet) — 품질 우선 (글 1건 ~$0.02). 중요 자료용
+   > Web Clipper UI에 드롭다운으로 나오는 ID 그대로 선택. 정확한 ID는 시점에 따라 다를 수 있음. 안 보이면 [docs.anthropic.com/en/docs/about-claude/models](https://docs.anthropic.com/en/docs/about-claude/models)에서 현재 권장 모델 확인.
 6. **API Key**: 발급한 키 붙여넣기
 7. **Save**
-8. **Test connection** 버튼 → 성공 메시지 확인
+8. **Test connection** 버튼 → 성공 메시지 확인 (버튼 명칭은 버전에 따라 "Test" / "Verify")
 
 ### 5. Prompt 변수 활용 예시
 
@@ -141,17 +168,21 @@ tags:
 
 ## Smart Rules (도메인별 자동 템플릿)
 
+> ⚠️ Triggers는 **글로브 패턴이 아닌 URL prefix 또는 정규식**. `*.youtube.com/watch*`처럼 쓰면 안 작동.
+
 특정 사이트에서 클립할 때 자동으로 다른 템플릿 적용:
 
-| 도메인 패턴 | 템플릿 | 효과 |
+| Triggers (URL prefix) | 템플릿 | 효과 |
 |---|---|---|
-| `*.twitter.com`, `*.x.com` | `twitter-thread.json` | 스레드 전체 캡처, 작성자 메타 |
-| `*.youtube.com`, `youtu.be` | `youtube.json` | 자막 추출, 채널/조회수 |
-| `*.github.com/*/README*` | `github-readme.json` | README 본문, 스타/언어 |
-| `arxiv.org`, `*.nature.com` | `research-paper.json` | 초록, 저자, DOI |
+| `https://twitter.com/`, `https://x.com/` | `twitter-thread.json` | 스레드 전체 캡처, 작성자 메타 |
+| `https://www.youtube.com/watch`, `https://youtu.be/` | `youtube.json` | Schema.org로 채널/업로드일 |
+| `https://github.com/` | `github-readme.json` | README 본문, 스타/언어 |
+| `https://arxiv.org/`, `https://www.nature.com/` 등 | `research-paper.json` | 초록, 저자, DOI |
 | (그 외) | `default-article.json` | 기본 |
 
-설정: Options → **Templates** → 각 템플릿의 **Triggers** 필드에 URL 패턴 입력.
+설정: Options → **Templates** → 각 템플릿의 **Triggers** 필드. URL prefix를 그대로 입력 (와일드카드 X). 또는 정규식: `/^https:\/\/.*\.youtube\.com\/watch/`
+
+또는 Schema.org 타입으로: `schema:@Article`, `schema:@VideoObject` 등.
 
 이 키트의 `templates/webclipper-templates/`에 5개 JSON 제공 — Options → Templates → **Import**.
 

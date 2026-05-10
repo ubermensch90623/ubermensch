@@ -1,15 +1,24 @@
+<%*
+const today = tp.date.now("YYYY-MM-DD");
+const todayLong = tp.date.now("YYYY-MM-DD dddd");
+const briefPath = `inbox/brief-${today}.md`;
+const briefExists = await tp.file.find_tfile(briefPath) !== null;
+-%>
 ---
-date: {{date:YYYY-MM-DD}}
+date: <% today %>
 tags:
   - journal
 ---
 
-# {{date:YYYY-MM-DD dddd}}
+# <% todayLong %>
 
 ## ☀️ Morning Brief
 
-<!-- inbox/brief-{date}.md가 있다면 여기 transclude -->
-![[inbox/brief-{{date:YYYY-MM-DD}}#CONNECTIONS]]
+<%* if (briefExists) { %>
+![[inbox/brief-<% today %>#CONNECTIONS]]
+<%* } else { %>
+> 오늘 Daily Brief가 아직 없음. `prompts/daily-brief.md` 실행하면 [[inbox/brief-<% today %>]]에 생성됨.
+<%* } %>
 
 ## 🎯 Today's One Thing
 
@@ -37,7 +46,7 @@ tags:
 ```dataview
 LIST
 FROM "inbox"
-WHERE contains(file.name, "{{date:YYYY-MM-DD}}")
+WHERE startswith(file.name, "<% today %>")
 ```
 
 ## 🌙 End of Day

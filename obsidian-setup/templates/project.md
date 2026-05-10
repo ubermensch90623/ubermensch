@@ -1,7 +1,7 @@
 ---
 project: 
 status: active
-started: {{date:YYYY-MM-DD}}
+started: <% tp.date.now("YYYY-MM-DD") %>
 target_done: 
 tags:
   - project
@@ -19,7 +19,7 @@ tags:
 
 ## 현재 상태
 
-- Last touched: {{date:YYYY-MM-DD}}
+- Last touched: <% tp.date.now("YYYY-MM-DD") %>
 - Next milestone: 
 - Blocked on: 
 

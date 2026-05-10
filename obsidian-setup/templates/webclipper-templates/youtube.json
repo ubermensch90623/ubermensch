@@ -1,20 +1,22 @@
 {
+  "schemaVersion": "0.1.0",
   "name": "YouTube Video",
   "behavior": "create",
-  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-yt-{{title|slugify|truncate:60}}",
+  "noteNameFormat": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}}-yt-{{schema:@VideoObject:author|safe_name|truncate:30}}-{{schema:@VideoObject:name|safe_name|truncate:50}}",
   "path": "inbox/",
-  "noteContentFormat": "# {{title}}\n\n![{{title}}]({{meta:og:image}})\n\n**Channel**: {{schema:VideoObject:author}} \n**Published**: {{schema:VideoObject:uploadDate}}\n**Duration**: {{schema:VideoObject:duration}}\n**URL**: {{url}}\n\n---\n\n## AI Summary\n{{\"이 영상의 핵심 3가지를 한국어 불릿으로. 영상 제목과 설명을 보고 추정\"}}\n\n## Suggested Tags\n{{\"이 영상에 적절한 태그 5개. #kebab-case 형식\"}}\n\n## Why I Saved\n<!-- 직접 채우기 — 왜 이 영상을 저장했나? -->\n- \n\n## Key Timestamps\n<!-- 시청 후 채우기 -->\n- [ ] 0:00 — \n- [ ] \n\n---\n\n## Description\n\n{{description}}\n\n## Transcript (if available)\n\n{{selector:.ytd-transcript-renderer | markdown}}",
+  "context": "{{schema:@VideoObject:description|markdown|slice:0,6000|trim}}",
+  "noteContentFormat": "# {{schema:@VideoObject:name}}\n\n![{{schema:@VideoObject:name}}]({{schema:@VideoObject:thumbnailUrl|first}})\n\n**Channel**: {{schema:@VideoObject:author}}\n**Published**: {{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}}\n**Duration**: {{schema:@VideoObject:duration|replace:\"PT\",\"\",\"S\",\"\"}}\n**URL**: {{schema:@VideoObject:embedUrl|replace:\"embed/\",\"watch?v=\"}}\n\n---\n\n## AI Summary\n{{\"Based on the video title and description, infer the 3 key points. Output in Korean bullets.\"}}\n\n## Suggested Tags\n{{\"Suggest 5 specific Korean tags in #kebab-case for this video. Separate with spaces.\"}}\n\n## Why I Saved\n<!-- Fill in manually — why did I save this? -->\n- \n\n## Key Timestamps\n<!-- Fill in after watching -->\n- [ ] 0:00 — \n- [ ] \n\n---\n\n## Description\n\n{{context}}",
   "properties": [
-    {"name": "source", "value": "{{url}}", "type": "text"},
-    {"name": "channel", "value": "{{schema:VideoObject:author}}", "type": "text"},
-    {"name": "duration", "value": "{{schema:VideoObject:duration}}", "type": "text"},
-    {"name": "published", "value": "{{schema:VideoObject:uploadDate}}", "type": "date"},
-    {"name": "clipped", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "source", "value": "{{schema:@VideoObject:embedUrl|replace:\"embed/\",\"watch?v=\"}}", "type": "text"},
+    {"name": "channel", "value": "{{schema:@VideoObject:author}}", "type": "text"},
+    {"name": "duration", "value": "{{schema:@VideoObject:duration|replace:\"PT\",\"\",\"S\",\"\"}}", "type": "text"},
+    {"name": "published", "value": "{{schema:@VideoObject:uploadDate|date:\"YYYY-MM-DD\"}}", "type": "datetime"},
+    {"name": "clipped", "value": "{{time|date:\"YYYY-MM-DDTHH:mm:ssZ\"}}", "type": "datetime"},
     {"name": "tags", "value": "literature, src/clipper, src/youtube, status/seedling", "type": "multitext"}
   ],
   "triggers": [
-    "*.youtube.com/watch*",
-    "youtube.com/watch*",
-    "youtu.be/*"
+    "https://www.youtube.com/watch",
+    "https://youtube.com/watch",
+    "https://youtu.be/"
   ]
 }

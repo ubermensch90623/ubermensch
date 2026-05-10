@@ -1,27 +1,29 @@
 {
+  "schemaVersion": "0.1.0",
   "name": "Research Paper",
   "behavior": "create",
-  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-paper-{{author|slugify|truncate:30}}-{{title|slugify|truncate:50}}",
+  "noteNameFormat": "{{time|date:\"YYYY-MM-DD\"}}-paper-{{author|safe_name|truncate:30}}-{{title|safe_name|truncate:50}}",
   "path": "inbox/",
-  "noteContentFormat": "# {{title}}\n\n**Authors**: {{schema:ScholarlyArticle:author}}\n**Published**: {{schema:ScholarlyArticle:datePublished}}\n**Journal/Venue**: {{schema:ScholarlyArticle:publisher}}\n**DOI**: {{schema:ScholarlyArticle:doi}}\n**URL**: {{url}}\n**Clipped**: {{date|date:\"YYYY-MM-DD\"}}\n\n---\n\n## Abstract\n\n{{selector:.abstract | markdown}}\n{{selector:[class*=\"abstract\"] | markdown}}\n\n## AI Summary\n\n### 핵심 발견\n{{\"이 논문의 핵심 발견 3개를 한국어 불릿으로 (각 1~2 문장)\"}}\n\n### 방법론 요약\n{{\"이 논문이 사용한 방법론을 한국어 1단락으로\"}}\n\n### 한계 / 비판점\n{{\"이 논문의 명시된 한계, 그리고 추가로 비판 가능한 지점을 한국어 1단락으로\"}}\n\n### 후속 질문\n{{\"이 논문을 출발점으로 더 탐구할 만한 질문 3개\"}}\n\n## Suggested Tags\n{{\"이 논문에 적절한 학술 태그 5개. #kebab-case. 분야와 핵심 개념 포함\"}}\n\n## My Notes\n<!-- 읽으면서 직접 채우기 -->\n- \n\n## Cite (BibTeX)\n```bibtex\n<!-- 직접 추가하거나 Zotero 등에서 가져오기 -->\n```\n\n---\n\n## Citation Path\n\n- **Reads** (이 논문이 인용하는 핵심 선행 연구):\n  - \n- **Cited by** (이 논문을 인용한 후속 연구):\n  - \n\n## 관련 노트 in vault\n\n```dataview\nLIST\nFROM #literature\nWHERE contains(file.outlinks, this.file.link)\n```",
+  "context": "{{selectorHtml:.abstract|markdown|slice:0,4000|trim}}",
+  "noteContentFormat": "# {{title}}\n\n**Authors**: {{schema:@ScholarlyArticle:author}}\n**Published**: {{schema:@ScholarlyArticle:datePublished|date:\"YYYY-MM-DD\"}}\n**Journal/Venue**: {{schema:@ScholarlyArticle:publisher}}\n**DOI**: {{schema:@ScholarlyArticle:identifier}}\n**URL**: {{url}}\n**Clipped**: {{time|date:\"YYYY-MM-DD\"}}\n\n---\n\n## Abstract\n\n{{context}}\n\n## AI Summary\n\n### 핵심 발견\n{{\"List 3 key findings of this paper in Korean bullets (1-2 sentences each).\"}}\n\n### 방법론 요약\n{{\"Summarize the paper's methodology in 1 Korean paragraph.\"}}\n\n### 한계 / 비판점\n{{\"In 1 Korean paragraph, what limitations does the paper acknowledge AND what additional critiques are possible?\"}}\n\n### 후속 질문\n{{\"List 3 Korean questions to explore from this paper as a starting point.\"}}\n\n## Suggested Tags\n{{\"Suggest 5 academic tags in #kebab-case in Korean. Include field and key concepts. Separate with spaces.\"}}\n\n## My Notes\n<!-- Fill in while reading -->\n- \n\n## Cite (BibTeX)\n```bibtex\n<!-- Add manually or fetch from Zotero -->\n```\n\n---\n\n## Citation Path\n\n- **Reads** (key prior works this paper cites):\n  - \n- **Cited by** (later works that cite this paper):\n  - \n\n## 관련 노트 in vault\n\n```dataview\nLIST\nFROM #literature\nWHERE contains(file.outlinks, this.file.link)\n```",
   "properties": [
     {"name": "source", "value": "{{url}}", "type": "text"},
-    {"name": "authors", "value": "{{schema:ScholarlyArticle:author}}", "type": "text"},
-    {"name": "venue", "value": "{{schema:ScholarlyArticle:publisher}}", "type": "text"},
-    {"name": "doi", "value": "{{schema:ScholarlyArticle:doi}}", "type": "text"},
-    {"name": "published", "value": "{{schema:ScholarlyArticle:datePublished}}", "type": "date"},
-    {"name": "clipped", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "authors", "value": "{{schema:@ScholarlyArticle:author}}", "type": "text"},
+    {"name": "venue", "value": "{{schema:@ScholarlyArticle:publisher}}", "type": "text"},
+    {"name": "doi", "value": "{{schema:@ScholarlyArticle:identifier}}", "type": "text"},
+    {"name": "published", "value": "{{schema:@ScholarlyArticle:datePublished|date:\"YYYY-MM-DD\"}}", "type": "datetime"},
+    {"name": "clipped", "value": "{{time|date:\"YYYY-MM-DDTHH:mm:ssZ\"}}", "type": "datetime"},
     {"name": "tags", "value": "literature, src/clipper, src/paper, status/seedling", "type": "multitext"}
   ],
   "triggers": [
-    "arxiv.org/*",
-    "*.nature.com/*",
-    "scholar.google.com/*",
-    "*.sciencedirect.com/*",
-    "*.springer.com/*",
-    "*.acm.org/*",
-    "*.ieee.org/*",
-    "*.plos.org/*",
-    "pubmed.ncbi.nlm.nih.gov/*"
+    "https://arxiv.org/",
+    "https://www.nature.com/",
+    "https://scholar.google.com/",
+    "https://www.sciencedirect.com/",
+    "https://link.springer.com/",
+    "https://dl.acm.org/",
+    "https://ieeexplore.ieee.org/",
+    "https://journals.plos.org/",
+    "https://pubmed.ncbi.nlm.nih.gov/"
   ]
 }

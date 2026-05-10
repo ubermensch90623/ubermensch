@@ -55,12 +55,31 @@ brain/
 
 - [ ] Obsidian 좌측 사이드바에서 폴더 생성 또는 파일 탐색기에서 직접 생성
 
-## 5. 템플릿/시드 복사
+## 5. 템플릿/시드/초기 파일 복사
 
-- [ ] 이 키트의 `templates/` 내용 → vault의 `templates/`로 복사
-- [ ] 이 키트의 `starter-notes/` 5개 파일 → vault의 `inbox/`로 복사
-- [ ] 이 키트의 `templates/CLAUDE.md` → vault 루트로 복사
-- [ ] 이 키트의 `templates/home.md` → vault 루트로 복사
+PowerShell에서 (대체로 robocopy가 안전):
+```powershell
+$KIT = "$env:USERPROFILE\ubermensch\obsidian-setup"
+$VAULT = "$env:USERPROFILE\Google Drive\Vault\brain"
+
+# 템플릿 (note 양식)
+robocopy "$KIT\templates" "$VAULT\templates" /E /XD webclipper-templates
+
+# 시드 노트 (4개) → inbox/로
+robocopy "$KIT\starter-notes" "$VAULT\inbox"
+
+# inbox 초기 누적 파일 (decisions.md, action-tracker.md)
+robocopy "$KIT\inbox-init" "$VAULT\inbox"
+
+# Vault 루트 파일
+Copy-Item "$KIT\templates\CLAUDE.md" "$VAULT\CLAUDE.md"
+Copy-Item "$KIT\templates\home.md"  "$VAULT\home.md"
+```
+
+체크:
+- [ ] `vault/templates/` 안에 daily-note.md, zettel.md, literature.md, moc.md, project.md, home.md 6개
+- [ ] `vault/inbox/`에 시드 4개(001~004) + `decisions.md` + `action-tracker.md`
+- [ ] `vault/CLAUDE.md`와 `vault/home.md`가 루트에 있음
 
 ## 6. ★ CLAUDE.md 채우기 (가장 중요)
 
@@ -87,6 +106,10 @@ brain/
   - New file location: `notes/journal`
 - [ ] **Settings → Templates** (core plugin)
   - Template folder location: `templates`
+- [ ] **Settings → Templater** (커뮤니티 플러그인 — 8번에서 설치 후)
+  - Template folder location: `templates`  (Core Templates와 같은 폴더로 OK)
+  - Trigger Templater on new file creation: ON (옵션, 자동 적용 원할 때)
+  - Folder Templates: `notes/journal` → `templates/daily-note.md` 같이 매핑하면 daily note도 Templater 문법 작동
 
 ## 8. 커뮤니티 플러그인 설치
 
@@ -107,14 +130,41 @@ brain/
 
 - [ ] PowerShell에서 vault 루트로:
 ```powershell
-cd "%USERPROFILE%\Google Drive\Vault\brain"
+cd "$env:USERPROFILE\Google Drive\Vault\brain"
 git init
-echo ".obsidian/workspace*" > .gitignore
-echo "attachments/" >> .gitignore
+```
+- [ ] **`.gitignore` 작성** — PowerShell의 `echo`는 UTF-16LE를 만들어서 git이 못 읽음. `Set-Content -Encoding utf8` 사용:
+```powershell
+Set-Content -Encoding utf8 .gitignore @"
+# Obsidian local state (per-machine)
+.obsidian/workspace
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/graph.json
+
+# Attachments (large binaries)
+attachments/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Trash
+.trash/
+
+# Sensitive (절대 커밋 금지)
+.obsidian/plugins/obsidian-local-rest-api/data.json
+"@
+```
+> 처음에는 `.obsidian/` 전체를 무시하다가 안정되면 위처럼 선택적으로 풀어도 됨.
+
+- [ ] 초기 커밋:
+```powershell
 git add .
 git commit -m "initial vault"
 ```
-- [ ] (옵션) GitHub에 private repo 만들고 `git remote add origin ...` → `git push -u origin main`
+- [ ] (옵션) GitHub private repo: `git remote add origin ...` → `git push -u origin main`
 - [ ] Obsidian Git 플러그인 설정:
   - Vault backup interval: 30 (분마다 자동 커밋)
   - Auto pull interval: 60
@@ -126,19 +176,19 @@ git commit -m "initial vault"
 - [ ] **General**:
   - Vault: `brain`
   - Default folder: `inbox/`
-  - Filename: `{{date|date:"YYYY-MM-DD"}}-{{title|slugify}}`
+  - Filename: `{{time|date:"YYYY-MM-DD"}}-{{title|safe_name|truncate:60}}`
 - [ ] **Templates** → Import 클릭 → 이 키트의 `templates/webclipper-templates/`의 JSON 5개 모두 import:
   - default-article.json
   - twitter-thread.json
   - youtube.json
   - github-readme.json
   - research-paper.json
-- [ ] **Smart Rules**:
-  - `*.twitter.com, *.x.com` → twitter-thread
-  - `*.youtube.com, youtu.be` → youtube
-  - `*.github.com` → github-readme
-  - `arxiv.org, *.nature.com, *.scholar.google.com` → research-paper
-  - (기본) → default-article
+- [ ] **Smart Rules** (Triggers는 URL prefix — 와일드카드 아님):
+  - `https://twitter.com/`, `https://x.com/` → twitter-thread
+  - `https://www.youtube.com/watch`, `https://youtu.be/` → youtube
+  - `https://github.com/` → github-readme
+  - `https://arxiv.org/`, `https://www.nature.com/`, `https://scholar.google.com/` → research-paper
+  - (트리거 비어있음) → default-article (fallback)
 - [ ] **Interpreter** (옵션, 강력 추천) — `05-web-clipper.md`의 API 키 가이드 따라 셋업
 - [ ] **단축키**: 브라우저 확장 설정에서 `Alt+Shift+O` (Windows) 또는 `Cmd+Shift+O` (Mac)로 바인딩
 - [ ] 테스트: 아무 글에서 단축키 → vault의 `inbox/`에 파일 생성 확인
@@ -147,10 +197,12 @@ git commit -m "initial vault"
 
 - [ ] https://claude.ai/code 에서 Claude Code 설치
 - [ ] 터미널에서 `claude` 실행 → 인증
-- [ ] **Plugin marketplace에서 kepano/obsidian-skills 추가**:
+- [ ] **Plugin marketplace에서 kepano/obsidian-skills 추가 + 설치** (두 명령 모두 필요):
 ```
 /plugin marketplace add kepano/obsidian-skills
+/plugin install obsidian@obsidian-skills
 ```
+> ⚠️ `marketplace add`만 하면 카탈로그 등록만 되고 스킬이 활성화 안 됨. **반드시 두 번째 명령까지** 실행.
 - [ ] 설치 후 `/plugin list`로 확인 — 5개 스킬(`obsidian-markdown`, `obsidian-bases`, `json-canvas`, `obsidian-cli`, `defuddle`) 표시
 - [ ] **Custom Instructions 한 줄** 추가 (Claude Code 설정 또는 `~/.claude/CLAUDE.md`에):
 ```
@@ -163,30 +215,42 @@ Always cite vault notes using [[wikilinks]].
 
 ## 11. (권장) Obsidian MCP 연결
 
+> ⚠️ MCP 서버 `mcp-obsidian`은 **Python (uvx)** 패키지입니다. npm 아님.
+
+- [ ] **`uv` 설치** (한 번만):
+```powershell
+winget install astral-sh.uv
+```
+설치 확인: `uvx --version`
+
 - [ ] Obsidian에서 **Local REST API** 플러그인 활성화 (8번에서 설치함)
 - [ ] **Settings → Local REST API**
   - Enable HTTPS: ON
   - Copy API Key (긴 문자열)
-- [ ] `~/.claude/mcp.json` (없으면 생성) 편집:
+- [ ] `%USERPROFILE%\.claude\mcp.json` (없으면 생성) 편집:
 ```json
 {
   "mcpServers": {
     "obsidian-vault": {
-      "command": "npx",
-      "args": ["-y", "obsidian-mcp-server"],
+      "command": "uvx",
+      "args": ["mcp-obsidian"],
       "env": {
         "OBSIDIAN_API_KEY": "<여기에 복사한 키>",
-        "OBSIDIAN_API_URL": "https://127.0.0.1:27124",
-        "OBSIDIAN_VAULT_PATH": "C:/Users/<USERNAME>/Google Drive/Vault/brain"
+        "OBSIDIAN_HOST": "127.0.0.1",
+        "OBSIDIAN_PORT": "27124"
       }
     }
   }
 }
 ```
+> Claude Desktop을 쓴다면 위치는 `%APPDATA%\Claude\claude_desktop_config.json`.
+
 - [ ] Claude Code 재시작 → `/mcp` 명령으로 `obsidian-vault` 연결 확인
 - [ ] 테스트: "내 vault의 CLAUDE.md를 읽어줘" → 파일 내용 출력되면 성공
 
-> 대안 MCP 서버: `MarkusPfundstein/mcp-obsidian`, `jacksteamdev/obsidian-mcp-tools` (자세한 비교는 `08-curated-repos.md`).
+> Self-signed 인증서 오류가 나면: `OBSIDIAN_PORT`를 `27123`(HTTP)으로 변경. 로컬 통신이므로 보안상 OK.
+
+> 대안 MCP 서버: `iansinnott/obsidian-claude-code-mcp` (WebSocket), `jacksteamdev/obsidian-mcp-tools` (시맨틱 검색). 자세한 비교는 `04-claude-integration.md`.
 
 ## 12. Graph View 확인
 

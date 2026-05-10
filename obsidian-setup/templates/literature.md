@@ -2,7 +2,7 @@
 source: 
 author: 
 published: 
-clipped: {{date:YYYY-MM-DD}}
+clipped: <% tp.date.now("YYYY-MM-DD") %>
 tags:
   - literature
   - src/manual

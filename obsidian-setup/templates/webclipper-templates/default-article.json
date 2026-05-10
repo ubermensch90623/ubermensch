@@ -1,14 +1,16 @@
 {
+  "schemaVersion": "0.1.0",
   "name": "Default Article",
   "behavior": "create",
-  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-{{title|slugify}}",
+  "noteNameFormat": "{{time|date:\"YYYY-MM-DD\"}}-{{title|safe_name|trim}}",
   "path": "inbox/",
-  "noteContentFormat": "# {{title}}\n\n> {{description}}\n\n**Source**: {{url}}\n**Author**: {{author}}\n**Published**: {{published}}\n**Clipped**: {{date|date:\"YYYY-MM-DD\"}}\n\n---\n\n## AI Summary\n{{\"이 글의 핵심 3가지를 한국어 불릿으로 (각 1줄, 명사형 종결)\"}}\n\n## Suggested Tags\n{{\"이 글에 적절한 태그 5개를 추천. 형식: #kebab-case, 공백으로 구분. 너무 일반적인 태그(예: #article, #blog) 제외\"}}\n\n## Counter-argument\n{{\"이 글이 도전하는 통념이 무엇이고 그 근거는 무엇인가? 1단락(3문장)으로\"}}\n\n## Strongest Rebuttal\n{{\"이 글의 핵심 주장에 대한 가장 강한 반론을 1단락으로 (한국어)\"}}\n\n## Actionable Steps\n{{\"이 글에서 내가 행동으로 옮길 수 있는 구체 단계 3개를 체크박스로\"}}\n\n---\n\n## Highlights\n{{highlights}}\n\n---\n\n## Full Content\n\n{{content|markdown}}",
+  "context": "{{selectorHtml:article|markdown|slice:0,8000|trim}}",
+  "noteContentFormat": "# {{title}}\n\n> {{description}}\n\n**Source**: {{url}}\n**Author**: {{author}}\n**Published**: {{published}}\n**Clipped**: {{time|date:\"YYYY-MM-DD\"}}\n\n---\n\n## AI Summary\n{{\"Summarize the article in 3 Korean bullet points (one short line each, end with noun)\"}}\n\n## Suggested Tags\n{{\"Suggest 5 specific Korean tags in #kebab-case for this article. Exclude generic tags like #article #blog. Separate with spaces.\"}}\n\n## Counter-argument\n{{\"In 1 Korean paragraph (3 sentences), what conventional belief does this article challenge and what is its evidence?\"}}\n\n## Strongest Rebuttal\n{{\"In 1 Korean paragraph, give the strongest counter-argument to the article's main claim.\"}}\n\n## Actionable Steps\n{{\"Extract 3 concrete actions I can take from this article. Format as Korean markdown checkboxes.\"}}\n\n---\n\n## Highlights\n{{highlights}}\n\n---\n\n## Full Content\n\n{{context}}",
   "properties": [
     {"name": "source", "value": "{{url}}", "type": "text"},
     {"name": "author", "value": "{{author}}", "type": "text"},
-    {"name": "published", "value": "{{published}}", "type": "date"},
-    {"name": "clipped", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date"},
+    {"name": "published", "value": "{{published|date:\"YYYY-MM-DD\"}}", "type": "datetime"},
+    {"name": "clipped", "value": "{{time|date:\"YYYY-MM-DDTHH:mm:ssZ\"}}", "type": "datetime"},
     {"name": "tags", "value": "literature, src/clipper, status/seedling", "type": "multitext"}
   ],
   "triggers": []
