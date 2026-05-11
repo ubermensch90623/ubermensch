@@ -34,7 +34,7 @@
 | `templates/webclipper-templates/` | Web Clipper용 JSON 템플릿 5개 |
 | `starter-notes/` | 4개 시드 노트 (Why/How/Obsessions/Questions). vault의 `inbox/`로 복사 |
 | `inbox-init/` | `decisions.md` + `action-tracker.md` 초기 헤더. vault의 `inbox/`로 복사 |
-| `prompts/` | Daily Brief / Weekly Synthesis / Pattern Finder 프롬프트 |
+| `prompts/` | Daily Brief / Weekly Synthesis / Pattern Finder + **Session Start / Session End** 프롬프트 |
 
 ## 두 가지 트랙
 
@@ -52,6 +52,7 @@
 4. **CLAUDE.md가 가장 중요한 파일** — 컨텍스트 없는 AI는 검색엔진일 뿐 (Dwivedi/Cottrell)
 5. **Vault should talk back** — 매일 아침 vault가 먼저 말을 건다 (CyrilXBT)
 6. **5개 노트로 시작** — 완벽한 셋업은 영원히 오지 않는다 (Dwivedi/CyrilXBT)
+7. **세션은 휘발성, vault는 영구** — 매 세션 종료 시 `session-bridge.md`로 다음 세션에 다리 놓기. 이게 seamless의 핵심
 
 ## 참고 출처
 

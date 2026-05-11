@@ -109,8 +109,9 @@ Copy-Item "$KIT\templates\home.md"  "$VAULT\home.md"
 
 체크:
 - [ ] `vault/templates/` 안에 daily-note.md, zettel.md, literature.md, moc.md, project.md, home.md 6개
-- [ ] `vault/inbox/`에 시드 4개(001~004) + `decisions.md` + `action-tracker.md`
+- [ ] `vault/inbox/`에 시드 4개(001~004) + `decisions.md` + `action-tracker.md` + **`session-bridge.md`**
 - [ ] `vault/CLAUDE.md`와 `vault/home.md`가 루트에 있음
+- [ ] `vault/CLAUDE.md` 최상단에 **SESSION PROTOCOL 섹션이 있음** (이게 시스템 자가 강제의 핵심)
 
 ## 6. ★ CLAUDE.md 채우기 (가장 중요)
 
@@ -267,21 +268,28 @@ git commit -m "initial vault"
 - [ ] `%USERPROFILE%\.claude\CLAUDE.md` 파일 생성(없으면) 후 다음 내용 추가:
 
 ```markdown
-# Vault Integration Instructions
+# Vault Bootstrap (모든 세션에 자동 적용)
 
-내 Obsidian vault는 다음 경로에 있다:
-`C:\Users\<USERNAME>\Google Drive\Vault\brain`
+내 Obsidian vault: `C:\Users\<USERNAME>\Google Drive\Vault\brain`
 
-답변 규칙:
-- 매 답변 전 vault의 CLAUDE.md를 읽어 본인 컨텍스트를 갱신할 것
-- 질문과 관련된 노트를 vault에서 먼저 검색
-- 답변에 vault 노트를 [[wikilink]]로 인용
-- 새 결정 → inbox/decisions.md에 append (YYYY-MM-DD 헤딩, 컨텍스트/결정/이유)
-- 새 액션 → inbox/action-tracker.md에 append (- [ ] [날짜] 형식)
-- 외부 자료 정리 → notes/{date}-{slug}.md (#literature)
-- 본인 사고 재구성 → ideas/{slug}.md (#permanent)
-- 동기부여성 답변 금지. 일반론 금지. vault 컨텍스트 그라운딩 필수
-- 내가 믿는 것과 모순되는 과거 노트 발견 시 즉시 플래그
+## 매 세션 시작 시 (사용자 첫 메시지 답변 전 반드시):
+
+1. MCP로 `<vault>/CLAUDE.md`를 읽고 그 안의 SESSION PROTOCOL 섹션을 적용
+2. `<vault>/inbox/session-bridge.md`를 읽고 직전 세션 컨텍스트 로드
+3. `<vault>/inbox/action-tracker.md`의 Open Actions 인지
+
+위 3개를 못 읽으면 즉시 사용자에게 알림: "vault MCP 연결 실패 — 답변이 일반론 수준일 수 있음"
+
+## 매 답변마다:
+
+- 답변에 vault 노트를 `[[wikilink]]`로 인용 (인용 없으면 컨텍스트 미사용 신호)
+- 새 결정/액션/요약은 즉시 vault에 저장 (vault CLAUDE.md의 Routing Rules 따름)
+- 일반론 답변 금지, 동기부여 멘트 금지
+
+## 매 세션 종료 시:
+
+- 사용자가 "마무리", "끝", 종료 의도 표현하면 → `prompts/session-end.md` 절차 자동 실행
+- `inbox/session-bridge.md`를 이번 세션 요약으로 덮어쓰기
 ```
 
 > Claude Code는 실행 시 두 파일을 모두 읽는다:
@@ -299,22 +307,31 @@ git commit -m "initial vault"
 > Claude Code 대신 Cowork(또는 Claude Desktop)을 쓰면 10번 대신 이 단계로.
 
 - [ ] Claude Cowork 또는 Claude Desktop 앱 설치 후 로그인
-- [ ] **앱 Settings → User Preferences (또는 Custom Instructions) 필드**에 다음 붙여넣기:
+- [ ] **앱 Settings → User Preferences (또는 Custom Instructions) 필드**에 다음 붙여넣기 (Claude Code용과 동일):
 
 ```markdown
-내 Obsidian vault는 다음 경로에 있다:
-`C:\Users\<USERNAME>\Google Drive\Vault\brain`
+# Vault Bootstrap (모든 대화에 자동 적용)
 
-답변 규칙:
-- 매 답변 전 vault의 CLAUDE.md를 읽어 본인 컨텍스트를 갱신할 것
-- 질문과 관련된 노트를 vault에서 먼저 검색 (Obsidian MCP 경유)
+내 Obsidian vault: `C:\Users\<USERNAME>\Google Drive\Vault\brain`
+
+## 매 대화 시작 시 (사용자 첫 메시지 답변 전 반드시):
+
+1. MCP로 `<vault>/CLAUDE.md`를 읽고 그 안의 SESSION PROTOCOL 섹션을 적용
+2. `<vault>/inbox/session-bridge.md`를 읽고 직전 세션 컨텍스트 로드
+3. `<vault>/inbox/action-tracker.md`의 Open Actions 인지
+
+위 3개를 못 읽으면 즉시 사용자에게 알림: "vault MCP 연결 실패 — 답변이 일반론 수준일 수 있음"
+
+## 매 답변마다:
+
 - 답변에 vault 노트를 [[wikilink]]로 인용
-- 새 결정 → inbox/decisions.md에 append (YYYY-MM-DD 헤딩, 컨텍스트/결정/이유)
-- 새 액션 → inbox/action-tracker.md에 append (- [ ] [날짜] 형식)
-- 외부 자료 정리 → notes/{date}-{slug}.md (#literature)
-- 본인 사고 재구성 → ideas/{slug}.md (#permanent)
-- 동기부여성 답변 금지. 일반론 금지. vault 컨텍스트 그라운딩 필수
-- 내가 믿는 것과 모순되는 과거 노트 발견 시 즉시 플래그
+- 새 결정/액션/요약은 즉시 vault에 저장
+- 일반론 답변 금지, 동기부여 멘트 금지
+
+## 매 세션 종료 시:
+
+- 사용자가 "마무리", "끝", 종료 의도 표현하면
+  → `inbox/session-bridge.md`를 이번 세션 요약으로 덮어쓰기
 ```
 
 - [ ] **kepano/obsidian-skills는 사용 안 함** — Cowork에 plugin marketplace 없음. 대신 다음 단계의 MCP가 동일한 read/write 기능을 모두 제공.
@@ -373,6 +390,59 @@ winget install astral-sh.uv
 
 > 대안 MCP 서버: `iansinnott/obsidian-claude-code-mcp` (WebSocket), `jacksteamdev/obsidian-mcp-tools` (시맨틱 검색). 자세한 비교는 `04-claude-integration.md`.
 
+## 11.5. ★ Seamless 보장 (자동 실행 + 주간 알림)
+
+> 이 단계는 **"매번 수동으로 챙기는 시스템"을 "자동으로 굴러가는 시스템"으로** 바꾼다. 빼먹으면 며칠 안에 vault가 stale해진다.
+
+### A. Obsidian Windows 시작 시 자동 실행 (필수)
+
+MCP가 작동하려면 Obsidian이 항상 켜져 있어야 함. 부팅 시 자동 실행:
+
+- [ ] `Win+R` → `shell:startup` 입력 → 시작 프로그램 폴더 열림
+- [ ] Obsidian 바탕화면 바로가기를 이 폴더로 **드래그(복사)**
+- [ ] (옵션) Obsidian Settings → About → "Launch on system startup": ON
+- [ ] (옵션) Settings → About → "Hide tray icon": OFF (트레이로 백그라운드 실행)
+- [ ] 재부팅 후 확인: Obsidian이 자동으로 켜져 있어야 함
+
+### B. CLAUDE.md 주간 업데이트 알림 (Windows Task Scheduler)
+
+매주 월요일 9am에 알림 자동 — `CLAUDE.md`를 5분 업데이트하지 않으면 답변 품질이 떨어짐:
+
+- [ ] PowerShell 관리자 권한 실행 → 다음 명령:
+
+```powershell
+$action = New-ScheduledTaskAction `
+  -Execute "powershell.exe" `
+  -Argument "-WindowStyle Hidden -Command `"[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null; [System.Windows.Forms.MessageBox]::Show('CLAUDE.md 업데이트 시간 (5분)`n- Current Projects 갱신`n- What I Am Reading 갱신', 'Vault Weekly Refresh', 'OK', 'Information')`""
+
+$trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At 9am
+
+Register-ScheduledTask `
+  -TaskName "Vault Weekly CLAUDE.md Refresh" `
+  -Action $action `
+  -Trigger $trigger `
+  -Description "매주 월요일 9am: vault CLAUDE.md 업데이트 알림"
+```
+
+### C. Daily Brief 자동 생성 (옵션, 강력 추천)
+
+매일 아침 6am에 Claude API가 자동으로 brief를 vault에 생성하면 진짜 "talk back vault"가 됨.
+
+- [ ] `07-automation-future.md`의 "Daily Brief 6am 자동화" 섹션 참고
+- [ ] 우선은 수동으로 `prompts/daily-brief.md` 사용해도 OK. 자동화는 익숙해진 후
+
+### D. Google Drive vs Obsidian Sync 결정
+
+매일 여러 기기에서 작업한다면 무료 Google Drive 한계 명확:
+- 동기화 지연 (Wi-Fi+충전 시에만 안정)
+- 동시 편집 충돌 시 `.conflict` 파일 생성
+- `.obsidian/workspace*`이 자주 충돌 → .gitignore + Drive 제외 둘 다 필요
+
+→ **다중 기기 + 즉시 동기화가 중요하면 Obsidian Sync($5/월)** 가 가장 확실.
+→ 단일 PC면 Google Drive로 충분.
+
+- [ ] 본인 시나리오 선택 후 그에 맞게 설정
+
 ## 12. Graph View 확인
 
 - [ ] Obsidian에서 `Ctrl+G` (Graph View)
@@ -397,6 +467,22 @@ winget install astral-sh.uv
 - [ ] **MCP 연결**: Claude Code에서 `/mcp` → `obsidian-vault: connected`. "내 vault의 home.md를 읽어줘" → 내용 출력.
 - [ ] **Custom Instructions 작동**: Claude Code에 일반 질문("이번 주 뭐 할까?") → 답변에 vault 노트가 `[[wikilink]]`로 인용됨. 안 되면 `~/.claude/CLAUDE.md` 확인.
 - [ ] **Git 백업**: vault 루트에서 `git log` → 최소 1개 커밋 존재. Obsidian Git 플러그인 정상 동작 시 30분 후 자동 커밋 추가됨.
+
+### ★ Seamless 검증 (가장 중요한 테스트)
+
+이게 작동하면 키트가 완성된 것. 안 되면 SESSION PROTOCOL 미적용:
+
+- [ ] **세션 1**: Claude 새 세션 열고 `prompts/session-start.md` 붙여넣기 → CLAUDE.md 요약 + Open Actions + 최신 결정이 정확히 출력됨
+- [ ] **세션 1 (계속)**: "OAuth를 JWT로 바꾸기로 결정했어"라고 말함 → Claude가 자동으로 `📝 saved → [[decisions#...]]` 응답
+- [ ] **세션 1 종료**: "오늘 마무리하자"라고 말함 → Claude가 `inbox/session-bridge.md`를 덮어쓰고 `🌙 session bridged` 보고
+- [ ] **세션 2 (새 세션)**: 아무 말 없이 "지금 뭐 하고 있었지?" 질문 → Claude가 session-bridge.md를 읽고 OAuth→JWT 결정과 미완 thread를 정확히 복원
+- [ ] **세션 2 (검증)**: "오늘 결정한 거 있어?" → 답이 빈 결과로 와야 함 (어제 결정은 session-bridge에 있고, 오늘 결정은 없음)
+
+5개 다 통과하면 진짜 seamless. 하나라도 실패 시:
+- 세션 1 첫 단계 실패 → MCP 미연결 또는 CLAUDE.md 미존재
+- 자동 save 실패 → Custom Instructions에 SESSION PROTOCOL B 누락
+- session-bridge 덮어쓰기 실패 → SESSION PROTOCOL C 누락
+- 세션 2 복원 실패 → session-bridge.md를 첫 read에 안 함 → Custom Instructions A1~A3 누락
 
 ## 14. (옵션) AgriciDaniel/claude-obsidian 풀스택
 
