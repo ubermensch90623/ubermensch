@@ -20,19 +20,20 @@
 
 이 키트는 두 가지 Claude 클라이언트를 지원. 본인 환경에 따라 선택:
 
-| | **Claude Code** (터미널) | **Claude Cowork / Desktop** (앱) |
+| | **Claude Code** (터미널/CLI) | **Claude Desktop + Cowork** (데스크탑 앱) |
 |---|---|---|
+| 요구 사항 | 무료 가능 | **Pro/Max/Team/Enterprise 유료 플랜 필수** (Cowork) |
 | `kepano/obsidian-skills` (10번) | ✅ 사용 | ❌ 건너뛰기 (Cowork 미지원) |
-| MCP 서버 (11번) | ✅ `~/.claude/mcp.json` | ✅ `%APPDATA%\Claude\claude_desktop_config.json` |
-| Custom Instructions 위치 | `~/.claude/CLAUDE.md` | 앱 **Settings → User Preferences** 필드 |
+| MCP 서버 (11번) | ✅ `%USERPROFILE%\.claude\mcp.json` | ✅ `%APPDATA%\Claude\claude_desktop_config.json` (또는 앱의 Settings → Developers → Edit Config) |
+| Custom Instructions 위치 | `~/.claude/CLAUDE.md` | 앱 **Settings → Cowork → Global Instructions** |
+| MCP 연결 검증 | `/mcp` 명령 | 새 채팅 하단 **🔨 hammer 아이콘**에 도구 개수 |
 | vault CLAUDE.md (6번) | 양쪽 모두 동일 | 양쪽 모두 동일 |
 | Web Clipper (9.5번) | 양쪽 모두 동일 | 양쪽 모두 동일 |
 | 프롬프트 사용 | 양쪽 모두 동일 (복사 붙여넣기) | 양쪽 모두 동일 |
-| Vault 구조/템플릿/시드 | 양쪽 모두 동일 | 양쪽 모두 동일 |
 
-> **Cowork 사용자**는 10번을 통째로 건너뛰고 11번에서 config 파일 경로만 다르게. 실용적 차이는 거의 없음 — Cowork는 MCP가 obsidian-skills의 기능을 대부분 커버.
+> **Cowork 사용자**는 10번을 통째로 건너뛰고 10-Cowork로 → 11번에서 config 경로만 다르게. 실용 차이는 거의 없음 — Cowork는 MCP가 obsidian-skills 기능을 대부분 커버.
 
-> **둘 다 쓰는 경우**: 같은 vault에 양쪽 모두 연결 가능. MCP config만 각각 등록. 두 클라이언트 사이 충돌 없음.
+> **둘 다 쓰는 경우**: 같은 vault에 양쪽 연결 가능. MCP config만 각각 등록. 두 클라이언트 사이 충돌 없음 (Obsidian Git이 자동 커밋으로 보호).
 
 ## 사전 준비
 
@@ -302,12 +303,13 @@ git commit -m "initial vault"
 > claude
 > ```
 
-## 10-Cowork. Claude Cowork / Desktop 통합 (Cowork 사용자용)
+## 10-Cowork. Claude Cowork 통합 (Cowork 사용자용)
 
-> Claude Code 대신 Cowork(또는 Claude Desktop)을 쓰면 10번 대신 이 단계로.
+> ⚠️ **중요**: Claude Cowork는 **Claude Desktop 앱 안의 기능**입니다 (별도 앱 아님).
+> 2026년 1월 research preview 출시, 2월에 Windows 지원. **Pro/Max/Team/Enterprise 유료 플랜 필요**.
 
-- [ ] Claude Cowork 또는 Claude Desktop 앱 설치 후 로그인
-- [ ] **앱 Settings → User Preferences (또는 Custom Instructions) 필드**에 다음 붙여넣기 (Claude Code용과 동일):
+- [ ] Claude Desktop 앱 설치 후 로그인 (https://claude.ai/download)
+- [ ] **Settings → Cowork → Global Instructions → Edit** 클릭 후 다음 붙여넣기 (Claude Code용과 동일):
 
 ```markdown
 # Vault Bootstrap (모든 대화에 자동 적용)
@@ -334,6 +336,7 @@ git commit -m "initial vault"
   → `inbox/session-bridge.md`를 이번 세션 요약으로 덮어쓰기
 ```
 
+- [ ] Save → 새 대화부터 자동 적용
 - [ ] **kepano/obsidian-skills는 사용 안 함** — Cowork에 plugin marketplace 없음. 대신 다음 단계의 MCP가 동일한 read/write 기능을 모두 제공.
 
 > Cowork에서 vault에 접근하는 유일한 경로는 **MCP 서버(11번)**. 11번 셋업이 더 중요해짐.
@@ -358,9 +361,10 @@ winget install astral-sh.uv
 
   **Claude Code 사용 시**: `%USERPROFILE%\.claude\mcp.json` (없으면 생성)
 
-  **Claude Cowork / Desktop 사용 시**: `%APPDATA%\Claude\claude_desktop_config.json`
+  **Claude Desktop / Cowork 사용 시**: `%APPDATA%\Claude\claude_desktop_config.json`
+  - 가장 쉬운 길: 앱에서 **Settings → Developers → Edit Config** 클릭 → 메모장/IDE로 자동 열림
   - 파일이 이미 있으면 `mcpServers` 객체에 추가만. 다른 MCP 서버와 공존 가능
-  - PowerShell로 경로 확인: `echo $env:APPDATA\Claude\`
+  - PowerShell로 직접 확인: `echo $env:APPDATA\Claude\`
 
   **양쪽 다 쓴다면**: 두 파일에 같은 내용 등록
 
@@ -381,9 +385,12 @@ winget install astral-sh.uv
 }
 ```
 
-- [ ] **재시작 후 연결 확인**:
-  - Claude Code: `/mcp` 명령 → `obsidian-vault: connected` 표시
-  - Cowork / Desktop: 앱 재시작 → 설정의 **MCP** 또는 **Connections** 섹션에 `obsidian-vault` 활성 표시
+- [ ] **앱 완전 종료 후 재시작** (이게 가장 자주 빠뜨리는 단계):
+  - Claude Code: 터미널 세션 종료 → 새 터미널 열고 `claude`
+  - **Claude Desktop / Cowork**: 창 닫기로는 부족. **트레이 아이콘 우클릭 → Quit**. 그래야 새 config 로드.
+- [ ] **연결 확인**:
+  - Claude Code: `/mcp` → `obsidian-vault: connected` 표시
+  - **Claude Desktop / Cowork**: 새 대화창 하단의 **🔨 hammer 아이콘**에 도구 개수 (보통 5+) 표시. 클릭하면 `obsidian-vault`의 tool 목록. 아이콘 안 보이면 MCP 실패.
 - [ ] 테스트: "내 vault의 CLAUDE.md를 읽어줘" → 파일 내용 출력되면 성공
 
 > Self-signed 인증서 오류가 나면: `OBSIDIAN_PORT`를 `27123`(HTTP)으로 변경. 로컬 통신이므로 보안상 OK.
@@ -470,19 +477,32 @@ Register-ScheduledTask `
 
 ### ★ Seamless 검증 (가장 중요한 테스트)
 
-이게 작동하면 키트가 완성된 것. 안 되면 SESSION PROTOCOL 미적용:
+이게 작동하면 키트가 완성된 것. 안 되면 SESSION PROTOCOL 미적용.
 
-- [ ] **세션 1**: Claude 새 세션 열고 `prompts/session-start.md` 붙여넣기 → CLAUDE.md 요약 + Open Actions + 최신 결정이 정확히 출력됨
-- [ ] **세션 1 (계속)**: "OAuth를 JWT로 바꾸기로 결정했어"라고 말함 → Claude가 자동으로 `📝 saved → [[decisions#...]]` 응답
-- [ ] **세션 1 종료**: "오늘 마무리하자"라고 말함 → Claude가 `inbox/session-bridge.md`를 덮어쓰고 `🌙 session bridged` 보고
-- [ ] **세션 2 (새 세션)**: 아무 말 없이 "지금 뭐 하고 있었지?" 질문 → Claude가 session-bridge.md를 읽고 OAuth→JWT 결정과 미완 thread를 정확히 복원
-- [ ] **세션 2 (검증)**: "오늘 결정한 거 있어?" → 답이 빈 결과로 와야 함 (어제 결정은 session-bridge에 있고, 오늘 결정은 없음)
+**Cowork 사용 시 사전 확인**:
+- [ ] 새 채팅창 하단 **🔨 hammer 아이콘**에 도구 개수 표시 (5+ 권장). 안 보이면 MCP 미연결 → 11번 트러블슈팅
+- [ ] 아이콘 클릭 → `obsidian-vault`의 list/get/search/append 등 tool 보임
 
-5개 다 통과하면 진짜 seamless. 하나라도 실패 시:
-- 세션 1 첫 단계 실패 → MCP 미연결 또는 CLAUDE.md 미존재
-- 자동 save 실패 → Custom Instructions에 SESSION PROTOCOL B 누락
-- session-bridge 덮어쓰기 실패 → SESSION PROTOCOL C 누락
-- 세션 2 복원 실패 → session-bridge.md를 첫 read에 안 함 → Custom Instructions A1~A3 누락
+**Claude Code 사용 시 사전 확인**:
+- [ ] `/mcp` → `obsidian-vault: connected`
+
+**5단계 Seamless 테스트** (Cowork든 Code든 동일):
+
+- [ ] **세션 1**: 새 대화/세션 열고 `prompts/session-start.md` 붙여넣기 → CLAUDE.md 요약 + Open Actions + 최신 결정이 정확히 출력됨
+- [ ] **세션 1 (계속)**: "OAuth를 JWT로 바꾸기로 결정했어"라고 말함 → Claude가 자동으로 `📝 saved → [[decisions#...]]` 응답. vault 파일 시스템에서 `inbox/decisions.md` 열어 실제로 추가됐는지 확인.
+- [ ] **세션 1 종료**: "오늘 마무리하자"라고 말함 → Claude가 `inbox/session-bridge.md`를 덮어쓰고 `🌙 session bridged` 보고. vault의 session-bridge.md를 열어 "Last Session Summary"에 OAuth→JWT 내용 있는지 확인.
+- [ ] **세션 2 (새 세션)**: 앱 완전 종료(트레이 Quit) → 다시 열기 → 새 대화 시작. 첫 메시지 없이 "지금 뭐 하고 있었지?" 질문 → Claude가 session-bridge.md를 읽고 OAuth→JWT 결정과 미완 thread를 정확히 복원
+- [ ] **세션 2 (검증)**: "오늘 결정한 거 있어?" → "오늘은 아직 결정 없음. 어제 [[decisions#...OAuth-JWT]]를 결정했음" 식으로 와야 함
+
+5개 다 통과하면 진짜 seamless. 하나라도 실패 시 어디서 깨졌는지 추적:
+
+| 실패 지점 | 원인 | 해결 |
+|---|---|---|
+| 세션 1 첫 단계 (요약 출력) 실패 | MCP 미연결 또는 vault CLAUDE.md 미존재 | 🔨 아이콘 / `/mcp` 확인. CLAUDE.md 경로 확인 |
+| 자동 save 실패 (📝 안 뜸) | Global Instructions / `~/.claude/CLAUDE.md`에 SESSION PROTOCOL B 누락 | 10번 또는 10-Cowork 다시 |
+| 📝는 뜨는데 vault 파일에 실제로 안 들어감 | MCP write 권한 또는 Obsidian Local REST API 비활성 | 11번 재확인 |
+| session-bridge 덮어쓰기 실패 | SESSION PROTOCOL C 미적용. 또는 Claude가 "마무리" 신호 인식 못 함 | `prompts/session-end.md` 수동으로 던져보기 |
+| 세션 2에서 복원 실패 | Claude가 session-bridge.md를 첫 read에 안 함 | Custom Instructions A1~A3 확인. 또는 `prompts/session-start.md` 수동 |
 
 ## 14. (옵션) AgriciDaniel/claude-obsidian 풀스택
 

@@ -170,6 +170,52 @@
 - **TL;DR — 30분 미니멀 셋업**: 체크리스트 최상단에 추가. 시간 없을 때 6단계만 따라가도 vault가 살아나도록.
 - **13.5 셋업 검증**: 각 컴포넌트 작동을 사용자가 직접 체크할 수 있는 9개 검증 항목 추가.
 
+## 3차 라운드 — Cowork 실측 검증 (Claude 공식 지원 문서 대조)
+
+Cowork 전용 트랙을 만들었지만 외부 도구 명칭/UI 경로가 추정에 가까웠음. Anthropic 공식 지원 문서로 재검증:
+
+### F1. "Cowork"이 별도 앱이라는 오해
+**문제**: 이전 문서는 "Claude Cowork / Desktop"로 묶었지만 사용자가 "둘 다 설치해야 하나?" 헷갈림
+
+**확인**: Cowork는 **Claude Desktop 안의 기능**. 2026년 1월 research preview, 2월 Windows. **Pro/Max/Team/Enterprise 플랜 필수**.
+
+**수정**: 매트릭스/체크리스트/통합 가이드 전반에서 "Claude Desktop + Cowork"로 통일. 플랜 요구사항 명시.
+
+### F2. Custom Instructions 필드명 오류
+**문제**: "User Preferences" 또는 "Custom Instructions" 필드라고 안내 — Cowork 실제 UI에 없음
+
+**확인**: Cowork는 **`Settings → Cowork → Global Instructions → Edit`**. "Global Instructions"가 정확한 명칭.
+
+**수정**: 체크리스트 10-Cowork, 매트릭스, 04-claude-integration.md 모두 수정.
+
+### F3. MCP config UI 경로 미안내
+**문제**: `%APPDATA%\Claude\claude_desktop_config.json`만 안내 — 비개발자는 경로 입력 부담
+
+**확인**: 앱 UI에서 **`Settings → Developers → Edit Config`** 클릭하면 메모장/IDE로 자동 오픈.
+
+**수정**: 두 경로 모두 제공.
+
+### F4. 재시작 의미 모호
+**문제**: "재시작" 안내 — 사용자가 창만 닫고 다시 열면 새 config 안 읽힘
+
+**확인**: Claude Desktop은 트레이 백그라운드. 창 닫기 ≠ 종료. **트레이 아이콘 우클릭 → Quit** 필요.
+
+**수정**: "앱 완전 종료" 표현 명시 + 트레이 Quit 강조.
+
+### F5. MCP 연결 검증 방법 미안내
+**문제**: 검증을 "내 vault의 CLAUDE.md 읽어줘" 같은 자연어 질문으로만 안내
+
+**확인**: Claude Desktop/Cowork에서는 **새 채팅창 하단 🔨 hammer 아이콘**에 사용 가능한 도구 개수가 숫자로 표시됨. 아이콘 자체가 없으면 MCP 미연결.
+
+**수정**: 매트릭스의 "MCP 연결 검증" 행 + 11번 검증 단계 + Seamless 테스트 사전 확인에 hammer 아이콘 추가.
+
+### F6. Cowork 트러블슈팅 부재
+**문제**: "Cowork 메뉴가 안 보임" 같은 흔한 증상 누락
+
+**확인**: 무료 플랜은 Cowork 미지원 → 메뉴 자체가 없음.
+
+**수정**: 04-claude-integration.md 트러블슈팅 표에 행 추가 + 사전 요구사항 명시.
+
 ## 남은 검증 불가 항목 (실제 PC에서만 확인 가능)
 
 - Web Clipper `{{"prompt"}}` syntax가 실제 Interpreter UI와 일치하는지

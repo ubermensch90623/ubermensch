@@ -4,15 +4,20 @@ Claude를 Obsidian과 연결하는 3가지 방법. 위에서 아래로 갈수록
 
 ## 클라이언트별 적용 매트릭스
 
-이 키트는 **Claude Code (CLI)**와 **Claude Cowork / Desktop (앱)** 두 클라이언트를 지원. 어떤 레이어가 어디서 작동하는지:
+이 키트는 두 클라이언트를 지원:
 
-| 레이어 | Claude Code | Claude Cowork / Desktop |
+- **Claude Code** (CLI/터미널) — 무료 사용 가능
+- **Claude Desktop + Cowork** (데스크탑 앱) — Pro/Max/Team/Enterprise 필요. Cowork는 2026년 1월 research preview 출시 → 2월 Windows 지원. **Claude Desktop 안의 기능**이지 별도 앱 아님
+
+| 레이어 | Claude Code | Claude Desktop + Cowork |
 |---|---|---|
-| **레이어 1**: kepano/obsidian-skills | ✅ 작동 (`/plugin` 명령) | ❌ 사용 불가 (plugin marketplace 없음) |
-| **레이어 2**: Obsidian MCP 서버 | ✅ `~/.claude/mcp.json` | ✅ `%APPDATA%\Claude\claude_desktop_config.json` |
-| **레이어 3**: Custom Instructions | ✅ `~/.claude/CLAUDE.md` | ✅ 앱 Settings → User Preferences |
+| **레이어 1**: kepano/obsidian-skills | ✅ 작동 (`/plugin` 명령) | ❌ 사용 불가 (Cowork에 plugin marketplace 없음) |
+| **레이어 2**: Obsidian MCP 서버 | ✅ `%USERPROFILE%\.claude\mcp.json` | ✅ `%APPDATA%\Claude\claude_desktop_config.json` (앱 UI: Settings → Developers → Edit Config) |
+| **레이어 3**: Custom Instructions | ✅ `~/.claude/CLAUDE.md` | ✅ 앱 **Settings → Cowork → Global Instructions** |
+| **연결 검증** | `/mcp` 명령 | 새 채팅 하단 🔨 hammer 아이콘 |
+| **재시작 방법** | 새 터미널 열기 | **트레이 아이콘 우클릭 → Quit** (창 닫기 ❌) |
 
-**실용적 결론**: Cowork는 레이어 1을 못 쓰지만 레이어 2(MCP)가 obsidian-skills의 기능을 대부분 커버하므로 실용 차이는 거의 없음. obsidian-bases/json-canvas 같은 특화 생성은 Claude Code가 조금 더 매끄러움.
+**실용 결론**: Cowork는 레이어 1을 못 쓰지만 레이어 2(MCP)가 obsidian-skills 기능을 대부분 커버. obsidian-bases/json-canvas 같은 특화 생성은 Claude Code가 조금 더 매끄러움.
 
 ## 레이어 1: kepano/obsidian-skills (Claude Code 전용, 5분)
 
@@ -165,10 +170,11 @@ Local REST API의 HTTPS는 self-signed 인증서. Node가 거부하면:
 - 또는 `claude --append-system-prompt "..."` 플래그
 - 또는 `.claude/CLAUDE.md`를 vault 안에 두고 `cd <vault> && claude`로 실행
 
-**Claude Cowork / Desktop**:
-- 앱 상단 메뉴 또는 좌측 사이드바 → **Settings** → **User Preferences** (또는 **Custom Instructions**)
+**Claude Desktop + Cowork**:
+- **Settings → Cowork → Global Instructions → Edit**
 - 텍스트 박스에 그대로 붙여넣기 → Save
 - 새 대화 시작 시 자동 적용 (기존 대화는 영향 안 받음)
+- 요구: Cowork는 Pro/Max/Team/Enterprise 플랜 필요 (2026 research preview)
 
 **Claude.ai 웹 (Projects)**:
 - Project 만들기 → **Project Instructions** 필드
@@ -233,15 +239,18 @@ Challenge my assumptions when they conflict with my own past notes.
 
 | 증상 | 원인 / 해결 |
 |---|---|
-| `/mcp` 명령이 obsidian-vault를 못 찾음 (Code) | `~/.claude/mcp.json` 경로/내용 확인 |
-| Cowork 설정에서 MCP 서버가 안 보임 | `%APPDATA%\Claude\claude_desktop_config.json` 작성 후 **앱 완전 재시작** (트레이 종료 포함) |
+| `/mcp` 명령이 obsidian-vault를 못 찾음 (Code) | `%USERPROFILE%\.claude\mcp.json` 경로/내용 확인 |
+| Cowork 채팅창 하단에 🔨 hammer 아이콘 없음 | MCP 서버 로드 실패. config 파일 위치 확인 (`Settings → Developers → Edit Config`로 검증) |
+| 🔨 아이콘은 있지만 obsidian-vault 안 보임 | Obsidian이 안 켜져 있거나 Local REST API 플러그인 비활성. uvx가 PATH에 있는지: `uvx --version` |
+| 설정 바꿨는데 반영 안 됨 (Cowork) | **창 닫기만 한 것**. 트레이 아이콘 우클릭 → Quit로 완전 종료 후 재시작 |
 | MCP 연결되지만 read 실패 | Local REST API 플러그인 활성화 / API Key 일치 확인 |
-| HTTPS 인증서 오류 | HTTP 27123으로 변경 또는 인증서 신뢰 |
-| Claude가 vault 검색을 안 함 (Code) | Custom Instructions가 등록 안 됨. `~/.claude/CLAUDE.md` 확인 |
-| Claude가 vault 검색을 안 함 (Cowork) | User Preferences 필드 비어있거나 새 대화 시작 안 함 — 새 대화 만들어보기 |
+| HTTPS 인증서 오류 | `OBSIDIAN_PORT`를 27123으로 (HTTP). 로컬 통신이므로 보안상 OK |
+| Claude가 vault 검색을 안 함 (Code) | Custom Instructions 미등록. `~/.claude/CLAUDE.md` 확인 |
+| Claude가 vault 검색을 안 함 (Cowork) | **Settings → Cowork → Global Instructions** 비어있음. 또는 새 대화 시작 안 함 — 새 대화 생성 |
 | 답변이 일반론적 | vault의 CLAUDE.md 부실. 6번 단계 다시 |
 | Claude가 새 파일 작성 시 위치 잘못됨 | Vault Routing Rules가 CLAUDE.md에 없거나 모호함 |
 | Cowork에서 `/plugin` 명령 안 됨 | Cowork는 plugin marketplace 미지원. Claude Code 전용 기능 |
+| Cowork 메뉴에 "Cowork" 자체가 없음 | 무료 플랜은 Cowork 미지원. Pro 이상 필요 |
 
 ## 다음 단계
 
