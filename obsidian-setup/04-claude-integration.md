@@ -2,7 +2,19 @@
 
 Claude를 Obsidian과 연결하는 3가지 방법. 위에서 아래로 갈수록 강력해진다.
 
-## 레이어 1: kepano/obsidian-skills (필수, 5분)
+## 클라이언트별 적용 매트릭스
+
+이 키트는 **Claude Code (CLI)**와 **Claude Cowork / Desktop (앱)** 두 클라이언트를 지원. 어떤 레이어가 어디서 작동하는지:
+
+| 레이어 | Claude Code | Claude Cowork / Desktop |
+|---|---|---|
+| **레이어 1**: kepano/obsidian-skills | ✅ 작동 (`/plugin` 명령) | ❌ 사용 불가 (plugin marketplace 없음) |
+| **레이어 2**: Obsidian MCP 서버 | ✅ `~/.claude/mcp.json` | ✅ `%APPDATA%\Claude\claude_desktop_config.json` |
+| **레이어 3**: Custom Instructions | ✅ `~/.claude/CLAUDE.md` | ✅ 앱 Settings → User Preferences |
+
+**실용적 결론**: Cowork는 레이어 1을 못 쓰지만 레이어 2(MCP)가 obsidian-skills의 기능을 대부분 커버하므로 실용 차이는 거의 없음. obsidian-bases/json-canvas 같은 특화 생성은 Claude Code가 조금 더 매끄러움.
+
+## 레이어 1: kepano/obsidian-skills (Claude Code 전용, 5분)
 
 [obsidian-skills](https://github.com/kepano/obsidian-skills) — Obsidian CEO Stephan Ango가 만든 Claude Code 에이전트 스킬 팩 (30k★).
 
@@ -146,6 +158,24 @@ Local REST API의 HTTPS는 self-signed 인증서. Node가 거부하면:
 
 ## 레이어 3: Custom Instructions (가장 중요한 한 줄)
 
+### 클라이언트별 위치
+
+**Claude Code**:
+- `~/.claude/CLAUDE.md` (Windows: `%USERPROFILE%\.claude\CLAUDE.md`)
+- 또는 `claude --append-system-prompt "..."` 플래그
+- 또는 `.claude/CLAUDE.md`를 vault 안에 두고 `cd <vault> && claude`로 실행
+
+**Claude Cowork / Desktop**:
+- 앱 상단 메뉴 또는 좌측 사이드바 → **Settings** → **User Preferences** (또는 **Custom Instructions**)
+- 텍스트 박스에 그대로 붙여넣기 → Save
+- 새 대화 시작 시 자동 적용 (기존 대화는 영향 안 받음)
+
+**Claude.ai 웹 (Projects)**:
+- Project 만들기 → **Project Instructions** 필드
+- vault 내용은 못 읽지만 작성 스타일/페르소나는 동일하게 적용 가능
+
+### 정확한 문구 (어디든 동일하게 복사)
+
 > "That single instruction means Claude reads your vault before every reply." — Cottrell
 
 ### 어디에 넣나
@@ -203,12 +233,15 @@ Challenge my assumptions when they conflict with my own past notes.
 
 | 증상 | 원인 / 해결 |
 |---|---|
-| `/mcp` 명령이 obsidian-vault를 못 찾음 | mcp.json 경로 확인. `~/.claude/` 또는 Claude Code 설정 위치 |
+| `/mcp` 명령이 obsidian-vault를 못 찾음 (Code) | `~/.claude/mcp.json` 경로/내용 확인 |
+| Cowork 설정에서 MCP 서버가 안 보임 | `%APPDATA%\Claude\claude_desktop_config.json` 작성 후 **앱 완전 재시작** (트레이 종료 포함) |
 | MCP 연결되지만 read 실패 | Local REST API 플러그인 활성화 / API Key 일치 확인 |
 | HTTPS 인증서 오류 | HTTP 27123으로 변경 또는 인증서 신뢰 |
-| Claude가 vault 검색을 안 함 | Custom Instructions가 등록 안 됨. `~/.claude/CLAUDE.md` 확인 |
+| Claude가 vault 검색을 안 함 (Code) | Custom Instructions가 등록 안 됨. `~/.claude/CLAUDE.md` 확인 |
+| Claude가 vault 검색을 안 함 (Cowork) | User Preferences 필드 비어있거나 새 대화 시작 안 함 — 새 대화 만들어보기 |
 | 답변이 일반론적 | vault의 CLAUDE.md 부실. 6번 단계 다시 |
 | Claude가 새 파일 작성 시 위치 잘못됨 | Vault Routing Rules가 CLAUDE.md에 없거나 모호함 |
+| Cowork에서 `/plugin` 명령 안 됨 | Cowork는 plugin marketplace 미지원. Claude Code 전용 기능 |
 
 ## 다음 단계
 

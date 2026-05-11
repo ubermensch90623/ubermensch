@@ -16,6 +16,24 @@
 
 여기서부터 vault가 살아남. 나머지(MCP, Web Clipper, Git, 자동화)는 나중에 한 단계씩.
 
+## 🎯 어떤 Claude를 쓰는가? (트랙 결정)
+
+이 키트는 두 가지 Claude 클라이언트를 지원. 본인 환경에 따라 선택:
+
+| | **Claude Code** (터미널) | **Claude Cowork / Desktop** (앱) |
+|---|---|---|
+| `kepano/obsidian-skills` (10번) | ✅ 사용 | ❌ 건너뛰기 (Cowork 미지원) |
+| MCP 서버 (11번) | ✅ `~/.claude/mcp.json` | ✅ `%APPDATA%\Claude\claude_desktop_config.json` |
+| Custom Instructions 위치 | `~/.claude/CLAUDE.md` | 앱 **Settings → User Preferences** 필드 |
+| vault CLAUDE.md (6번) | 양쪽 모두 동일 | 양쪽 모두 동일 |
+| Web Clipper (9.5번) | 양쪽 모두 동일 | 양쪽 모두 동일 |
+| 프롬프트 사용 | 양쪽 모두 동일 (복사 붙여넣기) | 양쪽 모두 동일 |
+| Vault 구조/템플릿/시드 | 양쪽 모두 동일 | 양쪽 모두 동일 |
+
+> **Cowork 사용자**는 10번을 통째로 건너뛰고 11번에서 config 파일 경로만 다르게. 실용적 차이는 거의 없음 — Cowork는 MCP가 obsidian-skills의 기능을 대부분 커버.
+
+> **둘 다 쓰는 경우**: 같은 vault에 양쪽 모두 연결 가능. MCP config만 각각 등록. 두 클라이언트 사이 충돌 없음.
+
 ## 사전 준비
 
 - [ ] Windows 10/11
@@ -225,7 +243,7 @@ git commit -m "initial vault"
 - [ ] **단축키**: 브라우저 확장 설정에서 `Alt+Shift+O` (Windows) 또는 `Cmd+Shift+O` (Mac)로 바인딩
 - [ ] 테스트: 아무 글에서 단축키 → vault의 `inbox/`에 파일 생성 확인
 
-## 10. ★ Claude Code 통합
+## 10. ★ Claude Code 통합 (Cowork 사용자는 건너뛰고 10-Cowork로)
 
 - [ ] https://claude.ai/code 에서 Claude Code 설치
 - [ ] 터미널에서 `claude` 실행 → 인증
@@ -276,6 +294,35 @@ git commit -m "initial vault"
 > claude
 > ```
 
+## 10-Cowork. Claude Cowork / Desktop 통합 (Cowork 사용자용)
+
+> Claude Code 대신 Cowork(또는 Claude Desktop)을 쓰면 10번 대신 이 단계로.
+
+- [ ] Claude Cowork 또는 Claude Desktop 앱 설치 후 로그인
+- [ ] **앱 Settings → User Preferences (또는 Custom Instructions) 필드**에 다음 붙여넣기:
+
+```markdown
+내 Obsidian vault는 다음 경로에 있다:
+`C:\Users\<USERNAME>\Google Drive\Vault\brain`
+
+답변 규칙:
+- 매 답변 전 vault의 CLAUDE.md를 읽어 본인 컨텍스트를 갱신할 것
+- 질문과 관련된 노트를 vault에서 먼저 검색 (Obsidian MCP 경유)
+- 답변에 vault 노트를 [[wikilink]]로 인용
+- 새 결정 → inbox/decisions.md에 append (YYYY-MM-DD 헤딩, 컨텍스트/결정/이유)
+- 새 액션 → inbox/action-tracker.md에 append (- [ ] [날짜] 형식)
+- 외부 자료 정리 → notes/{date}-{slug}.md (#literature)
+- 본인 사고 재구성 → ideas/{slug}.md (#permanent)
+- 동기부여성 답변 금지. 일반론 금지. vault 컨텍스트 그라운딩 필수
+- 내가 믿는 것과 모순되는 과거 노트 발견 시 즉시 플래그
+```
+
+- [ ] **kepano/obsidian-skills는 사용 안 함** — Cowork에 plugin marketplace 없음. 대신 다음 단계의 MCP가 동일한 read/write 기능을 모두 제공.
+
+> Cowork에서 vault에 접근하는 유일한 경로는 **MCP 서버(11번)**. 11번 셋업이 더 중요해짐.
+
+> **Claude Code와 동시 사용**: 같은 vault에 둘 다 연결 가능. MCP config만 각각 등록하면 됨. 양쪽이 vault에 동시에 쓰는 경우 Obsidian Git이 자동 커밋으로 충돌 방지.
+
 ## 11. (권장) Obsidian MCP 연결
 
 > ⚠️ MCP 서버 `mcp-obsidian`은 **Python (uvx)** 패키지입니다. npm 아님.
@@ -290,7 +337,17 @@ winget install astral-sh.uv
 - [ ] **Settings → Local REST API**
   - Enable HTTPS: ON
   - Copy API Key (긴 문자열)
-- [ ] `%USERPROFILE%\.claude\mcp.json` (없으면 생성) 편집:
+- [ ] **MCP 설정 파일** — 사용 중인 클라이언트에 따라 다른 경로:
+
+  **Claude Code 사용 시**: `%USERPROFILE%\.claude\mcp.json` (없으면 생성)
+
+  **Claude Cowork / Desktop 사용 시**: `%APPDATA%\Claude\claude_desktop_config.json`
+  - 파일이 이미 있으면 `mcpServers` 객체에 추가만. 다른 MCP 서버와 공존 가능
+  - PowerShell로 경로 확인: `echo $env:APPDATA\Claude\`
+
+  **양쪽 다 쓴다면**: 두 파일에 같은 내용 등록
+
+  내용 (양쪽 공통):
 ```json
 {
   "mcpServers": {
@@ -306,9 +363,10 @@ winget install astral-sh.uv
   }
 }
 ```
-> Claude Desktop을 쓴다면 위치는 `%APPDATA%\Claude\claude_desktop_config.json`.
 
-- [ ] Claude Code 재시작 → `/mcp` 명령으로 `obsidian-vault` 연결 확인
+- [ ] **재시작 후 연결 확인**:
+  - Claude Code: `/mcp` 명령 → `obsidian-vault: connected` 표시
+  - Cowork / Desktop: 앱 재시작 → 설정의 **MCP** 또는 **Connections** 섹션에 `obsidian-vault` 활성 표시
 - [ ] 테스트: "내 vault의 CLAUDE.md를 읽어줘" → 파일 내용 출력되면 성공
 
 > Self-signed 인증서 오류가 나면: `OBSIDIAN_PORT`를 `27123`(HTTP)으로 변경. 로컬 통신이므로 보안상 OK.
