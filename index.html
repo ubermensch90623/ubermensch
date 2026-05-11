@@ -288,13 +288,18 @@
       <article class="uc">
         <div class="uc-num">01</div>
         <h3>Specs, Planning &amp; Exploration</h3>
-        <p class="desc">Explore options, mockups, flow diagrams &amp; implementation plans in one rich canvas.</p>
+        <p class="desc">Compare three real approaches to debounced search — click to switch.</p>
         <div class="mock">
           <div class="section-title-sm" style="font-size:10px">Three approaches to debounced search</div>
-          <div class="three-cols">
-            <div class="col"><h4>A · Trailing</h4><div class="line"></div><div class="line short"></div><div class="line accent"></div></div>
-            <div class="col"><h4>B · Leading</h4><div class="line accent"></div><div class="line"></div><div class="line short"></div></div>
-            <div class="col"><h4>C · Hybrid</h4><div class="line"></div><div class="line accent"></div><div class="line short"></div></div>
+          <div class="approach-tabs" role="tablist" id="approachTabs">
+            <button class="approach-tab" role="tab" aria-selected="true" data-approach="trailing">A · Trailing</button>
+            <button class="approach-tab" role="tab" aria-selected="false" data-approach="leading">B · Leading</button>
+            <button class="approach-tab" role="tab" aria-selected="false" data-approach="hybrid">C · Hybrid</button>
+          </div>
+          <pre class="approach-code" id="approachCode"><code class="mono"></code></pre>
+          <div class="approach-meta">
+            <span class="meta-pill" id="metaLatency">latency: fast</span>
+            <span class="meta-pill" id="metaCalls">calls: low</span>
           </div>
         </div>
         <div>
@@ -315,16 +320,31 @@
       <article class="uc">
         <div class="uc-num">02</div>
         <h3>Code Review &amp; Understanding</h3>
-        <p class="desc">Rich diffs, annotations &amp; severity-coded findings that beat default text views.</p>
+        <p class="desc">Annotated diff — click the orange dots for the review note.</p>
         <div class="mock">
-          <div class="diff-mock">
+          <div class="diff-mock" id="diffMock">
             <div class="row"><span class="gut">12</span><span class="ctx">function debounce(fn, ms) {</span></div>
             <div class="row"><span class="gut">13</span><span class="del">- &nbsp;let t;</span></div>
-            <div class="row"><span class="gut">14</span><span class="add">+ &nbsp;let t, lastArgs;<span class="note"></span></span></div>
+            <div class="row">
+              <span class="gut">14</span>
+              <span class="add">+ &nbsp;let t, lastArgs;</span>
+              <button class="note-dot" type="button" data-note="Keep last args so trailing-edge fire uses the most recent call." aria-label="Show review note">!</button>
+            </div>
             <div class="row"><span class="gut">15</span><span class="ctx">&nbsp;&nbsp;return (...args) =&gt; {</span></div>
-            <div class="row"><span class="gut">16</span><span class="add">+ &nbsp;&nbsp;lastArgs = args;</span></div>
+            <div class="row">
+              <span class="gut">16</span>
+              <span class="add">+ &nbsp;&nbsp;lastArgs = args;</span>
+              <button class="note-dot" type="button" data-note="Overwrites are intentional: only the final call matters here." aria-label="Show review note">!</button>
+            </div>
             <div class="row"><span class="gut">17</span><span class="ctx">&nbsp;&nbsp;&nbsp;&nbsp;clearTimeout(t);</span></div>
+            <div class="row">
+              <span class="gut">18</span>
+              <span class="del">- &nbsp;&nbsp;&nbsp;t = setTimeout(() =&gt; fn(...args), ms);</span>
+              <button class="note-dot note-warn" type="button" data-note="Captured stale args. Replaced with lastArgs below." aria-label="Show review note">!</button>
+            </div>
+            <div class="row"><span class="gut">19</span><span class="add">+ &nbsp;&nbsp;&nbsp;t = setTimeout(() =&gt; fn(...lastArgs), ms);</span></div>
           </div>
+          <div class="note-popover" id="notePopover" hidden role="status"></div>
         </div>
         <div>
           <div class="prompt-label">Example prompt</div>
@@ -386,14 +406,26 @@
       <article class="uc">
         <div class="uc-num">04</div>
         <h3>Reports, Research &amp; Learning</h3>
-        <p class="desc">Synthesize across Slack, git, code &amp; the web into one readable, visual report.</p>
+        <p class="desc">Click any finding to expand source context.</p>
         <div class="mock">
           <div class="section-title-sm" style="font-size:10px">How rate limiting works</div>
-          <div class="snip">
-            <div><span class="k">limit</span>: 1000 req/min <span class="src">— rate_limits.go:42</span></div>
-            <div><span class="k">burst</span>: 100 <span class="src">— rate_limits.go:51</span></div>
-            <div><span class="k">window</span>: sliding <span class="src">— ADR-014.md</span></div>
-            <div><span class="k">@ops-team</span>: tune per tenant <span class="src">— #infra-2024-11</span></div>
+          <div class="snip research-list" id="researchList">
+            <button class="research-row" type="button" aria-expanded="false">
+              <span class="r-summary"><span class="k">limit</span>: 1000 req/min <span class="src">— rate_limits.go:42</span></span>
+              <span class="r-detail">var defaultLimit = 1000<br/>// configurable per tenant via env LIMIT_RPM</span>
+            </button>
+            <button class="research-row" type="button" aria-expanded="false">
+              <span class="r-summary"><span class="k">burst</span>: 100 <span class="src">— rate_limits.go:51</span></span>
+              <span class="r-detail">bucket := NewTokenBucket(rate, /*burst=*/100)<br/>// allows short spikes without 429s</span>
+            </button>
+            <button class="research-row" type="button" aria-expanded="false">
+              <span class="r-summary"><span class="k">window</span>: sliding <span class="src">— ADR-014.md</span></span>
+              <span class="r-detail">"We picked sliding over fixed-window because<br/>fixed-window allows 2× burst at boundaries."</span>
+            </button>
+            <button class="research-row" type="button" aria-expanded="false">
+              <span class="r-summary"><span class="k">@ops-team</span>: tune per tenant <span class="src">— #infra-2024-11</span></span>
+              <span class="r-detail">"Enterprise customers need 10k+. Pls expose<br/>limit/burst in tenant config." — @kira</span>
+            </button>
           </div>
         </div>
         <div>
@@ -424,6 +456,7 @@
             <button class="flag" type="button" aria-pressed="false">billing_v3 <span class="toggle"></span></button>
             <button class="flag" type="button" aria-pressed="true">usage_pcts <span class="toggle"></span></button>
           </div>
+          <pre class="flag-export" id="flagExport"><code class="mono"></code></pre>
         </div>
         <div>
           <div class="prompt-label">Example prompt</div>
@@ -442,10 +475,129 @@
     </div>
   </section>
 
+  <!-- ============ The Bandwidth Problem (Karpathy) ============ -->
+  <section class="section" id="bandwidth" aria-labelledby="bandwidth-h">
+    <div class="section-head">
+      <span class="eyebrow">05</span>
+      <h2 id="bandwidth-h">The Bandwidth Problem</h2>
+      <span class="muted" style="font-size:12px;font-family:var(--font-mono)">why this works</span>
+    </div>
+
+    <figure class="pullquote">
+      <blockquote>
+        “The biggest bottleneck of AI right now isn't that the model isn't smart
+        enough — it's that we're still talking to it through the lowest-bandwidth
+        medium we have: text. At the end of your query, try asking the LLM to
+        <em>structure your response as HTML</em>.”
+      </blockquote>
+      <figcaption>
+        — Andrej Karpathy
+        <span class="kr">“지금 AI의 가장 큰 병목은 모델이 충분히 똑똑하지 못한 것이 아니라, 우리가 여전히 텍스트라는 가장 낮은 대역폭 방식으로 그것과 소통하고 있다는 점이다.”</span>
+      </figcaption>
+    </figure>
+
+    <div class="bandwidth-grid">
+
+      <!-- Evolution path -->
+      <div class="card bw-card">
+        <h3>Evolution path</h3>
+        <p class="dim" style="font-size:12.5px;margin-bottom:14px">우리는 지금 정확히 Markdown에서 HTML로 넘어가는 전환점에 서 있습니다.</p>
+        <ol class="evolution">
+          <li><span class="step-num">01</span><div class="step-body"><div class="step-title">Raw text</div><div class="step-sub">한 줄짜리 비포장도로</div></div></li>
+          <li><span class="step-num">02</span><div class="step-body"><div class="step-title">Markdown</div><div class="step-sub">제목·리스트·코드 블록</div></div></li>
+          <li class="active"><span class="step-num">03</span><div class="step-body"><div class="step-title">HTML <span class="here">← 지금 여기</span></div><div class="step-sub">색·레이아웃·인터랙션</div></div></li>
+          <li><span class="step-num">04</span><div class="step-body"><div class="step-title">Interactive neural video</div><div class="step-sub">생성형 UI · 실시간 적응</div></div></li>
+        </ol>
+      </div>
+
+      <!-- I/O asymmetry -->
+      <div class="card bw-card">
+        <h3>Input vs output asymmetry</h3>
+        <p class="dim" style="font-size:12.5px;margin-bottom:14px">인간의 입력·출력 선호도는 완전히 비대칭적입니다.</p>
+        <div class="asym">
+          <div class="asym-row">
+            <div class="asym-label">Input · 인간 → AI</div>
+            <div class="asym-bar"><span class="asym-fill" style="width:90%;background:var(--blue)"></span></div>
+            <div class="asym-best">🎙️ Audio · 말하기 4× 빠름</div>
+          </div>
+          <div class="asym-row">
+            <div class="asym-label">Output · AI → 인간</div>
+            <div class="asym-bar"><span class="asym-fill" style="width:95%;background:var(--accent)"></span></div>
+            <div class="asym-best">👁️ Visual · 피질의 1/3</div>
+          </div>
+          <div class="asym-row weak">
+            <div class="asym-label">Today's reality</div>
+            <div class="asym-bar"><span class="asym-fill" style="width:30%;background:var(--muted)"></span></div>
+            <div class="asym-best">📝 Text · 단차선 비포장도로</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trade-off -->
+      <div class="card bw-card">
+        <h3>The trade you're really making</h3>
+        <p class="dim" style="font-size:12.5px;margin-bottom:14px">토큰 2배, 이해도 10배 — 세상에서 가장 이득 보는 거래.</p>
+        <div class="tradeoff">
+          <div class="trade-row">
+            <span class="trade-label">Token cost</span>
+            <div class="trade-bar"><span class="trade-fill" style="width:32%;background:var(--red)"></span></div>
+            <span class="trade-val">+100%</span>
+          </div>
+          <div class="trade-row">
+            <span class="trade-label">Gen time</span>
+            <div class="trade-bar"><span class="trade-fill" style="width:24%;background:var(--red)"></span></div>
+            <span class="trade-val">+30%</span>
+          </div>
+          <div class="trade-row good">
+            <span class="trade-label">Read speed</span>
+            <div class="trade-bar"><span class="trade-fill" style="width:90%;background:var(--green)"></span></div>
+            <span class="trade-val">×10</span>
+          </div>
+          <div class="trade-row good">
+            <span class="trade-label">Comprehension</span>
+            <div class="trade-bar"><span class="trade-fill" style="width:95%;background:var(--green)"></span></div>
+            <span class="trade-val">×10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edge cases -->
+      <div class="card bw-card bw-edge">
+        <h3>When to reach for HTML — and when not to</h3>
+        <div class="edge-cols">
+          <div>
+            <div class="edge-title good-tag">✓ HTML wins</div>
+            <ul class="edge-list">
+              <li>300자 이상 · 테이블 · 비교</li>
+              <li>프로토타입 · 기획서 · 보고서</li>
+              <li>최종 인간 소비용 산출물</li>
+              <li>데이터·차트·시각화 포함</li>
+            </ul>
+          </div>
+          <div>
+            <div class="edge-title bad-tag">✗ Stick to Markdown</div>
+            <ul class="edge-list">
+              <li>짧은 쪽지 · 1–2줄 답변</li>
+              <li>에이전트 간 통신 (JSON/MD)</li>
+              <li>버전 관리 중심 워크플로</li>
+              <li>토큰 예산이 빡빡한 반복 호출</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="capability-caption">
+      Markdown은 AI가 보는 형식, HTML은 인간이 사용하는 형식. 에이전트끼리 소통할 땐 Markdown/JSON이면 충분하지만,
+      <strong style="color:var(--text)">최종적으로 인간이 소비해야 하는 모든 것은 HTML로</strong> 만드는 것이 최적의 분업입니다.
+    </p>
+  </section>
+
   <!-- ============ More value ============ -->
   <section class="section" id="more-value" aria-labelledby="more-value-h">
     <div class="section-head">
-      <span class="eyebrow">05</span>
+      <span class="eyebrow">06</span>
       <h2 id="more-value-h">More Value</h2>
     </div>
 
@@ -484,7 +636,7 @@
   <!-- ============ FAQ ============ -->
   <section class="section" id="faq" aria-labelledby="faq-h">
     <div class="section-head">
-      <span class="eyebrow">06</span>
+      <span class="eyebrow">07</span>
       <h2 id="faq-h">FAQ</h2>
     </div>
 

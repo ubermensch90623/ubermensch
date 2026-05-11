@@ -1,25 +1,26 @@
 :root {
-  --bg: #0B0F14;
-  --bg-2: #090C11;
-  --surface: #11161D;
-  --surface-2: #161C25;
-  --surface-3: #1B232E;
-  --border: #1F2630;
-  --border-strong: #2A333F;
+  /* Warmed dark palette tuned to the Claude Code infographic */
+  --bg: #0C0D11;
+  --bg-2: #0A0B0E;
+  --surface: #14161B;
+  --surface-2: #1A1D24;
+  --surface-3: #21252D;
+  --border: #262A32;
+  --border-strong: #353A44;
 
-  --text: #E8ECF1;
-  --text-dim: #B7C0CC;
-  --muted: #8A93A1;
-  --muted-2: #5F6776;
+  --text: #ECE8E1;
+  --text-dim: #BFB8AC;
+  --muted: #8A8377;
+  --muted-2: #5F594F;
 
-  --accent: #F08A3E;
-  --accent-bright: #FFA257;
-  --accent-soft: #2A1E14;
-  --accent-line: #5C3A1F;
+  --accent: #E87B3C;
+  --accent-bright: #FF9457;
+  --accent-soft: #2A1A0F;
+  --accent-line: #5A3620;
 
-  --green: #6EE7A7;
-  --red: #F87171;
-  --blue: #7FB7FF;
+  --green: #6FD89A;
+  --red: #F47C6E;
+  --blue: #88B6E5;
 
   --r-sm: 6px;
   --r-md: 10px;
