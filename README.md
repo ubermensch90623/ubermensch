@@ -1,28 +1,6 @@
-# nature-skills 
-## 📢 课题组诚招“医学 + AI”实习生
+# nature-skills
 
-<table border="0" cellpadding="10" cellspacing="0">
-  <tr>
-    <td width="66%" valign="top" style="border: none; line-height: 1.6;">
-      还在寻找能够落地的 <strong>AI 前沿交叉赛道</strong>吗？我们课题组现向对“医学 + AI”充满热情的你发出邀请！<br><br>
-      这里有充足的计算资源，以及深耕医疗大模型（LLM）、视觉预训练、Prompt Engineering 及自动化医疗 AI Agent 的科研团队。我们更看重你的<strong>自驱力、学习能力与科研产出追求</strong>。<br><br>
-      项目信息文档链接：https://iigqjt2m4ia.feishu.cn/wiki/VIvDwHu18iTc6mk411xco8chnJb   密码：664#N926
-      如果你有相关代码基础或项目经验，渴望在顶级交叉学科中积累成果，请将简历发送至：<br>
-      📧 <strong><a href="mailto:sjtu520aimedws@163.com" style="text-decoration: none; color: #0056b3;">sjtu520aimedws@163.com</a></strong><br>
-      <small>（标题格式：姓名-专业-医学AI科研申请）</small><br><br>
-      期待与你在 AI 赋能医疗的征途中，做出最扎实的科研工作！
-    </td>
-    <td width="34%" valign="top" align="center" style="border: none; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
-      <span style="font-size: 14px; color: #666;">实习生答疑群聊</span><br>
-      <img src="https://github.com/user-attachments/assets/7a5daff1-2e82-42fd-87ab-1165f46242d9" width="100%" style="max-width:160px; margin-top:15px; border: 1px solid #eee;">
-    </td>
-  </tr>
-</table>
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=Yuan1z0825/nature-skills&type=Date&cache_bust=2026-05-11T08)](https://star-history.com/#Yuan1z0825/nature-skills&Date)
-
+Mirrored from [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) (MIT). Upstream recruitment notice, third-party wiki link, and upstream star-history badge have been removed; see upstream README for that content.
 
 ## Skill index
 
