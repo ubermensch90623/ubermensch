@@ -12,6 +12,17 @@ This repository vendors two upstream Claude Code skill packs side-by-side under 
 | `skills/nature-*` (6 dirs) | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | MIT (see [`LICENSE`](LICENSE)) | Auto-commit workflow + upstream-impersonating README block removed in this mirror. |
 | `skills/<scientific-skill>` (105 dirs) | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | MIT (see [`skills/scientific-agent-skills-vendor/LICENSE.md`](skills/scientific-agent-skills-vendor/LICENSE.md)) | 30 CRITICAL/HIGH-flagged skills excluded; `.github/workflows/` not vendored. |
 
+## 도메인 시각화 스킬 (직접 작성)
+
+`경제학`·`NCS` 질문이 들어오면 답변을 **반드시 시각 자료(차트/Mermaid/표/PPTX) + 짧은 해설** 형태로 생성하도록 트리거되는 스킬입니다.
+
+| 스킬 | 트리거 키워드 | 주 출력 |
+|---|---|---|
+| [`economics-viz`](skills/economics-viz/SKILL.md) | 수요공급, IS-LM, AD-AS, Phillips, Laffer, 인플레이션, 환율, 게임이론, 경제학 등 | matplotlib 차트(한글 라벨), Mermaid 인과 도식, 표 |
+| [`ncs-viz`](skills/ncs-viz/SKILL.md) | NCS, 국가직무능력표준, 능력단위, 수행준거, 분류번호, 직무분석 | Mermaid 능력단위 트리, 수행준거 매트릭스(표), PPTX |
+
+두 스킬 모두 한글 라벨 기본, matplotlib 한글 폰트 폴백 보일러플레이트 포함. references/ 안에 도메인별 차트 카탈로그·색상 정책·Mermaid 템플릿이 들어 있습니다.
+
 ## Skill index (nature-skills)
 
 | Skill | Status | Purpose | Trigger keywords |
