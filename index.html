@@ -513,23 +513,79 @@
       <!-- I/O asymmetry -->
       <div class="card bw-card">
         <h3>Input vs output asymmetry</h3>
-        <p class="dim" style="font-size:12.5px;margin-bottom:14px">인간의 입력·출력 선호도는 완전히 비대칭적입니다.</p>
-        <div class="asym">
-          <div class="asym-row">
-            <div class="asym-label">Input · 인간 → AI</div>
-            <div class="asym-bar"><span class="asym-fill" style="width:90%;background:var(--blue)"></span></div>
-            <div class="asym-best">🎙️ Audio · 말하기 4× 빠름</div>
-          </div>
-          <div class="asym-row">
-            <div class="asym-label">Output · AI → 인간</div>
-            <div class="asym-bar"><span class="asym-fill" style="width:95%;background:var(--accent)"></span></div>
-            <div class="asym-best">👁️ Visual · 피질의 1/3</div>
-          </div>
-          <div class="asym-row weak">
-            <div class="asym-label">Today's reality</div>
-            <div class="asym-bar"><span class="asym-fill" style="width:30%;background:var(--muted)"></span></div>
-            <div class="asym-best">📝 Text · 단차선 비포장도로</div>
-          </div>
+        <p class="dim" style="font-size:12.5px;margin-bottom:14px">인간 ↔ AI 채널의 두께가 곧 대역폭. 텍스트만 쓰면 단차선 비포장도로입니다.</p>
+
+        <svg class="lanes" viewBox="0 0 520 280" role="img" aria-label="Bandwidth lanes between human and AI">
+          <defs>
+            <linearGradient id="lane-audio" x1="0" x2="1">
+              <stop offset="0" stop-color="#88B6E5" stop-opacity="0.15"/>
+              <stop offset="0.5" stop-color="#88B6E5" stop-opacity="0.85"/>
+              <stop offset="1" stop-color="#88B6E5" stop-opacity="0.15"/>
+            </linearGradient>
+            <linearGradient id="lane-vision" x1="0" x2="1">
+              <stop offset="0" stop-color="#E87B3C" stop-opacity="0.15"/>
+              <stop offset="0.5" stop-color="#E87B3C" stop-opacity="0.95"/>
+              <stop offset="1" stop-color="#E87B3C" stop-opacity="0.15"/>
+            </linearGradient>
+            <linearGradient id="lane-text" x1="0" x2="1">
+              <stop offset="0" stop-color="#8A8377" stop-opacity="0.1"/>
+              <stop offset="0.5" stop-color="#8A8377" stop-opacity="0.7"/>
+              <stop offset="1" stop-color="#8A8377" stop-opacity="0.1"/>
+            </linearGradient>
+            <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#88B6E5"/>
+            </marker>
+            <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#E87B3C"/>
+            </marker>
+            <marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#8A8377"/>
+            </marker>
+          </defs>
+
+          <!-- Human actor -->
+          <g class="actor" transform="translate(34, 110)">
+            <circle cx="0" cy="-16" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M -20 28 Q 0 6 20 28 L 20 56 L -20 56 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <text x="0" y="84" text-anchor="middle" class="lane-actor-label">Human</text>
+          </g>
+
+          <!-- AI actor -->
+          <g class="actor" transform="translate(486, 110)">
+            <rect x="-22" y="-18" width="44" height="44" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="-8" cy="0" r="3" fill="currentColor"/>
+            <circle cx="8" cy="0" r="3" fill="currentColor"/>
+            <path d="M -10 14 Q 0 22 10 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <text x="0" y="48" text-anchor="middle" class="lane-actor-label">Claude</text>
+          </g>
+
+          <!-- Audio In: thick blue lane left → right -->
+          <g>
+            <path d="M 70 56 L 458 56" stroke="url(#lane-audio)" stroke-width="22" stroke-linecap="round" fill="none"/>
+            <path d="M 70 56 L 454 56" stroke="#88B6E5" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" opacity="0.9"/>
+            <text x="264" y="40" text-anchor="middle" class="lane-label" fill="#88B6E5">🎙️ Audio in · 말하기 4× 빠름</text>
+          </g>
+
+          <!-- Vision Out: very thick orange lane right → left -->
+          <g>
+            <path d="M 70 134 L 458 134" stroke="url(#lane-vision)" stroke-width="32" stroke-linecap="round" fill="none"/>
+            <path d="M 458 134 L 74 134" stroke="#E87B3C" stroke-width="2" fill="none" marker-end="url(#arrow-orange)" opacity="0.95"/>
+            <text x="264" y="118" text-anchor="middle" class="lane-label" fill="#E87B3C">👁️ Vision out · 피질의 1/3</text>
+            <text x="264" y="158" text-anchor="middle" class="lane-caption">HTML lives here</text>
+          </g>
+
+          <!-- Text both ways: thin muted single lane -->
+          <g>
+            <path d="M 70 210 L 458 210" stroke="url(#lane-text)" stroke-width="3" stroke-linecap="round" fill="none" stroke-dasharray="6 4"/>
+            <text x="264" y="194" text-anchor="middle" class="lane-label" fill="#8A8377">📝 Text · 단차선 비포장도로 (양방향)</text>
+            <text x="264" y="234" text-anchor="middle" class="lane-caption">Today's default — both directions</text>
+          </g>
+        </svg>
+
+        <div class="lane-legend">
+          <span><span class="dot" style="background:#88B6E5"></span>4× faster than typing</span>
+          <span><span class="dot" style="background:#E87B3C"></span>10× richer than text</span>
+          <span><span class="dot" style="background:#8A8377"></span>Where we live today</span>
         </div>
       </div>
 
