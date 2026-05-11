@@ -1,5 +1,4 @@
 ---
-created: 2026-05-10
 tags:
   - log/decisions
 ---
@@ -12,7 +11,7 @@ tags:
 ## 작성 형식
 
 ```markdown
-## YYYY-MM-DD — 결정 제목
+## YYYY-MM-DD — 결정 제목 #project/foo
 
 - **컨텍스트**: 어떤 상황에서 결정했나
 - **결정**: 무엇을 결정했나
@@ -22,6 +21,8 @@ tags:
 - **관련 노트**: [[wikilink]] [[wikilink]]
 ```
 
+> 프로젝트 태그(`#project/...`)를 결정 헤딩 끝에 붙이면 projects/ 페이지에서 백링크로 자동 추적됨.
+
 ## 결정 기록
 
 <!-- Claude가 자동으로 여기에 append. 새 항목이 위로 쌓임. -->
@@ -30,4 +31,5 @@ tags:
 
 <!--
 이 파일을 비우지 마라. 결정은 6개월 뒤 본인의 사고 변화를 추적하는 자산이 된다.
+프로젝트별 보기를 원하면 projects/<name>.md에서 [[decisions]]로 백링크.
 -->

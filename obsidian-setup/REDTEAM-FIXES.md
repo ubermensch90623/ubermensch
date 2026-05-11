@@ -131,11 +131,50 @@
 5. **Templater**: vault에서 `Ctrl+N` 후 templates/zettel.md를 Templater로 삽입 → `<% tp.file.title %>` 자리에 실제 파일명 들어가면 OK
 6. **Daily note conditional embed**: 오늘 daily note 생성 → brief가 없으면 "아직 없음" 메시지, 있으면 transclude
 
-## 남은 검증 불가 항목
+## 2차 라운드 — HIGH 영역 후속 정리 (commit 이후)
 
-브라우저/Claude/Obsidian 없이는 100% 검증 못 함. 실제 셋업 시 다음 항목 추가 확인 권장:
+1차 수정 후 추가로 발견된 미세 이슈 6건:
+
+### R1. daily-note.md Templater API 오용
+**문제**: `tp.file.find_tfile("inbox/brief-2026-05-10.md")` — Templater의 `find_tfile`은 **파일명만** 받음 (경로 X). 슬래시 들어간 경로를 넘기면 null만 리턴.
+
+**수정**: `tp.app.vault.getAbstractFileByPath()` 사용 (Obsidian API 직접 호출, 경로 OK). `await`도 불필요(동기).
+
+### R2. action-tracker.md 하드코딩된 날짜
+**문제**: `[2026-05-10]`이 초기 작업 3개에 박혀있어 나중에 셋업하는 사용자에게 의미 불명
+
+**수정**: ``[`첫 셋업일`]``로 placeholder 처리 + Templater 안내 추가
+
+### R3. 체크리스트 7-8단계 역순
+**문제**: 7단계에서 "Templater 설정 (8번에서 설치 후)"라고 안내 — 설치 전에 설정 단계가 와있어 혼란
+
+**수정**: 7단계는 Core 설정만, 8단계 플러그인 설치, **8.5 신설** — Templater 설정 + Folder Templates 매핑 + 트리거 방식 3가지 명시
+
+### R4. project.md의 깨진 Dataview
+**문제**: `FROM "inbox/decisions"` — `inbox/decisions.md` 단일 파일을 가리키므로 `WHERE contains(file.tags, ...)`로는 항상 빈 결과
+
+**수정**: 백링크 기반 설계로 변경. Claude가 결정 작성 시 `[[<프로젝트>]]` 백링크를 박으면 자동 추적. 액션 트래커도 동일 원리.
+
+### R5. home.md Dataview 인덱싱
+**문제**: `GROUP BY split(file.folder, "/")[0]` — Dataview에서 배열 인덱싱 `[0]` 미보장 (버전에 따라)
+
+**수정**: `GROUP BY file.folder`로 단순화 (하위 폴더가 별도로 카운트되지만 안전). top-level 묶기 원하면 `regexreplace(file.folder, "/.*$", "")` 사용 가능 — 주석으로 안내.
+
+### R6. 체크리스트 10단계 CLAUDE.md 2개 파일 혼동
+**문제**: `~/.claude/CLAUDE.md`와 vault `CLAUDE.md`를 같은 것처럼 안내해 사용자가 덮어쓸 위험
+
+**수정**: 표로 역할 분리 + 각 파일의 구체 내용 별도 명시 + `cd <vault> && claude` 실행 패턴 강조
+
+## 추가 개선
+
+- **TL;DR — 30분 미니멀 셋업**: 체크리스트 최상단에 추가. 시간 없을 때 6단계만 따라가도 vault가 살아나도록.
+- **13.5 셋업 검증**: 각 컴포넌트 작동을 사용자가 직접 체크할 수 있는 9개 검증 항목 추가.
+
+## 남은 검증 불가 항목 (실제 PC에서만 확인 가능)
 
 - Web Clipper `{{"prompt"}}` syntax가 실제 Interpreter UI와 일치하는지
-- Dataview의 `split(file.folder, "/")[0]` 컴파일 여부
-- Templater의 `tp.file.find_tfile()` API 시그니처 (버전에 따라 다를 수 있음)
+- Templater의 `tp.app.vault.getAbstractFileByPath` 접근이 모든 Templater 버전에서 가능한지
 - 5개 community 템플릿 import 시 schema validation error 여부
+- Dataview `regexreplace` 함수 가용성 (특정 버전부터)
+- `claude_desktop_config.json` 경로가 Windows에서 정확한지 (`%APPDATA%\Claude\`)
+- kepano/obsidian-skills 마켓플레이스 명령이 현재 Claude Code 버전에서 그대로 작동하는지

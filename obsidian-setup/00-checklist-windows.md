@@ -3,6 +3,19 @@
 > 위에서부터 순서대로. 각 단계는 약 5~20분. 전체 약 2~3시간.
 > 6번(CLAUDE.md 작성)이 가장 오래 걸리고 가장 중요하다. 시간을 아끼지 말 것.
 
+## ⚡ TL;DR — 30분 미니멀 셋업
+
+시간 없으면 이것만:
+
+1. Obsidian 설치 → vault 만들기 (1번~2번)
+2. 이 키트 클론 → `templates/CLAUDE.md`를 vault 루트에 복사하고 5분만 채우기 (3번~6번)
+3. `templates/`와 `starter-notes/`, `inbox-init/`를 vault에 복사 (5번)
+4. Templater 플러그인 1개만 설치 (8번 중)
+5. Claude Code 설치 + `/plugin marketplace add kepano/obsidian-skills` + `/plugin install obsidian@obsidian-skills` (10번)
+6. Claude에 첫 질문: "내 vault의 4개 시드 노트에서 못 본 패턴을 찾아줘"
+
+여기서부터 vault가 살아남. 나머지(MCP, Web Clipper, Git, 자동화)는 나중에 한 단계씩.
+
 ## 사전 준비
 
 - [ ] Windows 10/11
@@ -93,30 +106,28 @@ Copy-Item "$KIT\templates\home.md"  "$VAULT\home.md"
 - [ ] 저장 후 다시 읽어보며 솔직한지 점검 (가장 부족한 부분이 가장 중요)
 - [ ] **매주 월요일 아침 5분** 일정 등록 — CLAUDE.md 업데이트 시간
 
-## 7. Obsidian 기본 설정
+## 7. Obsidian 기본 설정 (Core)
 
 - [ ] **Settings → Files & Links**
   - Default location for new notes: `inbox`
   - Use [[Wikilinks]]: ON
   - New link format: Shortest path when possible
   - Detect all file extensions: OFF
-- [ ] **Settings → Daily notes**
+- [ ] **Settings → Daily notes** (Core plugin)
   - Date format: `YYYY-MM-DD`
   - Template file location: `templates/daily-note.md`
   - New file location: `notes/journal`
-- [ ] **Settings → Templates** (core plugin)
+- [ ] **Settings → Templates** (Core plugin)
   - Template folder location: `templates`
-- [ ] **Settings → Templater** (커뮤니티 플러그인 — 8번에서 설치 후)
-  - Template folder location: `templates`  (Core Templates와 같은 폴더로 OK)
-  - Trigger Templater on new file creation: ON (옵션, 자동 적용 원할 때)
-  - Folder Templates: `notes/journal` → `templates/daily-note.md` 같이 매핑하면 daily note도 Templater 문법 작동
+
+> Templater 설정은 다음 단계에서 플러그인 설치 후.
 
 ## 8. 커뮤니티 플러그인 설치
 
 - [ ] **Settings → Community plugins → Turn on community plugins**
 - [ ] **Browse** 후 다음 검색하여 설치 + 활성화:
   - [ ] **Dataview** (blacksmithgu) — vault를 DB처럼 쿼리
-  - [ ] **Templater** (SilentVoid13) — 강력한 템플릿 엔진
+  - [ ] **Templater** (SilentVoid13) — 강력한 템플릿 엔진 (이 키트 템플릿 작동에 필수)
   - [ ] **Periodic Notes** — Daily/Weekly notes 통합
   - [ ] **Tag Wrangler** — 태그 일괄 리네임/머지
   - [ ] **Excalidraw** — 다이어그램/마인드맵
@@ -125,6 +136,27 @@ Copy-Item "$KIT\templates\home.md"  "$VAULT\home.md"
   - [ ] **Local REST API** — MCP 연결용 (11번에서 사용)
 
 > 자세한 추천 레포 목록은 `08-curated-repos.md`.
+
+## 8.5. Templater 설정 (★ 이 키트 템플릿 작동 필수)
+
+설치 직후 반드시 설정. 안 하면 `<% tp.date.now(...) %>`가 그대로 글자로 남음.
+
+- [ ] **Settings → Templater**
+  - **Template folder location**: `templates`
+  - **Trigger Templater on new file creation**: **ON** (★ 필수)
+  - **Folder Templates** 매핑 추가 (자동 적용):
+    - `notes/journal` → `templates/daily-note.md`
+    - `ideas` → `templates/zettel.md`
+    - `notes` → `templates/literature.md` (옵션 — Web Clipper는 직접 자기 템플릿 씀)
+    - `projects` → `templates/project.md`
+- [ ] **단축키 등록** (Settings → Hotkeys):
+  - `Templater: Open Insert Template modal` → `Alt+E` (기존 Folder Templates 외에 수동 삽입할 때)
+  - `Daily notes: Open today's daily note` → `Ctrl+Shift+D`
+
+### Templater가 트리거되는 3가지 경로
+1. **자동** — Folder Templates에 매핑된 폴더에 새 파일 생성 시
+2. **수동** — `Alt+E`로 어떤 템플릿이든 삽입
+3. **재실행** — `Templater: Replace templates in the active file` 명령으로 기존 파일에 다시 적용
 
 ## 9. Obsidian Git 셋업
 
@@ -204,14 +236,45 @@ git commit -m "initial vault"
 ```
 > ⚠️ `marketplace add`만 하면 카탈로그 등록만 되고 스킬이 활성화 안 됨. **반드시 두 번째 명령까지** 실행.
 - [ ] 설치 후 `/plugin list`로 확인 — 5개 스킬(`obsidian-markdown`, `obsidian-bases`, `json-canvas`, `obsidian-cli`, `defuddle`) 표시
-- [ ] **Custom Instructions 한 줄** 추가 (Claude Code 설정 또는 `~/.claude/CLAUDE.md`에):
+
+### ★ CLAUDE.md 두 파일의 역할 (헷갈리는 부분)
+
+| 위치 | 역할 | 내용 |
+|---|---|---|
+| `<vault>/CLAUDE.md` | **본인 데이터** — 누구이고 뭘 하는지 | 6번에서 채운 그 파일 |
+| `~/.claude/CLAUDE.md` (Windows: `%USERPROFILE%\.claude\CLAUDE.md`) | **Claude에게 주는 지시문** — vault를 어떻게 다뤄라 | 아래 블록 |
+
+두 파일은 **서로 덮어쓰지 말 것**. 다른 목적.
+
+- [ ] `%USERPROFILE%\.claude\CLAUDE.md` 파일 생성(없으면) 후 다음 내용 추가:
+
+```markdown
+# Vault Integration Instructions
+
+내 Obsidian vault는 다음 경로에 있다:
+`C:\Users\<USERNAME>\Google Drive\Vault\brain`
+
+답변 규칙:
+- 매 답변 전 vault의 CLAUDE.md를 읽어 본인 컨텍스트를 갱신할 것
+- 질문과 관련된 노트를 vault에서 먼저 검색
+- 답변에 vault 노트를 [[wikilink]]로 인용
+- 새 결정 → inbox/decisions.md에 append (YYYY-MM-DD 헤딩, 컨텍스트/결정/이유)
+- 새 액션 → inbox/action-tracker.md에 append (- [ ] [날짜] 형식)
+- 외부 자료 정리 → notes/{date}-{slug}.md (#literature)
+- 본인 사고 재구성 → ideas/{slug}.md (#permanent)
+- 동기부여성 답변 금지. 일반론 금지. vault 컨텍스트 그라운딩 필수
+- 내가 믿는 것과 모순되는 과거 노트 발견 시 즉시 플래그
 ```
-Before answering any question, always search the Obsidian vault at
-C:\Users\<USERNAME>\Google Drive\Vault\brain for relevant notes.
-Use what you find to inform your response.
-Save new decisions to inbox/decisions.md and new actions to inbox/action-tracker.md.
-Always cite vault notes using [[wikilinks]].
-```
+
+> Claude Code는 실행 시 두 파일을 모두 읽는다:
+> 1. `~/.claude/CLAUDE.md` — 글로벌 지시문 (위 블록)
+> 2. `<cwd>/CLAUDE.md` — 현재 디렉토리의 프로젝트 CLAUDE.md
+>
+> Claude Code를 항상 vault 안에서 실행하면 vault의 CLAUDE.md가 프로젝트 CLAUDE.md로 자동 로드된다:
+> ```powershell
+> cd "$env:USERPROFILE\Google Drive\Vault\brain"
+> claude
+> ```
 
 ## 11. (권장) Obsidian MCP 연결
 
@@ -261,9 +324,21 @@ winget install astral-sh.uv
 ## 13. 첫 테스트 (Pattern Finder)
 
 - [ ] Claude Code 또는 Claude.ai에서 이 키트의 `prompts/pattern-finder.md` 내용 붙여넣기
-- [ ] Claude가 CLAUDE.md + 5개 시드 노트 기반으로 패턴 답변
+- [ ] Claude가 CLAUDE.md + 4개 시드 노트 기반으로 패턴 답변
 - [ ] 답변이 일반론적이면 CLAUDE.md를 더 채워야 함 (6번 복귀)
 - [ ] 답변이 구체적이고 [[wikilink]] 인용 포함되면 시스템 작동
+
+## 13.5. 셋업 검증 (각 항목 직접 확인)
+
+- [ ] **Templater 작동**: `Ctrl+Shift+N` 후 `notes/journal/test.md` 이름으로 생성 → 자동으로 daily-note 템플릿 적용, `<% tp.date.now(...) %>` 자리에 오늘 날짜가 들어가야 함. 안 되면 8.5번 설정 확인.
+- [ ] **Daily-note 조건부 embed**: 오늘 daily note 생성 시 brief가 없으면 "아직 없음" 메시지, 있으면 transclude. 둘 다 정상 표시.
+- [ ] **Dataview 작동**: `home.md`의 통계/최근 쿼리가 숫자/목록 표시. "Dataview block error" 보이면 플러그인 활성화 확인.
+- [ ] **Web Clipper 클립**: 아무 글에서 `Alt+Shift+O` → vault의 `inbox/2026-MM-DD-{slug}.md`에 파일 생성. 한글 깨짐 없음.
+- [ ] **Web Clipper AI Interpreter**: 클립된 파일의 `## AI Summary` 섹션이 한국어 불릿으로 채워져 있음. 빈 채로 남으면 Interpreter 비활성/API 키 확인.
+- [ ] **kepano/obsidian-skills**: Claude Code에서 `/plugin list` → `obsidian-skills` 5개 표시.
+- [ ] **MCP 연결**: Claude Code에서 `/mcp` → `obsidian-vault: connected`. "내 vault의 home.md를 읽어줘" → 내용 출력.
+- [ ] **Custom Instructions 작동**: Claude Code에 일반 질문("이번 주 뭐 할까?") → 답변에 vault 노트가 `[[wikilink]]`로 인용됨. 안 되면 `~/.claude/CLAUDE.md` 확인.
+- [ ] **Git 백업**: vault 루트에서 `git log` → 최소 1개 커밋 존재. Obsidian Git 플러그인 정상 동작 시 30분 후 자동 커밋 추가됨.
 
 ## 14. (옵션) AgriciDaniel/claude-obsidian 풀스택
 

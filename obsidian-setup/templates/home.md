@@ -50,9 +50,11 @@ LIMIT 10
 TABLE length(rows) AS Count
 FROM ""
 WHERE !contains(file.path, "templates") AND !contains(file.path, ".obsidian")
-GROUP BY split(file.folder, "/")[0] AS Folder
-SORT Count DESC
+GROUP BY file.folder AS Folder
+SORT length(rows) DESC
 ```
+
+> 하위 폴더까지 별도로 카운트됨 (예: `notes/journal`이 `notes`와 따로). top-level만 묶고 싶으면 `regexreplace(file.folder, "/.*$", "")` 사용.
 
 ## ⚡ 빠른 작업
 

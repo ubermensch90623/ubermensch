@@ -1,8 +1,8 @@
 <%*
 const today = tp.date.now("YYYY-MM-DD");
-const todayLong = tp.date.now("YYYY-MM-DD dddd");
-const briefPath = `inbox/brief-${today}.md`;
-const briefExists = await tp.file.find_tfile(briefPath) !== null;
+const todayLong = tp.date.now("YYYY-MM-DD, dddd");
+const briefFile = tp.app.vault.getAbstractFileByPath(`inbox/brief-${today}.md`);
+const briefExists = briefFile !== null;
 -%>
 ---
 date: <% today %>
@@ -14,11 +14,11 @@ tags:
 
 ## ☀️ Morning Brief
 
-<%* if (briefExists) { %>
+<%* if (briefExists) { -%>
 ![[inbox/brief-<% today %>#CONNECTIONS]]
-<%* } else { %>
-> 오늘 Daily Brief가 아직 없음. `prompts/daily-brief.md` 실행하면 [[inbox/brief-<% today %>]]에 생성됨.
-<%* } %>
+<%* } else { -%>
+> 오늘 Daily Brief가 아직 없음. Claude에 `prompts/daily-brief.md`를 붙여넣으면 [[inbox/brief-<% today %>]]에 생성됨.
+<%* } -%>
 
 ## 🎯 Today's One Thing
 
@@ -40,13 +40,14 @@ tags:
 
 - 
 
-## 🔗 Captures
+## 🔗 Today's Captures
 
-<!-- 오늘 Web Clipper로 캡처한 것 자동 표시 -->
+<!-- Web Clipper로 오늘 캡처한 노트 자동 표시 -->
 ```dataview
 LIST
 FROM "inbox"
-WHERE startswith(file.name, "<% today %>")
+WHERE startswith(file.name, "<% today %>") AND file.name != this.file.name
+SORT file.ctime ASC
 ```
 
 ## 🌙 End of Day
