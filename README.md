@@ -1,8 +1,18 @@
-# nature-skills
+# nature-skills + scientific-agent-skills (combined)
 
-Mirrored from [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) (MIT). Upstream recruitment notice, third-party wiki link, and upstream star-history badge have been removed; see upstream README for that content.
+This repository vendors two upstream Claude Code skill packs side-by-side under `skills/`:
 
-## Skill index
+- **nature-skills** — from [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) (MIT). Upstream recruitment notice, third-party wiki link, and upstream star-history badge were removed; see upstream README for that content.
+- **scientific-agent-skills** — from [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) (MIT). **Only the 105 skills marked ✅ Safe in upstream's own `SECURITY.md` are vendored here.** The 30 skills flagged CRITICAL/HIGH by upstream's scanner (and all upstream GitHub workflows) were intentionally skipped. Upstream's `LICENSE.md`, `README.md`, and `SECURITY.md` are preserved verbatim under [`skills/scientific-agent-skills-vendor/`](skills/scientific-agent-skills-vendor/) for attribution and auditability.
+
+## NOTICE
+
+| Component | Upstream | License | Notes |
+|---|---|---|---|
+| `skills/nature-*` (6 dirs) | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | MIT (see [`LICENSE`](LICENSE)) | Auto-commit workflow + upstream-impersonating README block removed in this mirror. |
+| `skills/<scientific-skill>` (105 dirs) | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | MIT (see [`skills/scientific-agent-skills-vendor/LICENSE.md`](skills/scientific-agent-skills-vendor/LICENSE.md)) | 30 CRITICAL/HIGH-flagged skills excluded; `.github/workflows/` not vendored. |
+
+## Skill index (nature-skills)
 
 | Skill | Status | Purpose | Trigger keywords |
 |-------|--------|---------|-----------------|
