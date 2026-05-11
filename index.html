@@ -41,25 +41,28 @@
       <h1>The Unreasonable<br/>Effectiveness of <span class="hl">HTML</span></h1>
       <p class="subtitle">Why I prefer HTML over Markdown for specs, plans, designs, reports, reviews, and more.</p>
     </div>
-    <div class="feature-pills" role="list">
-      <div class="pill" role="listitem">
-        <span class="ico"><svg width="22" height="22"><use href="#i-richer"/></svg></span>
+    <ul class="feature-pills">
+      <li class="pill">
+        <span class="ico" aria-hidden="true"><svg width="22" height="22"><use href="#i-richer"/></svg></span>
         <span><span class="label">Richer</span><br/><span class="sub">Tables, diagrams, interactions, code &amp; more.</span></span>
-      </div>
-      <div class="pill" role="listitem">
-        <span class="ico"><svg width="22" height="22"><use href="#i-read"/></svg></span>
+      </li>
+      <li class="pill">
+        <span class="ico" aria-hidden="true"><svg width="22" height="22"><use href="#i-read"/></svg></span>
         <span><span class="label">Easier to Read</span><br/><span class="sub">Clear, structured visuals people actually read.</span></span>
-      </div>
-      <div class="pill" role="listitem">
-        <span class="ico"><svg width="22" height="22"><use href="#i-share"/></svg></span>
+      </li>
+      <li class="pill">
+        <span class="ico" aria-hidden="true"><svg width="22" height="22"><use href="#i-share"/></svg></span>
         <span><span class="label">Easy to Share</span><br/><span class="sub">Upload once, share a link, anyone can view.</span></span>
-      </div>
-      <div class="pill" role="listitem">
-        <span class="ico"><svg width="22" height="22"><use href="#i-interact"/></svg></span>
+      </li>
+      <li class="pill">
+        <span class="ico" aria-hidden="true"><svg width="22" height="22"><use href="#i-interact"/></svg></span>
         <span><span class="label">Interactive</span><br/><span class="sub">Add sliders, toggles &amp; live controls.</span></span>
-      </div>
-    </div>
+      </li>
+    </ul>
   </header>
+
+  <main>
+
 
   <!-- ============ Why HTML ============ -->
   <section class="section" id="why-html" aria-labelledby="why-html-h">
@@ -70,42 +73,42 @@
 
     <div class="capability-grid">
       <div class="cap">
-        <span class="ico"><svg width="28" height="28"><use href="#i-tables"/></svg></span>
+        <span class="ico" aria-hidden="true"><svg width="28" height="28"><use href="#i-tables"/></svg></span>
         <span class="label">Tables</span>
         <span class="sub">Real rows &amp; columns.</span>
       </div>
       <div class="cap">
-        <span class="ico"><svg width="28" height="28"><use href="#i-design"/></svg></span>
+        <span class="ico" aria-hidden="true"><svg width="28" height="28"><use href="#i-design"/></svg></span>
         <span class="label">Design</span>
         <span class="sub">Color, type, spacing (CSS).</span>
       </div>
       <div class="cap">
-        <span class="ico"><svg width="28" height="28"><use href="#i-illus"/></svg></span>
+        <span class="ico" aria-hidden="true"><svg width="28" height="28"><use href="#i-illus"/></svg></span>
         <span class="label">Illustrations</span>
         <span class="sub">Inline SVG diagrams.</span>
       </div>
       <div class="cap">
-        <span class="ico"><svg width="28" height="28"><use href="#i-code"/></svg></span>
+        <span class="ico" aria-hidden="true"><svg width="28" height="28"><use href="#i-code"/></svg></span>
         <span class="label">Code</span>
         <span class="sub">Highlighted snippets.</span>
       </div>
       <div class="cap">
-        <span class="ico"><svg width="28" height="28"><use href="#i-cursor"/></svg></span>
+        <span class="ico" aria-hidden="true"><svg width="28" height="28"><use href="#i-cursor"/></svg></span>
         <span class="label">Interaction</span>
         <span class="sub">Toggles, sliders, JS &amp; CSS.</span>
       </div>
       <div class="cap">
-        <span class="ico"><svg width="28" height="28"><use href="#i-flow"/></svg></span>
+        <span class="ico" aria-hidden="true"><svg width="28" height="28"><use href="#i-flow"/></svg></span>
         <span class="label">Workflows</span>
         <span class="sub">Boxes, arrows, flows.</span>
       </div>
       <div class="cap">
-        <span class="ico"><svg width="28" height="28"><use href="#i-grid"/></svg></span>
+        <span class="ico" aria-hidden="true"><svg width="28" height="28"><use href="#i-grid"/></svg></span>
         <span class="label">Spatial</span>
         <span class="sub">Canvas &amp; coordinates.</span>
       </div>
       <div class="cap">
-        <span class="ico"><svg width="28" height="28"><use href="#i-image"/></svg></span>
+        <span class="ico" aria-hidden="true"><svg width="28" height="28"><use href="#i-image"/></svg></span>
         <span class="label">Images</span>
         <span class="sub">Embedded figures.</span>
       </div>
@@ -166,9 +169,9 @@
           <p class="muted" style="font-size:12px;margin-bottom:12px">Spec v2 · 6 sections</p>
 
           <div class="tabs" role="tablist" aria-label="Spec sections">
-            <button class="tab" role="tab" aria-selected="true" data-panel="t-overview">Overview</button>
-            <button class="tab" role="tab" aria-selected="false" data-panel="t-api">API</button>
-            <button class="tab" role="tab" aria-selected="false" data-panel="t-rollout">Rollout</button>
+            <button class="tab" role="tab" aria-selected="true" tabindex="0" data-panel="t-overview">Overview</button>
+            <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-panel="t-api">API</button>
+            <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-panel="t-rollout">Rollout</button>
           </div>
 
           <div data-panel="t-overview">
@@ -292,14 +295,21 @@
         <div class="mock">
           <div class="section-title-sm" style="font-size:10px">Three approaches to debounced search</div>
           <div class="approach-tabs" role="tablist" id="approachTabs">
-            <button class="approach-tab" role="tab" aria-selected="true" data-approach="trailing">A · Trailing</button>
-            <button class="approach-tab" role="tab" aria-selected="false" data-approach="leading">B · Leading</button>
-            <button class="approach-tab" role="tab" aria-selected="false" data-approach="hybrid">C · Hybrid</button>
+            <button class="approach-tab" role="tab" aria-selected="true" tabindex="0" data-approach="trailing">A · Trailing</button>
+            <button class="approach-tab" role="tab" aria-selected="false" tabindex="-1" data-approach="leading">B · Leading</button>
+            <button class="approach-tab" role="tab" aria-selected="false" tabindex="-1" data-approach="hybrid">C · Hybrid</button>
           </div>
-          <pre class="approach-code" id="approachCode"><code class="mono"></code></pre>
+          <pre class="approach-code" id="approachCode"><code class="mono"><span class="cm">// fires once, after the user stops typing</span>
+<span class="kw">const</span> <span class="fn">trailing</span> = (fn, ms) =&gt; {
+  <span class="kw">let</span> t, args;
+  <span class="kw">return</span> (...a) =&gt; {
+    args = a; <span class="fn">clearTimeout</span>(t);
+    t = <span class="fn">setTimeout</span>(() =&gt; fn(...args), ms);
+  };
+};</code></pre>
           <div class="approach-meta">
-            <span class="meta-pill" id="metaLatency">latency: fast</span>
-            <span class="meta-pill" id="metaCalls">calls: low</span>
+            <span class="meta-pill" id="metaLatency">latency: ~ms wait</span>
+            <span class="meta-pill" id="metaCalls">calls: minimum</span>
           </div>
         </div>
         <div>
@@ -328,23 +338,23 @@
             <div class="row">
               <span class="gut">14</span>
               <span class="add">+ &nbsp;let t, lastArgs;</span>
-              <button class="note-dot" type="button" data-note="Keep last args so trailing-edge fire uses the most recent call." aria-label="Show review note">!</button>
+              <button class="note-dot" type="button" data-note="Keep last args so trailing-edge fire uses the most recent call." title="Keep last args so trailing-edge fire uses the most recent call." aria-label="Review note: keep last args so trailing-edge fire uses the most recent call.">!</button>
             </div>
             <div class="row"><span class="gut">15</span><span class="ctx">&nbsp;&nbsp;return (...args) =&gt; {</span></div>
             <div class="row">
               <span class="gut">16</span>
               <span class="add">+ &nbsp;&nbsp;lastArgs = args;</span>
-              <button class="note-dot" type="button" data-note="Overwrites are intentional: only the final call matters here." aria-label="Show review note">!</button>
+              <button class="note-dot" type="button" data-note="Overwrites are intentional: only the final call matters here." title="Overwrites are intentional: only the final call matters here." aria-label="Review note: overwrites are intentional, only the final call matters here.">!</button>
             </div>
             <div class="row"><span class="gut">17</span><span class="ctx">&nbsp;&nbsp;&nbsp;&nbsp;clearTimeout(t);</span></div>
             <div class="row">
               <span class="gut">18</span>
               <span class="del">- &nbsp;&nbsp;&nbsp;t = setTimeout(() =&gt; fn(...args), ms);</span>
-              <button class="note-dot note-warn" type="button" data-note="Captured stale args. Replaced with lastArgs below." aria-label="Show review note">!</button>
+              <button class="note-dot note-warn" type="button" data-note="Captured stale args. Replaced with lastArgs below." title="Captured stale args. Replaced with lastArgs below." aria-label="Review warning: captured stale args, replaced with lastArgs below.">!</button>
             </div>
             <div class="row"><span class="gut">19</span><span class="add">+ &nbsp;&nbsp;&nbsp;t = setTimeout(() =&gt; fn(...lastArgs), ms);</span></div>
           </div>
-          <div class="note-popover" id="notePopover" hidden role="status"></div>
+          <div class="note-popover" id="notePopover" hidden role="status" aria-live="polite"></div>
         </div>
         <div>
           <div class="prompt-label">Example prompt</div>
@@ -450,13 +460,19 @@
         <div class="mock">
           <div class="section-title-sm" style="font-size:10px">Feature flags</div>
           <div class="flags" id="flags">
-            <button class="flag" type="button" aria-pressed="true">streaming_v2 <span class="toggle"></span></button>
-            <button class="flag" type="button" aria-pressed="false">backpressure <span class="toggle"></span></button>
-            <button class="flag" type="button" aria-pressed="true">partial_json <span class="toggle"></span></button>
-            <button class="flag" type="button" aria-pressed="false">billing_v3 <span class="toggle"></span></button>
-            <button class="flag" type="button" aria-pressed="true">usage_pcts <span class="toggle"></span></button>
+            <button class="flag" type="button" aria-pressed="true" data-flag="streaming_v2"><span class="flag-name">streaming_v2</span><span class="toggle" aria-hidden="true"></span></button>
+            <button class="flag" type="button" aria-pressed="false" data-flag="backpressure"><span class="flag-name">backpressure</span><span class="toggle" aria-hidden="true"></span></button>
+            <button class="flag" type="button" aria-pressed="true" data-flag="partial_json"><span class="flag-name">partial_json</span><span class="toggle" aria-hidden="true"></span></button>
+            <button class="flag" type="button" aria-pressed="false" data-flag="billing_v3"><span class="flag-name">billing_v3</span><span class="toggle" aria-hidden="true"></span></button>
+            <button class="flag" type="button" aria-pressed="true" data-flag="usage_pcts"><span class="flag-name">usage_pcts</span><span class="toggle" aria-hidden="true"></span></button>
           </div>
-          <pre class="flag-export" id="flagExport"><code class="mono"></code></pre>
+          <pre class="flag-export" id="flagExport"><code class="mono">{
+  <span class="key">streaming_v2</span>: <span class="on">true</span>,
+  <span class="key">backpressure</span>: <span class="off">false</span>,
+  <span class="key">partial_json</span>: <span class="on">true</span>,
+  <span class="key">billing_v3</span>: <span class="off">false</span>,
+  <span class="key">usage_pcts</span>: <span class="on">true</span>
+}</code></pre>
         </div>
         <div>
           <div class="prompt-label">Example prompt</div>
@@ -537,9 +553,6 @@
             </marker>
             <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
               <path d="M0,0 L10,5 L0,10 z" fill="#E87B3C"/>
-            </marker>
-            <marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
-              <path d="M0,0 L10,5 L0,10 z" fill="#8A8377"/>
             </marker>
           </defs>
 
@@ -707,12 +720,14 @@
     </div>
   </section>
 
+  </main>
+
   <footer class="site-footer">
     <p class="pitch">
       HTML makes Claude's work easier to read, easier to share, and easier to use.<br/>
       You'll read more. Ship better. Stay in the loop.
     </p>
-    <p>Follow <a href="https://twitter.com/suryanshtweets">Suryansh Tiwari</a> for more insights</p>
+    <p>Follow <strong>Suryansh Tiwari</strong> for more insights</p>
   </footer>
 </div>
 

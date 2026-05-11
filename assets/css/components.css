@@ -366,6 +366,7 @@
   font-size: 11px;
   color: var(--text-dim);
 }
+.flag .flag-name { flex: 1; text-align: left; }
 .flag .toggle {
   display: inline-flex;
   align-items: center;
@@ -466,7 +467,9 @@
   font-size: 10.5px;
   color: var(--text-dim);
   line-height: 1.5;
-  min-height: 64px;
+  /* Sized to fit the tallest variant (hybrid is ~9 lines) so swapping
+     tabs does not jitter the card height. */
+  min-height: 138px;
   overflow-x: auto;
   white-space: pre;
 }

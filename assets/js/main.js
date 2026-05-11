@@ -5,7 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const panels = document.querySelectorAll('#visual-clarity [data-panel]:not(.tab)');
 
   function activateTab(target) {
-    tabs.forEach(t => t.setAttribute('aria-selected', String(t === target)));
+    tabs.forEach(t => {
+      const selected = t === target;
+      t.setAttribute('aria-selected', String(selected));
+      t.setAttribute('tabindex', selected ? '0' : '-1');
+    });
     const panelId = target.dataset.panel;
     panels.forEach(p => {
       if (p.dataset.panel === panelId) p.removeAttribute('hidden');
@@ -22,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const next = e.key === 'ArrowRight'
         ? list[(i + 1) % list.length]
         : list[(i - 1 + list.length) % list.length];
-      next.focus();
       activateTab(next);
+      next.focus();
     });
   });
 
@@ -83,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   [slDuration, slShadow, slSpring].forEach(el => el && el.addEventListener('input', syncBtn));
   syncBtn();
 
-  if (btn) {
+  if (btn && typeof btn.animate === 'function') {
     btn.addEventListener('click', () => {
       btn.animate(
         [{ transform: 'scale(0.92) translateY(2px)' }, { transform: 'scale(1) translateY(0)' }],
@@ -141,15 +145,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const metaLatency = document.getElementById('metaLatency');
   const metaCalls = document.getElementById('metaCalls');
   function selectApproach(key) {
-    approachTabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.approach === key)));
+    approachTabs.forEach(t => {
+      const selected = t.dataset.approach === key;
+      t.setAttribute('aria-selected', String(selected));
+      t.setAttribute('tabindex', selected ? '0' : '-1');
+    });
     const a = approaches[key];
     if (!a || !approachCodeEl) return;
     approachCodeEl.innerHTML = a.code;
-    metaLatency.textContent = a.latency;
-    metaCalls.textContent = a.calls;
+    if (metaLatency) metaLatency.textContent = a.latency;
+    if (metaCalls) metaCalls.textContent = a.calls;
   }
-  approachTabs.forEach(t => t.addEventListener('click', () => selectApproach(t.dataset.approach)));
-  selectApproach('trailing');
+  approachTabs.forEach(t => {
+    t.addEventListener('click', () => selectApproach(t.dataset.approach));
+    t.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      const list = Array.from(approachTabs);
+      const i = list.indexOf(t);
+      const next = e.key === 'ArrowRight'
+        ? list[(i + 1) % list.length]
+        : list[(i - 1 + list.length) % list.length];
+      selectApproach(next.dataset.approach);
+      next.focus();
+    });
+  });
+  // Initial state is already pre-rendered in the HTML; no need to re-select.
 
   /* ---------------- UC2: Annotation dots ---------------- */
   const popover = document.getElementById('notePopover');
@@ -182,16 +203,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const flagsRoot = document.getElementById('flags');
   const flagExport = document.querySelector('#flagExport code');
 
+  // Tiny HTML escape — flag names are static today but using innerHTML
+  // without escaping is a latent injection vector if anyone wires this
+  // to user input.
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+
   function renderFlagExport() {
     if (!flagsRoot || !flagExport) return;
     const flags = Array.from(flagsRoot.querySelectorAll('.flag'));
-    const lines = flags.map(f => {
-      const name = f.firstChild.textContent.trim();
+    const lines = flags.map((f, i) => {
+      const name = f.dataset.flag || f.textContent.trim();
       const on = f.getAttribute('aria-pressed') === 'true';
       const val = on
         ? '<span class="on">true</span>'
         : '<span class="off">false</span>';
-      return `  <span class="key">${name}</span>: ${val},`;
+      const comma = i < flags.length - 1 ? ',' : '';
+      return `  <span class="key">${esc(name)}</span>: ${val}${comma}`;
     });
     flagExport.innerHTML = '{\n' + lines.join('\n') + '\n}';
   }
