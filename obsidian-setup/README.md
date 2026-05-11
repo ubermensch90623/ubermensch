@@ -33,7 +33,8 @@
 | `templates/` | Vault에 복사할 노트 템플릿 (CLAUDE.md 포함) |
 | `templates/webclipper-templates/` | Web Clipper용 JSON 템플릿 5개 |
 | `starter-notes/` | 4개 시드 노트 (Why/How/Obsessions/Questions). vault의 `inbox/`로 복사 |
-| `inbox-init/` | `decisions.md` + `action-tracker.md` 초기 헤더. vault의 `inbox/`로 복사 |
+| `inbox-init/` | `decisions.md` + `action-tracker.md` + `session-bridge.md` **빈 헤더** 템플릿 |
+| **`vault-seed/`** | **★ 이번 셋업 세션의 영구 기억.** decisions 15개 + actions 12개 + ideas 7개. inbox-init 대신 이걸 vault에 복사하면 **첫날부터 두꺼운 컨텍스트와 살아있는 Graph View**로 시작 |
 | `prompts/` | Daily Brief / Weekly Synthesis / Pattern Finder + **Session Start / Session End** 프롬프트 |
 
 ## 두 가지 트랙

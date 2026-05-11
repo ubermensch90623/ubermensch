@@ -1,4 +1,8 @@
 ---
+aliases:
+  - decisions
+  - decision log
+  - 결정 로그
 tags:
   - log/decisions
 ---

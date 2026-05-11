@@ -1,4 +1,8 @@
 ---
+aliases:
+  - bridge
+  - session-bridge
+  - last-session
 updated: 
 tags:
   - meta/session

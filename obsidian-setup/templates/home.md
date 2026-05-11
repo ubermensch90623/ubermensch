@@ -1,4 +1,8 @@
 ---
+aliases:
+  - home
+  - vault home
+  - 진입점
 tags:
   - moc
 ---
@@ -62,6 +66,36 @@ SORT length(rows) DESC
 - 오늘 daily note: Settings → Hotkeys에서 "Daily notes: Open today's note"에 `Ctrl+Shift+D` 바인딩 권장
 - Daily Brief 실행: Claude Code에서 `prompts/daily-brief.md`
 - Pattern Finder: Claude Code에 `prompts/pattern-finder.md` 붙여넣기
+
+## 🩺 Vault Health (Linkrot 점검)
+
+### Orphan Notes (아무도 인용 안 함)
+```dataview
+TABLE WITHOUT ID
+  file.link AS "Note",
+  length(file.outlinks) AS "Outlinks",
+  file.mtime AS "Modified"
+FROM ""
+WHERE !contains(file.path, "templates") AND !contains(file.path, ".obsidian")
+  AND length(file.inlinks) = 0
+SORT file.mtime DESC
+LIMIT 20
+```
+
+> Orphan은 vault에서 고립된 노트. 매주 확인하여 MOC에 연결하거나 archive. 자세한 원리는 [[linkrot-prevention]].
+
+### Most Connected (Hub 노트)
+```dataview
+TABLE WITHOUT ID
+  file.link AS "Note",
+  length(file.inlinks) AS "Inlinks"
+FROM ""
+WHERE !contains(file.path, "templates")
+SORT length(file.inlinks) DESC
+LIMIT 10
+```
+
+> 가장 많이 인용되는 노트들. 이들이 끊기면 큰 영향. 백업 우선순위.
 
 ## 🔗 외부 리소스
 

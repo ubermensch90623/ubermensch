@@ -100,13 +100,22 @@ robocopy "$KIT\templates" "$VAULT\templates" /E /XD webclipper-templates
 # 시드 노트 (4개) → inbox/로
 robocopy "$KIT\starter-notes" "$VAULT\inbox"
 
-# inbox 초기 누적 파일 (decisions.md, action-tracker.md)
+# inbox 누적 파일 — 두 가지 옵션 중 선택:
+
+# 옵션 A: 빈 템플릿 (깨끗한 시작)
 robocopy "$KIT\inbox-init" "$VAULT\inbox"
+
+# 옵션 B (★ 권장): 오늘 셋업 세션의 영구 기억 포함
+# decisions 15개 + actions 12개 + ideas 7개. 첫날부터 풍부한 컨텍스트.
+robocopy "$KIT\vault-seed\inbox" "$VAULT\inbox"
+robocopy "$KIT\vault-seed\ideas" "$VAULT\ideas"
 
 # Vault 루트 파일
 Copy-Item "$KIT\templates\CLAUDE.md" "$VAULT\CLAUDE.md"
 Copy-Item "$KIT\templates\home.md"  "$VAULT\home.md"
 ```
+
+> **옵션 B 권장 이유**: 오늘 세션에서 결정한 15개 결정과 7개 영구 사고 노트가 vault에 이미 들어가 있어, 첫 Claude 세션이 즉시 "어제 시스템을 셋업했고 X/Y/Z를 결정했다"는 컨텍스트로 시작. Graph View도 첫날부터 살아있음. [[session-bridge-mechanism]]이 즉시 작동.
 
 체크:
 - [ ] `vault/templates/` 안에 daily-note.md, zettel.md, literature.md, moc.md, project.md, home.md 6개
@@ -128,11 +137,14 @@ Copy-Item "$KIT\templates\home.md"  "$VAULT\home.md"
 
 ## 7. Obsidian 기본 설정 (Core)
 
-- [ ] **Settings → Files & Links**
+- [ ] **Settings → Files & Links** (★ linkrot 방지 핵심 — [[linkrot-prevention]] 참조)
+  - **Automatically update internal links**: **ON** (★ 가장 중요. 파일 이름/위치 변경 시 모든 인용처 자동 갱신)
   - Default location for new notes: `inbox`
   - Use [[Wikilinks]]: ON
   - New link format: Shortest path when possible
   - Detect all file extensions: OFF
+
+> ⚠️ **위 첫 번째 옵션을 켜지 않으면 vault가 어느 날 갑자기 연결점이 풀어질 수 있음.** OS 파일 탐색기로 파일 이름 바꾸지 말고 항상 Obsidian 안에서 rename.
 - [ ] **Settings → Daily notes** (Core plugin)
   - Date format: `YYYY-MM-DD`
   - Template file location: `templates/daily-note.md`
@@ -396,6 +408,24 @@ winget install astral-sh.uv
 > Self-signed 인증서 오류가 나면: `OBSIDIAN_PORT`를 `27123`(HTTP)으로 변경. 로컬 통신이므로 보안상 OK.
 
 > 대안 MCP 서버: `iansinnott/obsidian-claude-code-mcp` (WebSocket), `jacksteamdev/obsidian-mcp-tools` (시맨틱 검색). 자세한 비교는 `04-claude-integration.md`.
+
+## 11.4. ★ Linkrot 방지 (연결점 보존 — 어제 풀어진 사건 회피)
+
+> 6중 방어선. 자세한 원리는 vault-seed/ideas/linkrot-prevention.md (vault에 복사 후 [[linkrot-prevention]]).
+
+- [ ] **방어선 1**: Settings → Files & Links → **Automatically update internal links** ON (7번에서 이미 했어야 함 — 재확인)
+- [ ] **방어선 2**: 모든 핵심 노트 frontmatter에 **`aliases`** 추가. 이 키트의 시드 노트들은 이미 보유. 직접 만든 노트도 같은 패턴 따라가기
+- [ ] **방어선 3 (규칙)**: vault 안의 파일을 **OS 파일 탐색기로 rename/move 금지**. 항상 Obsidian 안에서.
+- [ ] **방어선 4 (동기화 충돌 검사)**: 매주 vault 루트에서 `conflict copy`, `(1)`, `(2)` 파일명 검색. PowerShell:
+  ```powershell
+  cd "$env:USERPROFILE\Google Drive\Vault\brain"
+  Get-ChildItem -Recurse -Filter "*conflict*"
+  Get-ChildItem -Recurse | Where-Object { $_.Name -match "\(\d+\)" }
+  ```
+- [ ] **방어선 5 (Dataview orphan 추적)**: home.md에 이미 추가된 orphan 쿼리 매주 확인
+- [ ] **방어선 6 (주간 의식)**: 매주 월요일 CLAUDE.md 갱신과 함께 home.md의 orphan/broken-link 5분 점검
+
+> 어제 발생한 "연결점 풀어진 사건"의 가장 흔한 원인은 1번(Update links OFF) 또는 4번(Drive 충돌). 1번을 ON으로 확인하는 게 가장 중요.
 
 ## 11.5. ★ Seamless 보장 (자동 실행 + 주간 알림)
 

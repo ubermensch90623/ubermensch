@@ -1,4 +1,8 @@
 ---
+aliases:
+  - actions
+  - action-tracker
+  - todo
 tags:
   - log/actions
 ---
