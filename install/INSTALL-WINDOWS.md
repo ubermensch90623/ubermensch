@@ -5,6 +5,28 @@
 
 ---
 
+## TL;DR — 한 줄 설치
+
+```powershell
+# 1. Obsidian에서 "Local REST API" 플러그인 설치 → API 키 복사
+# 2. PowerShell에서:
+cd <이 저장소의 install 폴더 경로>
+.\install.ps1
+# 3. Claude Desktop 완전 종료 후 재실행
+# 4. 검증:
+.\test-setup.ps1
+```
+
+스크립트가 처리하는 것:
+- vault 경로 + API 키 묻기
+- `claude_desktop_config.json` **머지** (기존 MCP 서버 보존, 자동 백업)
+- vault에 `Templates\quiz-prompt.md`, `AI\templates\quiz-template.html`, `AI\quizzes\sample-econ-quiz.html` 복사
+- npm 패키지 가용성 검증
+
+작동 안 하거나 직접 설정하고 싶다면 아래 수동 가이드 따라가세요.
+
+---
+
 ## 무엇을 설치하는가
 
 ```
