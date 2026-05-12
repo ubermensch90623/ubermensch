@@ -1,0 +1,8 @@
+dist/
+node_modules/
+.DS_Store
+
+# Never commit a real Claude Desktop config — it contains API keys.
+# Only the .example.json is committed.
+claude_desktop_config.json
+install/claude_desktop_config.json

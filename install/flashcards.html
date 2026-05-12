@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>플래시카드 — 미시경제 핵심</title>
+<style>
+  :root {
+    --bg:#0C0D11; --surface:#14161B; --surface-2:#1A1D24; --border:#262A32;
+    --text:#ECE8E1; --text-dim:#BFB8AC; --muted:#8A8377;
+    --accent:#E87B3C; --green:#6FD89A; --red:#F47C6E; --yellow:#E8C45A;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:24px 16px;min-height:100vh}
+  .wrap{max-width:640px;margin:0 auto}
+  .meta{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+  h1{font-size:22px;margin:0 0 4px;letter-spacing:-0.02em}
+  .deck-info{color:var(--muted);font-size:13px;font-family:ui-monospace,monospace;margin-bottom:20px}
+  .progress{display:flex;gap:3px;margin-bottom:20px}
+  .progress span{flex:1;height:4px;background:var(--surface-2);border-radius:2px}
+  .progress span.seen{background:var(--accent)}
+  .progress span.again{background:var(--red)}
+  .progress span.got{background:var(--green)}
+  .card-scene{perspective:1200px;height:320px;margin-bottom:18px}
+  .card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 600ms cubic-bezier(.4,.0,.2,1);cursor:pointer}
+  .card.flipped{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .face.back{transform:rotateY(180deg)}
+  .face.back{border-left:3px solid var(--accent);text-align:left;align-items:flex-start;justify-content:flex-start}
+  .face .side-label{position:absolute;top:14px;left:18px;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .face .card-num{position:absolute;top:14px;right:18px;font-family:ui-monospace,monospace;font-size:11px;color:var(--muted)}
+  .face .term{font-size:30px;font-weight:600;letter-spacing:-0.02em;color:var(--text);margin:0}
+  .face .term-sub{font-size:14px;color:var(--muted);margin-top:6px}
+  .face.back .definition{font-size:15px;color:var(--text);margin:24px 0 12px}
+  .face.back .example{font-size:13px;color:var(--text-dim);background:var(--surface-2);border-radius:6px;padding:8px 12px;margin-bottom:8px}
+  .face.back .example strong{color:var(--accent)}
+  .face.back .pitfall{font-size:12.5px;color:var(--muted);font-style:italic}
+  .nav{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-bottom:14px}
+  .nav button{background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+  .nav button:hover:not(:disabled){border-color:var(--accent)}
+  .nav button:disabled{opacity:.4;cursor:not-allowed}
+  .nav .pos{text-align:center;color:var(--muted);font-family:ui-monospace,monospace;font-size:13px}
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .actions button{padding:12px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer;border:1px solid transparent}
+  .btn-again{background:rgba(244,124,110,.12);border-color:var(--red);color:var(--red)}
+  .btn-got{background:rgba(111,216,154,.12);border-color:var(--green);color:var(--green)}
+  .actions button:hover{filter:brightness(1.1)}
+  .summary{display:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;margin-top:18px}
+  .summary.show{display:block}
+  .summary .score{font-size:28px;font-weight:700;color:var(--accent);margin:6px 0}
+  .summary p{margin:0;color:var(--text-dim);font-size:13.5px}
+  .summary-actions{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .summary-actions button{font:inherit;cursor:pointer;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:8px 14px}
+  .json-out{display:none;margin-top:12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-family:ui-monospace,monospace;font-size:11px;color:var(--text-dim);white-space:pre;text-align:left;overflow-x:auto}
+  .json-out.show{display:block}
+  .hint{text-align:center;color:var(--muted);font-size:12px;font-family:ui-monospace,monospace;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="meta">Flashcards · 미시경제</p>
+  <h1>핵심 개념 카드</h1>
+  <p class="deck-info">5장 · 카드를 눌러 뒷면 / 화살표(←→) · "다시" or "외움"</p>
+
+  <div class="progress" id="progress"></div>
+
+  <div class="card-scene">
+    <div class="card" id="card" tabindex="0" role="button" aria-label="카드를 눌러 뒷면 보기">
+      <div class="face front">
+        <span class="side-label">FRONT · 용어</span>
+        <span class="card-num" id="cardNum">1 / 5</span>
+        <p class="term" id="termText">기회비용</p>
+        <p class="term-sub" id="termSub">Opportunity Cost</p>
+      </div>
+      <div class="face back">
+        <span class="side-label">BACK · 정의 · 예시 · 함정</span>
+        <span class="card-num" id="cardNumBack">1 / 5</span>
+        <p class="definition" id="defText">어떤 선택을 함으로써 포기한 차선의 대안의 가치.</p>
+        <div class="example" id="exText"><strong>예</strong> · 대학원 진학 시 등록금 + 포기 연봉이 기회비용.</div>
+        <p class="pitfall" id="pitText">함정: 매몰비용은 기회비용이 아니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button id="prev" aria-label="이전">← 이전</button>
+    <div class="pos" id="pos">1 / 5</div>
+    <button id="next" aria-label="다음">다음 →</button>
+  </div>
+
+  <div class="actions">
+    <button class="btn-again" id="again">다시 (Again)</button>
+    <button class="btn-got" id="got">외웠음 (Got it)</button>
+  </div>
+
+  <p class="hint">스페이스 / 클릭 = 뒤집기 · ← → = 이동 · 1 / 2 = 다시 / 외움</p>
+
+  <section class="summary" id="summary">
+    <p class="meta">Session complete</p>
+    <div class="score" id="finalScore">0 / 5</div>
+    <p id="finalDetail">외운 카드: 0 · 다시 봐야 할 카드: 0</p>
+    <div class="summary-actions">
+      <button id="reviewAgain">"다시" 카드만 복습</button>
+      <button id="copyResults">결과 JSON 복사</button>
+      <button id="restart">처음부터</button>
+    </div>
+    <pre class="json-out" id="jsonOut"></pre>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  const deck = [
+    {term:'기회비용', sub:'Opportunity Cost',
+     def:'어떤 선택을 함으로써 포기한 차선의 대안의 가치. 명시적 + 암묵적 비용 모두 포함.',
+     ex:'대학원 진학 시 등록금 + 2년간 포기한 연봉.',
+     pit:'함정: 매몰비용은 기회비용이 아니다.'},
+    {term:'가격탄력성', sub:'Price Elasticity of Demand',
+     def:'가격이 1% 변할 때 수요량이 몇 % 변하는지의 비율. |E| = |dQ/dP × P/Q|.',
+     ex:'담배는 비탄력적 (|E| < 1), 사치재는 탄력적 (|E| > 1).',
+     pit:'함정: 기울기와 탄력성은 다르다. 탄력성은 P/Q를 곱해야 함.'},
+    {term:'한계효용 체감', sub:'Diminishing Marginal Utility',
+     def:'재화를 한 단위 더 소비할 때 추가로 얻는 효용이 점점 줄어드는 현상.',
+     ex:'첫 잔의 물은 매우 만족스럽지만, 다섯 번째 잔은 거의 무관심.',
+     pit:'함정: 총효용은 늘어나도 한계효용은 줄 수 있다. 둘을 혼동하지 말 것.'},
+    {term:'외부효과', sub:'Externality',
+     def:'어떤 경제활동이 제3자에게 미치는 의도하지 않은 영향. 시장가격에 반영되지 않음.',
+     ex:'공장의 매연(부정적) · 백신 접종(긍정적).',
+     pit:'함정: 외부효과는 시장 실패의 원인. 코즈정리/피구세로 해결 시도.'},
+    {term:'비교우위', sub:'Comparative Advantage',
+     def:'다른 사람·국가보다 더 낮은 기회비용으로 재화를 생산할 수 있는 능력.',
+     ex:'변호사가 타이핑도 잘해도, 비교우위가 변호 업무에 있으므로 비서를 고용.',
+     pit:'함정: 절대우위(absolute) ≠ 비교우위(comparative). 비교우위는 항상 기회비용 기준.'},
+  ];
+
+  const card = document.getElementById('card');
+  const termText = document.getElementById('termText');
+  const termSub = document.getElementById('termSub');
+  const defText = document.getElementById('defText');
+  const exText = document.getElementById('exText');
+  const pitText = document.getElementById('pitText');
+  const cardNum = document.getElementById('cardNum');
+  const cardNumBack = document.getElementById('cardNumBack');
+  const pos = document.getElementById('pos');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const againBtn = document.getElementById('again');
+  const gotBtn = document.getElementById('got');
+  const progressEl = document.getElementById('progress');
+  const summary = document.getElementById('summary');
+  const finalScore = document.getElementById('finalScore');
+  const finalDetail = document.getElementById('finalDetail');
+  const jsonOut = document.getElementById('jsonOut');
+
+  let order = deck.map((_,i)=>i);
+  let idx = 0;
+  let status = {}; // {deckIndex: 'again'|'got'}
+
+  function renderProgress(){
+    progressEl.innerHTML = '';
+    order.forEach((deckI, posI)=>{
+      const s = document.createElement('span');
+      if (status[deckI] === 'got') s.classList.add('got');
+      else if (status[deckI] === 'again') s.classList.add('again');
+      else if (posI < idx) s.classList.add('seen');
+      progressEl.appendChild(s);
+    });
+  }
+
+  function render(){
+    if (idx >= order.length) { finish(); return; }
+    summary.classList.remove('show');
+    const c = deck[order[idx]];
+    termText.textContent = c.term;
+    termSub.textContent = c.sub;
+    defText.innerHTML = c.def;
+    exText.innerHTML = '<strong>예</strong> · ' + c.ex;
+    pitText.textContent = c.pit;
+    const label = (idx+1) + ' / ' + order.length;
+    cardNum.textContent = label;
+    cardNumBack.textContent = label;
+    pos.textContent = label;
+    card.classList.remove('flipped');
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === order.length - 1;
+    renderProgress();
+  }
+
+  function flip(){ card.classList.toggle('flipped'); }
+  function next(){ if (idx < order.length - 1) { idx++; render(); } else { finish(); } }
+  function prev(){ if (idx > 0) { idx--; render(); } }
+  function mark(verdict){
+    status[order[idx]] = verdict;
+    next();
+  }
+
+  function finish(){
+    const got = Object.values(status).filter(v => v === 'got').length;
+    const again = Object.values(status).filter(v => v === 'again').length;
+    finalScore.textContent = got + ' / ' + deck.length;
+    finalDetail.textContent = `외운 카드: ${got} · 다시 봐야 할 카드: ${again}`;
+    summary.classList.add('show');
+    renderProgress();
+  }
+
+  card.addEventListener('click', flip);
+  card.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); }
+  });
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+  againBtn.addEventListener('click', () => mark('again'));
+  gotBtn.addEventListener('click', () => mark('got'));
+
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'BUTTON' && (e.key === ' ' || e.key === 'Enter')) return;
+    if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+    else if (e.key === '1') mark('again');
+    else if (e.key === '2') mark('got');
+  });
+
+  document.getElementById('reviewAgain').addEventListener('click', () => {
+    const againIndices = Object.entries(status).filter(([, v]) => v === 'again').map(([k]) => Number(k));
+    if (!againIndices.length) { alert('다시 봐야 할 카드 없음!'); return; }
+    order = againIndices;
+    idx = 0;
+    status = {};
+    render();
+  });
+
+  document.getElementById('restart').addEventListener('click', () => {
+    order = deck.map((_,i)=>i);
+    idx = 0;
+    status = {};
+    render();
+  });
+
+  document.getElementById('copyResults').addEventListener('click', async () => {
+    const payload = {
+      date: new Date().toISOString().slice(0,10),
+      deck: '미시경제 핵심',
+      total: deck.length,
+      got: Object.entries(status).filter(([,v])=>v==='got').map(([k])=>deck[k].term),
+      again: Object.entries(status).filter(([,v])=>v==='again').map(([k])=>deck[k].term),
+    };
+    const json = JSON.stringify(payload, null, 2);
+    jsonOut.textContent = json;
+    jsonOut.classList.add('show');
+    try { await navigator.clipboard.writeText(json); } catch(_) {}
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

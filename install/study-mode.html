@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>학습 vs 시험 — 외부효과</title>
+<style>
+  :root {
+    --bg:#0C0D11; --surface:#14161B; --surface-2:#1A1D24; --border:#262A32;
+    --text:#ECE8E1; --text-dim:#BFB8AC; --muted:#8A8377;
+    --accent:#E87B3C; --green:#6FD89A; --red:#F47C6E; --blue:#88B6E5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:24px 16px}
+  .wrap{max-width:720px;margin:0 auto}
+  header{margin-bottom:22px}
+  .meta{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+  h1{font-size:24px;margin:6px 0 12px;letter-spacing:-0.02em}
+
+  .mode-switch{display:inline-grid;grid-template-columns:1fr 1fr;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:3px;gap:3px}
+  .mode-btn{background:none;border:0;color:var(--text-dim);padding:7px 18px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;font-family:ui-monospace,monospace;letter-spacing:.04em}
+  .mode-btn[aria-pressed="true"]{background:var(--accent);color:var(--bg);font-weight:700}
+  .mode-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .mode-note{margin-top:10px;color:var(--muted);font-size:12.5px;font-family:ui-monospace,monospace}
+
+  .timer{display:none;float:right;font-family:ui-monospace,monospace;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:13px}
+  body.exam .timer{display:inline-block}
+
+  .q{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px}
+  .q-num{font-family:ui-monospace,monospace;font-size:11px;color:var(--accent);letter-spacing:.1em;margin-bottom:6px}
+  .q-text{font-size:15px;margin:0 0 12px;color:var(--text)}
+
+  .reveal{display:block;margin-top:10px}
+  .reveal-toggle{background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);border-radius:6px;padding:8px 14px;font:inherit;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;width:100%;text-align:left}
+  .reveal-toggle::before{content:"▸";color:var(--accent);transition:transform 120ms}
+  .reveal[open] .reveal-toggle::before{transform:rotate(90deg)}
+  .reveal-toggle:hover{border-color:var(--accent)}
+  .answer-box{margin-top:10px;padding:14px;background:var(--surface-2);border-left:3px solid var(--green);border-radius:0 6px 6px 0}
+  .answer-box .ans{font-weight:600;color:var(--green);font-size:14px;margin-bottom:6px}
+  .answer-box .explain{color:var(--text-dim);font-size:13px;line-height:1.6}
+  .answer-box .pitfall{margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);color:var(--muted);font-size:12px;font-style:italic}
+
+  /* Study mode: reveals open by default */
+  body.study .reveal:not([data-user-toggled])>.reveal-content{display:block}
+  body.study .reveal:not([data-user-toggled]) .reveal-toggle::before{transform:rotate(90deg)}
+  /* Exam mode: hidden until clicked, with a "show answer" cost */
+  body.exam .reveal-toggle::after{content:"답 보기 (−1점)";margin-left:auto;color:var(--muted);font-size:11px;font-family:ui-monospace,monospace}
+  body.study .reveal-toggle::after{content:"답 보기 / 숨기기";margin-left:auto;color:var(--muted);font-size:11px;font-family:ui-monospace,monospace}
+
+  .self-rate{display:none;margin-top:10px;gap:6px}
+  body.exam .reveal[open] + .self-rate,
+  body.study .reveal[open] + .self-rate{display:flex}
+  .rate-btn{flex:1;padding:6px;border-radius:6px;font:inherit;font-size:12px;cursor:pointer;border:1px solid var(--border);background:var(--surface-2);color:var(--text-dim)}
+  .rate-btn:hover{border-color:var(--accent)}
+  .rate-btn.picked-correct{background:rgba(111,216,154,.12);border-color:var(--green);color:var(--green)}
+  .rate-btn.picked-wrong{background:rgba(244,124,110,.12);border-color:var(--red);color:var(--red)}
+
+  .results{display:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;margin-top:18px}
+  body.exam .results.show, body.study .results.show{display:block}
+  .results .score{font-size:32px;font-weight:700;color:var(--accent);margin:6px 0;font-family:ui-monospace,monospace}
+  .results .breakdown{color:var(--text-dim);font-size:13px}
+</style>
+</head>
+<body class="study">
+<div class="wrap">
+
+  <header>
+    <span class="timer" id="timer">00:00</span>
+    <p class="meta">Study / Exam · 외부효과</p>
+    <h1>외부효과 — 3문제 미니 Q&amp;A</h1>
+
+    <div class="mode-switch" role="group" aria-label="모드 선택">
+      <button class="mode-btn" id="modeStudy" aria-pressed="true">학습 모드</button>
+      <button class="mode-btn" id="modeExam"  aria-pressed="false">시험 모드</button>
+    </div>
+    <p class="mode-note" id="modeNote">학습 모드: 정답이 기본 펼쳐져 있음 · 자유롭게 토글 가능</p>
+  </header>
+
+  <main id="quiz">
+
+    <article class="q" data-q="1">
+      <div class="q-num">Q 01</div>
+      <p class="q-text">공장이 강에 폐수를 방류해 어부의 어획량이 줄었다. 이 상황을 어떤 외부효과로 분류하는가? 그리고 시장 균형 생산량은 사회적 최적량과 비교해 어떠한가?</p>
+      <details class="reveal"><summary class="reveal-toggle"><span class="reveal-content">정답 펼쳐보기</span></summary>
+        <div class="answer-box">
+          <div class="ans">정답: 부정적 외부효과 · 시장 생산량 > 사회적 최적량 (과잉생산)</div>
+          <div class="explain">생산이 제3자(어부)에게 비용을 전가 → 사적 한계비용 &lt; 사회적 한계비용. 시장은 사적 비용만 반영하므로 사회적 최적보다 많이 생산.</div>
+          <div class="pitfall">함정: "외부효과 = 항상 부정적"이 아니다. 백신 접종은 긍정적 외부효과(과소생산).</div>
+        </div>
+      </details>
+      <div class="self-rate" data-q="1">
+        <button class="rate-btn" data-v="correct">맞음</button>
+        <button class="rate-btn" data-v="wrong">틀림</button>
+      </div>
+    </article>
+
+    <article class="q" data-q="2">
+      <div class="q-num">Q 02</div>
+      <p class="q-text">피구세(Pigouvian tax)의 적정 부과 금액은 무엇과 같아야 하는가?</p>
+      <details class="reveal"><summary class="reveal-toggle"><span class="reveal-content">정답 펼쳐보기</span></summary>
+        <div class="answer-box">
+          <div class="ans">정답: 사회적 최적 생산량에서의 한계외부비용 (MEC*)</div>
+          <div class="explain">세금이 외부비용을 정확히 내재화하면 사적 비용 = 사회적 비용이 되어 시장균형이 사회적 최적과 일치.</div>
+          <div class="pitfall">함정: "현재 생산량에서의 외부비용"이 아니라 "사회적 최적에서의 외부비용". 부과 후 생산이 줄어드는 걸 고려해야 함.</div>
+        </div>
+      </details>
+      <div class="self-rate" data-q="2">
+        <button class="rate-btn" data-v="correct">맞음</button>
+        <button class="rate-btn" data-v="wrong">틀림</button>
+      </div>
+    </article>
+
+    <article class="q" data-q="3">
+      <div class="q-num">Q 03</div>
+      <p class="q-text">코즈 정리(Coase Theorem)가 작동하기 위한 두 가지 핵심 조건은?</p>
+      <details class="reveal"><summary class="reveal-toggle"><span class="reveal-content">정답 펼쳐보기</span></summary>
+        <div class="answer-box">
+          <div class="ans">정답: ① 재산권이 명확히 정의됨 ② 거래비용이 0에 가까움</div>
+          <div class="explain">두 조건이 충족되면 누가 권리를 갖든 자발적 협상으로 효율적 결과 도달. 정부 개입 불필요.</div>
+          <div class="pitfall">함정: "공평한 결과"가 아니라 "효율적 결과"를 보장. 분배는 권리 배정에 따라 달라짐.</div>
+        </div>
+      </details>
+      <div class="self-rate" data-q="3">
+        <button class="rate-btn" data-v="correct">맞음</button>
+        <button class="rate-btn" data-v="wrong">틀림</button>
+      </div>
+    </article>
+
+  </main>
+
+  <section class="results" id="results" aria-live="polite">
+    <p class="meta">완료</p>
+    <div class="score" id="scoreText">0 / 3</div>
+    <div class="breakdown" id="breakdownText"></div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  const body = document.body;
+  const studyBtn = document.getElementById('modeStudy');
+  const examBtn = document.getElementById('modeExam');
+  const modeNote = document.getElementById('modeNote');
+  const timer = document.getElementById('timer');
+  const results = document.getElementById('results');
+  const scoreText = document.getElementById('scoreText');
+  const breakdownText = document.getElementById('breakdownText');
+
+  let mode = 'study';
+  let timerId = null;
+  let elapsed = 0;
+  const ratings = {}; // {qNum: 'correct'|'wrong'}
+  const revealsUsed = new Set();
+
+  function setMode(next) {
+    mode = next;
+    body.classList.toggle('study', next === 'study');
+    body.classList.toggle('exam', next === 'exam');
+    studyBtn.setAttribute('aria-pressed', String(next === 'study'));
+    examBtn.setAttribute('aria-pressed', String(next === 'exam'));
+    if (next === 'study') {
+      modeNote.textContent = '학습 모드: 정답이 기본 펼쳐져 있음 · 자유롭게 토글 가능';
+      stopTimer();
+      // Reset reveals to default-open (clear user-toggled flag)
+      document.querySelectorAll('.reveal').forEach(r => {
+        r.removeAttribute('data-user-toggled');
+        r.open = true;
+      });
+    } else {
+      modeNote.textContent = '시험 모드: 정답 숨김 · 자가 채점 · 답 보기 시 −1점';
+      startTimer();
+      // Reset everything for an exam attempt
+      Object.keys(ratings).forEach(k => delete ratings[k]);
+      revealsUsed.clear();
+      document.querySelectorAll('.reveal').forEach(r => {
+        r.removeAttribute('data-user-toggled');
+        r.open = false;
+      });
+      document.querySelectorAll('.rate-btn').forEach(b => {
+        b.classList.remove('picked-correct','picked-wrong');
+      });
+      results.classList.remove('show');
+    }
+    updateResults();
+  }
+
+  function startTimer() {
+    elapsed = 0;
+    timer.textContent = '00:00';
+    if (timerId) clearInterval(timerId);
+    timerId = setInterval(() => {
+      elapsed++;
+      const m = String(Math.floor(elapsed/60)).padStart(2,'0');
+      const s = String(elapsed%60).padStart(2,'0');
+      timer.textContent = `${m}:${s}`;
+    }, 1000);
+  }
+  function stopTimer() {
+    if (timerId) { clearInterval(timerId); timerId = null; }
+    timer.textContent = '00:00';
+  }
+
+  studyBtn.addEventListener('click', () => setMode('study'));
+  examBtn.addEventListener('click', () => setMode('exam'));
+
+  // Track when user opens a reveal (so study mode stops force-opening it)
+  document.querySelectorAll('.reveal').forEach(r => {
+    r.addEventListener('toggle', () => {
+      r.setAttribute('data-user-toggled', '1');
+      if (mode === 'exam' && r.open) {
+        const qNum = r.closest('.q').dataset.q;
+        revealsUsed.add(qNum);
+        updateResults();
+      }
+    });
+  });
+
+  // Self-rate buttons
+  document.querySelectorAll('.rate-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      const wrap = b.closest('.self-rate');
+      const qNum = wrap.dataset.q;
+      const v = b.dataset.v;
+      ratings[qNum] = v;
+      wrap.querySelectorAll('.rate-btn').forEach(x => x.classList.remove('picked-correct','picked-wrong'));
+      b.classList.add(v === 'correct' ? 'picked-correct' : 'picked-wrong');
+      updateResults();
+    });
+  });
+
+  function updateResults() {
+    const total = document.querySelectorAll('.q').length;
+    const rated = Object.keys(ratings).length;
+    if (rated < total) {
+      results.classList.remove('show');
+      return;
+    }
+    let correct = Object.values(ratings).filter(v => v === 'correct').length;
+    if (mode === 'exam') correct -= revealsUsed.size; // −1 per reveal used
+    if (correct < 0) correct = 0;
+    scoreText.textContent = correct + ' / ' + total;
+    const used = revealsUsed.size;
+    breakdownText.textContent = mode === 'exam'
+      ? `자가 채점 ${Object.values(ratings).filter(v=>v==='correct').length}/${total} · 답 본 횟수 ${used}회 (−${used}) · 시간 ${timer.textContent}`
+      : `학습 모드: 자가 채점 ${Object.values(ratings).filter(v=>v==='correct').length}/${total}`;
+    results.classList.add('show');
+    if (mode === 'exam') stopTimer();
+  }
+
+  setMode('study');
+})();
+</script>
+</body>
+</html>

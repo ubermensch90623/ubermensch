@@ -1,0 +1,24 @@
+{
+  "_README": "Drop this file at %APPDATA%\\Claude\\claude_desktop_config.json and replace YOU and YOUR_OBSIDIAN_API_KEY_HERE. Restart Claude Desktop after editing.",
+
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\YOU\\Documents\\ObsidianVault"
+      ]
+    },
+
+    "obsidian": {
+      "command": "uvx",
+      "args": ["mcp-obsidian"],
+      "env": {
+        "OBSIDIAN_API_KEY": "YOUR_OBSIDIAN_API_KEY_HERE",
+        "OBSIDIAN_HOST": "127.0.0.1",
+        "OBSIDIAN_PORT": "27124"
+      }
+    }
+  }
+}
