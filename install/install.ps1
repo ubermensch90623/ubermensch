@@ -174,9 +174,13 @@ Write-Ok "Wrote $cfgPath"
 # ───────────────────────────────────────────────────────────────
 Write-Step "Copying templates into vault"
 $pairs = @(
-    @{ src = (Join-Path $scriptDir 'quiz-prompt.md');       dst = 'Templates\quiz-prompt.md' }
-    @{ src = (Join-Path $scriptDir 'quiz-template.html');   dst = 'AI\templates\quiz-template.html' }
-    @{ src = (Join-Path $scriptDir 'sample-econ-quiz.html');dst = 'AI\quizzes\sample-econ-quiz.html' }
+    @{ src = (Join-Path $scriptDir 'quiz-prompt.md');        dst = 'Templates\quiz-prompt.md' }
+    @{ src = (Join-Path $scriptDir 'quiz-template.html');    dst = 'AI\templates\quiz-template.html' }
+    @{ src = (Join-Path $scriptDir 'concept-card.html');     dst = 'AI\templates\concept-card.html' }
+    @{ src = (Join-Path $scriptDir 'solution-note.html');    dst = 'AI\templates\solution-note.html' }
+    @{ src = (Join-Path $scriptDir 'flashcards.html');       dst = 'AI\templates\flashcards.html' }
+    @{ src = (Join-Path $scriptDir 'study-mode.html');       dst = 'AI\templates\study-mode.html' }
+    @{ src = (Join-Path $scriptDir 'sample-econ-quiz.html'); dst = 'AI\quizzes\sample-econ-quiz.html' }
 )
 foreach ($p in $pairs) {
     $dstFull = Join-Path $VaultPath $p.dst

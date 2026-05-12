@@ -123,15 +123,42 @@ npx -y mcp-obsidian --help
 
 ## 5. 퀴즈 워크플로 — vault에 자료 넣기
 
-본 저장소의 install 폴더에서 vault로 복사:
+본 저장소의 install 폴더에서 vault로 복사 (install.ps1이 자동 수행):
 
 | 파일 | vault 내 위치 | 용도 |
 |---|---|---|
 | `quiz-prompt.md` | `Vault\Templates\quiz-prompt.md` | 매번 쓰는 프롬프트 본문 |
-| `quiz-template.html` | `Vault\AI\templates\quiz-template.html` | Claude가 채워 넣을 빈 스켈레톤 |
+| `quiz-template.html` | `Vault\AI\templates\quiz-template.html` | 인터랙티브 퀴즈 스켈레톤 (객관식+단답) |
+| `concept-card.html` | `Vault\AI\templates\concept-card.html` | 4분할 개념 카드 — 정의·예시·반례·관련 |
+| `solution-note.html` | `Vault\AI\templates\solution-note.html` | 단계별 풀이 노트 + 함정 + 유사 문제 |
+| `flashcards.html` | `Vault\AI\templates\flashcards.html` | 양면 플래시카드 + "다시/외움" 자가 채점 |
+| `study-mode.html` | `Vault\AI\templates\study-mode.html` | 학습/시험 모드 토글 (시험 모드는 타이머 + 답 보기 −1점) |
 | `sample-econ-quiz.html` | `Vault\AI\quizzes\sample-econ-quiz.html` | 완성된 참조용 (지금 바로 열어볼 수 있음) |
 
-`AI/`와 `Templates/` 폴더가 없으면 Obsidian에서 우클릭 → New folder로 만듭니다.
+각 템플릿 사용 패턴:
+
+```
+# 개념 카드
+Vault\Macro\외부효과.md의 핵심을 Vault\AI\templates\concept-card.html
+형식 따라 Vault\AI\cards\외부효과-card.html에 저장해줘.
+
+# 풀이 노트
+이 문제를 풀어 Vault\AI\templates\solution-note.html 형식으로
+Vault\AI\solutions\2026-05-12-탄력성.html에 저장해줘:
+[문제 본문]
+
+# 플래시카드
+Vault\Macro\week-3.md에서 핵심 용어 10개를 뽑아
+Vault\AI\templates\flashcards.html 형식으로
+Vault\AI\decks\macro-week3-flashcards.html 만들어줘.
+
+# 학습/시험 토글 Q&A
+Vault\Macro\미시-04.md 내용으로 5문제 Q&A를
+Vault\AI\templates\study-mode.html 형식으로
+Vault\AI\qa\micro-04-qa.html에 저장해줘.
+```
+
+`AI\`와 `Templates\` 폴더가 없으면 Obsidian에서 우클릭 → New folder로 만듭니다 (install.ps1이 자동 생성).
 
 ---
 

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>풀이 노트 — 가격탄력성 계산</title>
+<style>
+  :root {
+    --bg:#0C0D11; --surface:#14161B; --surface-2:#1A1D24; --border:#262A32;
+    --text:#ECE8E1; --text-dim:#BFB8AC; --muted:#8A8377;
+    --accent:#E87B3C; --green:#6FD89A; --red:#F47C6E;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;padding:24px 16px}
+  .wrap{max-width:780px;margin:0 auto}
+  .meta{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+  h1{font-size:24px;margin:6px 0 16px;letter-spacing:-0.02em}
+  .problem{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 20px;margin-bottom:24px}
+  .problem h2{margin:0 0 8px;font-size:12px;color:var(--accent);font-family:ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+  .problem p{margin:0;font-size:15px;color:var(--text)}
+  table.givens{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:13.5px}
+  table.givens th{text-align:left;color:var(--muted);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--border)}
+  table.givens td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-dim);font-family:ui-monospace,monospace}
+  table.givens td:last-child{color:var(--text);text-align:right}
+  table.givens tr:last-child td{border-bottom:0}
+  .step{display:grid;grid-template-columns:40px 1fr;gap:14px;margin-bottom:14px}
+  .step-num{display:flex;align-items:flex-start;justify-content:center;width:32px;height:32px;background:var(--accent);color:var(--bg);font-weight:700;font-size:13px;border-radius:50%;font-family:ui-monospace,monospace;padding-top:7px}
+  .step-body{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px}
+  .step-body h3{margin:0 0 6px;font-size:14px;color:var(--text)}
+  .step-body p{margin:0;font-size:13.5px;color:var(--text-dim)}
+  .math{display:block;margin:8px 0;padding:10px 14px;background:var(--surface-2);border-radius:6px;font-family:ui-monospace,monospace;font-size:13px;color:var(--text);overflow-x:auto}
+  .answer{margin-top:24px;background:linear-gradient(180deg,rgba(111,216,154,0.1),transparent);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:18px 22px}
+  .answer h3{margin:0 0 6px;font-size:12px;color:var(--green);font-family:ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+  .answer .value{font-size:32px;font-weight:700;color:var(--text);letter-spacing:-0.01em;font-family:ui-monospace,monospace}
+  .answer p{margin:6px 0 0;color:var(--text-dim);font-size:13.5px}
+  .pitfalls{margin-top:28px}
+  .pitfalls h2{font-size:12px;color:var(--red);font-family:ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px}
+  .pitfall{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:8px}
+  .pitfall-title{font-weight:600;font-size:13.5px;color:var(--text);margin-bottom:4px}
+  .pitfall-detail{font-size:12.5px;color:var(--muted)}
+  .similar{margin-top:28px}
+  .similar h2{font-size:12px;color:var(--accent);font-family:ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px}
+  .similar ul{margin:0;padding-left:18px;color:var(--text-dim);font-size:13.5px}
+  .similar li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="meta">Solution Note · 2026-05-12</p>
+  <h1>가격탄력성 계산 — 선형 수요함수</h1>
+
+  <div class="problem">
+    <h2>Problem</h2>
+    <p>수요함수가 <code>Q = 100 − 2P</code> 일 때, P = 25에서의 <strong>수요의 가격탄력성 |E|</strong>를 구하시오.</p>
+  </div>
+
+  <table class="givens">
+    <thead><tr><th>Given</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>수요함수</td><td>Q = 100 − 2P</td></tr>
+      <tr><td>가격</td><td>P = 25</td></tr>
+      <tr><td>요구</td><td>|E| at P = 25</td></tr>
+    </tbody>
+  </table>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h3>탄력성 정의 적용</h3>
+      <p>가격탄력성은 가격 변화율에 대한 수량 변화율의 비.</p>
+      <span class="math">E = (dQ/dP) × (P / Q)</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h3>dQ/dP 계산</h3>
+      <p>수요함수 Q = 100 − 2P 를 P에 대해 미분.</p>
+      <span class="math">dQ/dP = −2</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h3>P = 25일 때 Q 계산</h3>
+      <p>주어진 P를 수요함수에 대입.</p>
+      <span class="math">Q = 100 − 2(25) = 50</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h3>탄력성 식에 대입</h3>
+      <span class="math">E = (−2) × (25 / 50) = (−2) × 0.5 = −1</span>
+      <p>절댓값을 취하면 |E| = <strong>1</strong>. 단위탄력 점이다.</p>
+    </div>
+  </div>
+
+  <div class="answer">
+    <h3>Answer</h3>
+    <div class="value">|E| = 1</div>
+    <p>P = 25는 수요곡선의 중점(midpoint) — 단위탄력 지점. 이 점 위쪽(고가)은 탄력적, 아래쪽(저가)은 비탄력적.</p>
+  </div>
+
+  <section class="pitfalls">
+    <h2>자주 틀리는 함정</h2>
+    <div class="pitfall">
+      <div class="pitfall-title">함정 1 · 기울기와 탄력성 혼동</div>
+      <div class="pitfall-detail">dQ/dP = −2는 <em>기울기</em>지 탄력성이 아니다. 탄력성은 P/Q 비율까지 곱해야 함.</div>
+    </div>
+    <div class="pitfall">
+      <div class="pitfall-title">함정 2 · 부호 누락</div>
+      <div class="pitfall-detail">탄력성은 음수가 정상. "|E| = 1"로 절댓값을 명시하거나 부호를 정확히 적어야 점수 만점.</div>
+    </div>
+  </section>
+
+  <section class="similar">
+    <h2>유사 문제 / 확장</h2>
+    <ul>
+      <li>같은 함수에서 P = 10일 때 |E|를 구하라 (정답: 0.25, 비탄력적)</li>
+      <li>P = 40에서 |E|를 구하라 (정답: 4, 탄력적)</li>
+      <li>총수입 TR(P) = P × Q를 최대화하는 P*를 구하라 (정답: P* = 25)</li>
+      <li>탄력성이 1보다 클 때 가격을 인하하면 TR은 ↑↓?</li>
+    </ul>
+  </section>
+
+</div>
+</body>
+</html>
