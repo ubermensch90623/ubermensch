@@ -1,0 +1,123 @@
+<!doctype html>
+<!--
+  퀴즈 스켈레톤. Claude에게 "이 템플릿을 채워서 N문제 퀴즈로 만들어줘"라고 지시.
+  유지해야 할 것: 디자인 토큰, .q-card 구조, JS 점수 로직.
+  바꾸는 것: <main id="quiz"> 내부의 .q-card들.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[TOPIC] 퀴즈</title>
+<style>
+  :root {
+    --bg:#0C0D11; --surface:#14161B; --surface-2:#1A1D24; --border:#262A32;
+    --text:#ECE8E1; --text-dim:#BFB8AC; --muted:#8A8377;
+    --accent:#E87B3C; --green:#6FD89A; --red:#F47C6E;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55;padding:24px 16px}
+  .wrap{max-width:720px;margin:0 auto}
+  h1{font-size:24px;margin:0 0 8px;letter-spacing:-0.02em}
+  .meta{color:var(--muted);font-size:13px;font-family:ui-monospace,monospace}
+  .progress{height:6px;background:var(--surface-2);border-radius:3px;margin:14px 0 24px;overflow:hidden}
+  .progress-bar{height:100%;background:var(--accent);width:0;transition:width 200ms ease}
+  .q-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+  .q-num{font-family:ui-monospace,monospace;font-size:11px;color:var(--accent);letter-spacing:.1em;margin-bottom:6px}
+  .q-text{font-size:16px;margin:0 0 16px}
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{text-align:left;background:var(--surface-2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:8px;cursor:pointer;font-size:14px;font-family:inherit;transition:background 120ms,border-color 120ms}
+  .opt:hover:not(:disabled){border-color:var(--accent)}
+  .opt:disabled{cursor:default;opacity:.85}
+  .opt.correct{border-color:var(--green);background:rgba(111,216,154,.08)}
+  .opt.wrong{border-color:var(--red);background:rgba(244,124,110,.08)}
+  .opt .mark{float:right;font-weight:700}
+  .opt.correct .mark{color:var(--green)} .opt.wrong .mark{color:var(--red)}
+  .explain{display:none;margin-top:12px;padding:10px 12px;background:var(--surface-2);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:13.5px;color:var(--text-dim)}
+  .q-card.answered .explain{display:block}
+  .short{display:flex;gap:8px;margin-top:8px}
+  .short input{flex:1;background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:8px 12px;font:inherit}
+  .short input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .check-btn{background:var(--accent);color:var(--bg);border:0;border-radius:6px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+  .check-btn:disabled{opacity:.5;cursor:default}
+  .results{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:20px;text-align:center;display:none}
+  .results.show{display:block}
+  .results .score{font-size:36px;color:var(--accent);font-weight:700;margin:8px 0}
+  .results .pct{color:var(--muted);font-family:ui-monospace,monospace}
+  .results-actions{margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .results-actions button{font:inherit;cursor:pointer}
+  .btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:8px 14px}
+  .json-out{display:none;margin-top:14px;text-align:left;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-family:ui-monospace,monospace;font-size:11px;color:var(--text-dim);white-space:pre;overflow-x:auto}
+  .json-out.show{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>[TOPIC] 퀴즈</h1>
+    <p class="meta">[N문제 · 형식]</p>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+  </header>
+
+  <main id="quiz">
+
+    <!--
+      문제 카드 패턴 — 객관식:
+      <article class="q-card" data-q="1" data-correct="2">
+        <div class="q-num">Q 01 · 객관식</div>
+        <p class="q-text">문제 진술</p>
+        <div class="opts">
+          <button class="opt" data-opt="0">보기 1</button>
+          <button class="opt" data-opt="1">보기 2</button>
+          <button class="opt" data-opt="2">보기 3</button>
+          <button class="opt" data-opt="3">보기 4</button>
+        </div>
+        <div class="explain">정답 해설 + 함정 1줄</div>
+      </article>
+
+      문제 카드 패턴 — 단답형 (data-answers는 | 로 구분):
+      <article class="q-card short-q" data-q="N" data-answers="정답1|정답2">
+        <div class="q-num">Q NN · 단답형</div>
+        <p class="q-text">문제 진술</p>
+        <div class="short">
+          <input type="text" placeholder="답" aria-label="답"/>
+          <button class="check-btn">정답 확인</button>
+        </div>
+        <div class="explain">풀이 + 함정 1줄</div>
+      </article>
+    -->
+
+  </main>
+
+  <section class="results" id="results" aria-live="polite">
+    <p class="meta">완료</p>
+    <div class="score" id="scoreText">0 / 0</div>
+    <div class="pct" id="pctText">0% 정답률</div>
+    <div class="results-actions">
+      <button class="check-btn" id="retryWrong">틀린 문제만 다시</button>
+      <button class="btn-secondary" id="copyJson">결과 JSON 복사</button>
+    </div>
+    <pre class="json-out" id="jsonOut"></pre>
+  </section>
+</div>
+
+<script>
+(function(){
+  const cards=document.querySelectorAll('.q-card');
+  const total=cards.length;
+  const progressBar=document.getElementById('progressBar');
+  const results=document.getElementById('results');
+  const scoreText=document.getElementById('scoreText');
+  const pctText=document.getElementById('pctText');
+  const jsonOut=document.getElementById('jsonOut');
+  const state={};
+  function updateProgress(){const a=Object.keys(state).length;progressBar.style.width=(a/total*100)+'%';if(a===total)showResults();}
+  function showResults(){const c=Object.values(state).filter(s=>s.correct).length;scoreText.textContent=c+' / '+total;pctText.textContent=Math.round(c/total*100)+'% 정답률';results.classList.add('show');results.scrollIntoView({behavior:'smooth',block:'start'});}
+  cards.forEach(card=>{if(card.classList.contains('short-q'))return;const correct=Number(card.dataset.correct);const qNum=card.dataset.q;card.querySelectorAll('.opt').forEach(opt=>{opt.addEventListener('click',()=>{if(card.classList.contains('answered'))return;const picked=Number(opt.dataset.opt);const isCorrect=picked===correct;card.querySelectorAll('.opt').forEach((b,i)=>{b.disabled=true;if(i===correct){b.classList.add('correct');b.insertAdjacentHTML('beforeend','<span class="mark">✓</span>');}else if(i===picked&&!isCorrect){b.classList.add('wrong');b.insertAdjacentHTML('beforeend','<span class="mark">✗</span>');}});card.classList.add('answered');state[qNum]={correct:isCorrect,given:picked};updateProgress();});});});
+  document.querySelectorAll('.short-q').forEach(card=>{const accepted=card.dataset.answers.split('|').map(s=>s.trim().toLowerCase());const qNum=card.dataset.q;const input=card.querySelector('input');const btn=card.querySelector('.check-btn');function check(){if(card.classList.contains('answered'))return;const ans=input.value.trim().toLowerCase();const isCorrect=accepted.includes(ans);input.disabled=true;btn.disabled=true;input.style.borderColor=isCorrect?'var(--green)':'var(--red)';card.classList.add('answered');state[qNum]={correct:isCorrect,given:input.value.trim()};updateProgress();}btn.addEventListener('click',check);input.addEventListener('keydown',e=>{if(e.key==='Enter')check();});});
+  document.getElementById('retryWrong').addEventListener('click',()=>{cards.forEach(card=>{const qNum=card.dataset.q;if(state[qNum]&&!state[qNum].correct){card.classList.remove('answered');delete state[qNum];card.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong');const m=b.querySelector('.mark');if(m)m.remove();});const input=card.querySelector('input');if(input){input.disabled=false;input.style.borderColor='';input.value='';card.querySelector('.check-btn').disabled=false;}}});results.classList.remove('show');updateProgress();});
+  document.getElementById('copyJson').addEventListener('click',async()=>{const c=Object.values(state).filter(s=>s.correct).length;const payload={date:new Date().toISOString().slice(0,10),topic:'[TOPIC]',score:c+'/'+total,percent:Math.round(c/total*100),wrong:Object.entries(state).filter(([,v])=>!v.correct).map(([q,v])=>({q:Number(q),given:v.given}))};const json=JSON.stringify(payload,null,2);jsonOut.textContent=json;jsonOut.classList.add('show');try{await navigator.clipboard.writeText(json);}catch(_){}});
+})();
+</script>
+</body>
+</html>

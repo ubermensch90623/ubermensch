@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>샘플 경제학 퀴즈 — 미시 기초</title>
+<style>
+  :root {
+    --bg: #0C0D11;
+    --surface: #14161B;
+    --surface-2: #1A1D24;
+    --border: #262A32;
+    --text: #ECE8E1;
+    --text-dim: #BFB8AC;
+    --muted: #8A8377;
+    --accent: #E87B3C;
+    --green: #6FD89A;
+    --red: #F47C6E;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.55;
+    padding: 24px 16px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header { margin-bottom: 24px; }
+  h1 { font-size: 24px; margin: 0 0 8px; letter-spacing: -0.02em; }
+  .meta { color: var(--muted); font-size: 13px; font-family: ui-monospace, "JetBrains Mono", monospace; }
+  .progress {
+    height: 6px; background: var(--surface-2); border-radius: 3px;
+    margin: 14px 0 24px; overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%; background: var(--accent); width: 0;
+    transition: width 200ms ease;
+  }
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .q-num {
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .q-text { font-size: 16px; margin: 0 0 16px; }
+  .opts { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    text-align: left;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    transition: background 120ms, border-color 120ms;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--accent); }
+  .opt:disabled { cursor: default; opacity: 0.85; }
+  .opt.correct { border-color: var(--green); background: rgba(111,216,154,0.08); }
+  .opt.wrong   { border-color: var(--red);   background: rgba(244,124,110,0.08); }
+  .opt .mark {
+    float: right;
+    font-weight: 700;
+  }
+  .opt.correct .mark { color: var(--green); }
+  .opt.wrong   .mark { color: var(--red); }
+  .explain {
+    display: none;
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 13.5px;
+    color: var(--text-dim);
+  }
+  .q-card.answered .explain { display: block; }
+  .short {
+    display: flex; gap: 8px; margin-top: 8px;
+  }
+  .short input {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font: inherit;
+  }
+  .short input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .check-btn {
+    background: var(--accent); color: var(--bg);
+    border: 0; border-radius: 6px; padding: 8px 14px;
+    font: inherit; font-weight: 600; cursor: pointer;
+  }
+  .check-btn:disabled { opacity: 0.5; cursor: default; }
+  .results {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    display: none;
+  }
+  .results.show { display: block; }
+  .results .score {
+    font-size: 36px;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 8px 0;
+  }
+  .results .pct { color: var(--muted); font-family: ui-monospace, monospace; }
+  .results-actions { margin-top: 16px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .results-actions button { font: inherit; cursor: pointer; }
+  .btn-secondary {
+    background: var(--surface-2); color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 14px;
+  }
+  .json-out {
+    display: none;
+    margin-top: 14px;
+    text-align: left;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .json-out.show { display: block; }
+  svg.demand-graph { display: block; margin: 8px 0 14px; max-width: 360px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>샘플 경제학 퀴즈 — 미시 기초</h1>
+    <p class="meta">5문제 · 객관식 4 + 단답형 1</p>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+  </header>
+
+  <main id="quiz">
+
+    <article class="q-card" data-q="1" data-correct="2">
+      <div class="q-num">Q 01 · 객관식</div>
+      <p class="q-text">가격탄력성이 1보다 클 때(탄력적), 가격을 인하하면 총수입은?</p>
+      <div class="opts">
+        <button class="opt" data-opt="0">감소한다</button>
+        <button class="opt" data-opt="1">변화 없음</button>
+        <button class="opt" data-opt="2">증가한다</button>
+        <button class="opt" data-opt="3">먼저 감소 후 증가</button>
+      </div>
+      <div class="explain">
+        탄력성 > 1이면 수량 변화율 > 가격 변화율. 가격을 1% 내리면 수량이 1% 초과로 늘어 총수입(P×Q)이 늘어납니다.
+        <strong>함정</strong>: "탄력적이면 가격 변화에 민감 → 수입이 줄어든다"고 외우면 부호가 반대입니다.
+      </div>
+    </article>
+
+    <article class="q-card" data-q="2" data-correct="1">
+      <div class="q-num">Q 02 · 객관식</div>
+      <p class="q-text">생산자에게 단위당 세금을 부과했을 때, 공급곡선은 어떻게 이동하는가?</p>
+      <div class="opts">
+        <button class="opt" data-opt="0">수요곡선이 좌측으로 이동</button>
+        <button class="opt" data-opt="1">공급곡선이 세금만큼 위(좌측)로 이동</button>
+        <button class="opt" data-opt="2">공급곡선이 아래(우측)로 이동</button>
+        <button class="opt" data-opt="3">균형점만 이동하고 곡선은 그대로</button>
+      </div>
+      <div class="explain">
+        세금은 생산자의 한계비용을 단위당 t만큼 올립니다 → 같은 수량을 공급하려면 P가 t만큼 더 필요 → 공급곡선이 세로축 기준 t만큼 위로 평행이동.
+        <strong>함정</strong>: 세금 부담을 누가 더 지는가는 탄력성으로 결정되지, 부과 대상이 누구냐로 정해지는 게 아닙니다.
+      </div>
+    </article>
+
+    <article class="q-card" data-q="3" data-correct="0">
+      <div class="q-num">Q 03 · 객관식</div>
+      <p class="q-text">기회비용에 대한 설명으로 옳은 것은?</p>
+      <div class="opts">
+        <button class="opt" data-opt="0">차선의 대안에서 포기한 가치</button>
+        <button class="opt" data-opt="1">실제로 지불한 화폐 비용의 총합</button>
+        <button class="opt" data-opt="2">생산에 들어간 가변비용</button>
+        <button class="opt" data-opt="3">매몰비용을 포함한 모든 비용</button>
+      </div>
+      <div class="explain">
+        기회비용 = <em>다음으로 좋은 대안</em>의 가치. 화폐로 지불한 비용(명시적)뿐 아니라 시간·기회 같은 암묵적 비용도 포함.
+        <strong>함정</strong>: "모든 포기한 것의 합"이 아니라 <em>차선</em> 하나만입니다.
+      </div>
+    </article>
+
+    <article class="q-card" data-q="4" data-correct="3">
+      <div class="q-num">Q 04 · 객관식</div>
+      <p class="q-text">아래 그래프는 D₁ → D₂로의 수요 이동을 보여줍니다. 가장 가능성 높은 원인은?</p>
+      <svg class="demand-graph" viewBox="0 0 360 220" aria-label="수요 이동 그래프">
+        <line x1="40" y1="20" x2="40" y2="190" stroke="#8A8377" stroke-width="1.5"/>
+        <line x1="40" y1="190" x2="340" y2="190" stroke="#8A8377" stroke-width="1.5"/>
+        <text x="20" y="30" fill="#8A8377" font-family="ui-monospace,monospace" font-size="11">P</text>
+        <text x="330" y="208" fill="#8A8377" font-family="ui-monospace,monospace" font-size="11">Q</text>
+        <line x1="60" y1="40" x2="280" y2="180" stroke="#BFB8AC" stroke-width="2"/>
+        <text x="285" y="178" fill="#BFB8AC" font-family="ui-monospace,monospace" font-size="11">D₁</text>
+        <line x1="130" y1="40" x2="330" y2="180" stroke="#E87B3C" stroke-width="2.5"/>
+        <text x="333" y="178" fill="#E87B3C" font-family="ui-monospace,monospace" font-size="11">D₂</text>
+        <path d="M 195 110 Q 230 110 235 130" fill="none" stroke="#E87B3C" stroke-width="1.5" marker-end="url(#a)"/>
+        <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E87B3C"/></marker></defs>
+      </svg>
+      <div class="opts">
+        <button class="opt" data-opt="0">생산비용 상승</button>
+        <button class="opt" data-opt="1">가격이 떨어졌다</button>
+        <button class="opt" data-opt="2">대체재 가격이 하락했다</button>
+        <button class="opt" data-opt="3">소비자 소득이 늘었다 (정상재)</button>
+      </div>
+      <div class="explain">
+        수요 곡선 <em>자체의 이동</em>은 가격 외 요인. 정상재의 소득 증가 → 같은 가격에서 더 많이 사고 싶음 → 우측이동.
+        <strong>함정</strong>: "가격이 떨어져서 수요가 늘었다"는 수요량 변화(곡선 위의 이동)지 곡선 이동이 아닙니다.
+      </div>
+    </article>
+
+    <article class="q-card short-q" data-q="5" data-answers="50|50%|0.5">
+      <div class="q-num">Q 05 · 단답형</div>
+      <p class="q-text">수요함수가 Q = 100 − 2P일 때, P = 25에서의 가격탄력성 |E|는? (소수 또는 %로)</p>
+      <div class="short">
+        <input type="text" placeholder="예: 1, 50%, 0.5" aria-label="답"/>
+        <button class="check-btn">정답 확인</button>
+      </div>
+      <div class="explain">
+        E = (dQ/dP)·(P/Q). dQ/dP = −2. P=25일 때 Q = 100 − 50 = 50. |E| = 2 · (25/50) = <strong>1</strong>.
+        <br/>※ 출제자에 따라 |E|를 50% 또는 0.5로 표기하기도 합니다. 본 문제는 단위점탄력 부근의 계산 연습.
+        <strong>함정</strong>: 기울기(−2)와 탄력성(−1)을 헷갈리지 마세요. 탄력성은 변화율 비, 기울기는 절대 변화 비.
+      </div>
+    </article>
+
+  </main>
+
+  <section class="results" id="results" aria-live="polite">
+    <p class="meta">완료</p>
+    <div class="score" id="scoreText">0 / 5</div>
+    <div class="pct" id="pctText">0% 정답률</div>
+    <div class="results-actions">
+      <button class="check-btn" id="retryWrong">틀린 문제만 다시</button>
+      <button class="btn-secondary" id="copyJson">결과 JSON 복사</button>
+    </div>
+    <pre class="json-out" id="jsonOut"></pre>
+  </section>
+
+</div>
+
+<script>
+(function() {
+  const cards = document.querySelectorAll('.q-card');
+  const total = cards.length;
+  const progressBar = document.getElementById('progressBar');
+  const results = document.getElementById('results');
+  const scoreText = document.getElementById('scoreText');
+  const pctText = document.getElementById('pctText');
+  const jsonOut = document.getElementById('jsonOut');
+  const state = {}; // {qNum: {correct: bool, given: any}}
+
+  function updateProgress() {
+    const answered = Object.keys(state).length;
+    progressBar.style.width = (answered / total * 100) + '%';
+    if (answered === total) showResults();
+  }
+
+  function showResults() {
+    const correctCount = Object.values(state).filter(s => s.correct).length;
+    scoreText.textContent = correctCount + ' / ' + total;
+    pctText.textContent = Math.round(correctCount / total * 100) + '% 정답률';
+    results.classList.add('show');
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Multiple choice
+  cards.forEach(card => {
+    if (card.classList.contains('short-q')) return;
+    const correct = Number(card.dataset.correct);
+    const qNum = card.dataset.q;
+    card.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        if (card.classList.contains('answered')) return;
+        const picked = Number(opt.dataset.opt);
+        const isCorrect = picked === correct;
+        card.querySelectorAll('.opt').forEach((b, i) => {
+          b.disabled = true;
+          if (i === correct) {
+            b.classList.add('correct');
+            b.insertAdjacentHTML('beforeend', '<span class="mark">✓</span>');
+          } else if (i === picked && !isCorrect) {
+            b.classList.add('wrong');
+            b.insertAdjacentHTML('beforeend', '<span class="mark">✗</span>');
+          }
+        });
+        card.classList.add('answered');
+        state[qNum] = { correct: isCorrect, given: picked };
+        updateProgress();
+      });
+    });
+  });
+
+  // Short answer
+  document.querySelectorAll('.short-q').forEach(card => {
+    const accepted = card.dataset.answers.split('|').map(s => s.trim().toLowerCase());
+    const qNum = card.dataset.q;
+    const input = card.querySelector('input');
+    const btn = card.querySelector('.check-btn');
+    function check() {
+      if (card.classList.contains('answered')) return;
+      const ans = input.value.trim().toLowerCase();
+      const isCorrect = accepted.includes(ans);
+      input.disabled = true; btn.disabled = true;
+      input.style.borderColor = isCorrect ? 'var(--green)' : 'var(--red)';
+      card.classList.add('answered');
+      state[qNum] = { correct: isCorrect, given: input.value.trim() };
+      updateProgress();
+    }
+    btn.addEventListener('click', check);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') check(); });
+  });
+
+  // Retry wrong
+  document.getElementById('retryWrong').addEventListener('click', () => {
+    cards.forEach(card => {
+      const qNum = card.dataset.q;
+      if (state[qNum] && !state[qNum].correct) {
+        card.classList.remove('answered');
+        delete state[qNum];
+        card.querySelectorAll('.opt').forEach(b => {
+          b.disabled = false;
+          b.classList.remove('correct', 'wrong');
+          const m = b.querySelector('.mark'); if (m) m.remove();
+        });
+        const input = card.querySelector('input');
+        if (input) {
+          input.disabled = false;
+          input.style.borderColor = '';
+          input.value = '';
+          card.querySelector('.check-btn').disabled = false;
+        }
+      }
+    });
+    results.classList.remove('show');
+    updateProgress();
+  });
+
+  // Copy JSON
+  document.getElementById('copyJson').addEventListener('click', async () => {
+    const correctCount = Object.values(state).filter(s => s.correct).length;
+    const payload = {
+      date: new Date().toISOString().slice(0, 10),
+      topic: '미시 기초 — 샘플',
+      score: correctCount + '/' + total,
+      percent: Math.round(correctCount / total * 100),
+      wrong: Object.entries(state)
+        .filter(([, v]) => !v.correct)
+        .map(([q, v]) => ({ q: Number(q), given: v.given })),
+    };
+    const json = JSON.stringify(payload, null, 2);
+    jsonOut.textContent = json;
+    jsonOut.classList.add('show');
+    try { await navigator.clipboard.writeText(json); } catch (_) { /* fallback: visible in pre */ }
+  });
+})();
+</script>
+</body>
+</html>
