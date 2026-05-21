@@ -1,0 +1,141 @@
+diff --git a/plugin/src/claude_smart/ids.py b/plugin/src/claude_smart/ids.py
+index 1da0b4e..e610f96 100644
+--- a/plugin/src/claude_smart/ids.py
++++ b/plugin/src/claude_smart/ids.py
+@@ -12,10 +12,27 @@ Two identifiers matter to reflexio:
+   same repo. ``agent_version`` is hardcoded to ``"claude-code"`` in the
+   adapter so shared skills roll up globally across all projects rather than
+   per project.
++
++Project-id style is configurable via ``CLAUDE_SMART_PROJECT_ID_STYLE``:
++
++- ``basename`` (default, backwards-compatible): git toplevel basename, e.g.
++  ``my-repo``. Two unrelated repos with the same folder name (``playground``,
++  ``test``, ``app``) collide into the same reflexio ``user_id`` and pollute
++  each other's preferences and project-scoped skills.
++- ``remote-aware``: appends a 6-char hash of the git remote URL to break
++  ties, e.g. ``my-repo-a1b2c3``. Repos without a remote fall back to
++  ``basename`` behavior so the id stays stable. Opt in by exporting
++  ``CLAUDE_SMART_PROJECT_ID_STYLE=remote-aware``.
++
++Switching styles changes the ``user_id`` reflexio sees, which orphans
++previously extracted preferences for that project. Migrate by exporting
++old data via ``/claude-smart:show`` before switching or by manually
++renaming rows in the dashboard.
+ """
+ 
+ from __future__ import annotations
+ 
++import hashlib
+ import logging
+ import os
+ import subprocess  # noqa: S404 — git invocation with a fixed flag set.
+@@ -23,6 +40,11 @@ from pathlib import Path
+ 
+ _LOGGER = logging.getLogger(__name__)
+ 
++_PROJECT_ID_STYLE_ENV = "CLAUDE_SMART_PROJECT_ID_STYLE"
++_PROJECT_ID_STYLE_BASENAME = "basename"
++_PROJECT_ID_STYLE_REMOTE_AWARE = "remote-aware"
++_REMOTE_HASH_LEN = 6
++
+ 
+ def resolve_project_id(cwd: str | os.PathLike[str] | None = None) -> str:
+     """Return a stable project identifier for the given working directory.
+@@ -31,6 +53,11 @@ def resolve_project_id(cwd: str | os.PathLike[str] | None = None) -> str:
+     `cd src/` all still map to the same project). Falls back to the cwd
+     basename when the directory is not inside a git repo.
+ 
++    When ``CLAUDE_SMART_PROJECT_ID_STYLE=remote-aware`` is set, appends a
++    short hash of the git remote URL so unrelated repos with the same
++    folder name (e.g. two ``playground`` checkouts) don't collide on the
++    same reflexio ``user_id``.
++
+     Args:
+         cwd: Working directory to resolve. Defaults to ``os.getcwd()``.
+ 
+@@ -38,19 +65,78 @@ def resolve_project_id(cwd: str | os.PathLike[str] | None = None) -> str:
+         str: A non-empty identifier. Never raises.
+     """
+     base = Path(cwd) if cwd is not None else Path.cwd()
++    toplevel = _git_toplevel(base)
++    if toplevel is None:
++        return base.name or "unknown-project"
++
++    basename = toplevel.name
++    if _project_id_style() == _PROJECT_ID_STYLE_REMOTE_AWARE:
++        remote_hash = _git_remote_hash(toplevel)
++        if remote_hash:
++            return f"{basename}-{remote_hash}"
++    return basename
++
++
++def _project_id_style() -> str:
++    """Return the configured project-id style, defaulting to basename."""
++    raw = os.environ.get(_PROJECT_ID_STYLE_ENV, _PROJECT_ID_STYLE_BASENAME)
++    style = raw.strip().lower()
++    if style in {_PROJECT_ID_STYLE_BASENAME, _PROJECT_ID_STYLE_REMOTE_AWARE}:
++        return style
++    _LOGGER.debug(
++        "unknown %s=%r; falling back to %s",
++        _PROJECT_ID_STYLE_ENV,
++        raw,
++        _PROJECT_ID_STYLE_BASENAME,
++    )
++    return _PROJECT_ID_STYLE_BASENAME
++
++
++def _git_toplevel(cwd: Path) -> Path | None:
++    """Return the resolved git toplevel for ``cwd``, or None when not a repo."""
+     try:
+         result = subprocess.run(  # noqa: S603, S607 — fixed argv, cwd is a Path.
+             ["git", "rev-parse", "--show-toplevel"],
+-            cwd=base,
++            cwd=cwd,
+             capture_output=True,
+             text=True,
+             check=False,
+             timeout=5,
+         )
+-        if result.returncode == 0:
+-            toplevel = result.stdout.strip()
+-            if toplevel:
+-                return Path(toplevel).name
+     except (FileNotFoundError, subprocess.TimeoutExpired) as exc:
+         _LOGGER.debug("git toplevel resolution failed: %s", exc)
+-    return base.name or "unknown-project"
++        return None
++    if result.returncode != 0:
++        return None
++    toplevel = result.stdout.strip()
++    return Path(toplevel) if toplevel else None
++
++
++def _git_remote_hash(cwd: Path) -> str:
++    """Return a short stable hash of the repo's primary remote URL.
++
++    Prefers ``origin``; if no remote is configured, returns an empty
++    string so the caller can fall back to basename-only behavior. The
++    hash is sha1-truncated to ``_REMOTE_HASH_LEN`` chars — collision
++    risk is negligible for the user's local set of cloned repos.
++    """
++    try:
++        result = subprocess.run(  # noqa: S603, S607 — fixed argv, cwd is a Path.
++            ["git", "config", "--get", "remote.origin.url"],
++            cwd=cwd,
++            capture_output=True,
++            text=True,
++            check=False,
++            timeout=5,
++        )
++    except (FileNotFoundError, subprocess.TimeoutExpired) as exc:
++        _LOGGER.debug("git remote resolution failed: %s", exc)
++        return ""
++    if result.returncode != 0:
++        return ""
++    url = result.stdout.strip()
++    if not url:
++        return ""
++    return hashlib.sha1(url.encode("utf-8"), usedforsecurity=False).hexdigest()[
++        :_REMOTE_HASH_LEN
++    ]

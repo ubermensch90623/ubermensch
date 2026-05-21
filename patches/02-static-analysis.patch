@@ -1,0 +1,63 @@
+diff --git a/plugin/pyproject.toml b/plugin/pyproject.toml
+index 1dcf7fd..50206f0 100644
+--- a/plugin/pyproject.toml
++++ b/plugin/pyproject.toml
+@@ -44,7 +44,58 @@ include = [
+ [tool.pytest.ini_options]
+ testpaths = ["../tests"]
+ 
++[tool.ruff]
++target-version = "py312"
++line-length = 100
++src = ["src"]
++
++[tool.ruff.lint]
++select = [
++    "E",    # pycodestyle errors
++    "F",    # pyflakes
++    "W",    # pycodestyle warnings
++    "I",    # isort
++    "B",    # flake8-bugbear
++    "BLE",  # flake8-blind-except (matches existing `# noqa: BLE001` markers)
++    "UP",   # pyupgrade
++    "SIM",  # flake8-simplify
++    "PTH",  # flake8-use-pathlib
++    "RUF",  # ruff-specific rules
++]
++# Hook handlers intentionally swallow Exception to keep sessions alive.
++# Each such site is annotated with `# noqa: BLE001`; we keep the rule on
++# so new bare excepts have to opt in deliberately.
++
++[tool.ruff.lint.per-file-ignores]
++# Tests routinely access private helpers and use broad fixtures.
++"tests/*" = ["BLE", "SIM117"]
++
++[tool.mypy]
++python_version = "3.12"
++strict = true
++warn_unused_ignores = true
++warn_redundant_casts = true
++# reflexio-ai is imported lazily inside Adapter; allow its types to be
++# untyped without breaking strict mode for the rest of the codebase.
++[[tool.mypy.overrides]]
++module = ["reflexio", "reflexio.*", "chromadb", "chromadb.*"]
++ignore_missing_imports = true
++
++[tool.coverage.run]
++source = ["src/claude_smart"]
++branch = true
++
++[tool.coverage.report]
++exclude_also = [
++    "raise NotImplementedError",
++    "if __name__ == .__main__.:",
++    "if TYPE_CHECKING:",
++]
++
+ [dependency-groups]
+ dev = [
+     "pytest>=9.0.3",
++    "ruff>=0.7",
++    "mypy>=1.13",
++    "coverage[toml]>=7.6",
+ ]

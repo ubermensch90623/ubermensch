@@ -1,0 +1,30 @@
+diff --git a/plugin/scripts/backend-service.sh b/plugin/scripts/backend-service.sh
+index 230f7ff..03fcebd 100755
+--- a/plugin/scripts/backend-service.sh
++++ b/plugin/scripts/backend-service.sh
+@@ -253,6 +253,25 @@ case "$CMD" in
+         exit 0
+       fi
+     fi
++
++    # Warm-up: fire a single throwaway search to force the ONNX
++    # embedding model (~80 MB MiniLM-L6) into memory before the first
++    # PreToolUse hook tries to use it. /health does not exercise the
++    # embedder, so without this the first user-facing search pays the
++    # full model-load cost — easily blowing past the 10 s PreToolUse
++    # timeout on a cold cache. Fire-and-forget in the background; we
++    # don't care about the response, only the side effect of loading
++    # the model into the worker process. Opt out via
++    # CLAUDE_SMART_DISABLE_WARMUP=1.
++    if [ "${CLAUDE_SMART_DISABLE_WARMUP:-0}" != "1" ] && command -v curl >/dev/null 2>&1; then
++      (
++        curl -sf -o /dev/null --max-time 30 \
++          -H "Content-Type: application/json" \
++          -d '{"query":"warmup","entity_types":["agent_playbooks"],"top_k":1,"search_mode":"hybrid"}' \
++          "http://127.0.0.1:$PORT/api/search" >/dev/null 2>&1 || true
++      ) &
++      disown 2>/dev/null || true
++    fi
+     emit_ok
+     ;;
+   stop)
