@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Claude Code on the web SessionStart hook.
-# 매 새 세션 시작 시 헌법 핵심 reminder + 현재 PR/branch 상태를 system message로 inject.
+# 매 새 세션 시작 시 헌법 핵심 reminder + 현재 PR/branch + D-day 자동 카운트를 system message로 inject.
 #
 # Claude Code는 SessionStart hook의 stdout을 system message로 conversation에 박는다.
 
@@ -11,12 +11,34 @@ COMMITS_AHEAD=$(git -C "${CLAUDE_PROJECT_DIR:-.}" rev-list --count main..HEAD 2>
 LAST_COMMIT=$(git -C "${CLAUDE_PROJECT_DIR:-.}" log -1 --format="%h %s" 2>/dev/null || echo "?")
 SKILL_COUNT=$(ls -d "${CLAUDE_PROJECT_DIR:-.}/.claude/skills"/*/ 2>/dev/null | wc -l | tr -d ' ')
 
+# D-day 자동 계산 (KST 기준, 오늘 자정 시각으로 일수 차)
+days_until() {
+  local target="$1"
+  python3 -c "from datetime import date; print((date.fromisoformat('$target') - date.today()).days)" 2>/dev/null || echo "?"
+}
+
+D_LEASE_END=$(days_until "2026-07-01")          # 전세 만기
+D_LEASE_REG=$(days_until "2026-07-02")          # 임차권등기 (만기 다음날)
+D_HUG_CLAIM=$(days_until "2026-09-02")          # HUG 이행청구
+D_EXAM=$(days_until "2026-07-15")               # 서금원 필기 (7월 중순 추정)
+D_RECRUIT=$(days_until "2026-08-15")            # 8월 하반기 7곳 (중순 기준)
+
 cat <<EOF
 ## ubermensch 세션 시작 (Hermes Agent — 종환 학습 분신)
 
 **브랜치**: \`$BRANCH\` (main 대비 +$COMMITS_AHEAD commits)
 **마지막 commit**: $LAST_COMMIT
 **등록된 스킬**: $SKILL_COUNT개 (.claude/skills/)
+
+### ⏰ D-day 자동 카운트 ($(date +%Y-%m-%d) 기준)
+
+| 영역 | D-day | 다음 액션 |
+|---|---|---|
+| 🏠 전세 만기 | **D-$D_LEASE_END** (2026-07-01) | 임차권등기 서류 준비 (법무사 위임) |
+| 🏠 임차권등기 | **D-$D_LEASE_REG** (2026-07-02) | 만기 다음날 법원 신청 |
+| 🏠 HUG 이행청구 | **D-$D_HUG_CLAIM** (2026-09-02) | 임차권등기 등기부등본 첨부 |
+| 📝 서금원 필기 | **~D-$D_EXAM** (2026-07-15 추정) | NCS 약점 수리 1.2 · 통계 2.0 · 문제해결 1.3 |
+| 📝 하반기 7곳 | **~D-$D_RECRUIT** (8월 중순) | 자소서 28건 검토 + 제출 준비 |
 
 ### 헌법 핵심 (위반 시 즉시 abort)
 
@@ -30,8 +52,8 @@ cat <<EOF
 
 ### 최우선 3가지
 
-- **전세 1.25억 회수** (D-39 임차권등기, D-101 HUG)
-- **서금원 정규직 필기** (7월, D-약50일, 수리 1.2·통계 2.0·문제해결 1.3 약점)
+- **전세 1.25억 회수** (D-$D_LEASE_REG 임차권등기, D-$D_HUG_CLAIM HUG)
+- **서금원 정규직 필기** (~D-$D_EXAM, 수리 1.2·통계 2.0·문제해결 1.3 약점)
 - **8월 하반기 7곳 자소서 28건** (KEPCO·KHNP·KDIC·HF·SGI·신보·캠코)
 
 ### 슬래시 명령 (이 레포)
