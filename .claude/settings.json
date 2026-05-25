@@ -1,0 +1,36 @@
+{
+  "env": {
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Read(*)",
+      "Write(*)",
+      "Edit(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "Agent(*)",
+      "AskUserQuestion(*)",
+      "ToolSearch(*)",
+      "Skill(*)",
+      "TodoWrite(*)",
+      "NotebookEdit(*)",
+      "WebFetch(*)",
+      "WebSearch(*)",
+      "ExitPlanMode(*)",
+      "Monitor(*)",
+      "PushNotification(*)",
+      "mcp__15d035fd-82c6-4190-a749-4d72ab847ef4__*",
+      "mcp__1d85ef41-21ba-4735-96b5-b7ad83e2d6a8__*",
+      "mcp__6a7ef37d-2ef1-49eb-97d2-7438dee5c793__*",
+      "mcp__c916d5dc-9464-439e-891a-d1ec79d1e183__*",
+      "mcp__github__*"
+    ],
+    "deny": [
+      "mcp__f5d5f222-1583-45a8-b916-81933ff92127__*"
+    ]
+  },
+  "theme": "dark-daltonized",
+  "agentPushNotifEnabled": true
+}

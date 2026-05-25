@@ -1,0 +1,24 @@
+.claude/settings.local.json
+.credentials.json
+*.credentials.json
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Node
+node_modules/
+
+# 종환 PII 안전장치 — Windows 한글경로 절대 commit 금지
+*윤상택*
+*Hermes_데이터센터*
