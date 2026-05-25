@@ -29,6 +29,7 @@
 | 파일 | 트리거 | 역할 | 자가진화 출처 |
 |---|---|---|---|
 | `auto_morning_desktop_popup.py` | Stop hook (새벽 catch-up 종료 시) | PowerShell MessageBox 띄워서 종환 1클릭 → MVP 자동 오픈. 발견 채널 결함 직격 | 제안 1 (severity 5, P0, 2026-05-24) |
+| `hermes_mvp_vault_sync.js` | MVP `<script>` 한 줄 + 우상단 [↓ Vault Export] 버튼 | localStorage 전체 → `HERMES_YYYY-MM-DD.md` export. 21시 이후 1회 자동 prompt. 데이터 증발 차단 | 제안 5 (severity 5, 5/23 carry-over) |
 
 ## 동작 조건
 
