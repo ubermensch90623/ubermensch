@@ -1,0 +1,75 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python syntax — hooks/
+        run: |
+          set -e
+          for f in hooks/*.py; do
+            [ -f "$f" ] || continue
+            echo "== $f =="
+            python3 -c "import ast, sys; ast.parse(open(sys.argv[1]).read())" "$f"
+          done
+
+      - name: JSON validity — data/ + .claude/
+        run: |
+          set -e
+          for f in data/*.json .claude/settings.json .claude/settings.local.json; do
+            [ -f "$f" ] || continue
+            echo "== $f =="
+            python3 -c "import json, sys; json.load(open(sys.argv[1]))" "$f"
+          done
+
+      - name: SKILL.md frontmatter — all skills
+        run: |
+          set -e
+          fail=0
+          for f in .claude/skills/*/SKILL.md; do
+            [ -f "$f" ] || continue
+            # frontmatter must start at first line with ---
+            head -1 "$f" | grep -q '^---$' || { echo "NO frontmatter: $f"; fail=1; continue; }
+            # name + description required (yaml block 끝나기 전 안에 등장해야)
+            awk '/^---$/{c++; next} c==1{print}' "$f" > /tmp/fm.yaml
+            grep -q '^name:' /tmp/fm.yaml || { echo "NO name: $f"; fail=1; }
+            grep -q '^description:' /tmp/fm.yaml || { echo "NO description: $f"; fail=1; }
+          done
+          [ $fail -eq 0 ] || exit 1
+          echo "all SKILL.md frontmatter OK"
+
+      - name: JS syntax — hooks/*.js
+        run: |
+          set -e
+          for f in hooks/*.js; do
+            [ -f "$f" ] || continue
+            echo "== $f =="
+            node --check "$f"
+          done
+
+      - name: 박-계열 금칙어 검사 (CLAUDE.md / README / docs / hooks)
+        run: |
+          set -e
+          # CLAUDE.md 본문에 박-계열 인용은 허용 (금지어 정의 자체이므로)
+          # docs / README / 일반 코드에서는 금지
+          fail=0
+          for f in README.MD docs/*.md hooks/README.md; do
+            [ -f "$f" ] || continue
+            # 금지어 정의 인용("박-계열") 1줄은 허용
+            hits=$(grep -nE "(박아|박음|박혀있|박혀있는|박힘|박혔)" "$f" | grep -vE "박-계열|금지어|금칙어|NEVER|박-계" || true)
+            if [ -n "$hits" ]; then
+              echo "박-계열 어휘 발견: $f"
+              echo "$hits"
+              fail=1
+            fi
+          done
+          [ $fail -eq 0 ] || exit 1
+          echo "박-계열 어휘 0건 — pass"
