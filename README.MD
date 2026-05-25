@@ -12,7 +12,10 @@
 | [`hooks/`](./hooks/) | 종환 PC `Desktop/.claude/hooks/`에 갖다 둘 Stop hooks (3개) |
 | [`data/`](./data/) | 인지진화_가중치.json 패치 entries |
 | [`docs/`](./docs/) | HERMES_LOCAL_SETUP · RECRUITMENT_SCAN_DIAGNOSIS |
-| [`scripts/session_start.sh`](./scripts/session_start.sh) | 세션 시작 시 헌법 reminder 자동 inject |
+| [`scripts/session_start.sh`](./scripts/session_start.sh) | 세션 시작 시 헌법 reminder + D-day 자동 inject |
+| [`scripts/setup_remote_control.ps1`](./scripts/setup_remote_control.ps1) | **PC 24h daemon 셋업** — 모바일에서 PC 원격 제어 |
+| [`scripts/claude_remote_control_loop.ps1`](./scripts/claude_remote_control_loop.ps1) | claude remote-control 영구 유지 loop |
+| [`docs/REMOTE_CONTROL_SETUP.md`](./docs/REMOTE_CONTROL_SETUP.md) | 직장 모바일 ↔ 종환 PC 셋업 SOP |
 
 ## 최우선 3가지 (헌법)
 
