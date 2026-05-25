@@ -1,0 +1,31 @@
+{
+  "_README": "종환 vault `_SSOT/인지진화_가중치.json`의 `patterns` 필드에 merge할 새 entry. 자가진화 제안 2 (severity 4, 2026-05-24 채택) — 학습_displacement 패턴 정식 등록.",
+  "_apply": "jq '.patterns += $patch' 인지진화_가중치.json --slurpfile patch 학습_displacement_patch.json > 인지진화_가중치.json.new && mv 인지진화_가중치.json.new 인지진화_가중치.json",
+  "_source_evidence": [
+    "2026-05-23 인터뷰 1.5h 흡수 (학습 자리 점유)",
+    "2026-05-24 분신 산출물 12+건 검증·관찰 흡수 (학습 자리 점유)",
+    "패턴: 인터뷰가 아닌 시스템 입력 처리 자체가 학습 자리 점유. 2일 연속 관측"
+  ],
+
+  "학습_displacement": {
+    "category": "행동_패턴",
+    "frequency_count": 2,
+    "first_seen": "2026-05-23",
+    "last_seen": "2026-05-24",
+    "severity": 4,
+    "promote_threshold": 3,
+    "examples": [
+      "인터뷰 1.5h 흡수 (시험 직접 기여 0건)",
+      "분신 산출물 12+건 관찰 흡수 (학습 시간 자리 점유)"
+    ],
+    "trigger_words": ["검증", "확인", "이거 봐", "이렇게 만들었는데", "이렇게 했는데"],
+    "stealth_inject_targets": [
+      "cycle_D_mission_limit_to_1",
+      "발견_채널_hook",
+      "auto_morning_desktop_popup"
+    ],
+    "evidence_anchor": "학습 자리 = NCS/경제학 직접 풀이 시간. 시스템 입력 처리 시 학습이 displace됨.",
+    "weight": 0.85,
+    "promote_status": "frequency 2/3 — 5/25 1회 더 발화 시 weakness_pattern.md 정식 승격"
+  }
+}
