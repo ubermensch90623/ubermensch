@@ -407,3 +407,37 @@
 - HF 1차 신규직원 내용 확인 (hf.recruitlab.co.kr)
 - 서민금융진흥원 정규직 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - Claude Mythos Preview 공식 발표 여부 (anthropic.com/news)
+
+---
+
+## 2026-05-31 (클라우드 야간 누적 — D+22)
+
+> 7일치 대상: 2026-05-25 ~ 2026-05-31 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (13주 연속 고착, work24·job.alio·기관 포털 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 7/7일 (HF·근복seq=285465·서민금융 마감 미확보 반복)
+3. `캠코 결과대기 / 합격발표 미공개` — 7/7일 (D+16→D+22, 클라우드 확인 불가 3주 완주)
+
+**긍정 키워드 top3**
+1. `근로복지공단 경력 직접 매칭` — 7/7일 (행정직·공무직 양트랙 반복 확인)
+2. `Claude Opus 신모델 탐지` — 7/7일 (4.7→4.8 추적 완료, Super-Agent 전 케이스 완료)
+3. `캠코 Phase 3 결과대기 유지` — 7/7일 (5/9 필기 완료 후 대기 체제 일관)
+
+**BLOCK 빈도 추세 (5/25~5/31)**
+- 명시 BLOCK: 0건 (7일 전일)
+- 암시적 BLOCK (접근 차단): 7/7일 — 13주 연속 구조 고착 확정
+
+**이번 주 신규 관찰**
+- MCP → AAIF(Agentic AI Foundation) 기부 (2026-05-31 탐지) — Anthropic·Block·OpenAI 공동창립, Google·MS·AWS·Cloudflare 지지. 오픈스탠다드 전환.
+- 근로복지공단 청년채용 연령 상한 "만 34세 이하" 최초 탐지 (5/31) — 종환 만 35세 청년 전형 지원 불가. seq=285465 별도 연령 조건 직접 확인 필요.
+- 캠코 D+22: 합격자 발표 3주+ 지연, 클라우드 확인 불가 구조 유지
+- 서민금융진흥원 공고 없음 — 2주+ 연속 정규직 미게시
+
+**다음 검증 포인트 (2026-06-07)**
+- 캠코 필기 합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000)
+- 근로복지공단 seq=285465 행정직 연령 조건·마감일 (job.alio.go.kr 직접 접속)
+- HF 1차 신규직원 마감일 (hf.recruitlab.co.kr/799)
+- 서민금융진흥원 정규직 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+- MCP/AAIF 후속 파급 (anthropic.com/news)
+
