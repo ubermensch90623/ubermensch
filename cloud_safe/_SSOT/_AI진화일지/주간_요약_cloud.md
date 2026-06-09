@@ -1,6 +1,40 @@
 
 ---
 
+## 2026-06-09 (클라우드 야간 누적 — D+31)
+
+> 7일치 대상: 2026-06-03 ~ 2026-06-09 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (17주 연속 고착, kamco PDF·work24·job.alio·comwel·kinfa 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 6/7일 (HF·서민금융진흥원·잡알리오 동적 콘텐츠 차단 반복)
+3. `캠코 합격 발표 미공개` — 7/7일 (D+24→D+31 경과, 7월 예정 금주 첫 확인)
+
+**긍정 키워드 top3**
+1. `Claude Opus 4.8 / Dynamic Workflows 신기능 탐지` — 7/7일 (포화 수준, 다음 주부터 변화 없으면 생략 전환)
+2. `CV/EV 재발 취약점 cross-link 구체화` — 7/7일 (weight 0.95 + 부채 7일 패턴 일관 연결)
+3. `근로복지공단 경력 직접 매칭` — 7/7일 (하반기 공고 미개시 상태 유지)
+
+**BLOCK 빈도 추세 (06-03~06-09)**
+- 명시 BLOCK: 0건 (전주 1건 대비 감소)
+- 암시적 BLOCK (접근 차단): 7/7일 — 17주 연속 구조 고착 확정
+
+**이번 주 신규 관찰**
+- 캠코 필기합격자 발표: D+31 기준 7월 예정 첫 확인 (kamco.or.kr 검색 결과 "7월 예정" 언급)
+- comwel.saramin.co.kr/service/comwel/3771/ — 상반기 4/8 마감 동일 URL 재확인, 하반기 신규 URL 미탐지
+- 서민금융진흥원 kinfa1.saramin.co.kr/service/kinfa1/3354/ — 3주 이상 연속 활성 공고 없음
+- 신용보증기금 kodit.saramin.co.kr/service/kodit/3766/ — ending_page.html 탐지, 공고 마감 가능성
+- Claude Opus 4.8 신기능 7/7일 포화: 금주 이후 실제 기능 변화 없으면 생략 전환 결정
+
+**다음 검증 포인트 (2026-06-16)**
+- 캠코 필기 합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — 7월 예정, 6월 말 재확인
+- 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do) — 4주 연속 확인 필요
+- 근로복지공단 하반기 공고 개시 여부 (comwel.or.kr)
+- 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407&mi=2518)
+- HF 2026 1차 행정직 마감일 직접 확인 (hf.go.kr)
+
+---
+
 ## 2026-06-07 (클라우드 야간 누적 — D+29)
 
 > 7일치 대상: 2026-06-01 ~ 2026-06-07 (클라우드 단독)
