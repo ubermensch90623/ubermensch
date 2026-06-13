@@ -859,3 +859,36 @@
 - 서민금융진흥원 신규 공고 개시 여부 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - HF 2026 1차 신규직원 행정직 마감일 (hf.incruit.com)
 
+
+---
+
+## 2026-06-13 (클라우드 야간 누적 — D+35)
+
+> 7일치 대상: 2026-06-07 ~ 2026-06-13 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (22주 연속 고착, work24·job.alio·kamco PDF·kinfa·kodit 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 7/7일 (잡알리오·work24 동적 콘텐츠 차단으로 실시간 파싱 불가 반복)
+3. `캠코 합격 발표 미공개 D+35` — 7/7일 (D+29→D+35 경과, 7월 예정 대기 고착)
+
+**긍정 키워드 top3**
+1. `캠코 면접 준비 기간 학습 재활성 권고` — 7/7일 (거시 IS-LM + 국제 먼델플레밍 + CV/EV cross-link 일관 연결)
+2. `Claude 최신 모델 탐지 / 신기능 확인` — 6/7일 (06-12 Fable 5·Claude Design·IPO 준비, 06-13 Opus 4.8 Dynamic Workflows·Advisor tool)
+3. `근로복지공단 경력 직접 매칭` — 5/7일 (하반기 공고 미개시 상태 유지, 8~9월 대기)
+
+**BLOCK 빈도 추세 (06-07~06-13)**
+- 명시 BLOCK: 0건 (전주 0건 동일, 06-07주 1건 이후 2주 연속 0)
+- 암시적 BLOCK (접근 차단): 7/7일 — 22주 연속 구조 고착 확정
+
+**이번 주 신규 관찰**
+- Claude Opus 4.8 Dynamic Workflows(수백 병렬 서브에이전트) + Advisor tool(고지능 advisor + 고속 executor 쌍) 확인 (06-13)
+- Claude Fable 5 + Mythos 5(사이버보안 특화) + Claude Design(Opus 4.7 기반 시각 협업) 확인 (06-12)
+- Anthropic S-1 SEC 비공개 제출 — IPO 준비 단계 진입 확인 (06-12)
+- 신용보증기금 jasoseol URL(103260) 탐지 — 마감 완료(3/23~4/7), 하반기 미개시 확인 (06-12)
+- Claude Sonnet 4 · Opus 4 API 2026-06-15 은퇴 예고 — Sonnet 4.6/Opus 4.8 이전 권고 (06-13)
+
+**다음 검증 포인트 (2026-06-20)**
+- 캠코 필기합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — 7월 예정, 6월 말 재확인
+- 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do) — 5주 연속 확인 필요
+- 근로복지공단 하반기 공고 개시 여부 (comwel.saramin.co.kr/service/comwel/3771/)
+- 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?mi=2518&bbsId=407)
