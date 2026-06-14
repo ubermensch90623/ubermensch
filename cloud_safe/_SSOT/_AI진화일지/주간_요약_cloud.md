@@ -892,3 +892,38 @@
 - 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do) — 5주 연속 확인 필요
 - 근로복지공단 하반기 공고 개시 여부 (comwel.saramin.co.kr/service/comwel/3771/)
 - 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?mi=2518&bbsId=407)
+
+
+---
+
+## 2026-06-14 (클라우드 야간 누적 — D+36)
+
+> 7일치 대상: 2026-06-08 ~ 2026-06-14 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (22주 연속 고착, work24·job.alio·kamco PDF·kinfa·kodit 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 7/7일 (잡알리오·work24 동적 콘텐츠 차단으로 실시간 파싱 불가 반복)
+3. `캠코 합격 발표 미공개 D+36` — 7/7일 (D+30→D+36 경과, 7월 예정 대기 고착)
+
+**긍정 키워드 top3**
+1. `캠코 면접 준비 기간 학습 재활성 권고` — 7/7일 (거시 IS-LM + 국제 먼델플레밍 + CV/EV cross-link 일관 연결)
+2. `Claude 최신 모델 탐지 / 신기능 확인` — 7/7일 (06-13 Opus 4.8, 06-14 Fable 5·Mythos 5 접근 중단 업데이트)
+3. `지역신용보증재단 통합채용 탐지` — 1/7일 (경기·부산·대전 포함 광역시도 통합채용, 종환 경력 매칭 가능 — 마감일 직접 확인 필요)
+
+**BLOCK 빈도 추세 (06-08~06-14)**
+- 명시 BLOCK: 0건 (06-08 BLOCK=1 이후 2주 연속 0건)
+- 암시적 BLOCK (접근 차단): 7/7일 — 22주 연속 구조 고착 확정
+
+**이번 주 신규 관찰**
+- Claude Fable 5 + Mythos 5 US 정부 수출통제로 2026-06-12 접근 중단 (anthropic.com 공식 성명 확인)
+- Claude Sonnet 4 · Opus 4 API 2026-06-15 은퇴 — Sonnet 4.6/Opus 4.8 이전 완료 필요 (06-13 탐지)
+- 2026 상반기 지역신용보증재단 통합채용 (경기·부산·대전 등) — 종환 신보 경력 직접 매칭, 마감일 job.alio 직접 수동 확인 필요
+- 서민금융진흥원 진행 공고 0건 6주 연속 — 정규직 공고 공백 장기화 확인
+- 근로복지공단 하반기 공채 미개시 확인 (상반기 마감 05/14, 하반기 8~9월 패턴)
+
+**다음 검증 포인트 (2026-06-21)**
+- 캠코 필기합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — D+43, 6월 말 재확인
+- 지역신용보증재단 통합채용 마감일 확인 (job.alio.go.kr → 기관유형: 기타공공기관 + 키워드: 신용보증)
+- 근로복지공단 하반기 공고 개시 여부 (comwel.saramin.co.kr/service/comwel/3771/)
+- 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+- 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?mi=2518&bbsId=407)
