@@ -927,3 +927,39 @@
 - 근로복지공단 하반기 공고 개시 여부 (comwel.saramin.co.kr/service/comwel/3771/)
 - 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?mi=2518&bbsId=407)
+
+
+---
+
+## 2026-06-15 (클라우드 야간 누적 — D+37)
+
+> 7일치 대상: 2026-06-09 ~ 2026-06-15 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (23주 연속 고착, work24·job.alio·kamco PDF·kinfa·kodit 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 7/7일 (근로복지공단 comwel/3771·서민금융진흥원·HF·신보 전체)
+3. `캠코 합격 발표 미공개 D+37` — 7/7일 (D+31→D+37 경과, 7월 최종합격 대기 고착)
+
+**긍정 키워드 top3**
+1. `캠코 면접 준비 기간 학습 재활성 권고` — 7/7일 (IS-LM + 먼델플레밍 + CV/EV cross-link 일관 연결)
+2. `Claude 최신 모델 탐지 / 신기능 확인` — 7/7일 (Fable 5·Mythos 5 수출통제 접근 중단·Sonnet 4·Opus 4 은퇴·Fable 5 API 활성)
+3. `근로복지공단 comwel/3771 행정직 타이틀 확인` — 1/7일 (06-15 야간 WebSearch, "2026년 신규직원(행정직) 채용" 최초 확인)
+
+**BLOCK 빈도 추세 (06-09~06-15)**
+- 명시 BLOCK: 0건 (7일 전일)
+- 암시적 BLOCK (접근 차단): 7/7일 — 23주 연속 구조 고착 확정
+
+**이번 주 신규 관찰**
+- 근로복지공단 comwel.saramin.co.kr/service/comwel/3771 "2026년 신규직원(행정직) 채용" 타이틀 야간 확인 — 1차(seq=285465, 04-08 마감)와 다른 신규 URL, 2차·하반기 공고 가능성 (cloud_공고_2026-06-15.md 기록)
+- Claude Sonnet 4 · Opus 4 API 2026-06-15 은퇴 완료 (06-13 탐지, 오늘 기준일) — Sonnet 4.6·Opus 4.8 이전 필요
+- Claude Fable 5 + Mythos 5 US 수출통제 접근 중단 2주차 지속 (2026-06-12~현재)
+- 서민금융진흥원 잡코리아 "2026년 진행 중인 공고" 페이지 존재 확인 — 실제 건수 미확인 (직접 열람 불가)
+- 지역신용보증재단 통합채용 (경기·부산·대전 등) 종환 신보 경력 매칭, 마감일 직접 확인 필요 (06-14 탐지 유지)
+- 마커 명시 형식 7일 전일 0건 — 야간 메타 트리거 조건 미충족 구조 지속
+
+**다음 검증 포인트 (2026-06-22)**
+- 근로복지공단 comwel/3771 마감일·공고 상세 (comwel.saramin.co.kr/service/comwel/3771) — 최우선
+- 캠코 필기합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — D+44, 6월 말 최종 확인
+- 지역신용보증재단 통합채용 마감일 (job.alio.go.kr → 기타공공기관 + 신용보증 키워드)
+- 서민금융진흥원 신규 공고 개시 여부 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+- 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?mi=2518&bbsId=407)
