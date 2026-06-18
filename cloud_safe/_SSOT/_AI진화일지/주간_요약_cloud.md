@@ -1031,3 +1031,37 @@
 - 지역신용보증재단 통합채용 마감일 (job.alio.go.kr → 기타공공기관 + 신용보증 키워드)
 - 서민금융진흥원 신규 공고 개시 여부 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - Claude Fable 5·Mythos 5 접근 재개 여부 (anthropic.com 공식)
+
+---
+
+## 2026-06-18 (클라우드 야간 누적 — D+40)
+
+> 7일치 대상: 2026-06-12 ~ 2026-06-18 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (26주 연속 고착, job.alio·work24·kamco·comwel·kinfa·kodit 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 7/7일 (근로복지공단·서민금융진흥원·신용보증기금 마감일 직접 미확인 지속)
+3. `캠코 합격 발표 미공개 D+34→D+40` — 7/7일 (7월 최종합격 대기 고착, 역대 최장 지연 갱신 중)
+
+**긍정 키워드 top3**
+1. `근로복지공단 경력 직접 매칭` — 7/7일 (saramin comwel/3771 활성 지속, 6/15 서민금융진흥원 5/29 신규 공고 탐지)
+2. `캠코 면접 준비 / cross-link 활성` — 7/7일 (CV/EV·IS-LM·먼델플레밍 보강 cross-link 반복 연결)
+3. `Claude Fable 5·Mythos 5 탐지·추적` — 6/7일 (6/9 출시·6/12 수출통제 접근 중단·6/15 API/Enterprise 재접근 가능)
+
+**BLOCK 빈도 추세 (06-12~06-18)**
+- 명시 BLOCK: 0건 (7일 전일)
+- 암시적 BLOCK (접근 차단): 7/7일 — 26주 연속 구조 고착 (전주 25주 대비 1주 확대)
+
+**이번 주 신규 관찰**
+- Claude Fable 5: 6/15부터 API·Enterprise 소비기반 재접근 가능 → 6/22까지 구독플랜(Pro·Max·Team) 순차 롤아웃
+- 서민금융진흥원 5/29 게시 공고 (6/15 탐지) — 학력무관 신입, 마감일 WebFetch 403 미확인
+- 2026년 공기업 공채 규모 2.8만 명 역대 최대 (하반기 8월 말부터 본격화, 9~11월 집중 예상)
+- 신용보증기금 2026 상반기 체험형 청년인턴 확인 (마감 완료, 정규직 아님, 종환 미매칭)
+- 캠코 D+40: 역대 최장 발표 지연 지속, 7월 하순 최종합격 발표 예상
+
+**다음 검증 포인트 (2026-06-24)**
+- 캠코 필기합격자 발표 (kamco.saramin.co.kr 또는 kamco.or.kr) — D+46, 7월 하순 최우선
+- 근로복지공단 하반기 공고 개시 여부 (comwel.saramin.co.kr/3771 / job.alio.go.kr 행정직 필터)
+- 서민금융진흥원 5/29 공고 마감일 직접 확인 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+- 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407&mi=2518)
+- Claude Fable 5 구독플랜 롤아웃 완료 여부 (6/22 이후, anthropic.com 공식)
