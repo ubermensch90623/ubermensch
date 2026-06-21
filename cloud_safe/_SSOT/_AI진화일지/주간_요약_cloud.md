@@ -1133,3 +1133,37 @@
 - 서민금융진흥원 마감일 직접 확인 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - job.alio.go.kr idx=301485 기관명·직종 확인
 - Claude Fable 5 구독플랜 롤아웃 완료 여부 (6/22 예정, anthropic.com 공식)
+
+---
+
+## 2026-06-21 (클라우드 야간 누적 — D+43)
+
+> 7일치 대상: 2026-06-15 ~ 2026-06-21 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (29주 연속 고착, job.alio·work24·kamco·comwel·kinfa·kodit 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 7/7일 (근로복지공단·서민금융진흥원·신용보증기금 마감일 직접 미확인 지속)
+3. `캠코 합격 발표 미공개 D+37→D+43` — 7/7일 (역대 최장 지연 갱신 중, 7월 하순 최종합격 대기)
+
+**긍정 키워드 top3**
+1. `근로복지공단 경력 직접 매칭` — 7/7일 (saramin comwel/3771 활성 지속, alio idx=294444 확인)
+2. `캠코 Phase3 대기 / cross-link 활성` — 7/7일 (CV/EV·IS-LM·국제경제 먼델플레밍 cross-link 일관 연결)
+3. `Claude 신모델 탐지 (Fable 5 Advisor tool·Opus 4.8)` — 7/7일 (06-21 Fable 5 Advisor tool 신기능 확인, 06-15~20 Fable 5 수출통제 추적)
+
+**BLOCK 빈도 추세 (06-15~06-21)**
+- 명시 BLOCK: 0건 (7일 전일)
+- 암시적 BLOCK (접근 차단): 7/7일 — 29주 연속 고착 (전주 28주 대비 1주 확대)
+
+**이번 주 신규 관찰**
+- 근로복지공단 행정직 하반기: winspec.co.kr 기준 8월 전후 유력 (2025년 2차: 8월 14~28일 패턴). comwel/3771 활성 URL 재확인 (06-21)
+- 신용보증기금 kodit2/3708 신규 URL 활성 확인 (06-21) — 상반기 3/23~4/7 마감 후 신규 창구 존재, 하반기 공채 8~9월 패턴 유지
+- 서민금융진흥원 kinfa1/3354 URL 탐지 — 2Q 마감 가능성 높음, 하반기 신규 공고 kinfa.or.kr 직접 확인 필요
+- Claude Fable 5 Advisor tool 공개베타 확인 (06-21): executor+advisor 이중 구조 mid-generation 전략 피드백, Fable 5·Mythos 5 구독 롤아웃 6/22 완료 예정
+- 캠코 D+43: 역대 최장 발표 지연 지속, 7월 하순 최종합격 발표 예상
+
+**다음 검증 포인트 (2026-06-28)**
+- 캠코 필기합격자 발표 (kamco.saramin.co.kr 또는 kamco.or.kr) — D+50, 7월 하순 최우선
+- 근로복지공단 하반기 행정직 공고 개시 여부 (comwel.saramin.co.kr/3771 / job.alio.go.kr 행정직 필터)
+- 신용보증기금 kodit2/3708 마감일·직종 확인 (kodit2.saramin.co.kr)
+- Claude Fable 5 구독플랜 롤아웃 완료 확인 (6/22 예정, anthropic.com 공식)
+- 서민금융진흥원 신규 공고 개시 여부 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
