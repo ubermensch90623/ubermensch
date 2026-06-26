@@ -1303,3 +1303,38 @@
 - 서민금융진흥원 kinfa2/3790 직종·마감일 직접 확인 시도
 - 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407&mi=2518)
 - 하반기 금융공기업 공채 본격화 예고 — 8월 말~9월, 2.8만 명 규모 사전 준비 필요
+
+---
+
+## 2026-06-26 (클라우드 야간 누적 — D+48)
+
+> 7일치 대상: 2026-06-20 ~ 2026-06-26 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (33주 연속 고착, work24·job.alio·kamco·comwel·kinfa·kodit 전체)
+2. `공고 특정 실패 / 직접 확인 필요` — 5/7일 (WebFetch 동적 렌더링 차단 지속)
+3. `캠코 합격 발표 미공개 D+47 초과` — 7/7일 (역대 최장 갱신, 7월 하순 최종합격 대기)
+
+**긍정 키워드 top3**
+1. `Claude Tag / 외부 LLM 신기능` — 7/7일 (06-23 출시, Slack ambient 모드 Enterprise·Team 베타)
+2. `서민금융진흥원 채용 경로 탐지` — 5/7일 (ALIO idx=294768·301414, kinfa2/3790 신규 창구 활성 추정)
+3. `근로복지공단 경력 직접 매칭` — 7/7일 (comwel/3771 saramin 채널 유효, 하반기 8월 예상)
+
+**BLOCK 빈도 추세 (06-20~06-26)**
+- 명시 BLOCK: 3건 (06-22 PDF 403 1건, 06-25 work24+kamco PDF 2건)
+- 암시적 BLOCK: 7/7일 — 33주 연속 구조 고착
+- Claude Fable 5/Mythos 5 수출통제 (06-12~현재): 2주 이상 지속, 차단 고착
+
+**이번 주 신규 관찰**
+- Claude Tag (06-23): Slack 팀 채널 @Claude ambient 모드·비동기 자율 작업, Enterprise·Team 베타 — 분신 루틴 채널 확장 후보
+- 캠코 D+47: 역대 최장 발표 지연 갱신 지속, kamco.saramin.co.kr/service/kamco/3804 최우선 확인
+- 서민금융진흥원 kinfa2/3790 신규 창구 지속 활성 추정 (직종·마감일 미확인)
+- 근로복지공단 linkareer 진행중 공고 1건 실체 미확인 지속
+- 하반기 금융공공기관 공채 2.8만 명 역대급 — 8월 말~9월 본격화 준비 필요
+
+**다음 검증 포인트 (2026-07-03)**
+- 캠코 필기합격자 발표 (kamco.saramin.co.kr/service/kamco/3804) — D+55, 7월 하순 최우선
+- 서민금융진흥원 kinfa2/3790 직종·마감일 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+- 근로복지공단 linkareer 진행중 1건 실체 확인 (linkareer.com/company-info/93/recruit)
+- Claude Fable 5/Mythos 5 수출통제 해제 여부 (anthropic.com)
+- 신용보증기금 하반기 공채 탐지 (kodit.or.kr)
