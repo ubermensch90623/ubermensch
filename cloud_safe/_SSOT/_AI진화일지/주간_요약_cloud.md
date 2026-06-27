@@ -1338,3 +1338,38 @@
 - 근로복지공단 linkareer 진행중 1건 실체 확인 (linkareer.com/company-info/93/recruit)
 - Claude Fable 5/Mythos 5 수출통제 해제 여부 (anthropic.com)
 - 신용보증기금 하반기 공채 탐지 (kodit.or.kr)
+
+---
+
+## 2026-06-27 (클라우드 야간 누적 — D+49)
+
+> 7일치 대상: 2026-06-21 ~ 2026-06-27 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (구조적 고착 유지, work24·job.alio·comwel·kinfa 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 6/7일 (근로복지공단 사람인·jasoseol·잡알리오 403 반복)
+3. `캠코 합격 발표 미공개` — 7/7일 (D+43→D+49, 최종합격 7월 구조 확인, 필기합격자 미공개 지속)
+
+**긍정 키워드 top3**
+1. `근로복지공단·서민금융진흥원 경력 직접 매칭` — 6/7일 (하반기 8월 개시 대기 체제)
+2. `Claude Fable 5 / Mythos 5 신기능` — 7/7일 (Dynamic Workflows·FrontierBench SOTA·$10/$50·수출통제)
+3. `캠코 Phase 3 결과대기 유지` — 7/7일 (5/9 필기 완료 후 D+43→D+49, 최종 7월 구조)
+
+**BLOCK 빈도 추세 (06-21~06-27)**
+- 명시 BLOCK: 0건 (7일 전일)
+- 암시적 BLOCK (접근 차단): 7/7일 — 구조적 고착 유지
+
+**이번 주 신규 관찰**
+- Claude Fable 5 + Mythos 5 공식 출시(2026-06-09) 7/7일 포화: FrontierBench 1위, 코딩 +10%, $10/$50 per MTok, 2026-06-12 미국 수출통제로 Mythos 전 고객 접근 차단
+- Claude Tag 출시(2026-06-23): Slack @Claude 팀 공동작업, 멀티플레이어·ambient·비동기 자율작업, Enterprise·Team 베타
+- 근로복지공단 하반기 2차: 2025년 패턴(8/14~8/28) 기준 8월 개시 예상 — 현재 미개시 확인
+- 서민금융진흥원: 사람인·스카우트·잡알리오 기준 현재 활성 공고 없음 (kinfa.or.kr 직접 확인 필요)
+- 신용보증기금: 2026 하반기 8~9월 패턴 예상, 현재 활성 공고 없음
+- 캠코 D+49: 필기합격자 미공개 지속, 최종합격 7월 구조 확인됨
+
+**다음 검증 포인트 (2026-07-04)**
+- 캠코 필기 합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — D+56
+- 근로복지공단 하반기 2차 공고 개시 여부 (comwel.saramin.co.kr)
+- 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+- 신용보증기금 하반기 공고 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407)
+- HF 주택금융공사 정규직 공고 (hf.go.kr/ko/sub05/sub05_07_03.do)
