@@ -1373,3 +1373,40 @@
 - 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - 신용보증기금 하반기 공고 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407)
 - HF 주택금융공사 정규직 공고 (hf.go.kr/ko/sub05/sub05_07_03.do)
+
+---
+
+## 2026-06-28 (클라우드 야간 누적 — D+50)
+
+> 7일치 대상: 2026-06-22 ~ 2026-06-28 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / WebFetch 차단` — 7/7일 (34주 연속 고착, kamco PDF·work24·job.alio·comwel·kinfa 전체)
+2. `공고 특정 실패 / 마감일 미확인` — 5/7일 (직접 확인 권고 반복, 동적 렌더링 차단)
+3. `캠코 발표 미공개 / 결과 미반영` — 7/7일 (D+44→D+50, 역대 최장 갱신 중)
+
+**긍정 키워드 top3**
+1. `근로복지공단·서민금융진흥원 경력 직접 매칭` — 7/7일 (하반기 8월 개시 대기 체제)
+2. `Claude Fable 5 / Mythos 5 / Tag 신기능` — 7/7일 (reasoning 1/3 효율·ambient 모드·비동기 자율작업)
+3. `캠코 발표 임박 / 면접 준비 권고` — 5/7일 (D+47 이후 매일 임박 경고)
+
+**BLOCK 빈도 추세 (06-22~06-28)**
+- 명시 BLOCK: 1건 (06-28, KAMCO PDF 403)
+- 암시적 BLOCK (접근 차단): 6/7일 — 34주 연속 구조 고착
+- 야간 파일 생성: 2건 (06-26, 06-28) — 전주 1건 대비 증가
+
+**이번 주 신규 관찰**
+- 기술보증기금(KIBO) 체험형 청년인턴: 만 34세 이하 → 종환(35세) 반복 불가 확정
+- 근로복지공단 ALIO seq=285465: 만 60세 미만(연령 제한 없음), 하반기 2차 8월 예상
+- 캠코 D+50: 역대 최장 갱신 — 7월 초 내 발표 필지 구간
+- Claude Tag(06-23 출시): Slack ambient 모드 분신 루틴 채널 확장 후보로 반복 등장
+- 2026 공공기관 채용정보박람회(publicjob.kr) — 7월 내 행사 가능성 탐지
+- CV/EV 부채: D-5(5/4) 이후 SYNC_JSON 갱신 없음 → 8월 공채 대비 재학습 시급
+
+**다음 검증 포인트 (2026-07-05)**
+- 캠코 필기 합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — D+57
+- 근로복지공단 하반기 2차 공고 개시 여부 (comwel.saramin.co.kr)
+- 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+- 신용보증기금 하반기 공고 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407)
+- publicjob.kr 채용정보박람회 일정 확인
+
