@@ -1552,3 +1552,39 @@
 - 서민금융진흥원 공고 종료 여부 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - 근로복지공단 하반기 공고 개시 여부 — 7월 중순부터 본격 탐지 시작
 - 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407&mi=2518)
+
+---
+
+## 2026-07-03 (클라우드 야간 누적 — D+55)
+
+> 7일치 대상: 2026-06-27 ~ 2026-07-03 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (41주+ 연속 고착, work24·job.alio·kamco PDF·comwel·kinfa·kodit 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 7/7일 (근로복지공단 KJLF002507030001 마감일 미확인, 잡알리오 idx=301485 미확인 포함)
+3. `캠코 합격 발표 미공개` — 7/7일 (D+49→D+55 갱신 지속, 역대 최장 기록 경신)
+
+**긍정 키워드 top3**
+1. `근로복지공단 경력 직접 매칭` — 7/7일 (행정직 공고 경력 매칭 반복 확인, work24 7월 신규 공고 탐지)
+2. `Claude 신모델 탐지 (Fable 5 재배포 / Sonnet 5 출시)` — 7/7일 (6/30 Sonnet 5 출시·7/1 Fable 5 전면 복구·Anthropic run-rate $B 돌파)
+3. `CV/EV ★★★ 재발 취약점 cross-link` — 7/7일 (weight 0.95·부채 5일 패턴 일관 연결, D+55 retention 소멸 확인)
+
+**BLOCK 빈도 추세 (06-27~07-03)**
+- 명시 BLOCK: 0건 (전주 0건 동일)
+- 암시적 BLOCK (접근 차단): 7/7일 — 41주+ 연속 구조 고착 확정
+
+**이번 주 신규 관찰**
+- Claude Sonnet 5 출시 (2026-06-30): hybrid reasoning, 입력/M·출력 0/M(8/31까지), Free/Pro 기본 모델 전환 확인
+- Claude Fable 5 글로벌 재배포 완료 (7/1): 6/12 수출통제 → 6/30 해제 → 7/1 전 플랫폼 복구
+- Anthropic run-rate $B 돌파, 비즈니스 고객 $1M+ 1,000개사 초과 (07-03 확인)
+- 근로복지공단 work24 KJLF002507030001 신규 공고 탐지 (07-03 morning, 마감일 미확인)
+- 서민금융진흥원 invione 154633 종료 최종 확인 (3.4~3.19 마감, 잡코리아 진행 중 0건)
+- 잡알리오 idx=301414·301485 연속 탐지 (직접 확인 불가, 종환 직접 접속 필요)
+- 캠코 D+55: 역대 최장 갱신 지속 (공식 발표 전 클라우드 단독 확인 불가 구조)
+
+**다음 검증 포인트 (2026-07-10)**
+- 캠코 필기 합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — 최우선, 종환 직접 확인
+- 근로복지공단 KJLF002507030001 마감일 확인 (work24.go.kr 직접 접속)
+- 잡알리오 idx=301485·301414 기관·직종·마감일 확인 (job.alio.go.kr 직접 접속)
+- 신용보증기금 하반기 공채 탐지 (kodit.saramin.co.kr/service/kodit/3766/)
+- 서민금융진흥원 신규 공고 개시 여부 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
