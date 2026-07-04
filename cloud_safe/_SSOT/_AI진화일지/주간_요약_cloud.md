@@ -1588,3 +1588,36 @@
 - 잡알리오 idx=301485·301414 기관·직종·마감일 확인 (job.alio.go.kr 직접 접속)
 - 신용보증기금 하반기 공채 탐지 (kodit.saramin.co.kr/service/kodit/3766/)
 - 서민금융진흥원 신규 공고 개시 여부 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+
+---
+
+## 2026-07-04 (클라우드 야간 누적 — D+56)
+
+> 7일치 대상: 2026-06-28 ~ 2026-07-04 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (42주+ 연속 고착, work24·job.alio·kamco PDF·comwel·kinfa·kodit 전체)
+2. `마감일 미확인 / 직접 확인 필요` — 7/7일 (근로복지공단 2026 하반기 사람인 활성 확인, 마감일 추출 불가)
+3. `캠코 합격 발표 미공개` — 7/7일 (D+50→D+56 갱신, 역대 최장 기록 경신 지속)
+
+**긍정 키워드 top3**
+1. `근로복지공단 경력 직접 매칭` — 7/7일 (2026 하반기 채용 사람인 페이지 활성 확인, 경력 매칭 최우선)
+2. `Claude 신모델 탐지 (Tag·Sonnet 5·Fable 5 재배포)` — 7/7일 (Claude Tag 6/23·Sonnet 5 6/30·Fable 5 재배포 7/1 반복 확인)
+3. `CV/EV ★★★ 재발 취약점 cross-link` — 7/7일 (weight 0.95·시험 전 부채 5일·D+56 retention 소멸, 하반기 공채 대비 1순위)
+
+**BLOCK 빈도 추세 (06-28~07-04)**
+- 명시 BLOCK: 1건 (07-04, work24 403 차단) — 전주(06-27~07-03) 0건 대비 증가
+- 암시적 BLOCK (접근 차단): 7/7일 — 42주+ 연속 구조 고착 확정
+
+**이번 주 신규 관찰**
+- 근로복지공단 2026년 하반기 신규직원(행정직) 채용 사람인 페이지 활성 확인 (comwel.saramin.co.kr/service/comwel/3771/). 마감일 미확인.
+- Claude Tag 출시 (2026-06-23): Slack @Claude 태그 팀 협업, Anthropic 내부 코드 65% Claude Tag 생성 확인
+- Anthropic run-rate $B 돌파, 비즈니스 $1M+ 고객 1,000개사 초과 (07-03)
+- 잡알리오 idx=301485 판정: 한국원자력의학원, 마감 2026-06-24 종료, TOEIC 필요 → 최종 불매칭
+- 캠코 D+56: 역대 최장 갱신 지속 (합격 공식 발표 전 클라우드 단독 확인 불가 구조)
+
+**다음 검증 포인트 (2026-07-11)**
+- 캠코 필기 합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — 최우선, 종환 직접 확인
+- 근로복지공단 2026 하반기 마감일 확인 (comwel.saramin.co.kr 또는 comwel.or.kr/recruit 직접 접속)
+- 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407&mi=2518)
+- 서민금융진흥원 신규 공고 개시 여부 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
