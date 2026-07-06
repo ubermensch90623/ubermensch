@@ -1655,3 +1655,38 @@
 - 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - 신용보증기금 하반기 공채 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407&mi=2518)
 - Claude Fable 5 클라우드 분신 모델 업그레이드 검토 (현행 claude-sonnet-4-6 대비 비교)
+
+---
+
+## 2026-07-06 (클라우드 야간 누적 — D+58)
+
+> 7일치 대상: 2026-06-30 ~ 2026-07-06 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (23주+ 연속 고착. 오늘 egress proxy 403 추가 확인으로 클라우드 구조 차단 한 겹 더 심화)
+2. `마감일 미확인 / 직접 확인 필요` — 7/7일 (3기관 saramin URL 활성이나 TOEIC·마감일·서류요건 추출 전체 불가)
+3. `캠코 합격 발표 미공개` — 7/7일 (D+51→D+58 역대 최장 갱신 연속)
+
+**긍정 키워드 top3**
+1. `Claude 신모델 탐지 (Fable 5·Mythos 5·Sonnet 5)` — 7/7일 (Fable 5 글로벌 재배포 7/1, Sonnet 5 기본 모델 전환 7/3, 매 세션 반복 확인)
+2. `근로복지공단 경력 직접 매칭` — 7/7일 (2026 하반기 채용 saramin 페이지 활성, 8월 전후 공고 예상)
+3. `하반기 공채 8월 전후 예상` — 5/7일 (근로복지공단 8월·신용보증기금 8~9월·서민금융진흥원 미정)
+
+**BLOCK 빈도 추세 (06-30~07-06)**
+- 명시 BLOCK: 4건 (07-04: 1건, 07-05: 2건, 07-06: 1건) — 전주 대비 증가 추세
+- 암시적 BLOCK (접근 차단): 7/7일 — 23주+ 연속 구조 고착 확정
+
+**이번 주 신규 관찰**
+- Claude Fable 5 & Mythos 5 글로벌 재배포 완료 (07-01): 6/12 미국 수출통제 → 6/30 해제 → 7/1 전 플랫폼 복구. claude.ai·Claude Code·API 전체.
+- Claude Sonnet 5 Free/Pro 기본 모델 전환 (07-03): hybrid reasoning·agentic 특화. Science·Tag 연속 탐지.
+- egress proxy 403 추가 확인 (07-06): 클라우드 원격 실행 환경 자체 egress 제한으로 공공 채용 사이트 전체 접근 불가 구조 재확인. 클라우드 단독 공고 직접 확인 구조적 불가.
+- 근로복지공단 2026년 상반기 공고 마감 확정 (4월 8일) → 하반기 8월 전후 예상. saramin 활성 페이지 확인.
+- 캠코 D+58: 5/9 필기 이후 합격자 발표 공백 역대 최장 지속. 종환 직접 접속 없이 클라우드 확인 구조적 불가.
+
+**다음 검증 포인트 (2026-07-13)**
+- 캠코 필기 합격자 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — 최우선, 종환 직접 확인
+- 근로복지공단 하반기 공고 개시 여부 (comwel.or.kr 직접 접속 또는 comwel.saramin.co.kr/3771)
+- 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+- 신용보증기금 하반기 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?bbsId=407&mi=2518)
+- Claude Fable 5 분신 모델 업그레이드 검토 (현행 claude-sonnet-4-6 대비 품질 비교)
+
