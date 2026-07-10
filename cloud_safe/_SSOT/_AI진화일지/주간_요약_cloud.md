@@ -1793,3 +1793,38 @@
 - 신용보증기금 kodit2.saramin.co.kr/3708 직종·마감일 직접 확인
 - 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - alio 공고기간 선확인 프로토콜 적용 — 탐지 즉시 마감일 교차 확인 필수 (재발 방지)
+
+---
+
+## 2026-07-10 (클라우드 야간 누적 — D+62)
+
+> 7일치 대상: 2026-07-04 ~ 2026-07-10 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `캠코 합격 발표 미공개` — 7/7일 (D+56→D+62 역대 최장 갱신 연속, 클라우드 확인 구조적 불가)
+2. `403 차단 / 직접 접속 불가` — 7/7일 (egress proxy·work24·job.alio·kamco 전체, 25주+ 연속 고착)
+3. `SSOT D-5 정체·Phase 3 전환 미기록` — 7/7일 (SYNC_JSON lastDate=2026-05-01 동결, CV/EV 부채 5일 미결 반복)
+
+**긍정 키워드 top3**
+1. `Claude 신모델/신기능 탐지 (Fable 5·Science·Reflect with Claude)` — 7/7일 (Reflect 2026-07-09 베타 출시, 4D 프레임워크 신규 확인)
+2. `근로복지공단 경력 직매칭 / 하반기 8월 예상` — 6/7일 (2026 하반기 2차 채용 8월 전후 패턴 재확인)
+3. `캠코 최종 합격 발표 7월 중 임박` — 4/7일 (07-07 최초 확인 후 07-10 지속 재확인)
+
+**BLOCK 빈도 추세 (07-04~07-10)**
+- 명시 BLOCK: 1건 (07-04: 1건, 07-05~07-10: 0건) — 전주(4건) 대비 감소
+- 암시적 BLOCK (접근 차단): 7/7일 — 25주+ 연속 구조 고착 확정
+
+**이번 주 신규 관찰**
+- Anthropic 'Reflect with Claude' 베타 출시 (2026-07-09): 1·3·6·12개월 사용패턴 대시보드, 조용한 시간(quiet hours) 설정, 4D AI 유창성 프레임워크(Delegation·Discernment·Deployment·Development). Free/Pro/Max 대상.
+- kamco.or.kr bIdx=26768 신규 공고 존재 확인 (07-10): 캠코 다음 채용 준비 가능성 — 종환 직접 확인 필요.
+- 근로복지공단 하반기 2차 채용: 2025년 패턴(8/14~8/28) 근거로 8월 전후 예상 재확인. 사람인 comwel.saramin.co.kr/3771 활성.
+- 서민금융진흥원·신용보증기금: 2026 하반기 공고 미개시 확인 (7/10 기준).
+- 캠코 D+62: 종환 직접 kamco.or.kr 접속이 유일한 확인 경로, 루틴 탐지 불가 구조 완전 고착.
+
+**다음 검증 포인트 (2026-07-17)**
+- 캠코 최종 합격 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — 최우선, 종환 직접 확인, D+69
+- 캠코 bIdx=26768 신규 공고 내용 확인 (kamco.or.kr/portal/contents.do?mId=0105040000)
+- 근로복지공단 하반기 공고 개시 여부 (comwel.or.kr 또는 comwel.saramin.co.kr/3771)
+- 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
+- 신용보증기금 kodit2.saramin.co.kr/3708 직종·마감일 직접 확인
+
