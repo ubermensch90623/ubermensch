@@ -1828,3 +1828,39 @@
 - 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
 - 신용보증기금 kodit2.saramin.co.kr/3708 직종·마감일 직접 확인
 
+
+---
+
+## 2026-07-11 (클라우드 야간 누적 — D+63)
+
+> 7일치 대상: 2026-07-05 ~ 2026-07-11 (클라우드 단독)
+
+**정정 키워드 top3**
+1. `403 차단 / 직접 접속 불가` — 7/7일 (work24·alio·kamco 전체, 26주+ 연속 고착)
+2. `캠코 합격 발표 미공개` — 7/7일 (D+57→D+63, 역대 최장 갱신 연속, 클라우드 확인 구조적 불가)
+3. `SSOT SYNC_JSON 정체·CV/EV 부채 미해소` — 7/7일 (lastDate=2026-05-01 동결, CV/EV 5~7일 부채 반복)
+
+**긍정 키워드 top3**
+1. `Claude 신모델/신기능 탐지 (Fable 5·Science·Sonnet 5·Reflect with Claude)` — 7/7일 (Fable 5·Mythos 5 07-01, Science 07-09, Sonnet 5 06-30, Reflect 07-09)
+2. `근로복지공단 경력 직매칭 / 하반기 8월 예상` — 7/7일 (2025 패턴 8/14~8/28 근거)
+3. `캠코 최종 합격 발표 7월 중 임박` — 5/7일 (07-05~07-09, 07-10~07-11은 D+62+로 재확인)
+
+**BLOCK 빈도 추세 (07-05~07-11)**
+- 명시 BLOCK: 0건 (전주 1건 대비 감소)
+- 암시적 BLOCK (접근 차단): 7/7일 — 26주+ 연속 구조 고착 완전 확정
+
+**이번 주 신규 관찰**
+- Claude Fable 5 & Mythos 5 출시 (07-01): days-long 자율 에이전트 작업, 소프트웨어·비전·과학 연구 SOTA. 에이전트 수일 연속 작업(계획→위임→자가검증) 가능.
+- Claude Science 출시 (07-09): 과학자용 AI 워크벤치, 게놈·단백질·구조생물학 등 60+ 스킬, Sonnet 5 전 플랜 기본 모델.
+- Claude Sonnet 5 출시 (06-30): 전 플랜 기본 모델 전환 완료, 브라우저·터미널 자율 실행 에이전틱 강화, $2/$10 per M토큰 (8/31까지).
+- Anthropic 'Reflect with Claude' 베타 (07-09): 1·3·6·12개월 사용패턴 대시보드, 조용한 시간, 4D 프레임워크(Delegation·Discernment·Deployment·Development).
+- 한국부동산원 전문계약직(임대차분쟁조정 행정) 마감 7/22 탐지 (07-11, alio seq=298527): 403 차단으로 직접 확인 불가 — 종환 직접 접속 필요.
+- 신용보증기금 kodit2.saramin.co.kr/3708 재확인 (07-08·07-11): 직종·마감일 미확인 지속.
+- 캠코 D+63 (07-11): bIdx=26768 신규 공고 존재, 7월 최종 합격 발표 임박 지속 — 종환 직접 kamco.or.kr 확인이 유일 경로.
+
+**다음 검증 포인트 (2026-07-18)**
+- 캠코 최종 합격 발표 (kamco.or.kr/portal/contents.do?mId=0105040000) — 최우선, 종환 직접 확인, D+70
+- 한국부동산원 전문계약직(임대차분쟁조정 행정) 마감 7/22 — alio.go.kr seq=298527 직접 확인 필수 (마감 임박)
+- 신용보증기금 kodit2.saramin.co.kr/3708 직종·마감일 직접 확인
+- 근로복지공단 하반기 공고 개시 여부 (comwel.or.kr 또는 comwel.saramin.co.kr/3771) — 8월 전후 예상
+- 서민금융진흥원 신규 공고 (kinfa.or.kr/notificationPromotion/recruitmentNotice.do)
