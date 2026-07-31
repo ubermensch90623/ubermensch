@@ -2526,3 +2526,37 @@
 - 신용보증기금 하반기 신입 공채 탐지 (kodit.or.kr/kodit/na/ntt/selectNttList.do?mi=2518&bbsId=407)
 - 캠코 최종합격자 발표 (D+87+ 경과, 종환 직접 kamco.or.kr 확인 최우선)
 - Claude Opus 5 분신 업그레이드 가능성 검토 ($5/M 입력, Max 기본 모델)
+
+---
+
+## 2026-07-31 (클라우드 야간 누적)
+
+> 7일치 대상: 2026-07-25 ~ 2026-07-31 (cloud_분신 야간 루틴)
+
+**정정 키워드 top3**
+1. `공고 URL 추출불가 / 잡알리오·work24 동적 차단` — 7/7일 (23주+ 구조적 고착, WebFetch 403 우회 불가)
+2. `캠코 합불 SSOT 미기록` — 7/7일 (2026-05-09 시험 D+83 경과, 최종합격 발표 클라우드 확인 불가 지속)
+3. `근로복지공단 2차 행정직 공고 미개시` — 7/7일 (8월 14일경 예상, 2025 패턴 기준)
+
+**긍정 키워드 top3**
+1. `Anthropic 신기능 탐지` — 7/7일 (Fable 5 재배포·agent-memory-2026-07-22 beta·Claude Science 워크벤치·Opus 5 SOTA 순차 포착)
+2. `발견 3개 구조 유지` — 7/7일 (근로복지공단·캠코·LLM 3개 발견 매일 안정 유지)
+3. `경력 매칭 기관 채용 활성 확인` — 3/7일 (ALIO seq=285465 근로복지공단 행정직, 신용보증기금 saramin 페이지 활성)
+
+**BLOCK 빈도 추세 (07-25~07-31)**
+- 명시 BLOCK: 1건 (07-30, WebFetch 403 다수 — kamco·saramin·anthropic)
+- 전주(07-18~07-24) 3건 대비 대폭 감소. 단, 구조적 차단(job.alio·work24·kamco) 23주+ 고착 지속
+- WebSearch 우회 루틴 안정화로 명시 BLOCK 감소 — 실질 직접 접근 불가 상태는 유지
+
+**이번 주 신규 관찰 (07-25~07-31)**
+- Claude Fable 5 전세계 재배포 (2026-07-01 확인): export controls 해제, Claude Science beta(감사 가능 artifact), agent-memory-2026-07-22 beta header
+- 근로복지공단 상반기(ALIO seq=285465) 종료 — 2차 공고 8월 개시 감시 최우선
+- 신용보증기금 상반기 신입 종료, 하반기 8~9월 예상 (kodit.or.kr/kodit/na/ntt/selectNttList.do?mi=2518&bbsId=407)
+- 서민금융진흥원 7/22 기간제 마감 이후 정규직 신규 공고 없음
+- 캠코 5/9 D+83 — 최종합격 7월 발표 예정 → 8월 초 SSOT 미반영 시 연체 확정
+
+**다음 검증 포인트 (2026-08-07)**
+- 근로복지공단 2026 2차 행정직 공고 (8/14 전후 예상 — 08-07부터 사전 감시)
+- 신용보증기금 하반기 공채 (kodit.or.kr/kodit/na/ntt/selectNttList.do?mi=2518&bbsId=407)
+- 캠코 최종합격자 발표 (종환 직접 kamco.or.kr 확인 최우선 — D+84)
+- 서민금융진흥원 정규직 신규 공고 (kinfa.or.kr)
