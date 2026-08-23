@@ -34,7 +34,9 @@
 
 # 2026-08-23 routine 수리 (비-PII 운영 파일만 추가 — 차단 규칙 무변경)
 !append_result.sh
-!_AI진화일지
+!_AI진화일지/
+!_AI진화일지/README.md
+!_AI진화일지/cloud_*.md
 !_SSOT/루틴_프롬프트_v2_수정본.md
 
 # 영구 차단 (화이트리스트 미해당 일체)

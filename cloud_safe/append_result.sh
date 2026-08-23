@@ -13,6 +13,15 @@ FILE="$DIR/${PREFIX}_${DATE}.md"
 
 [ -d "$DIR" ] || { echo "APPEND_FAILED: DIR_NOT_FOUND $DIR"; exit 1; }
 
+# v1 착륙장에 남은 파일을 정본으로 이관 (split-brain 방지)
+LZ="$REPO/cloud_safe/_AI진화일지"
+if [ -d "$LZ" ]; then
+  for f in "$LZ"/cloud_*.md; do
+    [ -e "$f" ] || continue
+    cat "$f" >> "$DIR/$(basename "$f")" && rm "$f" && echo "MERGED: $(basename "$f")"
+  done
+fi
+
 BODY="$(cat)"
 [ -n "$BODY" ] || { echo "APPEND_FAILED: EMPTY_BODY"; exit 1; }
 
