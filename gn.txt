@@ -1,0 +1,10 @@
+! Title: Google News Clean KR
+! Description: Google 뉴스에서 강력범죄와 연예·인플루언서 가십 기사 카드만 숨깁니다.
+! Homepage: https://github.com/ubermensch90623/ubermensch
+! Expires: 1 day
+! Version: 1.0.0
+! Last modified: 2026-09-01
+
+news.google.com##article:has-text(/(?:살인(?!적)|살해|시신|흉기(?:\s*난동)?|칼부림|총기(?:\s*난사)?|총격|강도살인|성폭행|성추행|납치|스토킹|묻지마(?:\s*범죄)?|보복범죄|암살|조폭|조직폭력배|폭력조직)/i)
+news.google.com##article:has-text(/(?:개그맨|개그우먼|코미디언|연예인|방송인|탤런트|배우(?!자)|가수(?!분해)|아이돌|걸그룹|보이그룹|유튜버|인플루언서|연예계|연예뉴스|열애설|결별설|파경설|컴백|팬미팅|시상식|예능(?:프로그램)?|화보|셀카|공항패션|몸매|다이어트|근황\s*공개)/i)
+
